@@ -96,26 +96,18 @@
   signal <- .RLumModel_calcSignal(out = out, parameters = parameters.step)
 
   ##============================================================================##
-  # IF ARGUMENT PLOT == TRUE
-  ##============================================================================##
-
-#   if(plot==TRUE){
-#     plot(times,signal,type ="l",xlab = "time [s]",ylab = "CW-OSL signal [Cts.]",main = "CW-OSL",...)
-#   }#end if
-
-  ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
 
-  return(set_RLum(class = "RLum.Results", 
+  return(set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1] ,
                     CW_OSL.data = set_RLum(
                       class = "RLum.Data.Curve",
                       data = matrix(data = c(times, signal),ncol = 2),
-                      recordType = "OSL", 
+                      recordType = "OSL",
                       curveType = "simulated"
-                    ), 
+                    ),
                   temp = temp
                 )))
 

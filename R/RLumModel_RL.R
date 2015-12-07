@@ -29,9 +29,9 @@
 #'
 #' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
 #' luminescence of quartz. Radiation Measurements 33, 17-45.
-#' 
-#' Bailey, R.M., 2002. Simulations of variability in the luminescence characteristics of natural 
-#' quartz and its implications for estimates of absorbed dose. 
+#'
+#' Bailey, R.M., 2002. Simulations of variability in the luminescence characteristics of natural
+#' quartz and its implications for estimates of absorbed dose.
 #' Radiation Protection Dosimetry 100, 33-38.
 #'
 #' Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
@@ -40,7 +40,7 @@
 #'
 #' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
 #' stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
-#' 
+#'
 #' Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
 #' for quartz based on thermally transferred OSL (TT-OSL).
 #' Radiation Measurements 43, 704-708.
@@ -59,15 +59,15 @@
   n,
   parms,
   ...
-  
+
 ){
-  
-  
+
+
   if(!exists("parms")){
     stop("\n No parameters had been loaded!")
   }
-  
-  
+
+
   ##1. check if n is a RLum object
   if(class(n) != "RLum.Results"){
     n <- n
@@ -75,19 +75,19 @@
   else{
     n <- n$n
   }
-  
+
   ##2. check if doserate is a positive number
   if(doseRate < 0){
     stop("\n Doserate has to be an positive number!")
   }
-  
+
   ##3. check if dose is a positive number
   if(dose < 0){
     stop("\n Dose has to be an positive number!")
   }
-  
-  
-  
+
+
+
   ##============================================================================##
   # SETTING PARAMETERS FOR IRRADIATION
   #
@@ -104,39 +104,32 @@
   else{
     R <- doseRate*5e7  # all other simulations
   }
-  
+
   P <- 0
   b <- 0
-  
+
   ##============================================================================##
   # SETTING PARAMETERS FOR ODE
   ##============================================================================##
-  
+
   times   <- seq(0, dose/(doseRate), by = (dose/doseRate)/100)
   parameters.step  <- list(R = R, P = P, temp = temp, b = b, times = times, parms = parms)
-  
+
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
   out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .RLumModel_ODE ,  rtol=1e-3, atol=1e-3, maxsteps=1e5);
-  
+
   ##============================================================================##
   # CALCULATING RESULTS FROM ODE SOLVING
   ##============================================================================##
-  
+
   signal <- .RLumModel_calcSignal(out = out, parameters = parameters.step)
-  
-  ##============================================================================##
-  # IF ARGUMENT PLOT == TRUE
-  ##============================================================================##
-#   if(plot==TRUE){
-#     plot(times,signal,type = "l", main = "RF",...)
-#   }  #end if
-  
+
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
-  
+
   return(set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times), -1],
@@ -148,6 +141,6 @@
                     ) ,
                     temp = temp
                   )))
-  
+
 }
 
