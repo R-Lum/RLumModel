@@ -1,6 +1,6 @@
 ﻿# RLumModel
 
-> [![CRAN](http://www.r-pkg.org/badges/version/RLumModel)](http://cran.rstudio.com/package=RLumModel)
+[![CRAN](http://www.r-pkg.org/badges/version/RLumModel)](http://cran.rstudio.com/package=RLumModel)
 
 The **R** package 'RLumModel' by Johannes Friedrich (University of Bayreuth, Germany), 
 Sebastian Kreutzer (IRAMAT-CRP2A, Université Bordeaux Montaigne, France) and Christoph Schmidt 
