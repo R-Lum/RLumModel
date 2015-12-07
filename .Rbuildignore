@@ -1,2 +1,17 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+LICENSE$
+^\.travis\.yml$
+README\.md
+^\test\*
+^\.Rprofile$
+^appveyor\.yml$
+^cran-comments\.md$
+RLumModel.CHECK_AND_BUILD.sh
+RLumModel.CHECK_AND_BUILD.BAT
+RLumModel.BuildScripts
+RLumModel.BuildResults
+RLumModel.Debug
+RLumModel.Experiment
+^packrat/
+packrat
