@@ -5,7 +5,7 @@ Sebastian Kreutzer (IRAMAT-CRP2A, Université Bordeaux Montaigne, France) and Ch
 (University of Bayreuth, Germany)
 provides a collection of various R functions modelling luminescence signals in quartz.
 
-For an introduction and further details, visit the [R-Luminescence homepage](http://www.r-luminescence.de).
+For an introduction and further details, visit the [RLumModel homepage](http://model.r-luminescence.de).
 
 ## Installation
 
