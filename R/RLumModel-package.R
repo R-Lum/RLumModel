@@ -1,0 +1,51 @@
+#' Modelling Ordinary Differential Equations Leading to Luminescence
+#'
+#' A collection of function to simulate luminescence signals in the mineral quartz based on
+#' published models.
+#'
+#' \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
+#' \tab 0.1.0\cr Date: \tab 2016-XX-XX \cr License: \tab GPL-3\cr }
+#'
+#' @name RLumModel-package
+#' @aliases RLumModel-package RLumModel
+#' @docType package
+#' @author \bold{Authors}
+#'
+#' \tabular{ll}{Johannes Friedrich \tab University of Bayreuth, Germany \cr
+#' Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France,\cr
+#' Christoph Schmidt, University of Bayreuth, Germany
+#'}
+#'
+#' \bold{Supervisor}
+#'
+#' Christoph Schmidt, Univestiy of Bayreuth, Germany\cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, France
+#'
+#' \bold{Support contact}
+#'
+#' \email{developers@@model.r-luminescence.de}\cr
+#'
+#' \bold{Project source code repository}\cr
+#' \url{https://github.com/R-Lum/RLumModel}\cr
+#'
+#' \bold{Related projects}\cr
+#' \url{http://www.r-luminescence.de}\cr
+#' \url{http://cran.r-project.org/package=Luminescence}\cr
+#' \url{http://shiny.r-luminescence.de}\cr
+#' \url{http://cran.r-project.org/package=RLumShiny}\cr
+#'
+#' \bold{Package maintainer}
+#'
+#' Johannes Friedrich, University of Bayreuth, Germany
+#' \cr \email{johannes.friedrich@@uni-bayreuth.de}
+#'
+#' \bold{Acknowledgement}
+#'
+#'  The work of Johannes Friedrich is gratefully supported by the DFG in framework of the project
+#'  'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1)
+#'
+#' @keywords package
+#'
+#' @import Luminescence deSolve
+NULL
+

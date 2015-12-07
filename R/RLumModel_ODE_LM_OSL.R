@@ -1,0 +1,91 @@
+#' Set the ordinary differential equation (ODE) for Lm-OSL measurements in the enery-band-model of quartz.
+#'
+#' @param t \code{\link{numeric}} (\bold{required}): timesteps
+#'
+#' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
+#' from step before
+#'
+#' @param parameters.step \code{\link{list}} (\bold{required}): parameters for every specific
+#' calculation has different parameters (heatingrate, pair-production-rate, ...) and this information is given to the ODE
+#'
+#' @return This function returns a list with all changes in the concentration of electron-/holetraps, valence and conductionband
+#'
+#' @note This function calculates the ODE for the energy-band-model for LM-OSL measurements.
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author Johannes Friedrich, University of Bayreuth (Germany),
+#'
+#' @references
+#'
+#' @examples
+#'
+#' #so far no example available
+#'
+#' @noRd
+.RLumModel_ODE_LM_OSL <- function(
+  t,
+  n,
+  parameters.step
+  ){
+
+  ##============================================================================##
+  ## unpack parameters to be used in this function and to keep the ODE code clear
+  ##============================================================================##
+
+  N <- parameters.step$parms$N
+  E <- parameters.step$parms$E
+  s <- parameters.step$parms$s
+  A <- parameters.step$parms$A
+  B <- parameters.step$parms$B
+  Th <- parameters.step$parms$Th
+  E_th <- parameters.step$parms$E_th
+  k_B <- parameters.step$parms$k_B
+  W <- parameters.step$parms$W
+  K <- parameters.step$parms$K
+
+  b <- parameters.step$b
+  a <- parameters.step$a
+  R <- parameters.step$R
+  P <- parameters.step$P
+  temp <- parameters.step$temp
+  ##============================================================================##
+
+
+  with(as.list(c(n,parameters.step)), {
+
+    dn <- numeric(length(N)+2)
+
+    j <- 0;
+    jj <- 0;
+    for (i in 1:length(N)){
+      if (B[i] == 0)    {      #use recombination propability of recombination centers to identify electron traps, because they had no recombination propability to recomibnation centers from conduction band
+        j <- j+1
+        jj <- jj+1
+        dn[i] <- n[length(N)+1]*(N[i]-n[i])*A[i]-n[i]*P*a*t*Th[i]*exp(-E_th[i]/(k_B*(273+temp+b*t)))-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)))
+      }
+      else{#calculate recombination centers
+        jj <- jj+1
+        dn[i] <- n[length(N)+2]*(N[i]-n[i])*A[i]-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)))-n[length(N)+1]*n[i]*B[i]
+      }
+
+    }
+
+    ## conduction band
+    dn[length(N)+1] = R-sum(dn[1:j])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])
+
+    ## make sure if conduction band calculation comes from Bailey or not (see papers for differences between ODEs)
+    if (parms$model != "Bailey 2001" && parms$model != "Bailey2004" && parms$model != "Bailey2002")
+    {
+      dn[length(N)+2] = R-sum(dn[(j+1):jj])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])
+
+    }
+    else{
+      dn[length(N)+2] = R-sum(dn[(j+1):jj])          # valence band ODE for Bailey model 2001/2002/2004
+    }
+
+    # return the rate of change
+    list(dn)})
+
+
+}

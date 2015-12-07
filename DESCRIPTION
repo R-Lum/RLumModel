@@ -1,0 +1,44 @@
+Package: RLumModel
+Type: Package
+Title: Modelling Ordinary Differential Equations Leading to Luminescence
+Version: 0.1.0
+Date: 2016-XX-XX
+Author: Johannes Friedrich [aut, trl, cre],
+    Sebastian Kreutzer [aut, ths],
+    Christoph Schmidt [aut, ths]
+Authors@R: c(
+    person("Johannes", "Friedrich", role = c("aut","trl","cre"), email = "johannes.friedrich@uni-bayreuth.de"),
+    person("Sebastian", "Kreutzer", role = c("aut", "ths")),
+    person("Christoph", "Schmidt", role = c("aut", "ths"))
+    )
+Maintainer: Johannes Friedrich <johannes.jriedrich@uni-bayreuth.de>
+Description: A collection of function to simulate luminescence signals in the
+    mineral quartz based on published models.
+Contact: Package Developer Team <developer@model.r-luminescence.de>
+License: GPL-3
+Depends:
+    R (>= 3.2.2),
+    utils,
+    Luminescence (>= 0.5.0)
+Imports:
+    deSolve (>= 1.12)
+URL: http://CRAN.R-project.org/package=RLumModel
+Collate:
+  RLumModel-package.R
+  RLumModel_CW_OSL.R
+  RLumModel_LM_OSL.R
+  RLumModel_ODE.R
+  RLumModel_ODE_LM_OSL.R
+  RLumModel_RL.R
+  RLumModel_SAR.sequence.R
+  RLumModel_SequenceTranslator.R
+  RLumModel_TL.R
+  RLumModel_calcSignal.R
+  RLumModel_heating.R
+  RLumModel_illumination.R
+  RLumModel_irradiation.R
+  RLumModel_pause.R
+  RLumModel_seq2R.R
+  RLumModel_setPars.R
+  model_LuminescenceSignals.R
+RoxygenNote: 5.0.1
