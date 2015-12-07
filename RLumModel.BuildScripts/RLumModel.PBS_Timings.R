@@ -13,15 +13,15 @@ temp <- temp[grep("Version", temp)]
 temp.version <- sub(" ","",unlist(strsplit(temp,":"))[2])
 
 # CHECK EXAMPLE TIMING ----------------------------------------------------
-timing.threshold <- 3
+timing.threshold <- 5
 if (Sys.info()[["sysname"]] == "Windows") {
-  temp <- read.table("Luminescence.Rcheck/examples_x64/Luminescence-Ex.timings", header=TRUE)
+  temp <- read.table("RLumModel.Rcheck/RLumModel-Ex.timings", header=TRUE)
 } else {
-  temp <- read.table("Luminescence.Rcheck/Luminescence-Ex.timings", header=TRUE)
+  temp <- read.table("RLumModel.Rcheck/RLumModel-Ex.timings", header=TRUE)
 }
   
 ##plot values for the functions
-pdf(file=paste0("RLum.BuildResults/Luminescence-TimingExamples.",temp.version,".pdf"), paper="special")
+pdf(file=paste0("RLumModel.BuildResults/RLumModel-TimingExamples.",temp.version,".pdf"), paper="special")
 
 values <- barplot(rev(temp$elapsed), horiz=TRUE, xlim=c(0,10), cex.names=0.7,
                   beside=TRUE, names.arg=c(length(temp$name):1), las=1,
@@ -41,7 +41,7 @@ dev.off()
 
 temp.threshold <- temp[temp$elapsed > timing.threshold, ]
 write.table(x=temp.threshold[,c(1,4)],
-            file=paste0("RLum.BuildResults/Luminescence-Ex.timings.",temp.version,".WARNING"),
+            file=paste0("RLumModel.BuildResults/RLumModel-Ex.timings.",temp.version,".WARNING"),
             row.names=FALSE, quote=FALSE, col.names=FALSE, sep=" >> ")
 
 

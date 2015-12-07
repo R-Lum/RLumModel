@@ -65,25 +65,17 @@ This function can do just nothing at the moment.
 }
 \examples{
 
-\dontrun{
+
 ##================================================================##
 ## Example 1: Simulate sample history of Bailey2001
 ## (cf. Bailey, 2001, Fig. 1)
 ##===============================================================##
 
 ##set sequence with the following steps
-## (1) Irraditation at 20 deg. C with a dose of 1000 Gy and a dose rate of 1 Gy/s
-## (2) Preheat to 350 deg. C and hold for 10 s
-## (3) Illumination at 200 deg. C. for 100 s with 100 \% optical power
-## (4) Irradiation at 220 deg. C with a dose of 20 Gy and a dose rate of 0.01 Gy/s
-## (5) Irradiation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s
-## (6) TL from 20-400 deg. C with a rate of 5 K/s
+## (1) Irradiation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s
+## (2) TL from 20-400 deg. C with a rate of 5 K/s
 sequence <-
   list(
-   IRR = c(20, 1000, 1),
-    PH = c(350, 10),
-    ILL = c(200, 100, 100),
-    IRR = c(220, 20, 0.01),
     IRR = c(20, 10, 1),
     TL = c(20, 400, 5)
   )
@@ -92,10 +84,9 @@ sequence <-
 model.output <- model_LuminescenceSignals(
   sequence = sequence,
   model = "Bailey2001",
-  simulate_sample_history = TRUE
 )
 
-
+\dontrun{
 ##============================================================================##
 ## Example 2: Simulate sequence at labour without sample history
 ##============================================================================##

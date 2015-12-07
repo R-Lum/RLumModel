@@ -4,6 +4,9 @@
 ### sebastian.kreutzer@u-bordeaux-montaigne.fr
 ### 2015-12-04
 ### ===============================================================================================
+if(exists("output"))
+  rm(output)
+
 if(!require("R2HTML"))
   install.packages("R2HTML")
 
@@ -23,67 +26,67 @@ temp <- readLines("DESCRIPTION")
 temp <- temp[grep("Version", temp)]
 temp.version <- sub(" ","",unlist(strsplit(temp,":"))[2])
 
-output.file <- paste0("RLumModel.BuildResults/Luminescence_",temp.version,"-Functions.html")
+output.file <- paste0("RLumModel.BuildResults/RLumModel_",temp.version,"-Functions.html")
 
 ##exclude package itself
 file.list.man <- file.list.man[which(file.list.man!="RLumModel-package.Rd")]
 
 for(i in 1:length(file.list.man)) {
-
-
+  
+  
   file <- paste0("man/",file.list.man[i])
   Rd <- parse_Rd(file)
   tags <- tools:::RdTags(Rd)
   tag.name <- unlist(Rd[[which(tags == "\\name")]])
-
+  
   ##AUTHOR
   if("\\author" %in% tags){
-
+    
     tag.author <- gsub("\n","<br />",paste(unlist(Rd[[which(tags == "\\author")]]), collapse= " "))
-
+    
   }else{
-
+    
     tag.author <- NA
-
+    
   }
-
+  
   ##VERSION
   if(length(grep("Function version", unlist(Rd)))>0){
-
+    
     tag.version <- unlist(Rd)[grep("Function version", unlist(Rd))+2]
     tag.mdate <- strsplit(tag.version, " ")[[1]][3]
     tag.mdate <-  gsub("\\(", "", tag.mdate)
     tag.mtime <- strsplit(tag.version, " ")[[1]][4]
     tag.mtime <-  gsub("\\)", "", tag.mtime)
     tag.version <- strsplit(tag.version, " ")[[1]][2]
-
+    
   }else{
-
+    
     tag.version <- NA
     tag.mtime <- NA
     tag.mdate <- NA
-
+    
   }
-
+  
   ##TITLE
   if("\\title" %in% tags){
-
+    
     tag.title <- gsub("\n","<br />",paste(unlist(Rd[[which(tags == "\\title")]]),
                                           collapse= " "))
-
+    
   }
-
+  
   ##DESCRIPTION
   if("\\description" %in% tags){
-
+    
     tag.description <- gsub("\n","<br />",paste(unlist(Rd[[which(tags == "\\description")]]),
                                                 collapse= " "))
-
+    
   }
-
-
+  
+  
   if(exists("output")==FALSE){
-
+    
     output <- data.frame(Name=tag.name,
                          Title = tag.title,
                          Description = tag.description,
@@ -91,9 +94,9 @@ for(i in 1:length(file.list.man)) {
                          m.Date = tag.mdate,
                          m.Time = tag.mtime,
                          Author = tag.author)
-
+    
   }else{
-
+    
     temp.output <- data.frame(Name=tag.name,
                               Title = tag.title,
                               Description = tag.description,
@@ -101,37 +104,33 @@ for(i in 1:length(file.list.man)) {
                               m.Date = tag.mdate,
                               m.Time = tag.mtime,
                               Author = tag.author)
-
+    
     output <- rbind(output,temp.output)
-
+    
   }
-
+  
 }
 
 # HTML Output -------------------------------------------------------------
 
 if(file.exists(output.file)==TRUE){
-
+  
   file.remove(output.file)
-
+  
 }
 
-HTML(paste("<h2 align=\"center\">Major functions in the R package 'Luminescence'</h2>
+HTML(paste("<h2 align=\"center\">Major functions in the R package 'RLumModel'</h2>
            <h4 align=\"center\"> [version:", temp.version,"]</h4>
            <style type=\"text/css\">
            <!--
-
            h2 {font-family: Arial, Helvetica, sans-serif
            }
-
            h4 {font-family: Arial, Helvetica, sans-serif
            }
-
            table {text-align:left;
            vertical-align:top;
            border: 1px solid gray;
            }
-
            th, td {
            border: 1px solid gray;
            padding: 3px;
@@ -140,16 +139,12 @@ HTML(paste("<h2 align=\"center\">Major functions in the R package 'Luminescence'
            text-align: left;
            vertical-align: top;
            }
-
            th {
            background-color: #DDD;
            font-weight: bold;
            }
-
            -->
            </style>
-
-
            "),
      file=output.file)
 
@@ -163,7 +158,7 @@ HTML(output,
 # CSV Output --------------------------------------------------------------
 
 write.table(output,
-            file =  paste0("RLumModel.BuildResults/Luminescence_",temp.version,"-Functions.csv"),
+            file =  paste0("RLumModel.BuildResults/RLumModel_",temp.version,"-Functions.csv"),
             sep = ",", row.names = FALSE)
 
 
@@ -171,4 +166,4 @@ write.table(output,
 
 latex.table <- xtable(output)
 write(print(latex.table),
-      file =  paste0("RLumModel.BuildResults/Luminescence_",temp.version,"-Functions.tex"))
+      file =  paste0("RLumModel.BuildResults/RLumModel_",temp.version,"-Functions.tex"))

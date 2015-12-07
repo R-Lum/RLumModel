@@ -11,7 +11,7 @@ Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "ths")),
     person("Christoph", "Schmidt", role = c("aut", "ths"))
     )
-Maintainer: Johannes Friedrich <johannes.jriedrich@uni-bayreuth.de>
+Maintainer: Johannes Friedrich <johannes.friedrich@uni-bayreuth.de>
 Description: A collection of function to simulate luminescence signals in the
     mineral quartz based on published models.
 Contact: Package Developer Team <developer@model.r-luminescence.de>
@@ -26,6 +26,7 @@ URL: http://CRAN.R-project.org/package=RLumModel
 Collate:
   RLumModel-package.R
   RLumModel_CW_OSL.R
+  RLumModel_DRT.sequence.R
   RLumModel_LM_OSL.R
   RLumModel_ODE.R
   RLumModel_ODE_LM_OSL.R

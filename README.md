@@ -1,6 +1,6 @@
-# RLumModel
+﻿# RLumModel
 
-The **R** package 'RLumModel' by the Johannes Friedrich (University of Bayreuth, Germany), 
+The **R** package 'RLumModel' by Johannes Friedrich (University of Bayreuth, Germany), 
 Sebastian Kreutzer (IRAMAT-CRP2A, Université Bordeaux Montaigne, France) and Christoph Schmidt 
 (University of Bayreuth, Germany)
 provides a collection of various R functions modelling luminescence signals in quartz.

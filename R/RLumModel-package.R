@@ -12,8 +12,8 @@
 #' @author \bold{Authors}
 #'
 #' \tabular{ll}{Johannes Friedrich \tab University of Bayreuth, Germany \cr
-#' Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France,\cr
-#' Christoph Schmidt, University of Bayreuth, Germany
+#' Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France\cr
+#' Christoph Schmidt \tab University of Bayreuth, Germany
 #'}
 #'
 #' \bold{Supervisor}
