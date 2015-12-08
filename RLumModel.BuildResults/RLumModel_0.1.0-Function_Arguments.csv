@@ -1,7 +1,7 @@
 "x"
 "model"
 "sequence"
-"lab.doseRate"
+"lab.DoseRate"
 "simulate_sample_history"
 "plot"
 "verbose"

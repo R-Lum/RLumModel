@@ -31,7 +31,7 @@
 #'
 #' @param model \code{\link{character}} (\bold{required}): set model to be used
 #'
-#' @param lab.doseRate \code{\link{numeric}} (with default): laboratory dose rate in XXX Gy/s for calculating seconds into Gray in the *.seq file.
+#' @param lab.DoseRate \code{\link{numeric}} (with default): laboratory dose rate in XXX Gy/s for calculating seconds into Gray in the *.seq file.
 #'
 #' @param simulate_sample_history \code{\link{logical}} (with default): FALSE (with default): simulation begins at labour conditions, TRUE: simulations begins at crystallization (all levels 0)
 #' process
@@ -78,7 +78,7 @@
 #'
 #' @examples
 #'
-#' 
+#'
 #' ##================================================================##
 #' ## Example 1: Simulate sample history of Bailey2001
 #' ## (cf. Bailey, 2001, Fig. 1)
@@ -125,7 +125,7 @@
 #'    PAUSE = c(200, 100),
 #'    OSL = c(125, 100, 90),
 #'    PAUSE = c(200, 100),
-#'    TL = c(20, 400, 5), 
+#'    TL = c(20, 400, 5),
 #'    RF = c(20, 200, 0.01)
 #' )
 #'
@@ -250,7 +250,7 @@
 model_LuminescenceSignals <- function(
   model,
   sequence,
-  lab.doseRate = 1,
+  lab.DoseRate = 1,
   simulate_sample_history = FALSE,
   plot = TRUE,
   verbose = TRUE,
@@ -271,7 +271,7 @@ model_LuminescenceSignals <- function(
   #2 Check sequence
   if(is(sequence,"character")){
 
-      sequence <- .RLumModel_seq2R(file = sequence, lab.doseRate = lab.doseRate)
+      sequence <- .RLumModel_seq2R(file = sequence, lab.DoseRate = lab.DoseRate)
 
   }
 
@@ -310,7 +310,7 @@ model_LuminescenceSignals <- function(
       DoseRate = sequence$DoseRate
       if(is.null(DoseRate)){
 
-        DoseRate <- 1
+        DoseRate <- lab.DoseRate
       }
 
       optical_power = sequence$optical_power
@@ -318,8 +318,8 @@ model_LuminescenceSignals <- function(
 
         optical_power <- 90
       }
-      
-      
+
+
       if(!"Irr_2recover"%in%names(sequence)){# SAR sequence
 
       sequence <- .RLumModel_SAR.sequence(
@@ -335,7 +335,7 @@ model_LuminescenceSignals <- function(
         optical_power = optical_power
       )}
       else{# DRT sequence
-  
+
         sequence <- .RLumModel_DRT.sequence(
           RegDose = RegDose,
           TestDose = TestDose,
@@ -349,7 +349,7 @@ model_LuminescenceSignals <- function(
           optical_power = optical_power,
           Irr_2recover = sequence$Irr_2recover
           )}
-      
+
 
     }else{
 
@@ -373,12 +373,12 @@ model_LuminescenceSignals <- function(
       stop(paste0("[model_LuminescenceSignals()] Unknow sequence arguments: Allowed arguments are: ", paste(sequence.allowed_keywords, collapse = ", ")))
 
     }
-    
-  #check if lab.doseRate > 0
-    if(lab.doseRate <= 0){
-      
-      stop("[model_LuminescenceSignals()] lab.doseRate has to be a positive number! ")
-      
+
+  #check if lab.DoseRate > 0
+    if(lab.DoseRate <= 0){
+
+      stop("[model_LuminescenceSignals()] lab.DoseRate has to be a positive number! ")
+
     }
 
 # Load model parameters ------------------------------------------------------------------------------------

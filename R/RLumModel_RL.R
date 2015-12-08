@@ -55,7 +55,7 @@
 .RLumModel_RL <- function(
   temp,
   dose,
-  doseRate,
+  DoseRate,
   n,
   parms,
   ...
@@ -77,7 +77,7 @@
   }
 
   ##2. check if doserate is a positive number
-  if(doseRate < 0){
+  if(DoseRate < 0){
     stop("\n Doserate has to be an positive number!")
   }
 
@@ -96,13 +96,13 @@
   # b: heating rate [°C/s]
   ##============================================================================##
   if(parms$model == "Bailey2004"){
-    R <- doseRate*2.5e10
+    R <- DoseRate*2.5e10
   }
   if(parms$model == "Bailey2002"){
-    R <- doseRate*3e10
+    R <- DoseRate*3e10
   }
   else{
-    R <- doseRate*5e7  # all other simulations
+    R <- DoseRate*5e7  # all other simulations
   }
 
   P <- 0
@@ -112,7 +112,7 @@
   # SETTING PARAMETERS FOR ODE
   ##============================================================================##
 
-  times   <- seq(0, dose/(doseRate), by = (dose/doseRate)/100)
+  times   <- seq(0, dose/(DoseRate), by = (dose/DoseRate)/100)
   parameters.step  <- list(R = R, P = P, temp = temp, b = b, times = times, parms = parms)
 
   ##============================================================================##

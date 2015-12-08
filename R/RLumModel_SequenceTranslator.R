@@ -112,13 +112,13 @@ for (i in 1:length(sequence)){
 
   #check if current sequence step is IRR
   if(names(sequence)[i] == "IRR"){
-    n <- .RLumModel_irradiation(temp = sequence[[i]][1], dose = sequence[[i]][2],doseRate = sequence[[i]][3],n,parms)
+    n <- .RLumModel_irradiation(temp = sequence[[i]][1], dose = sequence[[i]][2],DoseRate = sequence[[i]][3],n,parms)
     n <- .RLumModel_pause(temp = sequence[[i]][1], duration = 5, n, parms)
   }
 
   #check if current sequence step is IRR
   if(names(sequence)[i] == "RL" || names(sequence)[i] == "RF"){
-    n <- .RLumModel_RL(temp = sequence[[i]][1], dose = sequence[[i]][2],doseRate = sequence[[i]][3],n,parms)
+    n <- .RLumModel_RL(temp = sequence[[i]][1], dose = sequence[[i]][2],DoseRate = sequence[[i]][3],n,parms)
     output.model[[i]] <- n$RF.data
     n <- .RLumModel_pause(temp = sequence[[i]][1], duration = 5, n, parms)
   }

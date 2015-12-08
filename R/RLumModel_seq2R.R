@@ -7,7 +7,7 @@
 #'
 #' @param file \code{\link{character}} (\bold{required}): a *.seq file from the Riso sequence editor
 #'
-#' @param lab.doseRate\code{\link{character}} (with default): set the doserate of the radiation source
+#' @param lab.DoseRate\code{\link{character}} (with default): set the doserate of the radiation source
 #' in the laboratory [Gy/s]. With default: 1 Gy/s
 #'
 #' @param \dots further arguments and graphical parameters passed to
@@ -35,7 +35,7 @@
 #' @noRd
 .RLumModel_seq2R <- function(
   file,
-  lab.doseRate = 1,
+  lab.DoseRate = 1,
   txtProgressBar = TRUE
 ){
 
@@ -142,13 +142,13 @@ for(x in 1:length(data.list)){
       duration <- 1e-13
     }
 
-    dose <- duration*lab.doseRate
+    dose <- duration*lab.DoseRate
 
     b <- as.numeric(gsub("Rate=", "", data.list[[x]][grep(pattern = "^Rate",x = data.list[[x]])]))
     PH_time <- as.numeric(gsub("An_Time=", "", data.list[[x]][grep(pattern = "^An_Time",x = data.list[[x]])]))
 
     names[x] <- "IRR"
-    sequence[[x]] <- c(temp,dose,lab.doseRate,b,PH_time)
+    sequence[[x]] <- c(temp,dose,lab.DoseRate,b,PH_time)
 
   }
 
@@ -263,13 +263,13 @@ for(x in 1:length(data.list)){
 
     temp <- as.numeric(gsub("Temperature=", "", data.list[[x]][grep(pattern = "^Temperature=",x = data.list[[x]])]))
     duration <- as.numeric(gsub("High=", "", data.list[[x]][grep(pattern = "^High",x = data.list[[x]])]))
-    lab.doseRate <- lab.doseRate
+    lab.DoseRate <- lab.DoseRate
 
-    dose <- duration*lab.doseRate
+    dose <- duration*lab.DoseRate
     b <- as.numeric(gsub("Rate=", "", data.list[[x]][grep(pattern = "^Rate",x = data.list[[x]])]))
 
     names[x] <- "RL"
-    sequence[[x]] <- c(temp,dose,lab.doseRate,b)
+    sequence[[x]] <- c(temp,dose,lab.DoseRate,b)
   }
 
   if(sequence.ID == 29){

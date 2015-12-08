@@ -4,7 +4,7 @@
 \alias{model_LuminescenceSignals}
 \title{Model Luminescence Signals}
 \usage{
-model_LuminescenceSignals(model, sequence, lab.doseRate = 1,
+model_LuminescenceSignals(model, sequence, lab.DoseRate = 1,
   simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE, ...)
 }
 \arguments{
@@ -16,7 +16,7 @@ Riso sequence editor. To simulate SAR measurements there is an extra option to s
 CH: \code{\link{numeric}}, OSL_temp: \code{\link{numeric}}. With default are: DoseRate: \code{\link{numeric}},
 Irr_temp: \code{\link{numeric}}, optical_power: \code{\link{numeric}}, OSL_duration: \code{\link{numeric}}, PH_duration: \code{\link{numeric}}}
 
-\item{lab.doseRate}{\code{\link{numeric}} (with default): laboratory dose rate in XXX Gy/s for calculating seconds into Gray in the *.seq file.}
+\item{lab.DoseRate}{\code{\link{numeric}} (with default): laboratory dose rate in XXX Gy/s for calculating seconds into Gray in the *.seq file.}
 
 \item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at labour conditions, TRUE: simulations begins at crystallization (all levels 0)
 process}
@@ -112,7 +112,7 @@ sequence <-
    PAUSE = c(200, 100),
    OSL = c(125, 100, 90),
    PAUSE = c(200, 100),
-   TL = c(20, 400, 5), 
+   TL = c(20, 400, 5),
    RF = c(20, 200, 0.01)
 )
 
