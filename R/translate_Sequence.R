@@ -10,12 +10,12 @@
 #'
 #' @param parms \code{\link{Rlum.Results object}} (\bold{required}):
 #'
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}}. See details for further information
+#' @param txtProgressBar \code{\link{logical}} (width default): enables or disables txtProgressBar
+#'
+#' @param verbose \code{\link{logical}} (width default): enables or disalbes verbose mode. If \code{FALSE}
+#' \code{txtProgressBar} is set to \code{FALSE} automatically
 #'
 #' @return This function returns an RLum.Analysis object which can be analysed by further RLum functions.
-#'
-#' @note This function can do just nothing at the moment.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -34,15 +34,16 @@
   sequence,
   n,
   parms,
-  txtProgressBar = TRUE
+  txtProgressBar = TRUE,
+  verbose = TRUE
   ){
 
 output.model <- list()
 
 ##terminal output for sequence progress
-cat("\n[.translate_Sequence()] \n\t>> Simulate sequence \n")
+if(verbose) cat("\n[.translate_Sequence()] \n\t>> Simulate sequence \n")
 ##PROGRESS BAR
-if(txtProgressBar){
+if(txtProgressBar & verbose){
   pb <- txtProgressBar(min=0,max=length(sequence), char = "=", style=3)
 }
 
@@ -129,12 +130,15 @@ for (i in 1:length(sequence)){
   }
 
   ##update progress bar
-  if (txtProgressBar) {
+  if (txtProgressBar & verbose) {
     setTxtProgressBar(pb, i)
   }
 
 
 }
+
+##close txtProgressBar
+if(txtProgressBar & verbose){close(pb)}
 
 # delete null/empty entries in a list
 output.model <- output.model[unlist(lapply(output.model,length)!=0)]

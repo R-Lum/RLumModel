@@ -402,7 +402,7 @@ model_LuminescenceSignals <- function(
         sequence = sequence,
         n = n,
         parms = parms,
-        txtProgressBar = ifelse(verbose, TRUE, FALSE)
+        verbose = verbose
       )
 
 
