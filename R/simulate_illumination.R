@@ -1,10 +1,10 @@
-#' sequence step LM-OSL-simulation
+#' sequence step illumination
 #'
-#' This function simulates the LM-OSL measurement of quartz in the energy-band-model.
+#' This function simulates illumination step in the energy-band-model of quartz.
 #'
-#' @param temp \code{\link{numeric}} (\bold{required}): set temperature [°C] of the LM-OSL simulation
+#' @param temp \code{\link{numeric}} (\bold{required}): set temperature [°C] of the illumination simulation
 #'
-#' @param duration \code{\link{numeric}} (\bold{required}): duration of the LM-OSL simulation
+#' @param duration \code{\link{numeric}} (\bold{required}): duration of the illumination simulation
 #'
 #' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
 #' from step before
@@ -14,7 +14,7 @@
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information
 #'
-#' @return This function returns an Rlum.Results object from the LM-OSL simulation.
+#' @return This function returns an Rlum.Results object from the illumination simulation.
 #'
 #' @note This function can do just nothing at the moment.
 #'
@@ -31,11 +31,10 @@
 #' #so far no example available
 #'
 #' @noRd
-.RLumModel_LM_OSL <- function(
+.simulate_illumination <- function(
   temp,
   duration,
-  start_power = 0,
-  end_power = 100,
+  optical_power = 100,
   n,
   parms,
   ...
@@ -45,66 +44,54 @@
   if(class(n) != "RLum.Results"){
     n <- n
   }
-
   else{
     n <- n$n
+  }
+
+  ##2. check if duration is a positive number
+  if(duration < 0){
+    stop("\n Duration has to be an positive number!")
   }
 
   ##============================================================================##
   # SETTING PARAMETERS FOR ILLUMINATION
   #
-  # R: electron-hole-production-rate = 0
-  # P: Photonflux (in Bailey 2004: wavelength [nm]) = 1
+  # R: electron-hole-production-rate (in Bailey 2004: 2.5e10, else: 5e7) = 0
+  # P: Photonflux (in Bailey 2002/2004: wavelength [nm]) = 1
   # b: heating rate [°C/s] = 0
-  # a: rate of stimulationintensity, P*20, because in Bailey2001 P = 1 equates to 20 mW cm^(-2)
   ##============================================================================##
 
   if(parms$model == "Bailey2004" || parms$model == "Bailey2002"){
-    P <- 0.02/(1.6*10^(-19)*(1240/470))
-    a <- 20*((end_power - start_power)/100)/duration 
+    P <- 0.02/(1.6*10^(-19)*(1240/470))*(optical_power/100)
   }
   else{
-    P <- 2
-    a <- P*20*((end_power - start_power)/100)/duration
+    P <- 2*(optical_power/100)
   }
 
-  b <- 0
   R <- 0
-  
+  b <- 0
+
   ##============================================================================##
   # SETTING PARAMETERS FOR ODE
   ##============================================================================##
 
-  times <- seq(from = 0, to = duration, by = 0.1)
-  parameters.step  <- list(R = R, P = P, temp = temp, b = b, a = a, times = times, parms = parms)
+  times <- seq(0, duration, by = duration/100)
+  parameters.step  <- list(R = R, P = P, temp = temp, b = b, times = times, parms = parms)
 
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .RLumModel_ODE_LM_OSL, rtol=1e-3, atol=1e-3, maxsteps=1e5);
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE, rtol=1e-3, atol=1e-3, maxsteps=1e5);
   ##============================================================================##
-
-  ##============================================================================##
-  # CALCULATING RESULTS FROM ODE SOLVING
-  ##============================================================================##
-
-  signal <- .RLumModel_calcSignal(out = out, parameters = parameters.step)
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
 
-  return(set_RLum(class = "RLum.Results", 
+  return(set_RLum(class = "RLum.Results",
                   data = list(
-                    n = out[length(times),-1], 
-                    LM_OSL.data = set_RLum(
-                      class = "RLum.Data.Curve",
-                      data = matrix(data = c(times[2:length(times)], signal[2:length(signal)]),ncol = 2),
-                      recordType = "LM-OSL", 
-                      curveType = "simulated"
-                      ), 
+                    n = out[length(times),-1],
                     temp = temp
                   )))
-
 
 }#end function

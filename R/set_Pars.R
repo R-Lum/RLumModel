@@ -13,10 +13,10 @@
 #'
 #' @examples
 #'
-#' pars <- RlumModel_setPars("Bailey2001")
+#' pars <- .set_Pars("Bailey2001")
 #'
 #' @noRd
-.RLumModel_setPars <- function(model){
+.set_Pars <- function(model){
 
   ##============================================================================##
   ## natural constants
@@ -69,7 +69,7 @@
       E_th = c(0.1, 0, 0.1, 0.13, 0.2, 0.2, 0.2,0),
       n =  set_RLum(class = "RLum.Results", data = list(n = c(2.231286e+00, 1.009119e+07, 1.705852e+10, 4.363260e+09, 9.242267e+09, 6.457175e+09, 1.989090e+12, 4.981360e+12, 1.200000e+11, 1.000000e+12, 1.000000e+13, 5.000000e+11, 1.638903e-05, 4.888349e+13), temp = 20), originator = "sample history Bailey2002")
     ),
-    
+
     Bailey2004 = list(
 
       N = c(1.42e10, 1.5e9, 2.05e11, 7.04e10, 1.7e11, 2.53e11, 3.58e12, 1.28e13, 4.16e12, 4.2e11, 8.83e13, 1.15e14),

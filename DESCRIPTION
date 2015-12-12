@@ -25,21 +25,21 @@ Imports:
 URL: http://CRAN.R-project.org/package=RLumModel
 Collate:
   RLumModel-package.R
-  RLumModel_CW_OSL.R
-  RLumModel_DRT.sequence.R
-  RLumModel_LM_OSL.R
-  RLumModel_ODE.R
-  RLumModel_ODE_LM_OSL.R
-  RLumModel_RL.R
-  RLumModel_SAR.sequence.R
-  RLumModel_SequenceTranslator.R
-  RLumModel_TL.R
-  RLumModel_calcSignal.R
-  RLumModel_heating.R
-  RLumModel_illumination.R
-  RLumModel_irradiation.R
-  RLumModel_pause.R
-  RLumModel_seq2R.R
-  RLumModel_setPars.R
+  calc_Signal.R
   model_LuminescenceSignals.R
+  read_SEQ2R.R
+  set_ODE.R
+  set_ODE_LM_OSL.R
+  set_Pars.R
+  simulate_CW_OSL.R
+  simulate_DRT.sequence.R
+  simulate_LM_OSL.R
+  simulate_RL.R
+  simulate_SAR.sequence.R
+  simulate_TL.R
+  simulate_heating.R
+  simulate_illumination.R
+  simulate_irradiation.R
+  simulate_pause.R
+  translate_Sequence.R
 RoxygenNote: 5.0.1

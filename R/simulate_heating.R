@@ -36,7 +36,7 @@
 #' #so far no example available
 #'
 #' @noRd
-.RLumModel_heating <- function(
+.simulate_heating <- function(
   temp_begin,
   temp_end,
   b,
@@ -79,7 +79,7 @@
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .RLumModel_ODE, rtol=1e-3, atol=1e-3, maxsteps=1e5)
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE, rtol=1e-3, atol=1e-3, maxsteps=1e5)
   ##============================================================================##
 
   ##============================================================================##

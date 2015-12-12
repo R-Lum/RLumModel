@@ -28,7 +28,7 @@
 #' #so far no example available
 #'
 #' @noRd
-.RLumModel_calcSignal <- function(
+.calc_Signal <- function(
   out,
   parameters
   ){

@@ -1,6 +1,4 @@
-#' Set the ordinary differential equation (ODE) for the enery-band-model of quartz.
-#'
-#' This function models luminescence signals for quartz based on published physical models
+#' Set the ordinary differential equation (ODE) for Lm-OSL measurements in the enery-band-model of quartz.
 #'
 #' @param t \code{\link{numeric}} (\bold{required}): timesteps
 #'
@@ -10,9 +8,9 @@
 #' @param parameters.step \code{\link{list}} (\bold{required}): parameters for every specific
 #' calculation has different parameters (heatingrate, pair-production-rate, ...) and this information is given to the ODE
 #'
-#' @return This function returns a list with all changes in the concentration of electron-/holetraps, valence and conductionband.
+#' @return This function returns a list with all changes in the concentration of electron-/holetraps, valence and conductionband
 #'
-#' @note This function calculates the ODE for the energy-band-model
+#' @note This function calculates the ODE for the energy-band-model for LM-OSL measurements.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -20,23 +18,16 @@
 #'
 #' @references
 #'
-#' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
-#' luminescence of quartz. Radiation Measurements 33, 17-45.
-#'
-#' Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
-#' and it simplications for the precision and accuracy of optical dating.
-#' Radiation Measurements 38, 299-310.
-#'
-#' Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
-#' for quartz based on thermally transferred OSL (TT-OSL).
-#' Radiation Measurements 43, 704-708.
-#'
 #' @examples
 #'
 #' #so far no example available
 #'
 #' @noRd
-.RLumModel_ODE <- function(t,n,parameters.step) {
+.set_ODE_LM_OSL <- function(
+  t,
+  n,
+  parameters.step
+  ){
 
   ##============================================================================##
   ## unpack parameters to be used in this function and to keep the ODE code clear
@@ -54,6 +45,7 @@
   K <- parameters.step$parms$K
 
   b <- parameters.step$b
+  a <- parameters.step$a
   R <- parameters.step$R
   P <- parameters.step$P
   temp <- parameters.step$temp
@@ -62,16 +54,15 @@
 
   with(as.list(c(n,parameters.step)), {
 
-
     dn <- numeric(length(N)+2)
 
     j <- 0;
     jj <- 0;
     for (i in 1:length(N)){
-      if (B[i] == 0)    {#use recombination propability of recombination centers to identify electron traps, because they had no recombination propability to recomibnation centers from conduction band
+      if (B[i] == 0)    {      #use recombination propability of recombination centers to identify electron traps, because they had no recombination propability to recomibnation centers from conduction band
         j <- j+1
         jj <- jj+1
-        dn[i] <- n[length(N)+1]*(N[i]-n[i])*A[i]-n[i]*P*Th[i]*exp(-E_th[i]/(k_B*(273+temp+b*t)))-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)))
+        dn[i] <- n[length(N)+1]*(N[i]-n[i])*A[i]-n[i]*P*a*t*Th[i]*exp(-E_th[i]/(k_B*(273+temp+b*t)))-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)))
       }
       else{#calculate recombination centers
         jj <- jj+1
@@ -80,18 +71,21 @@
 
     }
 
+    ## conduction band
     dn[length(N)+1] = R-sum(dn[1:j])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])
 
-    if (parms@originator != "Bailey 2001" && parms@originator != "Bailey2004" && parms@originator != "Bailey2002")
+    ## make sure if conduction band calculation comes from Bailey or not (see papers for differences between ODEs)
+    if (parms$model != "Bailey 2001" && parms$model != "Bailey2004" && parms$model != "Bailey2002")
     {
-      dn[length(N)+2] = R-sum(dn[(j+1):jj])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])           # Valenzband ohne lezten Term bei Bailey 2001/2004
+      dn[length(N)+2] = R-sum(dn[(j+1):jj])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])
 
     }
-    else{ # valence band ODE for Bailey model 2001/2002/2004
-      dn[length(N)+2] = R-sum(dn[(j+1):jj])
+    else{
+      dn[length(N)+2] = R-sum(dn[(j+1):jj])          # valence band ODE for Bailey model 2001/2002/2004
     }
 
-  list(dn)})  # return the rate of change
+    # return the rate of change
+    list(dn)})
 
 
 }

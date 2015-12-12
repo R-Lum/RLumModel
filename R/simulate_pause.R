@@ -35,7 +35,7 @@
 #' #so far no example available
 #'
 #' @noRd
-.RLumModel_pause <- function(
+.simulate_pause <- function(
   temp,
   duration,
   n,
@@ -72,7 +72,7 @@
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .RLumModel_ODE, rtol=1e-3, atol=1e-3, maxsteps=1e5)
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE, rtol=1e-3, atol=1e-3, maxsteps=1e5)
   ##============================================================================##
 
   ##============================================================================##
@@ -81,7 +81,7 @@
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
 
-  return(set_RLum(class = "RLum.Results", 
+  return(set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1],
                     temp = temp

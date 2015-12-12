@@ -1,12 +1,13 @@
-#' sequence step TL-simulation
+#' sequence step irradiation
 #'
-#' This function simulates the TL measurement of quartz in the energy-band-model.
+#' This function simulates the irradiaton of quartz in the energy-band-model.
 #'
-#' @param temp_begin \code{\link{numeric}} (\bold{required}): initial temperature [°C] of the TL-simulation
+#' @param temp \code{\link{cnumeric}} (\bold{required}): temperature [°C] at which the dose should be applied
 #'
-#' @param temp_begin \code{\link{numeric}} (\bold{required}): endtemperature [°C] of the TL-simulation
+#' @param dose \code{\link{numeric}} (\bold{required}): dose to apply in Gray
 #'
-#' @param b \code{\link{numeric}} (\bold{required}): heatingrate in [°C/s] or [K/s]
+#' @param DoseRate \code{\link{numeric}} (\bold{required}): named list with model parameters. Note:
+#' not every parameter apply to every model, see details for further information
 #'
 #' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
 #' from step before
@@ -16,7 +17,7 @@
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information
 #'
-#' @return This function returns an Rlum.Results object from the TL simulation.
+#' @return This function returns an Rlum.Results object.
 #'
 #' @note This function can do just nothing at the moment.
 #'
@@ -36,53 +37,73 @@
 #' #so far no example available
 #'
 #' @noRd
-.RLumModel_TL <- function(
-  temp_begin,
-  temp_end,
-  b,
+.simulate_irradiation <- function(
+  temp,
+  dose,
+  DoseRate,
   n ,
   parms,
   ...
+
 ){
 
-  ##check if object is of class RLum.Data.Curve
+
+  if(!exists("parms")){
+    stop("\n No parameters had been loaded!")
+  }
+
+
+  ##1. check if n is a RLum object
   if(class(n) != "RLum.Results"){
-  n <- n
+    n <- n
   }
   else{
     n <- n$n
   }
 
+  ##2. check if doserate is a positive number
+  if(DoseRate < 0){
+    stop("\n Doserate has to be an positive number!")
+  }
+
+  ##3. check if dose is a positive number
+  if(dose < 0){
+    stop("\n Dose has to be an positive number!")
+  }
+
+
+
   ##============================================================================##
-  # SETTING PARAMETERS FOR HEATING
+  # SETTING PARAMETERS FOR IRRADIATION
   #
-  # R: electron-hole-production-rate (in Bailey 2004: 2.5e10, else: 5e7) = 0
-  # P: Photonflux (in Bailey 2004: wavelength [nm]) = 0
+  # R: electron-hole-production-rate (in Bailey 2004: 2.5e10, else: 5e7)
+  # P: Photonflux (in Bailey 2004: wavelength [nm])
   # b: heating rate [°C/s]
   ##============================================================================##
+  if(parms$model == "Bailey2004"){
+    R <- DoseRate*2.5e10
+  }
+  if(parms$model == "Bailey2002"){
+    R <- DoseRate*3e10
+  }
+  else{
+    R <- DoseRate*5e7  # all other simulations
+  }
 
-  R <- 0
   P <- 0
+  b <- 0
 
   ##============================================================================##
   # SETTING PARAMETERS FOR ODE
   ##============================================================================##
 
-  times <- seq(0, (temp_end-temp_begin)/b, by = 0.1)
-  parameters.step  <- list(R = R, P = P, temp = temp_begin, b = b, times = times, parms = parms)
+  times   <- seq(0, dose/(DoseRate), by = (dose/DoseRate)/100)
+  parameters.step  <- list(R = R, P = P, temp = temp, b = b, times = times, parms = parms)
 
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .RLumModel_ODE, rtol=1e-3, atol=1e-3, maxsteps=1e5)
-  ##============================================================================##
-
-  ##============================================================================##
-  # CALCULATING RESULTS FROM ODE SOLVING
-  ##============================================================================##
-
-  signal <- .RLumModel_calcSignal(out = out, parameters = parameters.step)
-  TSkala <- times*b+temp_begin
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE ,  rtol=1e-3, atol=1e-3, maxsteps=1e5);
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
@@ -91,12 +112,8 @@
   return(set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1],
-                    TL.data = set_RLum(
-                      class = "RLum.Data.Curve",
-                      data = matrix(data = c(TSkala, signal),ncol = 2),
-                      recordType = "TL",
-                      curveType = "simulated"
-                      ),
-                    temp = temp_end
+                    temp = temp
                   )))
+
 }
+

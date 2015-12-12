@@ -271,7 +271,7 @@ model_LuminescenceSignals <- function(
   #2 Check sequence
   if(is(sequence,"character")){
 
-      sequence <- .RLumModel_seq2R(file = sequence, lab.DoseRate = lab.DoseRate)
+      sequence <- read_SEQ2R(file = sequence, lab.DoseRate = lab.DoseRate)
 
   }
 
@@ -281,7 +281,7 @@ model_LuminescenceSignals <- function(
       stop("[model_LuminescenceSignals()] Sequence comprises non-numeric arguments!")
     }
 
-    if("RegDose"%in%names(sequence)){# test if .RLumModel_SAR.sequence is requiered
+    if("RegDose"%in%names(sequence)){# test if .simulate_SAR.sequence is requiered
 
       RegDose = sequence$RegDose
       TestDose = sequence$TestDose
@@ -322,7 +322,7 @@ model_LuminescenceSignals <- function(
 
       if(!"Irr_2recover"%in%names(sequence)){# SAR sequence
 
-      sequence <- .RLumModel_SAR.sequence(
+      sequence <- .simulate_SAR.sequence(
         RegDose = RegDose,
         TestDose = TestDose,
         PH = PH,
@@ -336,7 +336,7 @@ model_LuminescenceSignals <- function(
       )}
       else{# DRT sequence
 
-        sequence <- .RLumModel_DRT.sequence(
+        sequence <- .simulate_DRT.sequence(
           RegDose = RegDose,
           TestDose = TestDose,
           PH = PH,
@@ -383,7 +383,7 @@ model_LuminescenceSignals <- function(
 
 # Load model parameters ------------------------------------------------------------------------------------
 
-    parms <- .RLumModel_setPars(model)
+    parms <- .set_Pars(model)
     if(simulate_sample_history == TRUE){
       n <- set_RLum(class = "RLum.Results", data = list(n = rep(0,length(parms$N)+2), temp = 20, model = model))
     }
@@ -395,7 +395,7 @@ model_LuminescenceSignals <- function(
 # sequence ------------------------------------------------------------------------------------
 
   #sequence, n and parms as arguments for the SequenceTranslator, who translates the sequence to different model steps
-  model.output <- .RLumModel_SequenceTranslator(sequence = sequence, n = n, parms = parms)
+  model.output <- .translate_Sequence(sequence = sequence, n = n, parms = parms)
 
 
 # Plot settings -------------------------------------------------------------------------------

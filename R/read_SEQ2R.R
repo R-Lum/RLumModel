@@ -33,7 +33,7 @@
 #' #so far no example available
 #'
 #' @noRd
-.RLumModel_seq2R <- function(
+read_SEQ2R <- function(
   file,
   lab.DoseRate = 1,
   txtProgressBar = TRUE
@@ -41,7 +41,7 @@
 
 
 if(!file.exists(file)){
-  stop("[.RlumModel_seq2R()] file name doesn't seem to exist.")
+  stop("[read_SEQ2R()] file name doesn't seem to exist.")
 
 }
 
@@ -69,7 +69,7 @@ data.list <- lapply(1:length(records.row_number), function(x) {
 })
 
 ##terminal output fo MC
-cat("\n [.RlumModel_seq2R()] \n\t Parse *.seq file to sequence for RLumModel\n")
+cat("\n [read_SEQ2R()] \n\t Parse *.seq file to sequence for RLumModel\n")
 
 ##PROGRESS BAR
 if(txtProgressBar){

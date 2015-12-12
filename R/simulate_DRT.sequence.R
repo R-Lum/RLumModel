@@ -23,7 +23,7 @@
 #'
 #' @param optical_power\code{\link{numeric}} (wtih default):
 #'
-#' @return This function returns a list with a SAR sequence
+#' @return This function returns a list with a sequence of a dose-recovery-test (DRT)
 #'
 #' @note This function can do just nothing at the moment.
 #'
@@ -37,28 +37,32 @@
 #' improved single-aliquot regenerative-dose protocol. Radiation Measurements
 #' 32, 57-73.
 #'
-#' @seealso \code{\link{deSolve}}
+#' @seealso
 #'
 #' @examples
 #'
 #' #so far no example available
 #'
 #' @noRd
-.RLumModel_SAR.sequence <- function(
+.simulate_DRT.sequence <- function(
   RegDose,
   TestDose,
   PH,
   CH,
   OSL_temp,
+  Irr_2recover,
   Irr_temp = 20,
   OSL_duration = 40,
   PH_duration = 10,
   DoseRate = 1,
   optical_power = 90
-  ){
+){
 
   temp.list <- list()
-  sequence <- NULL
+  sequence <- list(PH = c(240,40),
+                   ILL = c(125,400,100),
+                   IRR = c(Irr_temp,Irr_2recover,DoseRate))
+
   for (i in 1:length(RegDose)){
 
     if(RegDose[i] == 0){
@@ -70,19 +74,19 @@
         IRR = c(Irr_temp,TestDose,DoseRate),
         TL = c(20,CH,5),
         OSL = c(OSL_temp,OSL_duration,optical_power) # Tx measurement
-        )
+      )
 
     }
     else{
 
       temp.list <- list(
-         IRR = c(Irr_temp,RegDose[i],DoseRate),
-         TL = c(20,PH,5),
-         PAUSE = c(PH,PH_duration),
-         OSL = c(OSL_temp,OSL_duration,optical_power), # Lx measurement
-         IRR = c(Irr_temp,TestDose,DoseRate),
-         TL = c(20,CH,5),
-         OSL = c(OSL_temp,OSL_duration,optical_power) #Tx measurement
+        IRR = c(Irr_temp,RegDose[i],DoseRate),
+        TL = c(20,PH,5),
+        PAUSE = c(PH,PH_duration),
+        OSL = c(OSL_temp,OSL_duration,optical_power), # Lx measurement
+        IRR = c(Irr_temp,TestDose,DoseRate),
+        TL = c(20,CH,5),
+        OSL = c(OSL_temp,OSL_duration,optical_power) #Tx measurement
       )
     }
 

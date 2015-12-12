@@ -18,7 +18,7 @@
 #'
 #' \bold{Supervisor}
 #'
-#' Christoph Schmidt, Univestiy of Bayreuth, Germany\cr
+#' Christoph Schmidt, University of Bayreuth, Germany\cr
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, France
 #'
 #' \bold{Support contact}
@@ -48,4 +48,3 @@
 #'
 #' @import Luminescence deSolve
 NULL
-

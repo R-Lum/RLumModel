@@ -52,7 +52,7 @@
 #' #so far no example available
 #'
 #' @noRd
-.RLumModel_RL <- function(
+.simulate_RL <- function(
   temp,
   dose,
   DoseRate,
@@ -118,13 +118,13 @@
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .RLumModel_ODE ,  rtol=1e-3, atol=1e-3, maxsteps=1e5);
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE ,  rtol=1e-3, atol=1e-3, maxsteps=1e5);
 
   ##============================================================================##
   # CALCULATING RESULTS FROM ODE SOLVING
   ##============================================================================##
 
-  signal <- .RLumModel_calcSignal(out = out, parameters = parameters.step)
+  signal <- .calc_Signal(out = out, parameters = parameters.step)
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
@@ -143,4 +143,3 @@
                   )))
 
 }
-
