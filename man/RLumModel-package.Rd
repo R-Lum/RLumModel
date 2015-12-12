@@ -2,7 +2,6 @@
 % Please edit documentation in R/RLumModel-package.R
 \docType{package}
 \name{RLumModel-package}
-\alias{RLumModel}
 \alias{RLumModel-package}
 \title{Modelling Ordinary Differential Equations Leading to Luminescence}
 \description{

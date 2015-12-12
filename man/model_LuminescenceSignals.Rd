@@ -29,9 +29,9 @@ process}
 \code{\link{plot.default}}. See details for further information}
 }
 \value{
-This function returns an RLum.Analysis object with all TL, (LM-) OSL and RF/RL steps
-in the sequence. Every entry is a RLum.Data.Curve obejct and can be plotted, analysed etc. with
-further RLum functions.
+This function returns an \code{RLum.Analysis} object with all TL, (LM-) OSL and RF/RL steps
+in the sequence. Every entry is a \code{RLum.Data.Curve} obejct and can be plotted, analysed etc. with
+further \code{RLum}-functions.
 }
 \description{
 This function models luminescence signals for quartz based on published physical models.
@@ -56,9 +56,6 @@ CH \tab cutheat \tab 'temp', 'duration' \cr
 PH  \tab preheat \tab 'temp', 'duration' \cr
 PAUSE \tab pause \tab 'temp', 'duration'
 }
-}
-\note{
-This function can do just nothing at the moment.
 }
 \section{Function version}{
  0.1.0
@@ -258,6 +255,6 @@ for quartz based on thermally transferred OSL (TT-OSL).
 Radiation Measurements 43, 704-708.
 }
 \seealso{
-\code{\link{plot}}
+\code{\link{plot}}, \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
 }
 

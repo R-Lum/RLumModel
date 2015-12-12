@@ -7,7 +7,6 @@
 #' \tab 0.1.0\cr Date: \tab 2016-XX-XX \cr License: \tab GPL-3\cr }
 #'
 #' @name RLumModel-package
-#' @aliases RLumModel-package RLumModel
 #' @docType package
 #' @author \bold{Authors}
 #'

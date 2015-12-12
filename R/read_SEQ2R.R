@@ -1,21 +1,25 @@
-#' Parse a Riso *.seq file to a sequence neccessary for quartz simulation
+#' Parse a Risoe SEQ-file to a sequence neccessary for simulating quartz luminescence
 #'
-#' A built *.seq file from the Riso sequence editor can be read to simulate the sequence written in the
-#' sequence editor
-#' We support the free available version 4.36.
-#' Available at: http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Software/SequenceEditor.ashx?la=da
+#' A SEQ-file created by the Risoe Sequence Editor can be imported to simulate the sequence written
+#' in the sequence editor.
 #'
-#' @param file \code{\link{character}} (\bold{required}): a *.seq file from the Riso sequence editor
+#' \bold{Supported versions}\cr
 #'
-#' @param lab.DoseRate\code{\link{character}} (with default): set the doserate of the radiation source
-#' in the laboratory [Gy/s]. With default: 1 Gy/s
+#' Supppored and tested: version 4.36.\cr
+#'
+#'
+#' @param file \code{\link{character}} (\bold{required}): a *.seq file created by the Risoe Sequene Editor
+#'
+#' @param lab.DoseRate \code{\link{character}} (with default): set the doserate of the radiation source
+#' in the laboratory [Gy/s]. Default: 1 Gy/s
+#'
+#' @param txtProgressBar \code{\link{logical}}: enables or disables the txtProgressBar
 #'
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information
 #'
-#' @return This function returns a list with the parsed *.seq file and the required steps for "model_LuminescenceSignals.R"
-#'
-#' @note This function can do just nothing at the moment.
+#' @return This function returns a list with the parsed *.seq file and the required steps for
+#' \code{\link{model_LuminescenceSignals}}
 #'
 #' @section Function version: 0.1.0
 #'
@@ -23,16 +27,16 @@
 #'
 #' @references
 #'
-#' Riso: Sequence Editor User Manual.
-#' Available at: http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/SequenceEditor.ashx?la=da)
+#' Risoo: Sequence Editor User Manual.
+#' Available at: \url{http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/SequenceEditor.ashx?la=da}
 #'
-#' @seealso \code{\link{plot}}
+#' @seealso \code{\link{plot}}, \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
 #'
 #' @examples
 #'
 #' #so far no example available
 #'
-#' @noRd
+#' @export
 read_SEQ2R <- function(
   file,
   lab.DoseRate = 1,

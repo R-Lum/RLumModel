@@ -1,8 +1,8 @@
-"x"
-"model"
-"sequence"
-"lab.DoseRate"
-"simulate_sample_history"
-"plot"
-"verbose"
-"dots"
+"model_LuminescenceSignals","read_SEQ2R"
+"model","file"
+"sequence","lab.DoseRate"
+"lab.DoseRate","txtProgressBar"
+"simulate_sample_history","dots"
+"plot",NA
+"verbose",NA
+"dots",NA
