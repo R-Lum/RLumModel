@@ -269,7 +269,11 @@ model_LuminescenceSignals <- function(
   #2 Check sequence
   if(is(sequence,"character")){
 
-      sequence <- read_SEQ2R(file = sequence, lab.DoseRate = lab.DoseRate)
+    sequence <- read_SEQ2R(
+      file = sequence,
+      lab.DoseRate = lab.DoseRate,
+      txtProgressBar = ifelse(verbose, TRUE, FALSE)
+    )
 
   }
 
@@ -393,14 +397,20 @@ model_LuminescenceSignals <- function(
 # sequence ------------------------------------------------------------------------------------
 
   #sequence, n and parms as arguments for the SequenceTranslator, who translates the sequence to different model steps
-  model.output <- .translate_Sequence(sequence = sequence, n = n, parms = parms)
+    model.output <-
+      .translate_Sequence(
+        sequence = sequence,
+        n = n,
+        parms = parms,
+        txtProgressBar = ifelse(verbose, TRUE, FALSE)
+      )
 
 
 # Plot settings -------------------------------------------------------------------------------
 
   if(plot){
 
-    plot_RLum(model.output)
+    plot_RLum(model.output, ...)
   }
 
 
