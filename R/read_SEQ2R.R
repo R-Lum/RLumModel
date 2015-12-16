@@ -27,7 +27,7 @@
 #'
 #' @references
 #'
-#' Risoo: Sequence Editor User Manual.
+#' Riso: Sequence Editor User Manual.
 #' Available at: \url{http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/SequenceEditor.ashx?la=da}
 #'
 #' @seealso \code{\link{plot}}, \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
@@ -72,11 +72,12 @@ data.list <- lapply(1:length(records.row_number), function(x) {
 
 })
 
-##terminal output fo MC
-cat("\n [read_SEQ2R()] \n\t Parse *.seq file to sequence for RLumModel\n")
+##terminal output
+# cat("\n [read_SEQ2R()] \n\t Parse *.seq file to sequence for RLumModel\n")
 
 ##PROGRESS BAR
 if(txtProgressBar){
+  cat("\n [read_SEQ2R()] \n\t Parse *.seq file to sequence for RLumModel\n")
   pb <- txtProgressBar(min=0,max=length(data.list), char = "=", style=3)
 }
 

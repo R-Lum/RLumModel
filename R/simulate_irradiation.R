@@ -41,12 +41,11 @@
   temp,
   dose,
   DoseRate,
-  n ,
+  n,
   parms,
   ...
 
 ){
-
 
   if(!exists("parms")){
     stop("\n No parameters had been loaded!")
@@ -76,7 +75,7 @@
   ##============================================================================##
   # SETTING PARAMETERS FOR IRRADIATION
   #
-  # R: electron-hole-production-rate (in Bailey 2004: 2.5e10, else: 5e7)
+  # R: electron-hole-production-rate (in Bailey 2004: 2.5e10, Bailey 2002: 3e10, else: 5e7)
   # P: Photonflux (in Bailey 2004: wavelength [nm])
   # b: heating rate [°C/s]
   ##============================================================================##
@@ -108,7 +107,7 @@
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
-
+# print(out[length(times),-1])
   return(set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1],

@@ -39,7 +39,7 @@
 .simulate_heating <- function(
   temp_begin,
   temp_end,
-  b,
+  heating_rate,
   n,
   parms,
   ...
@@ -54,7 +54,7 @@
   }
 
   ##1. check if heatingrate has the rigth algebraic sign
-  if((temp_begin < temp_end && b < 0)||(temp_begin > temp_end & b > 0)){
+  if((temp_begin < temp_end && heating_rate < 0)||(temp_begin > temp_end & heating_rate > 0)){
     stop("\n Heatingrate has the wrong algebraic sign!")
   }
 
@@ -68,6 +68,7 @@
 
   R <- 0
   P <- 0
+  b <- heating_rate
 
   ##============================================================================##
   # SETTING PARAMETERS FOR ODE

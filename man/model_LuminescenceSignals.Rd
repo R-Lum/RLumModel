@@ -113,8 +113,9 @@ sequence <-
    RF = c(20, 200, 0.01)
 )
 
-# call function "model_LuminescenceSignals", set sequence = sequence, model = "Pagonis2008" (palaeodose = 200 Gy)
-# and simulate_sample_history = FALSE (default), because the sample history is not part of the sequence
+# call function "model_LuminescenceSignals", set sequence = sequence,
+# model = "Pagonis2008" (palaeodose = 200 Gy) and simulate_sample_history = FALSE (default),
+# because the sample history is not part of the sequence
 
 model.output <- model_LuminescenceSignals(
    sequence = sequence,
@@ -143,8 +144,9 @@ sequence <- list(
  OSL_temp = 125,
  OSL_duration = 70)
 
-# call function "model_LuminescenceSignals", set sequence = sequence, model = "Pagonis2007" (palaeodose = 20 Gy)
-# and simulate_sample_history = FALSE (default), because the sample history is not part of the sequence
+# call function "model_LuminescenceSignals", set sequence = sequence,
+# model = "Pagonis2007" (palaeodose = 20 Gy) and simulate_sample_history = FALSE (default),
+# because the sample history is not part of the sequence
 
  model.output <- model_LuminescenceSignals(
 
@@ -153,7 +155,8 @@ sequence <- list(
  plot = FALSE
  )
 
-# in environment is a new object "model.output" with the results of every step of the given sequence.
+# in environment is a new object "model.output" with the results of
+# every step of the given sequence.
 # Plots are done at OSL and TL steps and the growth curve
 
 # call "analyse_SAR.CWOSL" from RLum package
@@ -170,8 +173,10 @@ sequence <- list(
 ## Example 4: generate sequence from *.seq file and run SAR simulation
 ##============================================================================##
 
-## call function "model_LuminescenceSignals", load *.seq file for sequence, set model = "Bailey2002" (palaeodose = 10 Gy)
-## and simulate_sample_history = FALSE (default), because the sample history is not part of the sequence
+# call function "model_LuminescenceSignals", load *.seq file for sequence,
+# set model = "Bailey2002" (palaeodose = 10 Gy)
+# and simulate_sample_history = FALSE (default),
+# because the sample history is not part of the sequence
 
 model.output <- model_LuminescenceSignals(
   sequence = "inst/extdata/sample_SAR_cycle.SEQ",
@@ -197,9 +202,10 @@ print(get_RLum(results))
 ## Example 5: compare different optical powers of stimulation light
 ##============================================================================##
 
-## call function "model_LuminescenceSignals", model = "Bailey2004"
-## and simulate_sample_history = FALSE (default), because the sample history is not part of the sequence
-## the optical_power of the LED is varied and then compared.
+# call function "model_LuminescenceSignals", model = "Bailey2004"
+# and simulate_sample_history = FALSE (default),
+# because the sample history is not part of the sequence
+# the optical_power of the LED is varied and then compared.
 
 optical_power <- seq(from = 0,to = 100,by = 20)
 

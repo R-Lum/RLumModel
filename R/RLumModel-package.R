@@ -47,3 +47,32 @@
 #'
 #' @import Luminescence deSolve
 NULL
+
+
+#' A data set containing a TL curve simulated from Bailey 2001 (see fig. 1)
+#'
+#' @format RLum.Analysis object
+#'
+#' @section Version: 0.1
+#' @references
+#'
+#' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
+#' luminescence of quartz. Radiation Measurements 33, 17-45.
+#'
+#' @source \bold{model_LuminescenceSignals()}
+#'
+#' @note This example has only one record (TL). The used sequence was
+#' sequence <- list(IRR = c(temp = 20, dose = 10, DoseRate = 1),
+#'                  TL = c(temp_begin = 20, temp_end = 400, heating_rate = 5))
+#'
+#' @keywords datasets
+#' @docType data
+#' @aliases model.output
+#' @usage data(ExampleData.ModelOutput)
+#' @examples
+#'
+#' data(ExampleData.ModelOutput,envir = environment())
+#' plot_RLum.Analysis(model.output)
+#'
+#' @name ExampleData.ModelOutput
+NULL

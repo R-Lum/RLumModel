@@ -59,8 +59,7 @@
 ){
 
   temp.list <- list()
-  sequence <- list(PH = c(240,40),
-                   ILL = c(125,400,100),
+  sequence <- list(ILL = c(125,70,100),
                    IRR = c(Irr_temp,Irr_2recover,DoseRate))
 
   for (i in 1:length(RegDose)){

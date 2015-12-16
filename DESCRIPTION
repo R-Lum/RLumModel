@@ -17,7 +17,7 @@ Description: A collection of function to simulate luminescence signals in the
 Contact: Package Developer Team <developer@model.r-luminescence.de>
 License: GPL-3
 Depends:
-    R (>= 3.2.2),
+    R (>= 3.2.3),
     utils,
     Luminescence (>= 0.5.0)
 Imports:
@@ -27,6 +27,7 @@ Collate:
   RLumModel-package.R
   calc_Signal.R
   model_LuminescenceSignals.R
+  plot_concentrations.R
   read_SEQ2R.R
   set_ODE.R
   set_ODE_LM_OSL.R
@@ -43,3 +44,4 @@ Collate:
   simulate_pause.R
   translate_Sequence.R
 RoxygenNote: 5.0.1
+Suggests: testthat
