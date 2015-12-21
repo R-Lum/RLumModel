@@ -5,13 +5,13 @@
 \title{Plot concentrations of electrones respectively holes of all levels from a
 energy-band-model against time.}
 \usage{
-plot_concentrations(object, sequence.step, ...)
+plot_concentrations(object, record.step, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):  S4
 object of class \code{RLum.Analysis}, e.g. the values of \code{\link{model_LuminescenceSignals}}.}
 
-\item{sequence.step}{\code{\link{numeric}} (\bold{required}): step of the simulated sequence which
+\item{record.step}{\code{\link{numeric}} (\bold{required}): step of the simulated record which
 is to plot.}
 
 \item{\dots}{further arguments and graphical parameters passed to
@@ -34,19 +34,19 @@ The function produces a multiple plot output and uses in main parts the Luminesc
 }
 \examples{
 
-###load data
+##load data
 data(ExampleData.ModelOutput, envir = environment())
 
 ##plot all concentrations
-plot_concentrations(object = model.output, sequence.step = 1)
+plot_concentrations(object = model.output, record.step = 1)
 
 ##plot only specific energy-band-level (e.g. 110 degree celsius trap, "concentration level 1")#'
 plot_concentrations(object = model.output,
-                    sequence.step = 1,
+                    record.step = 1,
                     subset = list(recordType = "concentration level 1"))
 
 ##plot every level on a single plot
-plot_concentrations(object = model.output, sequence.step = 1, plot.single = TRUE)
+plot_concentrations(object = model.output, record.step = 1, plot.single = TRUE)
 
 }
 \author{

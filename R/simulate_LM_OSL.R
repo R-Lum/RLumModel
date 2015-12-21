@@ -119,10 +119,11 @@
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
 
-  return(set_RLum(class = "RLum.Results",
+  return(Luminescence::set_RLum(
+                  class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1],
-                    LM_OSL.data = set_RLum(
+                    LM_OSL.data = Luminescence::set_RLum(
                       class = "RLum.Data.Curve",
                       data = matrix(data = c(times[2:length(times)], signal[2:length(signal)]),ncol = 2),
                       recordType = "LM-OSL",

@@ -4,24 +4,18 @@
 \name{ExampleData.ModelOutput}
 \alias{ExampleData.ModelOutput}
 \alias{model.output}
-\title{A data set containing a TL curve simulated from Bailey 2001 (see fig. 1)}
-\format{RLum.Analysis object}
+\title{Example data (TL curve) simulated from Bailey (2001 ,fig. 1)}
+\format{A RLum.Analysis object containing one TL curve as RLum.Data.Curve.}
 \source{
 \bold{model_LuminescenceSignals()}
 }
-\usage{
-data(ExampleData.ModelOutput)
-}
 \description{
-A data set containing a TL curve simulated from Bailey 2001 (see fig. 1)
+Example data (TL curve) simulated from Bailey (2001 ,fig. 1)
 }
 \note{
 This example has only one record (TL). The used sequence was
 sequence <- list(IRR = c(temp = 20, dose = 10, DoseRate = 1),
                  TL = c(temp_begin = 20, temp_end = 400, heating_rate = 5))
-}
-\section{Version}{
- 0.1
 }
 \examples{
 

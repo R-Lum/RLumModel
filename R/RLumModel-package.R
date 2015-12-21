@@ -49,11 +49,10 @@
 NULL
 
 
-#' A data set containing a TL curve simulated from Bailey 2001 (see fig. 1)
+#' Example data (TL curve) simulated from Bailey (2001 ,fig. 1)
 #'
-#' @format RLum.Analysis object
+#' @format A RLum.Analysis object containing one TL curve as RLum.Data.Curve.
 #'
-#' @section Version: 0.1
 #' @references
 #'
 #' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
@@ -68,7 +67,6 @@ NULL
 #' @keywords datasets
 #' @docType data
 #' @aliases model.output
-#' @usage data(ExampleData.ModelOutput)
 #' @examples
 #'
 #' data(ExampleData.ModelOutput,envir = environment())

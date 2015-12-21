@@ -393,7 +393,10 @@ model_LuminescenceSignals <- function(
 
     parms <- .set_Pars(model)
     if(simulate_sample_history == TRUE){
-      n <- set_RLum(class = "RLum.Results", data = list(n = rep(0,length(parms$N)+2), temp = 20, model = model))
+      n <- Luminescence::set_RLum(class = "RLum.Results",
+                                  data = list(n = rep(0,length(parms$N)+2),
+                                              temp = 20,
+                                              model = model))
     }
     else{
       n <- parms$n
@@ -417,7 +420,7 @@ model_LuminescenceSignals <- function(
 
   if(plot){
 
-    plot_RLum(model.output, ...)
+    Luminescence::plot_RLum(model.output, ...)
   }
 
 # return model.output -------------------------------------------------------------------------

@@ -118,16 +118,16 @@
     ))
   })
 
-  concentrations <- as(concentrations, Class = "RLum.Analysis")
+  concentrations <- as(object = concentrations, Class = "RLum.Analysis")
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
 
-  return(set_RLum(class = "RLum.Results",
+  return(Luminescence::set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1] ,
-                    CW_OSL.data = set_RLum(
+                    CW_OSL.data = Luminescence::set_RLum(
                       class = "RLum.Data.Curve",
                       data = matrix(data = c(times, signal),ncol = 2),
                       recordType = "OSL",

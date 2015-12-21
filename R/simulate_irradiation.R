@@ -108,7 +108,7 @@
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
 # print(out[length(times),-1])
-  return(set_RLum(class = "RLum.Results",
+  return(Luminescence::set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1],
                     temp = temp

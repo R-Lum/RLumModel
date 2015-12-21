@@ -114,10 +114,10 @@
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
 
-  return(set_RLum(class = "RLum.Results",
+  return(Luminescence::set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1],
-                    TL.data = set_RLum(
+                    TL.data = Luminescence::set_RLum(
                       class = "RLum.Data.Curve",
                       data = matrix(data = c(TSkala, signal),ncol = 2),
                       recordType = "TL",
