@@ -1,6 +1,6 @@
 context("model_LuminescenceSignals")
 
-test_that("Models are models available",{
+test_that("Chosen model is available",{
   expect_error(model_LuminescenceSignals(sequence = list(OSL = c(20,1,100))),"argument \"model\" is missing")
   expect_error(model_LuminescenceSignals(model = "Bailey2001"),"argument \"sequence\" is missing")
 
