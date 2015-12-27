@@ -15,11 +15,12 @@
 #' \bold{Abrivation} \tab \code{Description} \tab \code{Arguments}\cr
 #' TL \tab thermally stimulated luminescence \tab 'temp begin', 'temp end', 'heating rate'\cr
 #' OSL\tab optically stimulated luminescence \tab 'temp', 'duration','optical power'\cr
-#' LM_OSL\tab linear modulated OSL \tab 'temp', 'duration'\cr
-#' RL/RF\tab radioluminescence\tab 'temp','dose', 'doserate' \cr
-#' IRR\tab irradiation \tab 'temp','dose', 'doserate' \cr
-#' CH \tab cutheat \tab 'temp', 'duration' \cr
-#' PH  \tab preheat \tab 'temp', 'duration' \cr
+#' ILL\tab illumination \tab 'temp', 'duration','optical power'\cr
+#' LM_OSL\tab linear modulated OSL \tab 'temp', 'duration', optional: 'start_power', 'end_power'\cr
+#' RL/RF\tab radioluminescence\tab 'temp','dose', 'DoseRate' \cr
+#' IRR\tab irradiation \tab 'temp','dose', 'DoseRate' \cr
+#' CH \tab cutheat \tab 'temp', optional: 'duration', 'heating_rate' \cr
+#' PH  \tab preheat \tab 'temp', 'duration' optional: 'heating_rate' \cr
 #' PAUSE \tab pause \tab 'temp', 'duration'
 #' }
 #'
@@ -29,7 +30,8 @@
 #' CH: \code{\link{numeric}}, OSL_temp: \code{\link{numeric}}. With default are: DoseRate: \code{\link{numeric}},
 #' Irr_temp: \code{\link{numeric}}, optical_power: \code{\link{numeric}}, OSL_duration: \code{\link{numeric}}, PH_duration: \code{\link{numeric}}
 #'
-#' @param model \code{\link{character}} (\bold{required}): set model to be used
+#' @param model \code{\link{character}} (\bold{required}): set model to be used. Available models are:
+#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"
 #'
 #' @param lab.DoseRate \code{\link{numeric}} (with default): laboratory dose rate in XXX Gy/s for calculating seconds into Gray in the *.seq file.
 #'
@@ -40,11 +42,14 @@
 #'
 #' @param verbose \code{\link{logical}} (with default): Verbose mode on/off
 #'
+#' @param show.structure \code{\link{logical}} (with default): Shows the structure of the result.
+#' Recommended to show record.id to analyse with \code{\link{plot_concentrations}}.
+#'
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information
 #'
-#' @return This function returns an \code{RLum.Analysis} object with all TL, (LM-) OSL and RF/RL steps
-#' in the sequence. Every entry is a \code{RLum.Data.Curve} obejct and can be plotted, analysed etc. with
+#' @return This function returns an \code{\linkS4class{RLum.Analysis}} object with all TL, (LM-) OSL and RF/RL steps
+#' in the sequence. Every entry is an \code{\linkS4class{RLum.Analysis}} object and can be plotted, analysed etc. with
 #' further \code{RLum}-functions.
 #'
 #' @section Function version: 0.1.0
@@ -72,7 +77,10 @@
 #' for quartz based on thermally transferred OSL (TT-OSL).
 #' Radiation Measurements 43, 704-708.
 #'
-#' @seealso \code{\link{plot}}, \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
+#' Soetaert, K., Cash, J., Mazzia, F., 2012. Solving differential equations in R.
+#' Springer Science & Business Media.
+#'
+#' @seealso \code{\link{plot}}, \code{\linkS4class{RLum}}, \code{\link{plot_concentrations}}
 #'
 #' @examples
 #'
@@ -95,6 +103,7 @@
 #' model.output <- model_LuminescenceSignals(
 #'   sequence = sequence,
 #'   model = "Bailey2001",
+#'   show.structure = TRUE
 #' )
 #'
 #' \dontrun{
@@ -204,8 +213,8 @@
 #' results <- analyse_SAR.CWOSL(model.output,
 #'                              signal.integral.min = 1,
 #'                              signal.integral.max = 10,
-#'                              background.integral.min = 601,
-#'                              background.integral.max = 701,
+#'                              background.integral.min = 301,
+#'                              background.integral.max = 401,
 #'                              dose.points = c(0,5,10,20,50,5,0),
 #'                              fit.method = "EXP")
 #'
@@ -258,13 +267,14 @@ model_LuminescenceSignals <- function(
   simulate_sample_history = FALSE,
   plot = TRUE,
   verbose = TRUE,
+  show.structure = FALSE,
   ...
 ) {
 
 
 # Integrity tests and conversion --------------------------------------------------------------
 
-  #1 Check if model is supported
+  #Check if model is supported
   model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002")
 
   if(!model%in%model.allowed_keywords){
@@ -272,7 +282,7 @@ model_LuminescenceSignals <- function(
 
   }
 
-  #2 Check sequence
+  #Check sequence
   if(is(sequence,"character")){
 
     sequence <- read_SEQ2R(
@@ -289,7 +299,7 @@ model_LuminescenceSignals <- function(
       stop("[model_LuminescenceSignals()] Sequence comprises non-numeric arguments!")
     }
 
-    if("RegDose"%in%names(sequence)){# test if .simulate_SAR.sequence is requiered
+    if("RegDose"%in%names(sequence)){# test if .create_SAR.sequence is requiered
 
       RegDose = sequence$RegDose
       TestDose = sequence$TestDose
@@ -330,7 +340,7 @@ model_LuminescenceSignals <- function(
 
       if(!"Irr_2recover"%in%names(sequence)){# SAR sequence
 
-      sequence <- .simulate_SAR.sequence(
+      sequence <- .create_SAR.sequence(
         RegDose = RegDose,
         TestDose = TestDose,
         PH = PH,
@@ -344,7 +354,7 @@ model_LuminescenceSignals <- function(
       )}
       else{# DRT sequence
 
-        sequence <- .simulate_DRT.sequence(
+        sequence <- .create_DRT.sequence(
           RegDose = RegDose,
           TestDose = TestDose,
           PH = PH,
@@ -397,8 +407,7 @@ model_LuminescenceSignals <- function(
                                   data = list(n = rep(0,length(parms$N)+2),
                                               temp = 20,
                                               model = model))
-    }
-    else{
+    } else {
       n <- parms$n
     }
 
@@ -421,6 +430,13 @@ model_LuminescenceSignals <- function(
   if(plot){
 
     Luminescence::plot_RLum(model.output, ...)
+  }
+
+# model.output structure --------------------------------------------------
+
+  if(show.structure){
+    cat("[model_LuminescenceSignals()] \n\t>> Structure of output from 'model_LuminescenceSignals()' \n\n")
+    print(Luminescence::structure_RLum(model.output))
   }
 
 # return model.output -------------------------------------------------------------------------

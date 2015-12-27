@@ -6,10 +6,12 @@
 #'
 #' @param duration \code{\link{numeric}} (\bold{required}): duration of the illumination simulation
 #'
-#' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
-#' from step before
+#' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
+#' concentration of electron-/holetraps, valence- and conduction band
+#' from step before. This is necessary to get the boundary condition for the ODEs.
 #'
-#' @param parms \code{\link{Rlum.Results object}} (\bold{required}):
+#' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
+#' numerical quartz luminescence results.
 #'
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information
@@ -40,18 +42,30 @@
   ...
 ){
 
-  ##check if object is of class RLum.Data.Curve
+# check input arguments ---------------------------------------------------
+
+  ##check if temperature is > 0 K (-273 degree celsius)
+  if(temp < -273){
+    stop("\n [.simulate_illumination()] Argument 'temp' has to be > 0 K!")
+  }
+  ##check if duration is a positive number
+  if(duration < 0){
+    stop("\n [.simulate_illumination()] Argument 'duration' has to be a positive number!")
+  }
+
+  ##check if optical_power is a positive number
+  if(optical_power < 0){
+    stop("\n [.simulate_illumination()] Argument 'optical_power' has to be a positive number!")
+  }
+
+  ##check if n is a RLum object
   if(class(n) != "RLum.Results"){
     n <- n
-  }
-  else{
+  } else {
     n <- n$n
   }
 
-  ##2. check if duration is a positive number
-  if(duration < 0){
-    stop("\n Duration has to be an positive number!")
-  }
+# Set parameters for ODE ---------------------------------------------------
 
   ##============================================================================##
   # SETTING PARAMETERS FOR ILLUMINATION

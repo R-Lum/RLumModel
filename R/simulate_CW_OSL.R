@@ -8,13 +8,12 @@
 #'
 #' @param optical_power \code{\link{numeric}} (\bold{with default}): optical power in % of full power of the LED
 #'
-#' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
-#' from step before
+#' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
+#' concentration of electron-/holetraps, valence- and conduction band
+#' from step before. This is necessary to get the boundary condition for the ODEs.
 #'
-#' @param parms \code{\link{Rlum.Results object}} (\bold{required}):
-#'
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}}. See details for further information
+#' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
+#' numerical quartz luminescence results.
 #'
 #' @return This function returns an Rlum.Results object from the CW-OSL simulation.
 #'
@@ -29,7 +28,22 @@
 #' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
 #' luminescence of quartz. Radiation Measurements 33, 17-45.
 #'
-#' @seealso \code{\link{plot}}
+#' Bailey, R.M., 2002. Simulations of variability in the luminescence characteristics of natural
+#' quartz and its implications for estimates of absorbed dose.
+#' Radiation Protection Dosimetry 100, 33-38.
+#'
+#' Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
+#' and it simplications for the precision and accuracy of optical dating.
+#' Radiation Measurements 38, 299-310.
+#'
+#' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
+#' stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
+#'
+#' Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
+#' for quartz based on thermally transferred OSL (TT-OSL).
+#' Radiation Measurements 43, 704-708.
+#'
+#' @seealso \code{\link{simualte_illumination}}
 #'
 #' @examples
 #'
@@ -41,22 +55,33 @@
   duration,
   optical_power = 100,
   n,
-  parms,
-  ...
+  parms
 ){
 
-  ##check if object is of class RLum.Data.Curve
+# check input arguments ---------------------------------------------------
+
+  ##check if temperature is > 0 K (-273 degree celsius)
+  if(temp < -273){
+    stop("\n [.simulate_CW_OSL()] Argument 'temp' has to be > 0 K!")
+  }
+  ##check if duration is a positive number
+  if(duration < 0){
+    stop("\n [.simulate_CW_OSL()] Argument 'duration' has to be a positive number!")
+  }
+
+  ##check if optical_power is a positive number
+  if(optical_power < 0){
+    stop("\n [.simulate_CW_OSL()] Argument 'optical_power' has to be a positive number!")
+  }
+
+  ##check if n is a RLum object
   if(class(n) != "RLum.Results"){
     n <- n
-  }
-  else{
+  } else {
     n <- n$n
   }
 
-  ##1. check if duration is a positive number
-  if(duration < 0){
-    stop("\n Duration has to be an positive number!")
-  }
+# Set parameters for ODE ---------------------------------------------------
 
   ##============================================================================##
   # SETTING PARAMETERS FOR ILLUMINATION
@@ -93,7 +118,7 @@
   # CALCULATING RESULTS FROM ODE SOLVING
   ##============================================================================##
 
-  signal <- .calc_Signal(out = out, parameters = parameters.step)
+  signal <- .calc_Signal(object = out, parameters = parameters.step)
 
   ##============================================================================##
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING

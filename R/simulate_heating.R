@@ -6,12 +6,14 @@
 #'
 #' @param temp_begin \code{\link{numeric}} (\bold{required}): endtemperature [°C] of the TL-simulation
 #'
-#' @param b \code{\link{numeric}} (\bold{required}): heatingrate in [°C/s] or [K/s]
+#' @param heating_rate \code{\link{numeric}} (\bold{required}): heatingrate in [°C/s] or [K/s]
 #'
-#' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
-#' from step before
+#' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
+#' concentration of electron-/holetraps, valence- and conduction band
+#' from step before. This is necessary to get the boundary condition for the ODEs.
 #'
-#' @param parms \code{\link{Rlum.Results object}} (\bold{required}):
+#' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
+#' numerical quartz luminescence results.
 #'
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information
@@ -29,7 +31,7 @@
 #' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
 #' luminescence of quartz. Radiation Measurements 33, 17-45.
 #'
-#' @seealso \code{\link{plot}}
+#' @seealso \code{\link{simulate_TL}}
 #'
 #' @examples
 #'
@@ -41,22 +43,29 @@
   temp_end,
   heating_rate,
   n,
-  parms,
-  ...
+  parms
 ){
+
+# check input arguments ---------------------------------------------------
+
+  ##check if heatingrate has the rigth algebraic sign
+  if((temp_begin < temp_end && heating_rate < 0)||(temp_begin > temp_end & heating_rate > 0)){
+    stop("\n [.simulate_heating()] Heatingrate has the wrong algebraic sign!")
+  }
+
+  ##check if temperature is > 0 K (-273 degree celsius)
+  if(temp_begin < -273 ||temp_end < -273){
+    stop("\n [.simulate_heating()] Argument 'temp' has to be > 0 K!")
+  }
 
   ##check if object is of class RLum.Results
   if(class(n) != "RLum.Results"){
     n <- n
-  }
-  else{
+  } else {
     n <- n$n
   }
 
-  ##1. check if heatingrate has the rigth algebraic sign
-  if((temp_begin < temp_end && heating_rate < 0)||(temp_begin > temp_end & heating_rate > 0)){
-    stop("\n Heatingrate has the wrong algebraic sign!")
-  }
+# Set parameters for ODE ---------------------------------------------------
 
   ##============================================================================##
   # SETTING PARAMETERS FOR HEATING

@@ -1,15 +1,58 @@
 #' Set parameters for different quartz luminescence models
 #'
-#' @param model \code{\link{character}} (\bold{required}): set model to be used
+#' This function provides all necessary model parameters to the calculation of the ODEs.
+#'
+#' The common model parameters are:
+#'
+#' \bold{N}: concentrations of electron/hole traps [cm^(-3)]
+#' \bold{E}: depth of the electron/hole trap [eV]
+#' \bold{s}: frequency factor [s^(-1)]
+#' \bold{A}: conduction band to electron/hole trap transition probability [s^(-1)]
+#' \bold{B}: valence band to hole trap transition probability [s^(-1)]
+#' \bold{Th}: photo-ionisation cross-section [s^(-1)]
+#' \bold{E_th}: `thermal assistance' energy [eV]
+#' \bold{n}: concentrations of electron/hole traps after sample history [cm^(-3)]
+#'
+#' @note \bold{n} are the saved concentrations of the last step of the sample history
+#' of the used model. They will be loaded, if 'simulate_sample_history = FALSE' in
+#' \code{\link{model_LuminescenceSignals}} is chosen.
+#'
+#'
+#' @param model \code{\link{character}} (\bold{required}): set model to be used. Available models are:
+#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"
 #'
 #' @return This function returns an RLum.Results object with all neccessary parameters for
 #' the used model.
 #'
-#' @note This function can do just nothing at the moment.
+#' @note The order of the energy-band-levels is sometimes in an different order than in the original model. This was necessary, because
+#' in the simulations the luminescence center always has to be the second to the last entry in every parameter. Another reason
+#' was the clear division between electron traps and hole centers.
+#' When a user wants to create his/her own parameter sets he/she only has to take care that the luminescence center is the second to last
+#' entry in every vector.
 #'
 #' @section Function version: 0.1.0
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
+#'
+#' @references
+#'
+#' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
+#' luminescence of quartz. Radiation Measurements 33, 17-45.
+#'
+#' Bailey, R.M., 2002. Simulations of variability in the luminescence characteristics of natural
+#' quartz and its implications for estimates of absorbed dose.
+#' Radiation Protection Dosimetry 100, 33-38.
+#'
+#' Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
+#' and it simplications for the precision and accuracy of optical dating.
+#' Radiation Measurements 38, 299-310.
+#'
+#' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
+#' stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
+#'
+#' Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
+#' for quartz based on thermally transferred OSL (TT-OSL).
+#' Radiation Measurements 43, 704-708.
 #'
 #' @examples
 #'
@@ -17,6 +60,15 @@
 #'
 #' @noRd
 .set_Pars <- function(model){
+
+# check input arguments ---------------------------------------------------
+
+  #Check if model is supported
+  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002")
+
+  if(!model%in%model.allowed_keywords){
+    stop(paste0("[.set_Pars()] Model not supported. Supported models are: ", paste(model.allowed_keywords, collapse = ", ")))
+  }
 
   ##============================================================================##
   ## natural constants
@@ -30,19 +82,6 @@
 
   # dimensionless constant (for Details see Wintle (1975))
   K <- 2.8e7
-
-  ##============================================================================##
-  ## Model parameters
-  ##
-  ## N: concentrations of electron/hole traps [cm^(-3)]
-  ## E: depth of the electron/hole trap [eV]
-  ## s: frequency factor [s^(-1)]
-  ## A: conduction band to electron/hole trap transition probability [s^(-1)]
-  ## B: valence band to hole trap transition probability [s^(-1)]
-  ## Th: photo-ionisation cross-section [s^(-1)]
-  ## E_th: `thermal assistance' energy [eV]
-  ## n: concentrations of electron/hole traps after sample history [cm^(-3)]
-  ##============================================================================##
 
   parameter.list = list(
 

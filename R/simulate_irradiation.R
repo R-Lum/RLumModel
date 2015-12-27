@@ -6,16 +6,14 @@
 #'
 #' @param dose \code{\link{numeric}} (\bold{required}): dose to apply in Gray
 #'
-#' @param DoseRate \code{\link{numeric}} (\bold{required}): named list with model parameters. Note:
-#' not every parameter apply to every model, see details for further information
+#' @param DoseRate \code{\link{numeric}} (\bold{required}): Doserate in Gy/s
 #'
-#' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
-#' from step before
+#' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
+#' concentration of electron-/holetraps, valence- and conduction band
+#' from step before. This is necessary to get the boundary condition for the ODEs.
 #'
-#' @param parms \code{\link{Rlum.Results object}} (\bold{required}):
-#'
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}}. See details for further information
+#' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
+#' numerical quartz luminescence results.
 #'
 #' @return This function returns an Rlum.Results object.
 #'
@@ -30,7 +28,7 @@
 #' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
 #' luminescence of quartz. Radiation Measurements 33, 17-45.
 #'
-#' @seealso \code{\link{plot}}
+#' @seealso \code{\link{model_LuminescenceSignals}}, \code{\link{simulate_RL}}
 #'
 #' @examples
 #'
@@ -42,35 +40,33 @@
   dose,
   DoseRate,
   n,
-  parms,
-  ...
-
+  parms
 ){
 
-  if(!exists("parms")){
-    stop("\n No parameters had been loaded!")
+# check input arguments ---------------------------------------------------
+
+  ##check if temperature is > 0 K (-273 degree celsius)
+  if(temp < -273){
+    stop("\n [.simulate_irradiation()] Argument 'temp' has to be > 0 K!")
+  }
+  ##check if doserate is a positive number
+  if(DoseRate < 0){
+    stop("\n [.simulate_irradiation()] Argument 'DoseRate' has to be a positive number!")
   }
 
+  ##check if dose is a positive number
+  if(dose < 0){
+    stop("\n [.simulate_irradiation()] Argument 'dose' has to be a positive number!")
+  }
 
-  ##1. check if n is a RLum object
+  ##check if n is a RLum object
   if(class(n) != "RLum.Results"){
     n <- n
-  }
-  else{
+  } else {
     n <- n$n
   }
 
-  ##2. check if doserate is a positive number
-  if(DoseRate < 0){
-    stop("\n Doserate has to be an positive number!")
-  }
-
-  ##3. check if dose is a positive number
-  if(dose < 0){
-    stop("\n Dose has to be an positive number!")
-  }
-
-
+# Set parameters for ODE ---------------------------------------------------
 
   ##============================================================================##
   # SETTING PARAMETERS FOR IRRADIATION

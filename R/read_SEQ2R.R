@@ -8,15 +8,13 @@
 #' Supppored and tested: version 4.36.\cr
 #'
 #'
-#' @param file \code{\link{character}} (\bold{required}): a *.seq file created by the Risoe Sequene Editor
+#' @param file \code{\link{character}} (\bold{required}): a *.seq file created by the Risoe Sequence Editor
 #'
 #' @param lab.DoseRate \code{\link{character}} (with default): set the doserate of the radiation source
 #' in the laboratory [Gy/s]. Default: 1 Gy/s
 #'
-#' @param txtProgressBar \code{\link{logical}}: enables or disables the txtProgressBar
-#'
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}}. See details for further information
+#' @param txtProgressBar \code{\link{logical}} (with default): enables or disables the txtProgressBar for a visuell
+#' control of the progress. Default: txtProgressBar = TRUE
 #'
 #' @return This function returns a list with the parsed *.seq file and the required steps for
 #' \code{\link{model_LuminescenceSignals}}
@@ -28,13 +26,17 @@
 #' @references
 #'
 #' Riso: Sequence Editor User Manual.
-#' Available at: \url{http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/SequenceEditor.ashx?la=da}
+#' Available at: \url{http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter
+#' %20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/
+#' SequenceEditor.ashx?la=da}
 #'
-#' @seealso \code{\link{plot}}, \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
+#' @seealso \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
 #'
 #' @examples
 #'
-#' #so far no example available
+#' path <- system.file("extdata", "sample_SAR_cycle.SEQ", package="RLumModel")
+#'
+#' sequence <- read_SEQ2R(file = path)
 #'
 #' @export
 read_SEQ2R <- function(
@@ -43,11 +45,23 @@ read_SEQ2R <- function(
   txtProgressBar = TRUE
 ){
 
+# Integrity tests and conversion --------------------------------------------------------------
+
+if(class(file)!= "character"){
+  stop("[read_SEQ2R()] class of file has to be a character.")
+}
 
 if(!file.exists(file)){
   stop("[read_SEQ2R()] file name doesn't seem to exist.")
-
 }
+
+if(lab.DoseRate < 0){
+  stop("[read_SEQ2R()] Argument 'lab.DoseRate' has to be positiv.")
+}
+
+
+# parse *.SEQ file --------------------------------------------------------
+
 
 file2read <- readLines(file, encoding = "UTF-8")
 
@@ -72,9 +86,6 @@ data.list <- lapply(1:length(records.row_number), function(x) {
 
 })
 
-##terminal output
-# cat("\n [read_SEQ2R()] \n\t Parse *.seq file to sequence for RLumModel\n")
-
 ##PROGRESS BAR
 if(txtProgressBar){
   cat("\n [read_SEQ2R()] \n\t Parse *.seq file to sequence for RLumModel\n")
@@ -91,7 +102,7 @@ for(x in 1:length(data.list)){
   #identify ID with sequence step
   if(sequence.ID >= 1 && sequence.ID <=5){
 
-    stop(paste("Step ",x," of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," of your sequence is not supported!", sep = ""))
   }
 
   if(sequence.ID == 6){#TL
@@ -129,12 +140,12 @@ for(x in 1:length(data.list)){
   }
   if(sequence.ID == 8){#TOL
 
-    stop(paste("Step ",x," (TOL) of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," \"TOL\" of your sequence is not supported!", sep = ""))
 
   }
   if(sequence.ID == 9){#TR-POSL
 
-    stop(paste("Step ",x," (TR-POSL) of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," \"TR-POSL\" of your sequence is not supportel!", sep = ""))
   }
 
   if(sequence.ID == 10){# Irradiation
@@ -203,12 +214,12 @@ for(x in 1:length(data.list)){
 
   if(sequence.ID == 15){
 
-    stop(paste("Step ",x," of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," of your sequence is not supported!", sep = ""))
   }
 
   if(sequence.ID == 16){
 
-    stop(paste("Step ",x," of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," of your sequence is not supported!", sep = ""))
   }
 
   if(sequence.ID == 17){
@@ -234,32 +245,32 @@ for(x in 1:length(data.list)){
 
   if(sequence.ID == 19){
 
-    stop(paste("Step ",x," (SG OSL) of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," \"SG OSL\" of your sequence is not supported!", sep = ""))
 
   }
 
   if(sequence.ID == 20){
 
-    stop(paste("Step ",x," (User defined) of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," \"User defined\" of your sequence is not supported!", sep = ""))
 
   }
 
 
   if(sequence.ID == 21){
 
-    stop(paste("Step ",x," (SG LM-OSL) of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," \"SG LM-OSL\" of your sequence is not supported!", sep = ""))
 
   }
 
   if(sequence.ID == 22){
 
-    stop(paste("Step ",x," of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," of your sequence is not supported!", sep = ""))
 
   }
 
   if(sequence.ID == 23){
 
-    stop(paste("Step ",x," (POSL) of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," \"POSL\" of your sequence is not supported!", sep = ""))
 
   }
 
@@ -279,13 +290,13 @@ for(x in 1:length(data.list)){
 
   if(sequence.ID == 29){
 
-    stop("[read_seq2R()] XRF: Not supported!")
+    stop(paste("[read_SEQ2R()] Step ",x," \"XRF\" of your sequence is not supported!", sep = ""))
 
   }
 
   if(sequence.ID == 30){
 
-    stop(paste("Step ",x," (Photo) of your sequence is not supported in the model!", sep = ""))
+    stop(paste("[read_SEQ2R()] Step ",x," \"Photo\" of your sequence is not supported!", sep = ""))
 
   }
 

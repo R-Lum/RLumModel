@@ -6,13 +6,16 @@
 #'
 #' @param duration \code{\link{numeric}} (\bold{required}): duration of the LM-OSL simulation
 #'
-#' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
-#' from step before
+#' @param star_power \code{\link{numeric}}:
 #'
-#' @param parms \code{\link{Rlum.Results object}} (\bold{required}):
+#' @param end_power \code{\link{numeric}}:
 #'
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}}. See details for further information
+#' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
+#' concentration of electron-/holetraps, valence- and conduction band
+#' from step before. This is necessary to get the boundary condition for the ODEs.
+#'
+#' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
+#' numerical quartz luminescence results.
 #'
 #' @return This function returns an Rlum.Results object from the LM-OSL simulation.
 #'
@@ -37,18 +40,40 @@
   start_power = 0,
   end_power = 100,
   n,
-  parms,
-  ...
+  parms
 ){
+
+# check input arguments ---------------------------------------------------
+
+  ##check if temperature is > 0 K (-273 degree celsius)
+  if(temp < -273){
+    stop("\n [.simulate_LM_OSL()] Argument 'temp' has to be > 0 K!")
+  }
+
+  ##check if duration is > 0s
+  if(duration < 0){
+    stop("\n [.simulate_LM_OSL()] Argument 'duration' has to be a positive number!")
+  }
+
+  ##check if start_power is > 0
+  if(start_power < 0){
+    stop("\n [.simulate_LM_OSL()] Argument 'start_power' has to be a positive number!")
+  }
+
+  ##check if end_power > start_power
+  if(start_power > end_power){
+    stop("\n [.simulate_LM_OSL()] Argument 'start_power' has to be smaller than 'end_power'!")
+  }
 
   ##check if object is of class RLum.Data.Curve
   if(class(n) != "RLum.Results"){
     n <- n
-  }
-
-  else{
+  } else {
     n <- n$n
   }
+
+# Set parameters for ODE ---------------------------------------------------
+
 
   ##============================================================================##
   # SETTING PARAMETERS FOR ILLUMINATION
@@ -88,7 +113,7 @@
   # CALCULATING RESULTS FROM ODE SOLVING
   ##============================================================================##
 
-  signal <- .calc_Signal(out = out, parameters = parameters.step)
+  signal <- .calc_Signal(object = out, parameters = parameters.step)
 
   ##============================================================================##
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING

@@ -1,24 +1,22 @@
-#' sequence step TL-simulation
+#' Sequence step TL-simulation
 #'
 #' This function simulates the TL measurement of quartz in the energy-band-model.
 #'
 #' @param temp_begin \code{\link{numeric}} (\bold{required}): initial temperature [°C] of the TL-simulation
 #'
-#' @param temp_begin \code{\link{numeric}} (\bold{required}): endtemperature [°C] of the TL-simulation
+#' @param temp_end \code{\link{numeric}} (\bold{required}): end temperature [°C] of the TL-simulation
 #'
-#' @param b \code{\link{numeric}} (\bold{required}): heatingrate in [°C/s] or [K/s]
+#' @param heating_rate \code{\link{numeric}} (\bold{required}): heating rate in [°C/s] or [K/s]
 #'
-#' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
-#' from step before
+#' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
+#' concentration of electron-/holetraps, valence- and conduction band
+#' from step before. This is necessary to get the boundary condition for the ODEs.
 #'
-#' @param parms \code{\link{Rlum.Results object}} (\bold{required}):
+#' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
+#' numerical quartz luminescence results.
 #'
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}}. See details for further information
-#'
-#' @return This function returns an Rlum.Results object from the TL simulation.
-#'
-#' @note This function can do just nothing at the moment.
+#' @return This function returns an \code{\linkS4class{RLum.Results}} object from the TL simulation with
+#' TL signal and temperature and concentrations for electron/hole levels.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -29,7 +27,7 @@
 #' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
 #' luminescence of quartz. Radiation Measurements 33, 17-45.
 #'
-#' @seealso \code{\link{plot}}
+#' @seealso \code{\link{simulate_heating}}
 #'
 #' @examples
 #'
@@ -41,17 +39,34 @@
   temp_end,
   heating_rate,
   n,
-  parms,
-  ...
+  parms
 ){
 
-  ##check if object is of class RLum.Data.Curve
-  if(class(n) != "RLum.Results"){
-  n <- n
+# check input arguments ---------------------------------------------------
+
+  ##check if heatingrate has the rigth algebraic sign
+  if((temp_begin < temp_end && heating_rate < 0)||(temp_begin > temp_end & heating_rate > 0)){
+    stop("\n [.simulate_TL()] Heatingrate has the wrong algebraic sign!")
   }
-  else{
+
+  ##check if temperature is > 0 K (-273 degree celsius)
+  if(temp_begin < -273 || temp_end < -273){
+    stop("\n [.simulate_TL()] Argument 'temp' has to be > 0 K!")
+  }
+
+  ##check if heating_rate > 0
+  if(heating_rate < 0){
+    stop("\n [.simulate_TL()] Argument 'heating_rate' has to be a positive number!")
+  }
+
+  ##check if object is of class RLum.Results
+  if(class(n) != "RLum.Results"){
+    n <- n
+  } else {
     n <- n$n
   }
+
+# Set parameters for ODE ---------------------------------------------------
 
   ##============================================================================##
   # SETTING PARAMETERS FOR HEATING
@@ -60,6 +75,8 @@
   # P: Photonflux (in Bailey 2004: wavelength [nm]) = 0
   # b: heating rate [°C/s]
   ##============================================================================##
+
+
 
   R <- 0
   P <- 0
@@ -82,7 +99,7 @@
   # CALCULATe SIGNALS FROM ODE SOLVING
   ##============================================================================##
 
-  signal <- .calc_Signal(out = out, parameters = parameters.step)
+  signal <- .calc_Signal(object = out, parameters = parameters.step)
   TSkala <- times*b+temp_begin
 
   ##============================================================================##

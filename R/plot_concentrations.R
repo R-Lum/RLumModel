@@ -1,23 +1,24 @@
-#' Plot concentrations of electrones respectively holes of all levels from a
-#' energy-band-model against time.
+#' Plot electron/hole concentrations of a specific record.id
 #'
 #' The functions provides a plot of all changes in time of the electron respectively hole concentration
 #' in electron traps, hole centres, in the condunction and valence band.
 #'
 #' The function produces a multiple plot output and uses in main parts the Luminescence function
-#' "Luminescence::plot_RLum". A file output is recommended (e.g., \code{\link{pdf}}).
+#' \code{\linkS4class{plot_RLum.Analysis}}. A file output is recommended (e.g., \code{\link{pdf}}).
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}):  S4
 #' object of class \code{RLum.Analysis}, e.g. the values of \code{\link{model_LuminescenceSignals}}.
 #'
-#' @param record.step \code{\link{numeric}} (\bold{required}): step of the simulated record which
-#' is to plot.
+#' @param record.id \code{\link{numeric}} (\bold{required}): id of the simulated record, which
+#' is to plot. To see all record.ids use \code{\link[Luminescence]{structure_RLum}}, see examples.
+#'
+#' @param plot.saturation \code{\link{logical}} (with default): plots the saturation of every
+#' level from a specific model.
 #'
 #' @param \dots further arguments and graphical parameters passed to
+#' \code{\link{plot.default}} and \code{\linkS4class{RLum.Analysis}}.
 #'
-#' \code{\link{plot.default}}. See details for further information
-#'
-#' @return Returns multiple plots for the concentrations of electrones respectively holes.
+#' @return Returns multiple plots.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -43,28 +44,29 @@
 #' for quartz based on thermally transferred OSL (TT-OSL).
 #' Radiation Measurements 43, 704-708.
 #'
-#' @seealso \code{\link{plot}}, \code{\link{plot_RLum.Analysis}}
+#' @seealso \code{\link{plot}}, \code{\linkS4class{plot_RLum.Analysis}}
 #'
 #' @examples
 #'
 #' ##load data
 #' data(ExampleData.ModelOutput, envir = environment())
 #'
-#' ##plot all concentrations
-#' plot_concentrations(object = model.output, record.step = 1)
+#' ##show structure
+#' Luminescence::structure_RLum(model.output)
 #'
-#' ##plot only specific energy-band-level (e.g. 110 degree celsius trap, "concentration level 1")#'
+#' ##plot all concentrations
+#' plot_concentrations(object = model.output, record.id = 1)
+#'
+#' ##plot only specific energy-band-level (e.g. 110 degree celsius trap, "concentration level 1")
 #' plot_concentrations(object = model.output,
-#'                     record.step = 1,
+#'                     record.id = 1,
 #'                     subset = list(recordType = "concentration level 1"))
 #'
 #' ##plot every level on a single plot
-#' plot_concentrations(object = model.output, record.step = 1, plot.single = TRUE)
+#' plot_concentrations(object = model.output, record.id = 1, plot.single = TRUE)
 #'
 #' @export
-plot_concentrations <- function(object, record.step, ...){
-
-
+plot_concentrations <- function(object, record.id, plot.saturation = FALSE,...){
 
 # check input arguments ---------------------------------------------------
 
@@ -73,62 +75,88 @@ plot_concentrations <- function(object, record.step, ...){
     stop("[plot_concentrations()] Input object is not of type 'RLum.Analysis'")
   }
 
-  ##check if record.step is numeric
-  if(class(record.step) != "numeric"){
-    stop("[plot_concentrations()] Argument \"record.step\" is not of type 'numeric'")
+  ##check if record.id is numeric
+  if(class(record.id) != "numeric"){
+    stop("[plot_concentrations()] Argument \"record.id\" is not of type 'numeric'")
   }
 
-  if(record.step <= 0 | record.step > length(object)){
-    stop(paste("[plot_concentrations()] Argument \"record.step\" has to be non-negative and maximum",length(object)))
+  ##check if record.id > 0 and > lengt(object)
+  if(record.id <= 0 | record.id > length(object)){
+    stop(paste("[plot_concentrations()] Argument \"record.id\" has to be non-negative and maximum",length(object)))
   }
 
 
 # get concentrations ------------------------------------------------------
 
-  level_concentrations <- object@records[[record.step]]@info$concentrations
+  temp_id <- Luminescence::get_RLum(object, record.id = record.id)
+  level_concentrations <- temp_id@info$concentrations
 
   temp_parameters <- .set_Pars(object@protocol)
   indicator <- temp_parameters$B
 
-# label main --------------------------------------------------------------
+
+
+# check if plot.saturation == TRUE -----------------------------------------
+  if(plot.saturation){
+
+    ##load N
+    temp.saturation.levels <- temp_parameters$N
+
+    ##name = "h" for vertial line
+    names(temp.saturation.levels) <- rep("h", length(temp.saturation.levels))
+
+    saturation.levels <- as.list(temp.saturation.levels)
+    abline <- saturation.levels
+
+  } else {
+
+    abline <- NULL
+
+  }
+
+# main --------------------------------------------------------------
 
   main <- lapply(1:(length(indicator)), function(x){
     if(indicator[x] == 0){
 
-      return(paste("Electron ",level_concentrations@records[[x]]@recordType, sep = ""))
+      return(paste("Electron \n",level_concentrations@records[[x]]@recordType, sep = ""))
     }
 
   if(indicator[x] != 0){
 
-      return(paste("Hole ",level_concentrations@records[[x]]@recordType, sep = ""))
+      return(paste("Hole \n",level_concentrations@records[[x]]@recordType, sep = ""))
     }
 
   })
 
   ##set valence and conduction band names
-  main[[length(indicator)+1]] <- "Electron concentration conduction band"
-  main[[length(indicator)+2]] <- "Hole concentration valence band"
+  main[[length(indicator)+1]] <- "Electron concentration \n conduction band"
+  main[[length(indicator)+2]] <- "Hole concentration \n valence band"
 
+# xlab  -------------------------------------------------------------------
 
+  if(names(object)[record.id] == "TL") {##check if "TL" is part of the record-id to plot, add xlab, ylab
 
-# label ylab --------------------------------------------------------------
+    xlab <- "Temperature [\u00B0C]"
 
-  ylab <- lapply(1:(length(indicator)), function(x){
-    if(indicator[x] == 0){
+  }
 
-      return("Electron concentration [1/cm^3]")
-    }
+  if(names(object)[record.id] == "OSL" || names(object)[record.id] == "LM-OSL" ) {##check if "TL" is part of the record-id to plot, add xlab, ylab
 
-    if(indicator[x] != 0){
+    xlab <- "Illumination time [s]"
 
-      return("Hole concentration [1/cm^3]")
-    }
+  }
 
-  })
+  if(names(object)[record.id] == "RL" || names(object)[record.id] == "RF"){
 
-  ##set valence and conduction band names
-  ylab[[length(indicator)+1]] <- "Electron concentration [1/cm^3]"
-  ylab[[length(indicator)+2]] <- "Hole concentration [1/cm^3]"
+    xlab <- "Irradiation time [s]"
+
+  }
+
+# ylab --------------------------------------------------------------
+
+      ylab <- "Concentration [1/cm^3]"
+
 
 
 # Plot --------------------------------------------------------------------
@@ -144,15 +172,8 @@ plot_concentrations <- function(object, record.step, ...){
 
   } else {
 
-    if(names(object)[record.step] == "TL") {##check if "TL" is part of the record-step to plot, add xlab, ylab
+    xlab = xlab
 
-      xlab <- "Temperature [\u00B0C]"
-
-    } else {
-
-      xlab <- "Stimulation time [s]"
-
-    }
   }
 
   ##check if "ylab" in ...
@@ -164,6 +185,7 @@ plot_concentrations <- function(object, record.step, ...){
   } else {
 
     ylab <- ylab
+
   }
 
   ##check if "main" in ...
@@ -177,11 +199,39 @@ plot_concentrations <- function(object, record.step, ...){
     main <- main
   }
 
+  ##check if "abline" in ...
+  if("abline" %in% names(extraArgs))
+  {
+
+    abline <- extraArgs$abline
+
+  } else {
+
+    abline <- abline
+
+  }
+
+
+  ##check if "mtext" in ...
+  if("mtext" %in% names(extraArgs))
+  {
+
+    mtext <- extraArgs$mtext
+
+  } else {
+
+    mtext <- ""
+
+  }
+
+
   ##plot
   Luminescence::plot_RLum.Analysis(level_concentrations,
             xlab = xlab,
             ylab = ylab,
             main = main,
+            abline = abline,
+            mtext = mtext,
             ...)
 
 }#end function
