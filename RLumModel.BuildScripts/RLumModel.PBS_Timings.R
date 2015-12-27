@@ -19,7 +19,7 @@ if (Sys.info()[["sysname"]] == "Windows") {
 } else {
   temp <- read.table("RLumModel.Rcheck/RLumModel-Ex.timings", header=TRUE)
 }
-  
+
 ##plot values for the functions
 pdf(file=paste0("RLumModel.BuildResults/RLumModel-TimingExamples.",temp.version,".pdf"), paper="special")
 

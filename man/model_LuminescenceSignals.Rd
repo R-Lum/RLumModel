@@ -5,10 +5,12 @@
 \title{Model Luminescence Signals}
 \usage{
 model_LuminescenceSignals(model, sequence, lab.DoseRate = 1,
-  simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE, ...)
+  simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE,
+  show.structure = FALSE, ...)
 }
 \arguments{
-\item{model}{\code{\link{character}} (\bold{required}): set model to be used}
+\item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
+"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"}
 
 \item{sequence}{\code{\link{list}} (\bold{required}): set sequence to model as list or as *.seq file from the
 Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. example 3):
@@ -25,12 +27,15 @@ process}
 
 \item{verbose}{\code{\link{logical}} (with default): Verbose mode on/off}
 
+\item{show.structure}{\code{\link{logical}} (with default): Shows the structure of the result.
+Recommended to show record.id to analyse with \code{\link{plot_concentrations}}.}
+
 \item{\dots}{further arguments and graphical parameters passed to
 \code{\link{plot.default}}. See details for further information}
 }
 \value{
-This function returns an \code{RLum.Analysis} object with all TL, (LM-) OSL and RF/RL steps
-in the sequence. Every entry is a \code{RLum.Data.Curve} obejct and can be plotted, analysed etc. with
+This function returns an \code{\linkS4class{RLum.Analysis}} object with all TL, (LM-) OSL and RF/RL steps
+in the sequence. Every entry is an \code{\linkS4class{RLum.Analysis}} object and can be plotted, analysed etc. with
 further \code{RLum}-functions.
 }
 \description{
@@ -49,11 +54,12 @@ Defining a \bold{sequence}\cr
 \bold{Abrivation} \tab \code{Description} \tab \code{Arguments}\cr
 TL \tab thermally stimulated luminescence \tab 'temp begin', 'temp end', 'heating rate'\cr
 OSL\tab optically stimulated luminescence \tab 'temp', 'duration','optical power'\cr
-LM_OSL\tab linear modulated OSL \tab 'temp', 'duration'\cr
-RL/RF\tab radioluminescence\tab 'temp','dose', 'doserate' \cr
-IRR\tab irradiation \tab 'temp','dose', 'doserate' \cr
-CH \tab cutheat \tab 'temp', 'duration' \cr
-PH  \tab preheat \tab 'temp', 'duration' \cr
+ILL\tab illumination \tab 'temp', 'duration','optical power'\cr
+LM_OSL\tab linear modulated OSL \tab 'temp', 'duration', optional: 'start_power', 'end_power'\cr
+RL/RF\tab radioluminescence\tab 'temp','dose', 'DoseRate' \cr
+IRR\tab irradiation \tab 'temp','dose', 'DoseRate' \cr
+CH \tab cutheat \tab 'temp', optional: 'duration', 'heating_rate' \cr
+PH  \tab preheat \tab 'temp', 'duration' optional: 'heating_rate' \cr
 PAUSE \tab pause \tab 'temp', 'duration'
 }
 }
@@ -81,6 +87,7 @@ sequence <-
 model.output <- model_LuminescenceSignals(
   sequence = sequence,
   model = "Bailey2001",
+  show.structure = TRUE
 )
 
 \dontrun{
@@ -190,8 +197,8 @@ model.output <- model_LuminescenceSignals(
 results <- analyse_SAR.CWOSL(model.output,
                              signal.integral.min = 1,
                              signal.integral.max = 10,
-                             background.integral.min = 601,
-                             background.integral.max = 701,
+                             background.integral.min = 301,
+                             background.integral.max = 401,
                              dose.points = c(0,5,10,20,50,5,0),
                              fit.method = "EXP")
 
@@ -259,8 +266,11 @@ stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998
 Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
 for quartz based on thermally transferred OSL (TT-OSL).
 Radiation Measurements 43, 704-708.
+
+Soetaert, K., Cash, J., Mazzia, F., 2012. Solving differential equations in R.
+Springer Science & Business Media.
 }
 \seealso{
-\code{\link{plot}}, \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
+\code{\link{plot}}, \code{\linkS4class{RLum}}, \code{\link{plot_concentrations}}
 }
 

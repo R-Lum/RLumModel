@@ -2,24 +2,25 @@
 % Please edit documentation in R/plot_concentrations.R
 \name{plot_concentrations}
 \alias{plot_concentrations}
-\title{Plot concentrations of electrones respectively holes of all levels from a
-energy-band-model against time.}
+\title{Plot electron/hole concentrations of a specific record.id for}
 \usage{
-plot_concentrations(object, record.step, ...)
+plot_concentrations(object, record.id, plot.saturation = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):  S4
 object of class \code{RLum.Analysis}, e.g. the values of \code{\link{model_LuminescenceSignals}}.}
 
-\item{record.step}{\code{\link{numeric}} (\bold{required}): step of the simulated record which
-is to plot.}
+\item{record.id}{\code{\link{numeric}} (\bold{required}): id of the simulated record, which
+is to plot. To see all record.ids use \code{\link[Luminescence]{structure_RLum}}, see examples.}
+
+\item{plot.saturation}{\code{\link{logical}} (with default): plots the saturation of every
+level from a specific model. Default: FALSE.}
 
 \item{\dots}{further arguments and graphical parameters passed to
-
-\code{\link{plot.default}}. See details for further information}
+\code{\link{plot.default}} and \code{\linkS4class{RLum.Analysis}}.}
 }
 \value{
-Returns multiple plots for the concentrations of electrones respectively holes.
+Returns multiple plots for the concentrations of electrones/holes.
 }
 \description{
 The functions provides a plot of all changes in time of the electron respectively hole concentration
@@ -27,7 +28,7 @@ in electron traps, hole centres, in the condunction and valence band.
 }
 \details{
 The function produces a multiple plot output and uses in main parts the Luminescence function
-"Luminescence::plot_RLum". A file output is recommended (e.g., \code{\link{pdf}}).
+\code{\link[Luminescence]{plot_RLum.Analysis}}. A file output is recommended (e.g., \code{\link{pdf}}).
 }
 \section{Function version}{
  0.1.0
@@ -37,16 +38,19 @@ The function produces a multiple plot output and uses in main parts the Luminesc
 ##load data
 data(ExampleData.ModelOutput, envir = environment())
 
-##plot all concentrations
-plot_concentrations(object = model.output, record.step = 1)
+##show structure
+Luminescence::structure_RLum(model.output)
 
-##plot only specific energy-band-level (e.g. 110 degree celsius trap, "concentration level 1")#'
+##plot all concentrations
+plot_concentrations(object = model.output, record.id = 1)
+
+##plot only specific energy-band-level (e.g. 110 degree celsius trap, "concentration level 1")
 plot_concentrations(object = model.output,
-                    record.step = 1,
+                    record.id = 1,
                     subset = list(recordType = "concentration level 1"))
 
 ##plot every level on a single plot
-plot_concentrations(object = model.output, record.step = 1, plot.single = TRUE)
+plot_concentrations(object = model.output, record.id = 1, plot.single = TRUE)
 
 }
 \author{
@@ -72,6 +76,6 @@ for quartz based on thermally transferred OSL (TT-OSL).
 Radiation Measurements 43, 704-708.
 }
 \seealso{
-\code{\link{plot}}, \code{\link{plot_RLum.Analysis}}
+\code{\link{plot}}, \code{\link[Luminescence]{plot_RLum.Analysis}}
 }
 
