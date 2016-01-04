@@ -1,5 +1,25 @@
 #' Create a DRT sequence for 'RLumModel'
 #'
+#' This function creates a DRT (Dose-recovery-test) sequence with special keywords
+#' for luminescence dating.
+#'
+#' Defining a \bold{DRT-sequence}\cr
+#'
+#' \tabular{lll}{
+#' \bold{Abrivation} \tab \bold{Description} \tab \bold{examples} \cr
+#' RegDose \tab Dose points of the regenerative cycles\tab c(0, 80, 140, 260, 320, 0, 80)\cr
+#' TestDose\tab Test dose for the SAR cycles  \tab 50 \cr
+#' PH\tab Temperature of the preheat \tab 240 \cr
+#' CH\tab Temperature of the cutheat \tab 200 \cr
+#' OSL_temp\tab Temperature of OSL read out\tab  125 \cr
+#' Irr_2recover \tab Dose to be recovered in a dose-recovery-test \tab 20 \cr
+#' OSL_duration \tab  Duration of OSL read out\tab default: 40 \cr
+#' Irr_temp \tab Temperature of irradiation \tab default: 20\cr
+#' PH_duration  \tab Duration of the preheat \tab default: 10 \cr
+#' DoseRate \tab Dose rate of the laboratory irradiation source \tab default: 1 \cr
+#' optical_power \tab Percentage of the full illumination power \tab default: 90
+#' }
+#'
 #' @param RegDose \code{\link{numeric}} (\bold{required}): a vector with the dose points for the regeneration cycle
 #'
 #' @param TestDose\code{\link{numeric}} (\bold{required}): set testdose in [Gy]
@@ -22,7 +42,7 @@
 #'
 #' @param optical_power\code{\link{numeric}} (with default):
 #'
-#' @return This function returns a list with a sequence of a dose-recovery-test (DRT)
+#' @return This function returns a \code{\link{list}} with a sequence of a dose-recovery-test (DRT)
 #'
 #' @note This function can do just nothing at the moment.
 #'
@@ -36,11 +56,18 @@
 #' improved single-aliquot regenerative-dose protocol. Radiation Measurements
 #' 32, 57-73.
 #'
-#' @seealso \code{\link{simulate_SAR.sequence}}, \code{\link[Luminescence]{plot_DRTresults}}
+#' @seealso \code{\link{create_SAR.sequence}}, \code{\link[Luminescence]{plot_DRTresults}}
 #'
 #' @examples
 #'
-#' #so far no example available
+#'   sequence <- .create_DRT.sequence(
+#'    RegDose = c(0,8,14,26,32,0,8),
+#'    TestDose = 5,
+#'    PH = 240,
+#'    CH = 200,
+#'    OSL_temp = 125,
+#'    Irr_2recover = 10
+#'    )
 #'
 #' @noRd
 .create_DRT.sequence <- function(
@@ -73,9 +100,7 @@
         TL = c(20,CH,5),
         OSL = c(OSL_temp,OSL_duration,optical_power) # Tx measurement
       )
-
-    }
-    else{
+    } else {
 
       temp.list <- list(
         IRR = c(Irr_temp,RegDose[i],DoseRate),

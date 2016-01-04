@@ -3,6 +3,22 @@
 #' This function creates a SAR (single-aliquot-regeneration) sequence with special keywords
 #' for luminescence dating.
 #'
+#' Defining a \bold{SAR-sequence}\cr
+#'
+#' \tabular{lll}{
+#' \bold{Abrivation} \tab \bold{Description} \tab \bold{examples} \cr
+#' RegDose \tab Dose points of the regenerative cycles\tab c(0, 80, 140, 260, 320, 0, 80)\cr
+#' TestDose\tab Test dose for the SAR cycles  \tab 50 \cr
+#' PH\tab Temperature of the preheat \tab 240 \cr
+#' CH\tab Temperature of the cutheat \tab 200 \cr
+#' OSL_temp\tab Temperature of OSL read out\tab  125 \cr
+#' OSL_duration \tab  Duration of OSL read out\tab default: 40 \cr
+#' Irr_temp \tab Temperature of irradiation \tab default: 20\cr
+#' PH_duration  \tab Duration of the preheat \tab default: 10 \cr
+#' DoseRate \tab Dose rate of the laboratory irradiation source \tab default: 1 \cr
+#' optical_power \tab Percentage of the full illumination power \tab default: 90
+#' }
+#'
 #' @param RegDose \code{\link{numeric}} (\bold{required}): a vector with the dose points for the regeneration cycle
 #'
 #' @param TestDose\code{\link{numeric}} (\bold{required}): set testdose in [Gy]
@@ -23,7 +39,8 @@
 #'
 #' @param optical_power\code{\link{numeric}} (with default):
 #'
-#' @return This function returns a \code{\link{list}} with a SAR sequence. It can be read by \code{\link{model_LuminescenceSignals}}
+#' @return This function returns a \code{\link{list}} with a SAR sequence.
+#' It can be read by \code{\link{model_LuminescenceSignals}}.
 #'
 #' @section Function version: 0.1.0
 #'
