@@ -1,6 +1,6 @@
 #' sequence step illumination
 #'
-#' This function simulates illumination step in the energy-band-model of quartz.
+#' This function simulates an illumination step in the energy-band-model of quartz.
 #'
 #' @param temp \code{\link{numeric}} (\bold{required}): set temperature [°C] of the illumination simulation
 #'

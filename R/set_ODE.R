@@ -1,22 +1,35 @@
 #' Set the ordinary differential equation (ODE) for the enery-band-model of quartz.
 #'
-#' This function models luminescence signals for quartz based on published physical models
+#' This function provides the differential equations for all simulations
+#' except LM-OSL simulations.
 #'
-#' @param t \code{\link{numeric}} (\bold{required}): timesteps
+#' With ’RLumModel’, the number of coupled
+#' differential equations will automatically be adjusted, because of an identifying
+#' feature for electron traps and hole centres: This function identifies if B (see
+#' \code{\link{set_Pars}}) is 0 (electron trap) or not (hole trap). For advanced users it is thus
+#' possible to change the available sets or construct own parameter sets with
+#' arbitrary numbers of electron traps and hole centres without taking care on
+#' coding the right syntax of the ODEs, without changing the complete code
+#' and without advanced knowledge of R coding.
+#'
+#' @param t \code{\link{numeric}} (\bold{required}): timesteps (set from 'simulate_...' functions)
 #'
 #' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
-#' from step before
+#' from step before.
 #'
 #' @param parameters.step \code{\link{list}} (\bold{required}): parameters for every specific
-#' calculation has different parameters (heating rate, pair-production-rate, ...) and this information is given to the ODE
+#' calculation has different parameters (heating rate, pair-production-rate, ...)
+#' and this information is given to the ODE.
 #'
 #' @return This function returns a list with all changes in the concentration of electron-/holetraps, valence and conductionband.
 #'
-#' @note This function calculates the ODE for the energy-band-model
+#' @note This function calculates the ODE for the energy-band-model.
 #'
 #' @section Function version: 0.1.0
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
+#'
+#' @seealso \code{\link{model_LuminescenceSignals}}, \code{\link{set_ODE_LM_OSL}}
 #'
 #' @references
 #'

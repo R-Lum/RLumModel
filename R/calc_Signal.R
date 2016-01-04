@@ -1,6 +1,6 @@
 #' Calculate signals in the energy-band-model of quartz
 #'
-#' This function calculates TL, OSL an RF signals from quartz simulations.
+#' This function calculates TL, OSL and RF signals from quartz simulations.
 #' The signal occurs by recombination of an electron to a luminescence center.
 #'
 #' @param object \code{\link{matrix of class deSolve}} (\bold{required}):
@@ -8,7 +8,7 @@
 #' @param parameters \code{\link{list}} (\bold{required}): set parameters to calculate the signal.
 #' Parameters are depend of the chosen model.
 #'
-#' @return This function returns a vector with OSL/TL/RF signal per time unit.
+#' @return This function returns a vector with OSL/TL/RF signal per time.
 #'
 #' @section Function version: 0.1.0
 #'

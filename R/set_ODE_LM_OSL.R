@@ -1,12 +1,26 @@
-#' Set the ordinary differential equation (ODE) for LM-OSL measurements in the enery-band-model of quartz.
+#' Set the ordinary differential equation (ODE) for LM-OSL measurements
+#' in the enery-band-model of quartz.
 #'
-#' @param t \code{\link{numeric}} (\bold{required}): timesteps
+#' This function provides the differential equations for LM-OSL measurements. This function
+#' is necessary because the stimulation power (P) is time-dependent.
+#'
+#' With ’RLumModel’, the number of coupled
+#' differential equations will automatically be adjusted, because of an identifying
+#' feature for electron traps and hole centres: This function identifies if B (see
+#' \code{\link{set_Pars}}) is 0 (electron trap) or not (hole trap). For advanced users it is thus
+#' possible to change the available sets or construct own parameter sets with
+#' arbitrary numbers of electron traps and hole centres without taking care on
+#' coding the right syntax of the ODEs, without changing the complete code
+#' and without advanced knowledge of R coding.
+#'
+#' @param t \code{\link{numeric}} (\bold{required}): timesteps (set from 'simulate_...' functions)
 #'
 #' @param n \code{\link{numeric}} (\bold{required}): concentration of electron-/holetraps, valence- and conductionband
-#' from step before
+#' from step before.
 #'
 #' @param parameters.step \code{\link{list}} (\bold{required}): parameters for every specific
-#' calculation has different parameters (heatingrate, pair-production-rate, ...) and this information is given to the ODE
+#' calculation has different parameters (heatingrate, pair-production-rate, ...)
+#' and this information is given to the ODE.
 #'
 #' @return This function returns a list with all changes in the concentration of electron-/holetraps, valence and conductionband
 #'

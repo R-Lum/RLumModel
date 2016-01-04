@@ -16,8 +16,8 @@
 #' @param txtProgressBar \code{\link{logical}} (with default): enables or disables the txtProgressBar for a visuell
 #' control of the progress. Default: txtProgressBar = TRUE
 #'
-#' @return This function returns a list with the parsed *.seq file and the required steps for
-#' \code{\link{model_LuminescenceSignals}}
+#' @return This function returns a \code{\link{list}} with the parsed *.seq file and the required steps for
+#' \code{\link{model_LuminescenceSignals}}.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -33,7 +33,7 @@
 #' @seealso \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
 #'
 #' @examples
-#'
+#' ##search "sample_SAR_cycle.SEQ" in "extdata" in package "RLumModel"
 #' path <- system.file("extdata", "sample_SAR_cycle.SEQ", package="RLumModel")
 #'
 #' sequence <- read_SEQ2R(file = path)

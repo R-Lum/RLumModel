@@ -18,15 +18,17 @@
 #' \code{\link{model_LuminescenceSignals}} is chosen.
 #'
 #'
-#' @param model \code{\link{character}} (\bold{required}): set model to be used. Available models are:
+#' @param model \code{\link{character}} (\bold{required}): set model to be used.
+#' Available models are:
 #' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"
 #'
 #' @return This function returns an RLum.Results object with all neccessary parameters for
 #' the used model.
 #'
-#' @note The order of the energy-band-levels is sometimes in an different order than in the original model. This was necessary, because
-#' in the simulations the luminescence center always has to be the second to the last entry in every parameter. Another reason
-#' was the clear division between electron traps and hole centers.
+#' @note The order of the energy-band-levels is sometimes in an different order than in the original model.
+#' This was necessary, because
+#' in the simulations the luminescence center always has to be the second to the last entry in every parameter.
+#' Another reason was the clear division between electron traps and hole centers.
 #' When a user wants to create his/her own parameter sets he/she only has to take care that the luminescence center is the second to last
 #' entry in every vector.
 #'
@@ -147,19 +149,95 @@
   )
 
 
-  if(model == "Bailey2001"){
-    return(set_RLum(class = "RLum.Results", data = list(N = parameter.list$Bailey2001$N, E = parameter.list$Bailey2001$E, s = parameter.list$Bailey2001$s, A = parameter.list$Bailey2001$A, B = parameter.list$Bailey2001$B, Th = parameter.list$Bailey2001$Th, E_th = parameter.list$Bailey2001$E_th, n = parameter.list$Bailey2001$n, k_B = k_B, W = W, K = K, model = model)))
-  }
-  if(model == "Bailey2002"){
-    return(set_RLum(class = "RLum.Results", data = list(N = parameter.list$Bailey2002$N, E = parameter.list$Bailey2002$E, s = parameter.list$Bailey2002$s, A = parameter.list$Bailey2002$A, B = parameter.list$Bailey2002$B, Th = parameter.list$Bailey2002$Th, E_th = parameter.list$Bailey2002$E_th, n = parameter.list$Bailey2002$n, k_B = k_B, W = W, K = K, model = model)))
-  }
-  if(model == "Bailey2004"){
-    return(set_RLum(class = "RLum.Results", data = list(N = parameter.list$Bailey2004$N, E = parameter.list$Bailey2004$E, s = parameter.list$Bailey2004$s, A = parameter.list$Bailey2004$A, B = parameter.list$Bailey2004$B, Th = parameter.list$Bailey2004$Th, E_th = parameter.list$Bailey2004$E_th, n = parameter.list$Bailey2004$n, k_B = k_B, W = W, K = K, model = model)))
-  }
-  if(model == "Pagonis2007"){
-    return(set_RLum(class = "RLum.Results", data = list(N = parameter.list$Pagonis2007$N, E = parameter.list$Pagonis2007$E, s = parameter.list$Pagonis2007$s, A = parameter.list$Pagonis2007$A, B = parameter.list$Pagonis2007$B, Th = parameter.list$Pagonis2007$Th, E_th = parameter.list$Pagonis2007$E_th, n = parameter.list$Pagonis2007$n, k_B = k_B, W = W, K = K, model = model)))
-  }
-  if(model == "Pagonis2008"){
-    return(set_RLum(class = "RLum.Results", data = list(N = parameter.list$Pagonis2008$N, E = parameter.list$Pagonis2008$E, s = parameter.list$Pagonis2008$s, A = parameter.list$Pagonis2008$A, B = parameter.list$Pagonis2008$B, Th = parameter.list$Pagonis2008$Th, E_th = parameter.list$Pagonis2008$E_th, n = parameter.list$Pagonis2008$n, k_B = k_B, W = W, K = K, model = model)))
-  }
+  switch(model,
+         "Bailey2001" = {
+           return(set_RLum(class = "RLum.Results",
+                           data = list(N = parameter.list$Bailey2001$N,
+                                       E = parameter.list$Bailey2001$E,
+                                       s = parameter.list$Bailey2001$s,
+                                       A = parameter.list$Bailey2001$A,
+                                       B = parameter.list$Bailey2001$B,
+                                       Th = parameter.list$Bailey2001$Th,
+                                       E_th = parameter.list$Bailey2001$E_th,
+                                       n = parameter.list$Bailey2001$n,
+                                       k_B = k_B,
+                                       W = W,
+                                       K = K,
+                                       model = model
+                                       )
+                           )
+                  )},
+
+        "Bailey2002" = {
+          return(set_RLum(class = "RLum.Results",
+                          data = list(N = parameter.list$Bailey2002$N,
+                                      E = parameter.list$Bailey2002$E,
+                                      s = parameter.list$Bailey2002$s,
+                                      A = parameter.list$Bailey2002$A,
+                                      B = parameter.list$Bailey2002$B,
+                                      Th = parameter.list$Bailey2002$Th,
+                                      E_th = parameter.list$Bailey2002$E_th,
+                                      n = parameter.list$Bailey2002$n,
+                                      k_B = k_B,
+                                      W = W,
+                                      K = K,
+                                      model = model
+                                      )
+                          )
+                 )},
+
+        "Bailey2004" = {
+          return(set_RLum(class = "RLum.Results",
+                          data = list(N = parameter.list$Bailey2004$N,
+                                      E = parameter.list$Bailey2004$E,
+                                      s = parameter.list$Bailey2004$s,
+                                      A = parameter.list$Bailey2004$A,
+                                      B = parameter.list$Bailey2004$B,
+                                      Th = parameter.list$Bailey2004$Th,
+                                      E_th = parameter.list$Bailey2004$E_th,
+                                      n = parameter.list$Bailey2004$n,
+                                      k_B = k_B,
+                                      W = W,
+                                      K = K,
+                                      model = model
+                                      )
+                          )
+                 )},
+
+        "Pagonis2007" = {
+          return(set_RLum(class = "RLum.Results",
+                          data = list(N = parameter.list$Pagonis2007$N,
+                                      E = parameter.list$Pagonis2007$E,
+                                      s = parameter.list$Pagonis2007$s,
+                                      A = parameter.list$Pagonis2007$A,
+                                      B = parameter.list$Pagonis2007$B,
+                                      Th = parameter.list$Pagonis2007$Th,
+                                      E_th = parameter.list$Pagonis2007$E_th,
+                                      n = parameter.list$Pagonis2007$n,
+                                      k_B = k_B,
+                                      W = W,
+                                      K = K,
+                                      model = model
+                                      )
+                          )
+                 )},
+
+        "Pagonis2008" = {
+          return(set_RLum(class = "RLum.Results",
+                          data = list(N = parameter.list$Pagonis2008$N,
+                                      E = parameter.list$Pagonis2008$E,
+                                      s = parameter.list$Pagonis2008$s,
+                                      A = parameter.list$Pagonis2008$A,
+                                      B = parameter.list$Pagonis2008$B,
+                                      Th = parameter.list$Pagonis2008$Th,
+                                      E_th = parameter.list$Pagonis2008$E_th,
+                                      n = parameter.list$Pagonis2008$n,
+                                      k_B = k_B,
+                                      W = W,
+                                      K = K,
+                                      model = model
+                                      )
+                          )
+  )})#end switch
+
 }
