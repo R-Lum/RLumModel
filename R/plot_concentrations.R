@@ -4,7 +4,9 @@
 #' in electron traps, hole centres, in the condunction and valence band.
 #'
 #' The function produces a multiple plot output and uses in main parts the Luminescence function
-#' \code{\linkS4class{plot_RLum.Analysis}}. A file output is recommended (e.g., \code{\link{pdf}}).
+#' \code{\link[Luminescence]{plot_RLum.Analysis}}.
+#' A file output is recommended (e.g., \code{\link{pdf}}).
+#'
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}):  S4
 #' object of class \code{RLum.Analysis}, e.g. the values of \code{\link{model_LuminescenceSignals}}.
@@ -16,7 +18,7 @@
 #' level from a specific model.
 #'
 #' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}} and \code{\linkS4class{RLum.Analysis}}.
+#' \code{\link{plot.default}} and \code{\link{plot_RLum.Analysis}}.
 #'
 #' @return Returns multiple plots.
 #'
@@ -44,7 +46,8 @@
 #' for quartz based on thermally transferred OSL (TT-OSL).
 #' Radiation Measurements 43, 704-708.
 #'
-#' @seealso \code{\link{plot}}, \code{\linkS4class{plot_RLum.Analysis}}
+#' @seealso \code{\link{plot}}, \code{\link[Luminescence]{plot_RLum.Analysis}},
+#' \code{\link{model_LuminescenceSignals}}
 #'
 #' @examples
 #'
@@ -55,7 +58,8 @@
 #' Luminescence::structure_RLum(model.output)
 #'
 #' ##plot all concentrations
-#' plot_concentrations(object = model.output, record.id = 1)
+#' plot_concentrations(object = model.output,
+#'                     record.id = 1)
 #'
 #' ##plot only specific energy-band-level (e.g. 110 degree celsius trap, "concentration level 1")
 #' plot_concentrations(object = model.output,
@@ -63,10 +67,17 @@
 #'                     subset = list(recordType = "concentration level 1"))
 #'
 #' ##plot every level on a single plot
-#' plot_concentrations(object = model.output, record.id = 1, plot.single = TRUE)
+#' plot_concentrations(object = model.output,
+#'                     record.id = 1,
+#'                     plot.single = TRUE)
 #'
 #' @export
-plot_concentrations <- function(object, record.id, plot.saturation = FALSE,...){
+plot_concentrations <- function(
+  object,
+  record.id,
+  plot.saturation = FALSE,
+  ...
+  ){
 
 # check input arguments ---------------------------------------------------
 
@@ -102,7 +113,7 @@ plot_concentrations <- function(object, record.id, plot.saturation = FALSE,...){
     ##load N
     temp.saturation.levels <- temp_parameters$N
 
-    ##name = "h" for vertial line
+    ##name = "h" for horicontal line
     names(temp.saturation.levels) <- rep("h", length(temp.saturation.levels))
 
     saturation.levels <- as.list(temp.saturation.levels)
@@ -155,9 +166,7 @@ plot_concentrations <- function(object, record.id, plot.saturation = FALSE,...){
 
 # ylab --------------------------------------------------------------
 
-      ylab <- "Concentration [1/cm^3]"
-
-
+      ylab <- expression(paste("Concentration [",1/cm^{3},"]"))
 
 # Plot --------------------------------------------------------------------
 
@@ -185,6 +194,7 @@ plot_concentrations <- function(object, record.id, plot.saturation = FALSE,...){
   } else {
 
     ylab <- ylab
+    par(mar = c(5,4.5,4,2) + 0.1) #see superscript completely
 
   }
 
