@@ -16,8 +16,8 @@ in the laboratory [Gy/s]. Default: 1 Gy/s}
 control of the progress. Default: txtProgressBar = TRUE}
 }
 \value{
-This function returns a list with the parsed *.seq file and the required steps for
-\code{\link{model_LuminescenceSignals}}
+This function returns a \code{\link{list}} with the parsed *.seq file and the required steps for
+\code{\link{model_LuminescenceSignals}}.
 }
 \description{
 A SEQ-file created by the Risoe Sequence Editor can be imported to simulate the sequence written
@@ -32,7 +32,7 @@ Supppored and tested: version 4.36.\cr
  0.1.0
 }
 \examples{
-
+##search "sample_SAR_cycle.SEQ" in "extdata" in package "RLumModel"
 path <- system.file("extdata", "sample_SAR_cycle.SEQ", package="RLumModel")
 
 sequence <- read_SEQ2R(file = path)
@@ -48,6 +48,6 @@ Available at: \url{http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsen
 SequenceEditor.ashx?la=da}
 }
 \seealso{
-\code{\link{plot}}, \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
+\code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
 }
 

@@ -12,15 +12,13 @@ model_LuminescenceSignals(model, sequence, lab.DoseRate = 1,
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
 "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"}
 
-\item{sequence}{\code{\link{list}} (\bold{required}): set sequence to model as list or as *.seq file from the
-Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. example 3):
-(\bold{required}): RegDose: \code{\link{numeric}}, TestDose: \code{\link{numeric}}, PH: \code{\link{numeric}},
-CH: \code{\link{numeric}}, OSL_temp: \code{\link{numeric}}. With default are: DoseRate: \code{\link{numeric}},
-Irr_temp: \code{\link{numeric}}, optical_power: \code{\link{numeric}}, OSL_duration: \code{\link{numeric}}, PH_duration: \code{\link{numeric}}}
+\item{sequence}{\code{\link{list}} (\bold{required}): set sequence to model as \code{\link{list}} or as *.seq file from the
+Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).}
 
-\item{lab.DoseRate}{\code{\link{numeric}} (with default): laboratory dose rate in XXX Gy/s for calculating seconds into Gray in the *.seq file.}
+\item{lab.DoseRate}{\code{\link{numeric}} (with default): laboratory dose rate in XXX
+Gy/s for calculating seconds into Gray in the *.seq file.}
 
-\item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at labour conditions, TRUE: simulations begins at crystallization (all levels 0)
+\item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, TRUE: simulations begins at crystallization (all levels 0)
 process}
 
 \item{plot}{\code{\link{logical}} (with default): Enables or disables plot output}
@@ -31,36 +29,53 @@ process}
 Recommended to show record.id to analyse with \code{\link{plot_concentrations}}.}
 
 \item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot.default}}. See details for further information}
+\code{\link{plot.default}}. See details for further information.}
 }
 \value{
 This function returns an \code{\linkS4class{RLum.Analysis}} object with all TL, (LM-) OSL and RF/RL steps
-in the sequence. Every entry is an \code{\linkS4class{RLum.Analysis}} object and can be plotted, analysed etc. with
+in the sequence. Every entry is an \code{\linkS4class{RLum.Data.Curve}} object and can be plotted, analysed etc. with
 further \code{RLum}-functions.
 }
 \description{
 This function models luminescence signals for quartz based on published physical models.
 It is possible to simulate TL, (CW-) OSL, RF measurements in a arbitrary sequence. This
-sequence is definded as a list of certain abrivations. Furthermore it is possible to
+sequence is definded as a \code{\link{list}} of certain abrivations. Furthermore it is possible to
 load a sequence direct from the Riso Sequence Editor.
-The output is an RLum.Analysis object and so the plots are done by the plot_RLum.Analysis
-function. If a SAR sequence is simulated the plot output can be disabled and SAR analyse functions
+The output is an \code{\linkS4class{RLum.Analysis}}object and so the plots are done
+by the \code{\link{plot_RLum.Analysis}} function. If a SAR sequence is simulated the plot output can be disabled and SAR analyse functions
 can be used.
 }
 \details{
 Defining a \bold{sequence}\cr
 
 \tabular{lll}{
-\bold{Abrivation} \tab \code{Description} \tab \code{Arguments}\cr
+\bold{Arguments} \tab \bold{Description} \tab \bold{Sub-arguments}\cr
 TL \tab thermally stimulated luminescence \tab 'temp begin', 'temp end', 'heating rate'\cr
-OSL\tab optically stimulated luminescence \tab 'temp', 'duration','optical power'\cr
-ILL\tab illumination \tab 'temp', 'duration','optical power'\cr
+OSL\tab optically stimulated luminescence \tab 'temp', 'duration','optical_power'\cr
+ILL\tab illumination \tab 'temp', 'duration','optical_power'\cr
 LM_OSL\tab linear modulated OSL \tab 'temp', 'duration', optional: 'start_power', 'end_power'\cr
 RL/RF\tab radioluminescence\tab 'temp','dose', 'DoseRate' \cr
 IRR\tab irradiation \tab 'temp','dose', 'DoseRate' \cr
 CH \tab cutheat \tab 'temp', optional: 'duration', 'heating_rate' \cr
 PH  \tab preheat \tab 'temp', 'duration' optional: 'heating_rate' \cr
 PAUSE \tab pause \tab 'temp', 'duration'
+}
+
+Defining a \bold{SAR-sequence}\cr
+
+\tabular{lll}{
+\bold{Abrivation} \tab \bold{Description} \tab \bold{examples} \cr
+RegDose \tab Dose points of the regenerative cycles\tab c(0, 80, 140, 260, 320, 0, 80)\cr
+TestDose\tab Test dose for the SAR cycles  \tab 50 \cr
+PH\tab Temperature of the preheat \tab 240 \cr
+CH\tab Temperature of the cutheat \tab 200 \cr
+OSL_temp\tab Temperature of OSL read out\tab  125 \cr
+OSL_duration\tab  Duration of OSL read out\tab default: 40 \cr
+Irr_temp \tab Temperature of irradiation \tab default: 20\cr
+PH_duration  \tab Duration of the preheat \tab default: 10 \cr
+DoseRate \tab Dose rate of the laboratory irradiation source \tab default: 1 \cr
+optical_power \tab Percentage of the full illumination power \tab default: 90 \cr
+Irr_2recover \tab Dose to be recovered in a dose-recovery-test \tab 20
 }
 }
 \section{Function version}{
@@ -72,11 +87,12 @@ PAUSE \tab pause \tab 'temp', 'duration'
 ##================================================================##
 ## Example 1: Simulate sample history of Bailey2001
 ## (cf. Bailey, 2001, Fig. 1)
-##===============================================================##
+##================================================================##
 
 ##set sequence with the following steps
 ## (1) Irradiation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s
 ## (2) TL from 20-400 deg. C with a rate of 5 K/s
+
 sequence <-
   list(
     IRR = c(20, 10, 1),
@@ -96,15 +112,16 @@ model.output <- model_LuminescenceSignals(
 ##============================================================================##
 
 ##set sequence with the following steps
-## (1) Irraditation at 30 deg. C with a dose of 100 Gy and a dose rate of 1 Gy/s
-## (2) Preheat to 2000 deg. C and hold for 10 s
-## (3) LM-OSL at 125 deg. C. for 1000 s
-## (4) OSL at 20 deg. C for 100 s with 90 \% optical power
-## (5) Cutheat at 220 deg. C
-## (6) Irradiation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s
-## (7) Pause at 200 deg. C for 100 s
-## (8) TL from 20-400 deg. C with a heat rate of 5 K/s
-## (9) Radiolumiescence at 20 deg. C with a dose of 20 Gy and a dose rate of 1 Gy/s
+## (1) Irraditation at 20 deg. C with a dose of 100 Gy and a dose rate of 1 Gy/s
+## (2) Preheat to 200 deg. C and hold for 10 s
+## (3) LM-OSL at 125 deg. C. for 100 s
+## (4) Cutheat at 200 dec. C.
+## (5) Irraditation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s
+## (6) Pause at 200 de. C. for 100 s
+## (7) OSL at 125 deg. C for 100 s with 90 \% optical power
+## (8) Pause at 200 deg. C for 100 s
+## (9) TL from 20-400 deg. C with a heat rate of 5 K/s
+## (10) Radiolumiescence at 20 deg. C with a dose of 20 Gy and a dose rate of 0.01 Gy/s
 
 sequence <-
  list(
@@ -271,6 +288,7 @@ Soetaert, K., Cash, J., Mazzia, F., 2012. Solving differential equations in R.
 Springer Science & Business Media.
 }
 \seealso{
-\code{\link{plot}}, \code{\linkS4class{RLum}}, \code{\link{plot_concentrations}}
+\code{\link{plot}}, \code{\linkS4class{RLum}}, \code{\link{plot_concentrations}},
+\code{\link{read_SEQ2R}}
 }
 
