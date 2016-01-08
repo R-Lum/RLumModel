@@ -10,7 +10,7 @@
 #'
 #' @param file \code{\link{character}} (\bold{required}): a *.seq file created by the Risoe Sequence Editor
 #'
-#' @param lab.DoseRate \code{\link{character}} (with default): set the doserate of the radiation source
+#' @param lab.dose_rate \code{\link{character}} (with default): set the dose rate of the radiation source
 #' in the laboratory [Gy/s]. Default: 1 Gy/s
 #'
 #' @param txtProgressBar \code{\link{logical}} (with default): enables or disables the txtProgressBar for a visuell
@@ -33,15 +33,15 @@
 #' @seealso \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
 #'
 #' @examples
-#' ##search "sample_SAR_cycle.SEQ" in "extdata" in package "RLumModel"
-#' path <- system.file("extdata", "sample_SAR_cycle.SEQ", package="RLumModel")
+#' ##search "example_SAR_cycle.SEQ" in "extdata" in package "RLumModel"
+#' path <- system.file("extdata", "example_SAR_cycle.SEQ", package="RLumModel")
 #'
 #' sequence <- read_SEQ2R(file = path)
 #'
 #' @export
 read_SEQ2R <- function(
   file,
-  lab.DoseRate = 1,
+  lab.dose_rate = 1,
   txtProgressBar = TRUE
 ){
 
@@ -55,8 +55,8 @@ if(!file.exists(file)){
   stop("[read_SEQ2R()] file name doesn't seem to exist.")
 }
 
-if(lab.DoseRate < 0){
-  stop("[read_SEQ2R()] Argument 'lab.DoseRate' has to be positiv.")
+if(lab.dose_rate < 0){
+  stop("[read_SEQ2R()] Argument 'lab.dose_rate' has to be positiv.")
 }
 
 
@@ -158,13 +158,13 @@ for(x in 1:length(data.list)){
       duration <- 1e-13
     }
 
-    dose <- duration*lab.DoseRate
+    dose <- duration*lab.dose_rate
 
     b <- as.numeric(gsub("Rate=", "", data.list[[x]][grep(pattern = "^Rate",x = data.list[[x]])]))
     PH_time <- as.numeric(gsub("An_Time=", "", data.list[[x]][grep(pattern = "^An_Time",x = data.list[[x]])]))
 
     names[x] <- "IRR"
-    sequence[[x]] <- c(temp,dose,lab.DoseRate,b,PH_time)
+    sequence[[x]] <- c(temp,dose,lab.dose_rate,b,PH_time)
 
   }
 
@@ -279,13 +279,13 @@ for(x in 1:length(data.list)){
 
     temp <- as.numeric(gsub("Temperature=", "", data.list[[x]][grep(pattern = "^Temperature=",x = data.list[[x]])]))
     duration <- as.numeric(gsub("High=", "", data.list[[x]][grep(pattern = "^High",x = data.list[[x]])]))
-    lab.DoseRate <- lab.DoseRate
+    lab.dose_rate <- lab.dose_rate
 
-    dose <- duration*lab.DoseRate
+    dose <- duration*lab.dose_rate
     b <- as.numeric(gsub("Rate=", "", data.list[[x]][grep(pattern = "^Rate",x = data.list[[x]])]))
 
     names[x] <- "RL"
-    sequence[[x]] <- c(temp,dose,lab.DoseRate,b)
+    sequence[[x]] <- c(temp,dose,lab.dose_rate,b)
   }
 
   if(sequence.ID == 29){

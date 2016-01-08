@@ -12,6 +12,6 @@ test_that("Output is RLum.Analysis",{
 })
 
 test_that("Doserate > 0",{
-  expect_error(model_LuminescenceSignals(model = "Bailey2001", sequence = list(OSL = c(20,1,100)), plot = FALSE, verbose = FALSE,lab.DoseRate = -1), "lab.DoseRate has to be a positive number")
+  expect_error(model_LuminescenceSignals(model = "Bailey2001", sequence = list(OSL = c(20,1,100)), plot = FALSE, verbose = FALSE,lab.dose_rate =  -1), "lab.dose_rate has to be a positive number")
 
 })

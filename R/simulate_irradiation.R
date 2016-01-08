@@ -6,7 +6,7 @@
 #'
 #' @param dose \code{\link{numeric}} (\bold{required}): dose to apply in Gray
 #'
-#' @param DoseRate \code{\link{numeric}} (\bold{required}): Doserate in Gy/s
+#' @param dose_rate \code{\link{numeric}} (\bold{required}): Dose rate in Gy/s
 #'
 #' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
 #' concentration of electron-/holetraps, valence- and conduction band
@@ -38,7 +38,7 @@
 .simulate_irradiation <- function(
   temp,
   dose,
-  DoseRate,
+  dose_rate,
   n,
   parms
 ){
@@ -49,9 +49,9 @@
   if(temp < -273){
     stop("\n [.simulate_irradiation()] Argument 'temp' has to be > 0 K!")
   }
-  ##check if doserate is a positive number
-  if(DoseRate < 0){
-    stop("\n [.simulate_irradiation()] Argument 'DoseRate' has to be a positive number!")
+  ##check if dose_rate is a positive number
+  if(dose_rate < 0){
+    stop("\n [.simulate_irradiation()] Argument 'dose_rate' has to be a positive number!")
   }
 
   ##check if dose is a positive number
@@ -76,13 +76,13 @@
   # b: heating rate [°C/s]
   ##============================================================================##
   if(parms$model == "Bailey2004"){
-    R <- DoseRate*2.5e10
+    R <- dose_rate*2.5e10
   }
   if(parms$model == "Bailey2002"){
-    R <- DoseRate*3e10
+    R <- dose_rate*3e10
   }
   else{
-    R <- DoseRate*5e7  # all other simulations
+    R <- dose_rate*5e7  # all other simulations
   }
 
   P <- 0
@@ -92,7 +92,7 @@
   # SETTING PARAMETERS FOR ODE
   ##============================================================================##
 
-  times   <- seq(0, dose/(DoseRate), by = (dose/DoseRate)/100)
+  times   <- seq(0, dose/(dose_rate), by = (dose/dose_rate)/100)
   parameters.step  <- list(R = R, P = P, temp = temp, b = b, times = times, parms = parms)
 
   ##============================================================================##

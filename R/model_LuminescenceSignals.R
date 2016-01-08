@@ -17,8 +17,8 @@
 #' OSL\tab optically stimulated luminescence \tab 'temp', 'duration','optical_power'\cr
 #' ILL\tab illumination \tab 'temp', 'duration','optical_power'\cr
 #' LM_OSL\tab linear modulated OSL \tab 'temp', 'duration', optional: 'start_power', 'end_power'\cr
-#' RL/RF\tab radioluminescence\tab 'temp','dose', 'DoseRate' \cr
-#' IRR\tab irradiation \tab 'temp','dose', 'DoseRate' \cr
+#' RL/RF\tab radioluminescence\tab 'temp','dose', 'dose_rate' \cr
+#' IRR\tab irradiation \tab 'temp','dose', 'dose_rate' \cr
 #' CH \tab cutheat \tab 'temp', optional: 'duration', 'heating_rate' \cr
 #' PH  \tab preheat \tab 'temp', 'duration' optional: 'heating_rate' \cr
 #' PAUSE \tab pause \tab 'temp', 'duration'
@@ -37,7 +37,7 @@
 #' OSL_duration\tab  Duration of OSL read out\tab default: 40 \cr
 #' Irr_temp \tab Temperature of irradiation \tab default: 20\cr
 #' PH_duration  \tab Duration of the preheat \tab default: 10 \cr
-#' DoseRate \tab Dose rate of the laboratory irradiation source \tab default: 1 \cr
+#' dose_rate \tab Dose rate of the laboratory irradiation source \tab default: 1 \cr
 #' optical_power \tab Percentage of the full illumination power \tab default: 90 \cr
 #' Irr_2recover \tab Dose to be recovered in a dose-recovery-test \tab 20
 #' }
@@ -48,7 +48,7 @@
 #' @param model \code{\link{character}} (\bold{required}): set model to be used. Available models are:
 #' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"
 #'
-#' @param lab.DoseRate \code{\link{numeric}} (with default): laboratory dose rate in XXX
+#' @param lab.dose_rate \code{\link{numeric}} (with default): laboratory dose rate in XXX
 #' Gy/s for calculating seconds into Gray in the *.seq file.
 #'
 #' @param simulate_sample_history \code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, TRUE: simulations begins at crystallization (all levels 0)
@@ -282,7 +282,7 @@
 model_LuminescenceSignals <- function(
   model,
   sequence,
-  lab.DoseRate = 1,
+  lab.dose_rate = 1,
   simulate_sample_history = FALSE,
   plot = TRUE,
   verbose = TRUE,
@@ -306,7 +306,7 @@ model_LuminescenceSignals <- function(
 
     sequence <- read_SEQ2R(
       file = sequence,
-      lab.DoseRate = lab.DoseRate,
+      lab.dose_rate = lab.dose_rate,
       txtProgressBar = ifelse(verbose, TRUE, FALSE)
     )
 
@@ -344,10 +344,10 @@ model_LuminescenceSignals <- function(
         PH_duration <- 10
       }
 
-      DoseRate = sequence$DoseRate
-      if(is.null(DoseRate)){
+      dose_rate = sequence$dose_rate
+      if(is.null(dose_rate)){
 
-        DoseRate <- lab.DoseRate
+        dose_rate <- lab.dose_rate
       }
 
       optical_power = sequence$optical_power
@@ -368,7 +368,7 @@ model_LuminescenceSignals <- function(
         Irr_temp = Irr_temp,
         OSL_duration = OSL_duration,
         PH_duration = PH_duration,
-        DoseRate = DoseRate,
+        dose_rate = dose_rate,
         optical_power = optical_power
       )}
       else{# DRT sequence
@@ -382,7 +382,7 @@ model_LuminescenceSignals <- function(
           Irr_temp = Irr_temp,
           OSL_duration = OSL_duration,
           PH_duration = PH_duration,
-          DoseRate = DoseRate,
+          dose_rate = dose_rate,
           optical_power = optical_power,
           Irr_2recover = sequence$Irr_2recover
           )}
@@ -411,10 +411,10 @@ model_LuminescenceSignals <- function(
 
     }
 
-  #check if lab.DoseRate > 0
-    if(lab.DoseRate <= 0){
+  #check if lab.dose_rate > 0
+    if(lab.dose_rate <= 0){
 
-      stop("[model_LuminescenceSignals()] lab.DoseRate has to be a positive number! ")
+      stop("[model_LuminescenceSignals()] lab.dose_rate has to be a positive number! ")
 
     }
 

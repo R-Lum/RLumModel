@@ -1,7 +1,7 @@
 "model_LuminescenceSignals","plot_concentrations","read_SEQ2R"
 "model","object","file"
-"sequence","record.id","lab.DoseRate"
-"lab.DoseRate","plot.saturation","txtProgressBar"
+"sequence","record.id","lab.dose_rate"
+"lab.dose_rate","plot.saturation","txtProgressBar"
 "simulate_sample_history","dots",NA
 "plot",NA,NA
 "verbose",NA,NA

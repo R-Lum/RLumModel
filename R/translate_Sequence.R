@@ -151,11 +151,11 @@ for (i in 1:length(sequence)){
   if("ILL" %in% names(sequence)[i]){
 
     if(!"temp" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp" }
-    if(!"dose" %in% names(sequence[[i]])) {names( sequence[[i]])[2] <- "dose"}
+    if(!"duration" %in% names(sequence[[i]])) {names( sequence[[i]])[2] <- "duration"}
     if(!"optical_power" %in% names(sequence[[i]])) {names(sequence[[i]])[3] <- "optical_power"}
 
     n <- .simulate_illumination(temp = sequence[[i]]["temp"],
-                                duration = sequence[[i]]["dose"],
+                                duration = sequence[[i]]["duration"],
                                 optical_power = sequence[[i]]["optical_power"],
                                 n,
                                 parms)
@@ -213,27 +213,27 @@ for (i in 1:length(sequence)){
 
     if(!"temp" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp" }
     if(!"dose" %in% names(sequence[[i]])) {names( sequence[[i]])[2] <- "dose"}
-    if(!"DoseRate" %in% names(sequence[[i]])) {names(sequence[[i]])[3] <- "DoseRate"}
+    if(!"dose_rate" %in% names(sequence[[i]])) {names(sequence[[i]])[3] <- "dose_rate"}
 
     n <- .simulate_irradiation(temp = sequence[[i]]["temp"],
                                dose = sequence[[i]]["dose"],
-                               DoseRate = sequence[[i]]["DoseRate"],
+                               dose_rate = sequence[[i]]["dose_rate"],
                                n,
                                parms)
 
     n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n, parms)
   }
 
-  #check if current sequence step is IRR
-  if("RL" %in% names(sequence)[i] || "RF" %in% names(sequence)[i]){
+  #check if current sequence step is RF
+  if("RF" %in% names(sequence)[i] || "RL" %in% names(sequence)[i]){
 
     if(!"temp" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp" }
     if(!"dose" %in% names(sequence[[i]])) {names( sequence[[i]])[2] <- "dose"}
-    if(!"DoseRate" %in% names(sequence[[i]])) {names(sequence[[i]])[3] <- "DoseRate"}
+    if(!"dose_rate" %in% names(sequence[[i]])) {names(sequence[[i]])[3] <- "dose_rate"}
 
-    n <- .simulate_RL(temp = sequence[[i]]["temp"],
+    n <- .simulate_RF(temp = sequence[[i]]["temp"],
                                dose = sequence[[i]]["dose"],
-                               DoseRate = sequence[[i]]["DoseRate"],
+                               dose_rate = sequence[[i]]["dose_rate"],
                                n,
                                parms)
 

@@ -4,7 +4,7 @@
 \alias{model_LuminescenceSignals}
 \title{Model Luminescence Signals}
 \usage{
-model_LuminescenceSignals(model, sequence, lab.DoseRate = 1,
+model_LuminescenceSignals(model, sequence, lab.dose_rate = 1,
   simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE,
   show.structure = FALSE, ...)
 }
@@ -15,7 +15,7 @@ model_LuminescenceSignals(model, sequence, lab.DoseRate = 1,
 \item{sequence}{\code{\link{list}} (\bold{required}): set sequence to model as \code{\link{list}} or as *.seq file from the
 Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).}
 
-\item{lab.DoseRate}{\code{\link{numeric}} (with default): laboratory dose rate in XXX
+\item{lab.dose_rate}{\code{\link{numeric}} (with default): laboratory dose rate in XXX
 Gy/s for calculating seconds into Gray in the *.seq file.}
 
 \item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, TRUE: simulations begins at crystallization (all levels 0)
@@ -54,8 +54,8 @@ TL \tab thermally stimulated luminescence \tab 'temp begin', 'temp end', 'heatin
 OSL\tab optically stimulated luminescence \tab 'temp', 'duration','optical_power'\cr
 ILL\tab illumination \tab 'temp', 'duration','optical_power'\cr
 LM_OSL\tab linear modulated OSL \tab 'temp', 'duration', optional: 'start_power', 'end_power'\cr
-RL/RF\tab radioluminescence\tab 'temp','dose', 'DoseRate' \cr
-IRR\tab irradiation \tab 'temp','dose', 'DoseRate' \cr
+RL/RF\tab radioluminescence\tab 'temp','dose', 'dose_rate' \cr
+IRR\tab irradiation \tab 'temp','dose', 'dose_rate' \cr
 CH \tab cutheat \tab 'temp', optional: 'duration', 'heating_rate' \cr
 PH  \tab preheat \tab 'temp', 'duration' optional: 'heating_rate' \cr
 PAUSE \tab pause \tab 'temp', 'duration'
@@ -73,7 +73,7 @@ OSL_temp\tab Temperature of OSL read out\tab  125 \cr
 OSL_duration\tab  Duration of OSL read out\tab default: 40 \cr
 Irr_temp \tab Temperature of irradiation \tab default: 20\cr
 PH_duration  \tab Duration of the preheat \tab default: 10 \cr
-DoseRate \tab Dose rate of the laboratory irradiation source \tab default: 1 \cr
+dose_rate \tab Dose rate of the laboratory irradiation source \tab default: 1 \cr
 optical_power \tab Percentage of the full illumination power \tab default: 90 \cr
 Irr_2recover \tab Dose to be recovered in a dose-recovery-test \tab 20
 }

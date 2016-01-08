@@ -36,7 +36,7 @@ Collate:
   set_Pars.R
   simulate_CW_OSL.R
   simulate_LM_OSL.R
-  simulate_RL.R  
+  simulate_RF.R  
   simulate_TL.R
   simulate_heating.R
   simulate_illumination.R

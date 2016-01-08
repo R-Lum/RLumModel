@@ -16,7 +16,7 @@
 #' OSL_duration \tab  Duration of OSL read out\tab default: 40 \cr
 #' Irr_temp \tab Temperature of irradiation \tab default: 20\cr
 #' PH_duration  \tab Duration of the preheat \tab default: 10 \cr
-#' DoseRate \tab Dose rate of the laboratory irradiation source \tab default: 1 \cr
+#' dose_rate \tab Dose rate of the laboratory irradiation source \tab default: 1 \cr
 #' optical_power \tab Percentage of the full illumination power \tab default: 90
 #' }
 #'
@@ -38,7 +38,7 @@
 #'
 #' @param PH_duration\code{\link{numeric}} (with default): set preheat duration [s]
 #'
-#' @param DoseRate\code{\link{numeric}} (with default): set the doserate [Gy/s] of the laboratory irradiation unit
+#' @param dose_rate\code{\link{numeric}} (with default): set the dose rate [Gy/s] of the laboratory irradiation unit
 #'
 #' @param optical_power\code{\link{numeric}} (with default):
 #'
@@ -80,13 +80,13 @@
   Irr_temp = 20,
   OSL_duration = 40,
   PH_duration = 10,
-  DoseRate = 1,
+  dose_rate = 1,
   optical_power = 90
 ){
 
   temp.list <- list()
   sequence <- list(ILL = c(125,70,100),
-                   IRR = c(Irr_temp,Irr_2recover,DoseRate))
+                   IRR = c(Irr_temp,Irr_2recover,dose_rate))
 
   for (i in 1:length(RegDose)){
 
@@ -96,18 +96,18 @@
         TL = c(20,PH,5),
         PAUSE = c(PH,PH_duration),
         OSL = c(OSL_temp,OSL_duration,optical_power), # Lx measurement
-        IRR = c(Irr_temp,TestDose,DoseRate),
+        IRR = c(Irr_temp,TestDose,dose_rate),
         TL = c(20,CH,5),
         OSL = c(OSL_temp,OSL_duration,optical_power) # Tx measurement
       )
     } else {
 
       temp.list <- list(
-        IRR = c(Irr_temp,RegDose[i],DoseRate),
+        IRR = c(Irr_temp,RegDose[i],dose_rate),
         TL = c(20,PH,5),
         PAUSE = c(PH,PH_duration),
         OSL = c(OSL_temp,OSL_duration,optical_power), # Lx measurement
-        IRR = c(Irr_temp,TestDose,DoseRate),
+        IRR = c(Irr_temp,TestDose,dose_rate),
         TL = c(20,CH,5),
         OSL = c(OSL_temp,OSL_duration,optical_power) #Tx measurement
       )

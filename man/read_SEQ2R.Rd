@@ -4,12 +4,12 @@
 \alias{read_SEQ2R}
 \title{Parse a Risoe SEQ-file to a sequence neccessary for simulating quartz luminescence}
 \usage{
-read_SEQ2R(file, lab.DoseRate = 1, txtProgressBar = TRUE)
+read_SEQ2R(file, lab.dose_rate = 1, txtProgressBar = TRUE)
 }
 \arguments{
 \item{file}{\code{\link{character}} (\bold{required}): a *.seq file created by the Risoe Sequence Editor}
 
-\item{lab.DoseRate}{\code{\link{character}} (with default): set the doserate of the radiation source
+\item{lab.dose_rate}{\code{\link{character}} (with default): set the dose rate of the radiation source
 in the laboratory [Gy/s]. Default: 1 Gy/s}
 
 \item{txtProgressBar}{\code{\link{logical}} (with default): enables or disables the txtProgressBar for a visuell
@@ -32,8 +32,8 @@ Supppored and tested: version 4.36.\cr
  0.1.0
 }
 \examples{
-##search "sample_SAR_cycle.SEQ" in "extdata" in package "RLumModel"
-path <- system.file("extdata", "sample_SAR_cycle.SEQ", package="RLumModel")
+##search "example_SAR_cycle.SEQ" in "extdata" in package "RLumModel"
+path <- system.file("extdata", "example_SAR_cycle.SEQ", package="RLumModel")
 
 sequence <- read_SEQ2R(file = path)
 
