@@ -101,12 +101,13 @@
 
     dn[length(N)+1] = R-sum(dn[1:j])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])
 
-    if (parms@originator != "Bailey 2001" && parms@originator != "Bailey2004" && parms@originator != "Bailey2002")
+    if (parms@originator == "Bailey 2001" || parms@originator == "Bailey2004" || parms@originator == "Bailey2002")
     {
-      dn[length(N)+2] = R-sum(dn[(j+1):jj])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])           # Valenzband ohne lezten Term bei Bailey 2001/2004
+      dn[length(N)+2] = R-sum(dn[(j+1):jj])           # valence band ODE for Bailey model 2001/2002/2004
 
-    } else { # valence band ODE for Bailey model 2001/2002/2004
-      dn[length(N)+2] = R-sum(dn[(j+1):jj])
+    } else { # valence band ODE for all other models
+
+      dn[length(N)+2] = R-sum(dn[(j+1):jj])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])
     }
 
   return(list(dn)) # return the rate of change

@@ -25,7 +25,8 @@ Imports:
 URL: http://CRAN.R-project.org/package=RLumModel
 Collate:
   RLumModel-package.R
-  calc_Signal.R
+  calc_signal.R
+  calc_concentrations.R
   create_DRT.sequence.R
   create_SAR.sequence.R
   model_LuminescenceSignals.R
@@ -33,7 +34,7 @@ Collate:
   read_SEQ2R.R
   set_ODE.R
   set_ODE_LM_OSL.R
-  set_Pars.R
+  set_pars.R
   simulate_CW_OSL.R
   simulate_LM_OSL.R
   simulate_RF.R  
@@ -42,6 +43,6 @@ Collate:
   simulate_illumination.R
   simulate_irradiation.R
   simulate_pause.R
-  translate_Sequence.R
+  translate_sequence.R
 RoxygenNote: 5.0.1
 Suggests: testthat
