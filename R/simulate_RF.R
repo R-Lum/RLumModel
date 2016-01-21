@@ -123,33 +123,14 @@
   # CALCULATING RESULTS FROM ODE SOLVING
   ##============================================================================##
 
-  signal <- .calc_Signal(object = out, parameters = parameters.step)
+  signal <- .calc_signal(object = out, parameters = parameters.step)
 
 
   ##============================================================================##
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING
   ##============================================================================##
 
-  concentrations <- lapply(2:ncol(out), function(x){
-    value <- out[,x]
-
-    if(x < (ncol(out)-1)){
-      recordType = paste("concentration level",x-1)}
-
-    if(x == (ncol(out)-1)){
-      recordType = "concentration n_c"}
-
-    if(x == ncol(out)){
-      recordType = "concentration n_v"}
-
-    return(set_RLum(class = "RLum.Data.Curve",
-                    data = matrix(data = c(time = times, n = value), ncol = 2),
-                    recordType = recordType,
-                    curveType = "simulated"
-    ))
-  })
-
-  concentrations <- as(object = concentrations, Class = "RLum.Analysis")
+  concentrations <- .calc_concentrations(out,times)
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP

@@ -99,33 +99,14 @@
   # CALCULATe SIGNALS FROM ODE SOLVING
   ##============================================================================##
 
-  signal <- .calc_Signal(object = out, parameters = parameters.step)
+  signal <- .calc_signal(object = out, parameters = parameters.step)
   TSkala <- times*b+temp_begin
 
   ##============================================================================##
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING
   ##============================================================================##
 
-  concentrations <- lapply(2:ncol(out), function(x){
-    value <- out[,x]
-    if(x < (ncol(out)-1)){
-      recordType = paste("concentration level",x-1)}
-
-    if(x == (ncol(out)-1)){
-      recordType = "concentration n_c"}
-
-    if(x == ncol(out)){
-      recordType = "concentration n_v"}
-
-    return(set_RLum(class = "RLum.Data.Curve",
-                    data = matrix(data = c(time = TSkala, n = value), ncol = 2),
-                    recordType = recordType,
-                    curveType = "simulated",
-           ))
-
-  })
-
-  concentrations <- as(concentrations, Class = "RLum.Analysis")
+  concentrations <- .calc_concentrations(out,TSkala)
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
