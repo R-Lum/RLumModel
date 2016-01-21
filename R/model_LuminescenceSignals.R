@@ -420,7 +420,7 @@ model_LuminescenceSignals <- function(
 
 # Load model parameters ------------------------------------------------------------------------------------
 
-    parms <- .set_Pars(model)
+    parms <- .set_pars(model)
     if(simulate_sample_history == TRUE){
       n <- Luminescence::set_RLum(class = "RLum.Results",
                                   data = list(n = rep(0,length(parms$N)+2),
@@ -435,7 +435,7 @@ model_LuminescenceSignals <- function(
 
   #sequence, n and parms as arguments for the SequenceTranslator, who translates the sequence to different model steps
     model.output <-
-      .translate_Sequence(
+      .translate_sequence(
         sequence = sequence,
         n = n,
         model = model,
