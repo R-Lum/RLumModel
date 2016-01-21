@@ -61,7 +61,7 @@
 #' pars <- .set_Pars("Bailey2001")
 #'
 #' @noRd
-.set_Pars <- function(model){
+.set_pars <- function(model){
 
 # check input arguments ---------------------------------------------------
 
@@ -76,7 +76,7 @@
   ## natural constants
   ##============================================================================##
 
-  # Boltzmann constant [ev/K]
+  # Boltzmann constant [eV/K]
   k_B <- 8.617e-5
 
   # activiation Energy [eV]

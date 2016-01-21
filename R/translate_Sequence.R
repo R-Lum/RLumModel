@@ -37,7 +37,7 @@
 #' #so far no example available
 #'
 #' @noRd
-.translate_Sequence <- function(
+.translate_sequence <- function(
   sequence,
   n,
   parms,

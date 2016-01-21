@@ -29,7 +29,7 @@
 #' #so far no example available
 #'
 #' @noRd
-.calc_Signal <- function(
+.calc_signal <- function(
   object,
   parameters
   ){
