@@ -4,7 +4,7 @@
 \alias{plot_concentrations}
 \title{Plot electron/hole concentrations of a specific record.id}
 \usage{
-plot_concentrations(object, record.id, plot.saturation = FALSE, ...)
+plot_concentrations(object, record.id, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):  S4
@@ -12,9 +12,6 @@ object of class \code{RLum.Analysis}, e.g. the values of \code{\link{model_Lumin
 
 \item{record.id}{\code{\link{numeric}} (\bold{required}): id of the simulated record, which
 is to plot. To see all record.ids use \code{\link[Luminescence]{structure_RLum}}, see examples.}
-
-\item{plot.saturation}{\code{\link{logical}} (with default): plots the saturation of every
-level from a specific model.}
 
 \item{\dots}{further arguments and graphical parameters passed to
 \code{\link{plot.default}} and \code{\link{plot_RLum.Analysis}}.}

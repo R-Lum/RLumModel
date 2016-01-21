@@ -14,9 +14,6 @@
 #' @param record.id \code{\link{numeric}} (\bold{required}): id of the simulated record, which
 #' is to plot. To see all record.ids use \code{\link[Luminescence]{structure_RLum}}, see examples.
 #'
-#' @param plot.saturation \code{\link{logical}} (with default): plots the saturation of every
-#' level from a specific model.
-#'
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}} and \code{\link{plot_RLum.Analysis}}.
 #'
@@ -75,7 +72,6 @@
 plot_concentrations <- function(
   object,
   record.id,
-  plot.saturation = FALSE,
   ...
   ){
 
@@ -102,28 +98,10 @@ plot_concentrations <- function(
   temp_id <- Luminescence::get_RLum(object, record.id = record.id)
   level_concentrations <- temp_id@info$concentrations
 
-  temp_parameters <- .set_Pars(object@protocol)
+  temp_parameters <- .set_pars(object@protocol)
   indicator <- temp_parameters$B
 
 
-
-# check if plot.saturation == TRUE -----------------------------------------
-  if(plot.saturation){
-
-    ##load N
-    temp.saturation.levels <- temp_parameters$N
-
-    ##name = "h" for horicontal line
-    names(temp.saturation.levels) <- rep("h", length(temp.saturation.levels))
-
-    saturation.levels <- as.list(temp.saturation.levels)
-    abline <- saturation.levels
-
-  } else {
-
-    abline <- NULL
-
-  }
 
 # main --------------------------------------------------------------
 
@@ -209,18 +187,6 @@ plot_concentrations <- function(
     main <- main
   }
 
-  ##check if "abline" in ...
-  if("abline" %in% names(extraArgs))
-  {
-
-    abline <- extraArgs$abline
-
-  } else {
-
-    abline <- abline
-
-  }
-
 
   ##check if "mtext" in ...
   if("mtext" %in% names(extraArgs))
@@ -240,7 +206,6 @@ plot_concentrations <- function(
             xlab = xlab,
             ylab = ylab,
             main = main,
-            abline = abline,
             mtext = mtext,
             ...)
 
