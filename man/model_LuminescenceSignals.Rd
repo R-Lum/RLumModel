@@ -121,7 +121,7 @@ model.output <- model_LuminescenceSignals(
 ## (7) OSL at 125 deg. C for 100 s with 90 \% optical power
 ## (8) Pause at 200 deg. C for 100 s
 ## (9) TL from 20-400 deg. C with a heat rate of 5 K/s
-## (10) Radiolumiescence at 20 deg. C with a dose of 20 Gy and a dose rate of 0.01 Gy/s
+## (10) Radiofluorescence at 20 deg. C with a dose of 20 Gy and a dose rate of 0.01 Gy/s
 
 sequence <-
  list(
@@ -197,13 +197,18 @@ sequence <- list(
 ## Example 4: generate sequence from *.seq file and run SAR simulation
 ##============================================================================##
 
-# call function "model_LuminescenceSignals", load *.seq file for sequence,
+# load example *.SEQ file and construct a sequence.
+# call function "model_LuminescenceSignals", load created sequence for sequence,
 # set model = "Bailey2002" (palaeodose = 10 Gy)
 # and simulate_sample_history = FALSE (default),
 # because the sample history is not part of the sequence
 
+path <- system.file("extdata", "example_SAR_cycle.SEQ", package="RLumModel")
+
+sequence <- read_SEQ2R(file = path)
+
 model.output <- model_LuminescenceSignals(
-  sequence = "inst/extdata/sample_SAR_cycle.SEQ",
+  sequence = sequence,
   model = "Bailey2002",
   plot = FALSE
 )
