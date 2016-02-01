@@ -6,9 +6,14 @@
 #'
 #' @param duration \code{\link{numeric}} (\bold{required}): duration of the LM-OSL simulation
 #'
-#' @param star_power \code{\link{numeric}}:
+#' @param start_power \code{\link{numeric}}: % of the power density at the start of the measurement.
 #'
-#' @param end_power \code{\link{numeric}}:
+#' @param end_power \code{\link{numeric}}: % of the power density at the end of the measurement.
+#' 100 % equates to 20 mW/cm^2
+#'
+#' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the LM-OSL-step. This ID
+#' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
+#' sequence step they were calculated from. This ID is identic to the sequence step in "sequence".
 #'
 #' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
 #' concentration of electron-/holetraps, valence- and conduction band
@@ -39,6 +44,7 @@
   duration,
   start_power = 0,
   end_power = 100,
+  RLumModel_ID = NULL,
   n,
   parms
 ){
@@ -119,7 +125,12 @@
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING
   ##============================================================================##
 
-  concentrations <- .calc_concentrations(out,times)
+  name <- c("LM-OSL")
+  concentrations <- .calc_concentrations(
+    data = out,
+    times = times,
+    name = name,
+    RLumModel_ID = RLumModel_ID)
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
@@ -134,10 +145,12 @@
                       data = matrix(data = c(times[2:length(times)], signal[2:length(signal)]),ncol = 2),
                       recordType = "LM-OSL",
                       curveType = "simulated",
-                      info = list(concentrations = concentrations)
+                      info = list(RLumModel_ID = RLumModel_ID)
                       ),
-                    temp = temp
-                  )))
+                    temp = temp,
+                    concentrations = concentrations)
+                  )
+         )
 
 
 }#end function

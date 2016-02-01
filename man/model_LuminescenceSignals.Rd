@@ -26,7 +26,7 @@ process}
 \item{verbose}{\code{\link{logical}} (with default): Verbose mode on/off}
 
 \item{show.structure}{\code{\link{logical}} (with default): Shows the structure of the result.
-Recommended to show record.id to analyse with \code{\link{plot_concentrations}}.}
+Recommended to show record.id to analyse concentrations.}
 
 \item{\dots}{further arguments and graphical parameters passed to
 \code{\link{plot.default}}. See details for further information.}
@@ -102,8 +102,7 @@ sequence <-
 ##model sequence
 model.output <- model_LuminescenceSignals(
   sequence = sequence,
-  model = "Bailey2001",
-  show.structure = TRUE
+  model = "Bailey2001"
 )
 
 \dontrun{
@@ -121,7 +120,7 @@ model.output <- model_LuminescenceSignals(
 ## (7) OSL at 125 deg. C for 100 s with 90 \% optical power
 ## (8) Pause at 200 deg. C for 100 s
 ## (9) TL from 20-400 deg. C with a heat rate of 5 K/s
-## (10) Radiofluorescence at 20 deg. C with a dose of 20 Gy and a dose rate of 0.01 Gy/s
+## (10) Radiofluorescence at 20 deg. C with a dose of 200 Gy and a dose rate of 0.01 Gy/s
 
 sequence <-
  list(
@@ -209,7 +208,7 @@ sequence <- read_SEQ2R(file = path)
 
 model.output <- model_LuminescenceSignals(
   sequence = sequence,
-  model = "Bailey2002",
+  model = "Bailey2001",
   plot = FALSE
 )
 
@@ -221,7 +220,7 @@ results <- analyse_SAR.CWOSL(model.output,
                              signal.integral.max = 10,
                              background.integral.min = 301,
                              background.integral.max = 401,
-                             dose.points = c(0,5,10,20,50,5,0),
+                             dose.points = c(0,8,14,26,32,0,8),
                              fit.method = "EXP")
 
 print(get_RLum(results))
@@ -240,16 +239,18 @@ optical_power <- seq(from = 0,to = 100,by = 20)
 
 model.output <- lapply(1:length(optical_power), function(x){
 
-sequence <- list(IRR = c(20, 50, 1),
+ sequence <- list(IRR = c(20, 50, 1),
                   PH = c(220, 10, 5),
                   OSL = c(125, 50, optical_power[x])
                   )
 
-return(model_LuminescenceSignals(
-       sequence = sequence,
-       model = "Bailey2004",
-       plot = FALSE
-       ))
+ data <- model_LuminescenceSignals(
+           sequence = sequence,
+           model = "Bailey2004",
+           plot = FALSE
+           )
+
+ return(get_RLum(data, recordType = "OSL$", drop = FALSE))
 })
 
 ##combine output curves
@@ -293,7 +294,7 @@ Soetaert, K., Cash, J., Mazzia, F., 2012. Solving differential equations in R.
 Springer Science & Business Media.
 }
 \seealso{
-\code{\link{plot}}, \code{\linkS4class{RLum}}, \code{\link{plot_concentrations}},
+\code{\link{plot}}, \code{\linkS4class{RLum}},
 \code{\link{read_SEQ2R}}
 }
 

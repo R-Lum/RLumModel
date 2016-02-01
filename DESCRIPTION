@@ -30,7 +30,6 @@ Collate:
   create_DRT.sequence.R
   create_SAR.sequence.R
   model_LuminescenceSignals.R
-  plot_concentrations.R
   read_SEQ2R.R
   set_ODE.R
   set_ODE_LM_OSL.R

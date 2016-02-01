@@ -142,9 +142,11 @@ for (i in 1:length(sequence)){
                           duration = sequence[[i]]["duration"],
                           optical_power = sequence[[i]]["optical_power"],
                           n,
-                          parms)
+                          parms,
+                          RLumModel_ID = i)
 
-    output.model[[i]] <- n$CW_OSL.data
+    output.model <- c(output.model,n$CW_OSL.data, n$concentrations)
+
   }
 
   #check if current sequence step is ILL (illumination)
@@ -172,7 +174,8 @@ for (i in 1:length(sequence)){
     n <- .simulate_LM_OSL(temp = sequence[[i]]["temp"],
                           duration = sequence[[i]]["duration"],
                           n=n,
-                          parms=parms)
+                          parms=parms,
+                          RLumModel_ID = i)
     }
 
     if(length(sequence[[i]]) > 2){
@@ -185,11 +188,12 @@ for (i in 1:length(sequence)){
                             start_power = sequence[[i]]["start_power"],
                             end_power = sequence[[i]]["end_power"],
                             n=n,
-                            parms=parms)
+                            parms=parms,
+                            RLumModel_ID = i)
 
     }
 
-    output.model[[i]] <- n$LM_OSL.data
+    output.model <- c(output.model,n$LM_OSL.data, n$concentrations)
   }
 
   #check if current sequence step is TL
@@ -203,9 +207,11 @@ for (i in 1:length(sequence)){
                       temp_end = sequence[[i]]["temp_end"],
                       heating_rate = sequence[[i]]["heating_rate"],
                       n,
-                      parms)
+                      parms,
+                      RLumModel_ID = i)
 
-    output.model[[i]] <- n$TL.data
+
+    output.model <- c(output.model,n$TL.data, n$concentrations)
   }
 
   #check if current sequence step is IRR
@@ -221,6 +227,7 @@ for (i in 1:length(sequence)){
                                n,
                                parms)
 
+    ##pause to releax
     n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n, parms)
   }
 
@@ -235,9 +242,12 @@ for (i in 1:length(sequence)){
                                dose = sequence[[i]]["dose"],
                                dose_rate = sequence[[i]]["dose_rate"],
                                n,
-                               parms)
+                               parms,
+                               RLumModel_ID = i)
 
-    output.model[[i]] <- n$RF.data
+    output.model <- c(output.model,n$RF.data, n$concentrations)
+
+    ##pause to releax
     n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n, parms)   }
 
   #check if current sequence step is PAUSE

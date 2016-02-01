@@ -13,6 +13,10 @@
 #' concentration of electron-/holetraps, valence- and conduction band
 #' from step before. This is necessary to get the boundary condition for the ODEs.
 #'
+#' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the RF-step. This ID
+#' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
+#' sequence step they were calculated from. This ID is identic to the sequence step in "sequence".
+#'
 #' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
 #' numerical quartz luminescence results.
 #'
@@ -58,6 +62,7 @@
   temp,
   dose,
   dose_rate,
+  RLumModel_ID = NULL,
   n,
   parms
 ){
@@ -97,10 +102,10 @@
   if(parms$model == "Bailey2004"){
     R <- dose_rate*2.5e10
   }
+
   if(parms$model == "Bailey2002"){
     R <- dose_rate*3e10
-  }
-  else{
+  } else {
     R <- dose_rate*5e7  # all other simulations
   }
 
@@ -130,7 +135,12 @@
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING
   ##============================================================================##
 
-  concentrations <- .calc_concentrations(out,times)
+  name <- c("RF")
+  concentrations <- .calc_concentrations(
+    data = out,
+    times = times,
+    name = name,
+    RLumModel_ID = RLumModel_ID)
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
@@ -144,9 +154,11 @@
                       data = matrix(data = c(times, signal), ncol = 2),
                       recordType = "RF",
                       curveType = "simulated",
-                      info = list(concentrations = concentrations)
-                    ) ,
-                    temp = temp
-                  )))
+                      info = list(RLumModel_ID = RLumModel_ID)
+                    ),
+                    temp = temp,
+                    concentrations = concentrations)
+                  )
+         )
 
 }

@@ -17,7 +17,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Johannes Friedrich, University of Bayreuth (Germany),
+#' @author Johannes Friedrich, University of Bayreuth (Germany)
 #'
 #' @seealso \code{\link{simulate_TL}}, \code{\link{simulate_CW_OSL}}, \code{\link{simulate_LM_OSL}},
 #' \code{\link{simulate_RF}}, \code{\link{plot_concentrations}}
@@ -27,31 +27,62 @@
 #' #so far no example available
 #'
 #' @noRd
-.calc_concentrations <- function(data,times)
-{
+.calc_concentrations <- function(
+  data,
+  times,
+  name,
+  RLumModel_ID = NULL
+  ){
+
+  ##check name of sequence step
+
+  if("TL" %in% name){
+
+    xlab <- "Temperature [\u00B0C]"
+
+  } else if("OSL" %in% name | "LM-OSL" %in% name){
+
+    xlab <- "Illumination time [s]"
+
+  } else {
+
+    xlab <- "Stimulation time [s]"
+  }
+
+  ylab <- "Concentration [1/cm^3]"
+
+
+##calculate concentrations
 
   concentrations <- lapply(2:ncol(data), function(x){
+
     value <- data[,x]
     if(x < (ncol(data)-1)){
-      recordType = paste("concentration level",x-1)}
+      recordType <- paste0("conc. level ",x-1," (",name,")")}
 
     if(x == (ncol(data)-1)){
-      recordType = "concentration n_c"}
+      recordType <- paste0("conc. n_c (",name,")")}
 
     if(x == ncol(data)){
-      recordType = "concentration n_v"}
+      recordType <- paste0("conc. n_v (",name,")")}
+
 
     return(set_RLum(class = "RLum.Data.Curve",
-                    data = matrix(data = c(
-                      time = times,
-                      n = value),
-                      ncol = 2),
+                    data = matrix(
+                      data = c(
+                        time = times,
+                        n = value),
+                        ncol = 2),
                     recordType = recordType,
                     curveType = "simulated",
-  ))
+                    info = list(
+                      curveDescripter = paste(xlab,ylab, sep = ";"),
+                      RLumModel_ID = RLumModel_ID
+                      )
+           ))
 
-})
+  })
 
-return(concentrations <- as(concentrations, Class = "RLum.Analysis"))
+  return(concentrations)
 
 }

@@ -7,7 +7,6 @@
 #'
 #' Supppored and tested: version 4.36.\cr
 #'
-#'
 #' @param file \code{\link{character}} (\bold{required}): a *.seq file created by the Risoe Sequence Editor
 #'
 #' @param lab.dose_rate \code{\link{character}} (with default): set the dose rate of the radiation source
@@ -59,9 +58,7 @@ if(lab.dose_rate < 0){
   stop("[read_SEQ2R()] Argument 'lab.dose_rate' has to be positiv.")
 }
 
-
 # parse *.SEQ file --------------------------------------------------------
-
 
 file2read <- readLines(file, encoding = "UTF-8")
 

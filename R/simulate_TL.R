@@ -8,6 +8,10 @@
 #'
 #' @param heating_rate \code{\link{numeric}} (\bold{required}): heating rate in [°C/s] or [K/s]
 #'
+#' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the TL-step. This ID
+#' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
+#' sequence step they were calculated from. This ID is identic to the sequence step in "sequence".
+#'
 #' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
 #' concentration of electron-/holetraps, valence- and conduction band
 #' from step before. This is necessary to get the boundary condition for the ODEs.
@@ -38,6 +42,7 @@
   temp_begin,
   temp_end,
   heating_rate,
+  RLumModel_ID = NULL,
   n,
   parms
 ){
@@ -106,7 +111,12 @@
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING
   ##============================================================================##
 
-  concentrations <- .calc_concentrations(out,TSkala)
+  name <- c("TL")
+  concentrations <- .calc_concentrations(
+    data = out,
+    times = TSkala,
+    name = name,
+    RLumModel_ID = RLumModel_ID)
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
@@ -120,8 +130,10 @@
                       data = matrix(data = c(TSkala, signal),ncol = 2),
                       recordType = "TL",
                       curveType = "simulated",
-                      info = list(concentrations = concentrations)
+                      info = list(RLumModel_ID = RLumModel_ID)
                       ),
-                    temp = temp_end
-                  )))
+                    temp = temp_end,
+                    concentrations = concentrations)
+                  )
+         )
 }

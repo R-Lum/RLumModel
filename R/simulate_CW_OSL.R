@@ -6,7 +6,13 @@
 #'
 #' @param duration \code{\link{numeric}} (\bold{required}): heatingrate in [°C/s] or [K/s]
 #'
-#' @param optical_power \code{\link{numeric}} (\bold{with default}): optical power in % of full power of the LED
+#' @param optical_power \code{\link{numeric}} (\bold{with default}): optical power in % of full power of the LED.
+#' 100 % equates 20 mW/cm^2. Of course is it possible to go higher than 100 %. 20 mW/cm^2 is a "historical"
+#' value from Bailey 2001, see references.
+#'
+#' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the CW-OSL-step. This ID
+#' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
+#' sequence step they were calculated from. This ID is identic to the sequence step in "sequence".
 #'
 #' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
 #' concentration of electron-/holetraps, valence- and conduction band
@@ -54,6 +60,7 @@
   temp,
   duration,
   optical_power = 100,
+  RLumModel_ID = NULL,
   n,
   parms
 ){
@@ -124,7 +131,12 @@
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING
   ##============================================================================##
 
-  concentrations <- .calc_concentrations(out,times)
+  name <- c("OSL")
+  concentrations <- .calc_concentrations(
+    data = out,
+    times = times,
+    name = name,
+    RLumModel_ID = RLumModel_ID)
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
@@ -138,9 +150,11 @@
                       data = matrix(data = c(times, signal),ncol = 2),
                       recordType = "OSL",
                       curveType = "simulated",
-                      info = list(concentrations = concentrations)
+                      info = list(RLumModel_ID = RLumModel_ID)
                     ),
-                  temp = temp
-                )))
+                  temp = temp,
+                  concentrations = concentrations)
+                  )
+         )
 
 }#end function
