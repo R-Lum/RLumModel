@@ -2,11 +2,11 @@
 #'
 #' This function simulates the TL measurement of quartz in the energy-band-model.
 #'
-#' @param temp_begin \code{\link{numeric}} (\bold{required}): initial temperature [°C] of the TL-simulation
+#' @param temp_begin \code{\link{numeric}} (\bold{required}): initial temperature [deg. C] of the TL-simulation
 #'
-#' @param temp_end \code{\link{numeric}} (\bold{required}): end temperature [°C] of the TL-simulation
+#' @param temp_end \code{\link{numeric}} (\bold{required}): end temperature [deg. C] of the TL-simulation
 #'
-#' @param heating_rate \code{\link{numeric}} (\bold{required}): heating rate in [°C/s] or [K/s]
+#' @param heating_rate \code{\link{numeric}} (\bold{required}): heating rate in [deg. C/s] or [K/s]
 #'
 #' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the TL-step. This ID
 #' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
@@ -78,7 +78,7 @@
   #
   # R: electron-hole-production-rate (in Bailey 2004: 2.5e10, else: 5e7) = 0
   # P: Photonflux (in Bailey 2004: wavelength [nm]) = 0
-  # b: heating rate [°C/s]
+  # b: heating rate [deg. C/s]
   ##============================================================================##
 
 

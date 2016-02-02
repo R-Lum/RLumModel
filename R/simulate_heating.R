@@ -2,11 +2,11 @@
 #'
 #' This function simulates the heating/cooling of quartz in the energy-band-model.
 #'
-#' @param temp_begin \code{\link{numeric}} (\bold{required}): initial temperature [°C] of the TL-simulation
+#' @param temp_begin \code{\link{numeric}} (\bold{required}): initial temperature [deg. C] of the TL-simulation
 #'
-#' @param temp_begin \code{\link{numeric}} (\bold{required}): endtemperature [°C] of the TL-simulation
+#' @param temp_begin \code{\link{numeric}} (\bold{required}): endtemperature [deg. C] of the TL-simulation
 #'
-#' @param heating_rate \code{\link{numeric}} (\bold{required}): heatingrate in [°C/s] or [K/s]
+#' @param heating_rate \code{\link{numeric}} (\bold{required}): heatingrate in [deg. C/s] or [K/s]
 #'
 #' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
 #' concentration of electron-/holetraps, valence- and conduction band
@@ -72,7 +72,7 @@
   #
   # R: electron-hole-production-rate (in Bailey 2004: 2.5e10, else: 5e7) = 0
   # P: Photonflux (in Bailey 2004: wavelength [nm]) = 0
-  # b: heating rate [°C/s]
+  # b: heating rate [deg. C/s]
   ##============================================================================##
 
   R <- 0

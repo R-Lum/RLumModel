@@ -2,9 +2,9 @@
 #'
 #' This function simulates the CW-OSL measurement of quartz in the energy-band-model.
 #'
-#' @param temp \code{\link{numeric}} (\bold{required}): temperature [°C] of the CW-OSL measurement
+#' @param temp \code{\link{numeric}} (\bold{required}): temperature [deg. C] of the CW-OSL measurement
 #'
-#' @param duration \code{\link{numeric}} (\bold{required}): heatingrate in [°C/s] or [K/s]
+#' @param duration \code{\link{numeric}} (\bold{required}): heatingrate in [deg. C/s] or [K/s]
 #'
 #' @param optical_power \code{\link{numeric}} (\bold{with default}): optical power in % of full power of the LED.
 #' 100 % equates 20 mW/cm^2. Of course is it possible to go higher than 100 %. 20 mW/cm^2 is a "historical"
@@ -95,7 +95,7 @@
   #
   # R: electron-hole-production-rate (in Bailey 2004: 2.5e10, else: 5e7) = 0
   # P: Photonflux (in Bailey 2004: wavelength [nm]) = 1
-  # b: heating rate [°C/s] = 0
+  # b: heating rate [deg. C/s] = 0
   ##============================================================================##
 
   if(parms$model == "Bailey2004" || parms$model == "Bailey2002"){

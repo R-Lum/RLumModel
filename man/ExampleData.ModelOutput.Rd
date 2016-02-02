@@ -19,8 +19,15 @@ sequence <- list(IRR = c(temp = 20, dose = 10, DoseRate = 1),
 }
 \examples{
 
-data(ExampleData.ModelOutput,envir = environment())
-plot_RLum.Analysis(model.output)
+data(ExampleData.ModelOutput)
+TL_curve <- get_RLum(model.output, recordType = "TL$", drop = FALSE)
+
+##plot TL curve
+plot_RLum(TL_curve)
+
+TL_concentrations <- get_RLum(model.output, recordType = "(TL)", drop = FALSE)
+plot_RLum(TL_concentrations)
+
 
 }
 \references{

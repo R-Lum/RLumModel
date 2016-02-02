@@ -2,7 +2,7 @@
 #'
 #' This function simulates the LM-OSL measurement of quartz in the energy-band-model.
 #'
-#' @param temp \code{\link{numeric}} (\bold{required}): set temperature [°C] of the LM-OSL simulation
+#' @param temp \code{\link{numeric}} (\bold{required}): set temperature [deg. C] of the LM-OSL simulation
 #'
 #' @param duration \code{\link{numeric}} (\bold{required}): duration of the LM-OSL simulation
 #'
@@ -86,7 +86,7 @@
   #
   # R: electron-hole-production-rate = 0
   # P: Photonflux (in Bailey 2004: wavelength [nm]) = 1
-  # b: heating rate [°C/s] = 0
+  # b: heating rate [deg. C/s] = 0
   # a: rate of stimulationintensity, P*20, because in Bailey2001 P = 1 equates to 20 mW cm^(-2)
   ##============================================================================##
 

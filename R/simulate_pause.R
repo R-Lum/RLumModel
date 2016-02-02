@@ -3,7 +3,7 @@
 #' This function simulates the pause between measurements or after irradiation steps
 #' in quartz in the energy-band-model.
 #'
-#' @param temp \code{\link{numeric}} (\bold{required}): set temperature [°C] of the pause simulation
+#' @param temp \code{\link{numeric}} (\bold{required}): set temperature [deg. C] of the pause simulation
 #'
 #' @param duration \code{\link{numeric}} (\bold{required}): duration of the pause in model simulation
 #'
@@ -71,7 +71,7 @@
   #
   # R: electron-hole-production-rate = 0
   # P: Photonflux (in Bailey 2004: wavelength [nm]) = 0
-  # b: heating rate [°C/s] = 0
+  # b: heating rate [deg. C/s] = 0
   ##============================================================================##
 
   R <- 0

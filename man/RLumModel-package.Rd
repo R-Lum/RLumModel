@@ -10,7 +10,7 @@ published models.
 }
 \details{
 \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-\tab 0.1.0\cr Date: \tab 2016-XX-XX \cr License: \tab GPL-3\cr }
+\tab 0.1.0\cr Date: \tab 2016-02-02 \cr License: \tab GPL-3\cr }
 }
 \author{
 \bold{Authors}
@@ -30,7 +30,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, France
 \email{developers@model.r-luminescence.de}\cr
 
 \bold{Project source code repository}\cr
-\url{https://github.com/R-Lum/RLumModel}\cr
+\url{https://github.com/R-Lum}\cr
 
 \bold{Related projects}\cr
 \url{http://www.r-luminescence.de}\cr

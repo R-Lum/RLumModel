@@ -4,7 +4,7 @@
 #' published models.
 #'
 #' \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-#' \tab 0.1.0\cr Date: \tab 2016-XX-XX \cr License: \tab GPL-3\cr }
+#' \tab 0.1.0\cr Date: \tab 2016-02-02 \cr License: \tab GPL-3\cr }
 #'
 #' @name RLumModel-package
 #' @docType package
@@ -25,7 +25,7 @@
 #' \email{developers@@model.r-luminescence.de}\cr
 #'
 #' \bold{Project source code repository}\cr
-#' \url{https://github.com/R-Lum/RLumModel}\cr
+#' \url{https://github.com/R-Lum}\cr
 #'
 #' \bold{Related projects}\cr
 #' \url{http://www.r-luminescence.de}\cr
@@ -45,7 +45,8 @@
 #'
 #' @keywords package
 #'
-#' @import Luminescence deSolve
+#' @import Luminescence deSolve methods utils
+#' @importFrom stats setNames
 NULL
 
 
@@ -69,8 +70,15 @@ NULL
 #' @aliases model.output
 #' @examples
 #'
-#' data(ExampleData.ModelOutput,envir = environment())
-#' plot_RLum.Analysis(model.output)
+#' data(ExampleData.ModelOutput)
+#' TL_curve <- get_RLum(model.output, recordType = "TL$", drop = FALSE)
+#'
+#' ##plot TL curve
+#' plot_RLum(TL_curve)
+#'
+#' TL_concentrations <- get_RLum(model.output, recordType = "(TL)", drop = FALSE)
+#' plot_RLum(TL_concentrations)
+#'
 #'
 #' @name ExampleData.ModelOutput
 NULL

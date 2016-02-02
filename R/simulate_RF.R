@@ -2,7 +2,7 @@
 #'
 #' This function simulates the radioluminescence of quartz in the energy-band-model.
 #'
-#' @param temp \code{\link{cnumeric}} (\bold{required}): temperature [°C] at which the dose should be applied
+#' @param temp \code{\link{cnumeric}} (\bold{required}): temperature [deg. C] at which the dose should be applied
 #'
 #' @param dose \code{\link{numeric}} (\bold{required}): dose to apply in Gray
 #'
@@ -97,7 +97,7 @@
   #
   # R: electron-hole-production-rate (in Bailey 2004: 2.5e10, else: 5e7)
   # P: Photonflux (in Bailey 2004: wavelength [nm])
-  # b: heating rate [°C/s]
+  # b: heating rate [deg. C/s]
   ##============================================================================##
   if(parms$model == "Bailey2004"){
     R <- dose_rate*2.5e10

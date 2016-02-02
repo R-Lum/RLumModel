@@ -24,15 +24,15 @@
 #'
 #' @param TestDose\code{\link{numeric}} (\bold{required}): set testdose in [Gy]
 #'
-#' @param PH\code{\link{numeric}} (\bold{required}): set preheat temperature [°C]
+#' @param PH\code{\link{numeric}} (\bold{required}): set preheat temperature [deg. C]
 #'
-#' @param CH\code{\link{numeric}} (\bold{required}): set cutheat temperature [°C]
+#' @param CH\code{\link{numeric}} (\bold{required}): set cutheat temperature [deg. C]
 #'
-#' @param OSL_temp\code{\link{numeric}} (\bold{required}): set OSL reading temperture [°C]
+#' @param OSL_temp\code{\link{numeric}} (\bold{required}): set OSL reading temperture [deg. C]
 #'
 #' @param Irr_2recover\code{\link{numeric}} (\bold{required}): set dose to recover with DRT [Gy]
 #'
-#' @param Irr_temp\code{\link{numeric}} (with default): set irradiation temperature [°C]
+#' @param Irr_temp\code{\link{numeric}} (with default): set irradiation temperature [deg. C]
 #'
 #' @param OSL_duration\code{\link{numeric}} (with default): set OSL measurement time [s]
 #'

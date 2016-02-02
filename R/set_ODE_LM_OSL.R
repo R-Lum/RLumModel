@@ -4,7 +4,7 @@
 #' This function provides the differential equations for LM-OSL measurements. This function
 #' is necessary because the stimulation power (P) is time-dependent.
 #'
-#' With ’RLumModel’, the number of coupled
+#' With RLumModel, the number of coupled
 #' differential equations will automatically be adjusted, because of an identifying
 #' feature for electron traps and hole centres: This function identifies if B (see
 #' \code{\link{set_Pars}}) is 0 (electron trap) or not (hole trap). For advanced users it is thus
