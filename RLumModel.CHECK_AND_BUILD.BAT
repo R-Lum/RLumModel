@@ -24,9 +24,9 @@ echo -^> Clean RLumModel.BuildResults folder ...
 find %PATHPACKAGE%\RLumModel.BuildResults\ -type f -delete
 call :check
 
-echo -^> Remove NAMESPACE ...
-find %PATHPACKAGE% -name NAMESPACE -delete
-call :check
+::echo -^> Remove NAMESPACE ...
+::find %PATHPACKAGE% -name NAMESPACE -delete
+::call :check
 
 :: roxygen2
 :: -----------------------
@@ -48,6 +48,10 @@ call :check
 :: -----------------------
 echo -^> Build ASCII NEWS ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLumModel.BuildScripts\RLumModel.PBS_NEWS.R" NULL
+call :check
+
+echo -^> Remove output dump ...
+find %PATHPACKAGE% -name NULL -delete
 call :check
 
 :: BUILD PACKAGE
