@@ -1,4 +1,4 @@
-﻿# RLumModel
+# RLumModel
 
 [![CRAN](http://www.r-pkg.org/badges/version/RLumModel)](http://cran.rstudio.com/package=RLumModel)
 
@@ -49,11 +49,11 @@ of the wanted developer build.
 
 **The package comes without any guarantee!**
 
-Please further note that this version is a development version and may change day by day. For stable branches please visit
-the package on CRAN ... not yet.
+Please further note that this version is a development version and may change day by day. 
+For stable branches please visit the package on CRAN.
 
 ## License
 
-The Luminescence package is licensed under the GPLv3. See these files in the main directory for additional details: 
+The RLumModel package is licensed under the GPLv3. See these files in the main directory for additional details: 
 
-- LICENSE - Luminescence package license (GPLv3)
+- LICENSE - RLumModel package license (GPLv3)
