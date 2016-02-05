@@ -1,6 +1,11 @@
 # RLumModel
 
 [![CRAN](http://www.r-pkg.org/badges/version/RLumModel)](http://cran.rstudio.com/package=RLumModel)
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
+[![Downloads](http://cranlogs.r-pkg.org/badges/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
+[![Downloads](http://cranlogs.r-pkg.org/badges/last-week/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
+[![Downloads](http://cranlogs.r-pkg.org/badges/last-day/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
+
 [![Build Status](https://travis-ci.org/R-Lum/RLumModel.svg?branch=master)](https://travis-ci.org/R-Lum/RLumModel)
 [![Build status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/master?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master)
 
