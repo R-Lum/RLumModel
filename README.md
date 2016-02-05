@@ -2,6 +2,8 @@
 
 [![CRAN](http://www.r-pkg.org/badges/version/RLumModel)](http://cran.rstudio.com/package=RLumModel)
 [![Build Status](https://travis-ci.org/R-Lum/RLumModel.svg?branch=master)](https://travis-ci.org/R-Lum/RLumModel)
+[![Build status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/master?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master)
+
 
 The **R** package 'RLumModel' by Johannes Friedrich (University of Bayreuth, Germany), 
 Sebastian Kreutzer (IRAMAT-CRP2A, Université Bordeaux Montaigne, France) and Christoph Schmidt 
