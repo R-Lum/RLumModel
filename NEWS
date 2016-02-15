@@ -1,6 +1,16 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.1.0 (, 2016):
+Changes in version 0.1.1 (, 2016):
+
+	• 'set_ODE()':
+	
+	   • remove "b","temp", "R" and "P" from unpacking, because this parameters already exist in parameter.step
+
+	• 'set_ODE()':
+	
+	   • remove "a", "b","temp", "R" and "P" from unpacking, because this parameters already exist in parameter.step
+
+Changes in version 0.1.0 (3rd February, 2016):
 
         • Initial version.
 
