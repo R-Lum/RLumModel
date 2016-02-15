@@ -25,7 +25,7 @@
 #'
 #' @note This function calculates the ODE for the energy-band-model.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -73,10 +73,6 @@
   W <- parameters.step$parms$W
   K <- parameters.step$parms$K
 
-  b <- parameters.step$b
-  R <- parameters.step$R
-  P <- parameters.step$P
-  temp <- parameters.step$temp
   ##============================================================================##
 
 
