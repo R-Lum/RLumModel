@@ -20,7 +20,7 @@
 #' @author Johannes Friedrich, University of Bayreuth (Germany)
 #'
 #' @seealso \code{\link{simulate_TL}}, \code{\link{simulate_CW_OSL}}, \code{\link{simulate_LM_OSL}},
-#' \code{\link{simulate_RF}}, \code{\link{plot_concentrations}}
+#' \code{\link{simulate_RF}}
 #'
 #' @examples
 #'

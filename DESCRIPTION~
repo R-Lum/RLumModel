@@ -1,8 +1,8 @@
 Package: RLumModel
 Type: Package
 Title: Modelling Ordinary Differential Equations Leading to Luminescence
-Version: 0.1.1
-Date: 2016-02-15
+Version: 0.1.0
+Date: 2016-02-02
 Author: Johannes Friedrich [aut, trl, cre],
     Sebastian Kreutzer [aut, ths],
     Christoph Schmidt [aut, ths]

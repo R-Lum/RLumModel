@@ -24,7 +24,7 @@
 #' PAUSE \tab pause \tab 'temp', 'duration'
 #' }
 #'
-#' Note: 100 \% illumination power equates 20 mW/cm^2
+#' Note: 100 \% illumination power equates to 20 mW/cm^2
 #'
 #'
 #' Defining a \bold{SAR-sequence}\cr
