@@ -1,6 +1,20 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.1.0 (, 2016):
+Changes in version 0.1.1 (, 2016):
+
+        • 'set_ODE()':
+
+	   • remove 'b', 'temp', 'R' and 'P' from unpacking, because these parameters are already stored in parameters.step.
+
+        • 'set_ODE_LM_OSL()':
+
+	   • remove 'a', 'b', 'temp', 'R' and 'P' from unpacking, because these parameters are already stored in parameters.step.
+
+        • 'translate_sequence()':
+
+	   • add sequence to solt 'info' in returning RLum.Analysis object.
+	
+
+Changes in version 0.1.0 (3rd February, 2016):
 
         • Initial version.
-
