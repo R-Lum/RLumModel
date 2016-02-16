@@ -76,10 +76,9 @@
                     recordType = recordType,
                     curveType = "simulated",
                     info = list(
-                      curveDescripter = paste(xlab,ylab, sep = ";"),
-                      RLumModel_ID = RLumModel_ID
-                      )
-           ))
+                      curveDescripter = paste(xlab,ylab, sep = ";")),
+                    .pid = as.character(RLumModel_ID))
+           )
 
   })
 

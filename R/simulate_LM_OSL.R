@@ -145,7 +145,7 @@
                       data = matrix(data = c(times[2:length(times)], signal[2:length(signal)]),ncol = 2),
                       recordType = "LM-OSL",
                       curveType = "simulated",
-                      info = list(RLumModel_ID = RLumModel_ID)
+                      .pid = as.character(RLumModel_ID)
                       ),
                     temp = temp,
                     concentrations = concentrations)

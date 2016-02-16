@@ -130,7 +130,7 @@
                       data = matrix(data = c(TSkala, signal),ncol = 2),
                       recordType = "TL",
                       curveType = "simulated",
-                      info = list(RLumModel_ID = RLumModel_ID)
+                      .pid = as.character(RLumModel_ID)
                       ),
                     temp = temp_end,
                     concentrations = concentrations)
