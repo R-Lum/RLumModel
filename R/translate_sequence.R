@@ -24,7 +24,7 @@
 #' @return This function returns an \code{\linkS4class{RLum.Analysis}} object which can be analysed
 #' by further \code{\linkS4class{RLum}} functions.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -273,6 +273,11 @@ if(txtProgressBar & verbose){close(pb)}
 output.model <- output.model[unlist(lapply(output.model,length)!=0)]
 
 #return of the function is a "RLum.Analysis" object with the output of the given sequence
-return(set_RLum(class = "RLum.Analysis", records = output.model, protocol = model))
+return(set_RLum(
+  class = "RLum.Analysis", 
+  records = output.model, 
+  protocol = model, 
+  info = list(sequence = sequence))
+)
 
 }
