@@ -47,7 +47,7 @@ Changes in version 0.1.1 (, 2016):
             • add sequence to slot 'info' in returning RLum.Analysis
               object.
 
-     Changes in version 0.1.0 (3rd February, 2016)
+Changes in version 0.1.0 (3rd February, 2016):
 
         • Initial version.
 
