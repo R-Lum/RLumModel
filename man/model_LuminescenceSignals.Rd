@@ -107,6 +107,18 @@ model.output <- model_LuminescenceSignals(
   model = "Bailey2001"
 )
 
+##get all TL concentrations
+
+TL_conc <- get_RLum(model.output, recordType = "(TL)", drop = FALSE)
+
+plot_RLum(TL_conc)
+
+##plot 110 deg. C trap concentration
+
+plot_RLum(TL_conc, recordType = "conc. level 1")
+
+
+
 \dontrun{
 ##============================================================================##
 ## Example 2: Simulate sequence at labour without sample history
