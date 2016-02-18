@@ -2,46 +2,52 @@ NEWS for the R Package Luminescence
 
 Changes in version 0.1.1 (, 2016):
 
-	• 'calc_concentrations()':
+        • calc_concentrations():
 
-	   • add maximum change of concentration in specific level to slot 'info'
+            • add maximum change of concentration in specific level to
+              slot 'info'
 
-        • 'set_ODE()':
+        • set_ODE():
 
-	   • remove 'b', 'temp', 'R' and 'P' from unpacking, 
-	     because these parameters are already stored in parameters.step.
+            • remove 'b', 'temp', 'R' and 'P' from unpacking, because
+              these parameters are already stored in parameters.step.
 
-        • 'set_ODE_LM_OSL()':
+        • set_ODE_LM_OSL():
 
-	   • remove 'a', 'b', 'temp', 'R' and 'P' from unpacking, 
-       	     because these parameters are already stored in parameters.step.
+            • remove 'a', 'b', 'temp', 'R' and 'P' from unpacking,
+              because these parameters are already stored in
+              parameters.step.
 
-	• 'simulate_CW_OSL()':
+        • simulate_CW_OSL():
 
-	   • remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the 
-	     order of the command in the sequence.
+            • remove 'RLumModel_ID' from slot info to slot .pid. This
+              RLumModel_ID describes the order of the command in the
+              sequence.
 
-	• 'simulate_LM_OSL()':
+        • simulate_LM_OSL():
 
-	   • remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the 
-	     order of the command in the sequence.
+            • remove 'RLumModel_ID' from slot info to slot .pid. This
+              RLumModel_ID describes the order of the command in the
+              sequence.
 
-	• 'simulate_RF()':
+        • simulate_RF():
 
-	   • remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the 
-	     order of the command in the sequence.
+            • remove 'RLumModel_ID' from slot info to slot .pid. This
+              RLumModel_ID describes the order of the command in the
+              sequence.
 
-	• 'simulate_TL()':
+        • simulate_TL():
 
-	   • remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the 
-	     order of the command in the sequence.
+            • remove 'RLumModel_ID' from slot info to slot .pid. This
+              RLumModel_ID describes the order of the command in the
+              sequence.
 
+        • translate_sequence():
 
-        • 'translate_sequence()':
+            • add sequence to slot 'info' in returning RLum.Analysis
+              object.
 
-	   • add sequence to slot 'info' in returning RLum.Analysis object.
-	
-
-Changes in version 0.1.0 (3rd February, 2016):
+     Changes in version 0.1.0 (3rd February, 2016)
 
         • Initial version.
+
