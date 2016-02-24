@@ -23,11 +23,9 @@
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information
 #'
-#' @return This function returns an Rlum.Results object of the RF/RL simulation.
+#' @return This function returns an RLum.Results object of the RF/RL simulation.
 #'
-#' @note This function can do just nothing at the moment.
-#'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -117,12 +115,18 @@
   ##============================================================================##
 
   times   <- seq(0, dose/(dose_rate), by = (dose/dose_rate)/100)
-  parameters.step  <- list(R = R, P = P, temp = temp, b = b, times = times, parms = parms)
-
+  parameters.step <- .extract_pars(parameters.step = list(
+    R = R,
+    P = P,
+    temp = temp,
+    b = b,
+    times = times,
+    parms = parms))
+  
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE ,  rtol=1e-3, atol=1e-3, maxsteps=1e5);
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp);
 
   ##============================================================================##
   # CALCULATING RESULTS FROM ODE SOLVING

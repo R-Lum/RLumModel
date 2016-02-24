@@ -22,11 +22,9 @@
 #' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
 #' numerical quartz luminescence results.
 #'
-#' @return This function returns an Rlum.Results object from the LM-OSL simulation.
+#' @return This function returns an RLum.Results object from the LM-OSL simulation.
 #'
-#' @note This function can do just nothing at the moment.
-#'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -107,12 +105,19 @@
   ##============================================================================##
 
   times <- seq(from = 0, to = duration, by = 0.1)
-  parameters.step  <- list(R = R, P = P, temp = temp, b = b, a = a, times = times, parms = parms)
-
+  parameters.step <- .extract_pars(parameters.step = list(
+    a = a,
+    R = R,
+    P = P,
+    temp = temp,
+    b = b,
+    times = times,
+    parms = parms))
+  
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_LM_OSL, rtol=1e-3, atol=1e-3, maxsteps=1e5);
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp_LM_OSL);
   ##============================================================================##
 
   ##============================================================================##
