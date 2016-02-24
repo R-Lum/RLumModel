@@ -117,52 +117,90 @@ plot_RLum(TL_conc)
 
 plot_RLum(TL_conc, recordType = "conc. level 1")
 
-
-
-\dontrun{
 ##============================================================================##
-## Example 2: Simulate sequence at labour without sample history
+## Example 2: compare different optical powers of stimulation light
 ##============================================================================##
 
-##set sequence with the following steps
-## (1) Irraditation at 20 deg. C with a dose of 100 Gy and a dose rate of 1 Gy/s
-## (2) Preheat to 200 deg. C and hold for 10 s
-## (3) LM-OSL at 125 deg. C. for 100 s
-## (4) Cutheat at 200 dec. C.
-## (5) Irraditation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s
-## (6) Pause at 200 de. C. for 100 s
-## (7) OSL at 125 deg. C for 100 s with 90 \% optical power
-## (8) Pause at 200 deg. C for 100 s
-## (9) TL from 20-400 deg. C with a heat rate of 5 K/s
-## (10) Radiofluorescence at 20 deg. C with a dose of 200 Gy and a dose rate of 0.01 Gy/s
-
-sequence <-
- list(
-   IRR = c(20, 100, 1),
-   PH = c(200, 10),
-   LM_OSL = c(125, 100),
-   CH = c(200),
-   IRR = c(20, 10, 1),
-   PAUSE = c(200, 100),
-   OSL = c(125, 100, 90),
-   PAUSE = c(200, 100),
-   TL = c(20, 400, 5),
-   RF = c(20, 200, 0.01)
-)
-
-# call function "model_LuminescenceSignals", set sequence = sequence,
-# model = "Pagonis2008" (palaeodose = 200 Gy) and simulate_sample_history = FALSE (default),
+# call function "model_LuminescenceSignals", model = "Bailey2004"
+# and simulate_sample_history = FALSE (default),
 # because the sample history is not part of the sequence
+# the optical_power of the LED is varied and then compared.
 
-model.output <- model_LuminescenceSignals(
-   sequence = sequence,
-   model = "Pagonis2008"
+optical_power <- seq(from = 0,to = 100,by = 20)
+
+model.output <- lapply(optical_power, function(x){
+
+ sequence <- list(IRR = c(20, 50, 1),
+                  PH = c(220, 10, 5),
+                  OSL = c(125, 50, x)
+                  )
+
+ data <- model_LuminescenceSignals(
+           sequence = sequence,
+           model = "Bailey2004",
+           plot = FALSE,
+           verbose = FALSE
+           )
+
+ return(get_RLum(data, recordType = "OSL$", drop = FALSE))
+})
+
+##combine output curves
+model.output.merged <- merge_RLum(model.output)
+
+##plot
+plot_RLum(
+ object = model.output.merged,
+ xlab = "Illumination time [s]",
+ ylab = "OSL signal [a.u.]",
+ main = "OSL signal dependency on optical power of stimulation light",
+ legend.text = paste("Optical power density", 20*optical_power/100, "mW/cm^2"),
+ combine = TRUE)
+ 
+\dontrun{  
+##============================================================================##
+## Example 3: Simulate Thermal-Activation-Characteristics (TAC)
+##============================================================================##
+ 
+ ##set temperature
+ act.temp <- seq(from = 80, to = 600, by = 20)
+ 
+ ##loop over temperature
+ model.output <- vapply(X = act.temp, FUN = function(x) {
+ 
+ ##set sequence, note: sequence includes sample history
+   sequence <- list(
+     IRR = c(20, 1, 1e-11),
+     IRR = c(20, 10, 1),
+     PH = c(x, 1),
+     IRR = c(20, 0.1, 1),
+     TL = c(20, 150, 5)
+ )
+ ##run simulation
+   temp <- model_LuminescenceSignals(
+     sequence = sequence,
+     model = "Pagonis2007",
+     simulate_sample_history = TRUE,
+     plot = FALSE,
+     verbose = FALSE
    )
-
-
+     ## "TL$" for exact matching TL and not (TL)
+   TL_curve <- get_RLum(temp, recordType = "TL$")
+   ##return max value in TL curve
+   return(max(get_RLum(TL_curve)[,2]))
+ }, FUN.VALUE = 1)
+ 
+ ##plot resutls
+ plot(
+   act.temp[-(1:3)],
+   model.output[-(1:3)],
+   type = "b",
+   xlab = "Temperature [\\u00B0C]",
+   ylab = "TL [a.u.]"
+ )
 
 ##============================================================================##
-## Example 3: Simulate SAR sequence
+## Example 4: Simulate SAR sequence
 ##============================================================================##
 
 ##set SAR sequence with the following steps
@@ -207,7 +245,7 @@ sequence <- list(
 
 
 ##============================================================================##
-## Example 4: generate sequence from *.seq file and run SAR simulation
+## Example 5: generate sequence from *.seq file and run SAR simulation
 ##============================================================================##
 
 # load example *.SEQ file and construct a sequence.
@@ -241,43 +279,43 @@ print(get_RLum(results))
 
 
 ##============================================================================##
-## Example 5: compare different optical powers of stimulation light
+## Example 6: Simulate sequence at labour without sample history
 ##============================================================================##
 
-# call function "model_LuminescenceSignals", model = "Bailey2004"
-# and simulate_sample_history = FALSE (default),
+##set sequence with the following steps
+## (1) Irraditation at 20 deg. C with a dose of 100 Gy and a dose rate of 1 Gy/s
+## (2) Preheat to 200 deg. C and hold for 10 s
+## (3) LM-OSL at 125 deg. C. for 100 s
+## (4) Cutheat at 200 dec. C.
+## (5) Irraditation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s
+## (6) Pause at 200 de. C. for 100 s
+## (7) OSL at 125 deg. C for 100 s with 90 \% optical power
+## (8) Pause at 200 deg. C for 100 s
+## (9) TL from 20-400 deg. C with a heat rate of 5 K/s
+## (10) Radiofluorescence at 20 deg. C with a dose of 200 Gy and a dose rate of 0.01 Gy/s
+
+sequence <-
+ list(
+   IRR = c(20, 100, 1),
+   PH = c(200, 10),
+   LM_OSL = c(125, 100),
+   CH = c(200),
+   IRR = c(20, 10, 1),
+   PAUSE = c(200, 100),
+   OSL = c(125, 100, 90),
+   PAUSE = c(200, 100),
+   TL = c(20, 400, 5),
+   RF = c(20, 200, 0.01)
+)
+
+# call function "model_LuminescenceSignals", set sequence = sequence,
+# model = "Pagonis2008" (palaeodose = 200 Gy) and simulate_sample_history = FALSE (default),
 # because the sample history is not part of the sequence
-# the optical_power of the LED is varied and then compared.
 
-optical_power <- seq(from = 0,to = 100,by = 20)
-
-model.output <- lapply(1:length(optical_power), function(x){
-
- sequence <- list(IRR = c(20, 50, 1),
-                  PH = c(220, 10, 5),
-                  OSL = c(125, 50, optical_power[x])
-                  )
-
- data <- model_LuminescenceSignals(
-           sequence = sequence,
-           model = "Bailey2004",
-           plot = FALSE
-           )
-
- return(get_RLum(data, recordType = "OSL$", drop = FALSE))
-})
-
-##combine output curves
-model.output.merged <- merge_RLum(model.output)
-
-##plot
-plot_RLum(
- object = model.output.merged,
- xlab = "Illumination time [s]",
- ylab = "OSL signal [a.u.]",
- main = "OSL signal dependency on optical power of stimulation light",
- legend.text = paste("Optical power density", 20*optical_power/100, "mW/cm^2"),
- combine = TRUE)
+model.output <- model_LuminescenceSignals(
+   sequence = sequence,
+   model = "Pagonis2008"
+   )
 
 }
 }

@@ -3,6 +3,7 @@
 
 \section{Changes in version 0.1.1 (, 2016)}{
 \itemize{
+\item{new functions:}
  \item{calc_concentrations():}
     \itemize{ \item add maximum change of concentration in specific level to slot 'info'
    }

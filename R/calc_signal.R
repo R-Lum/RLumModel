@@ -10,7 +10,7 @@
 #'
 #' @return This function returns a vector with OSL/TL/RF signal per time.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -37,12 +37,11 @@
   ##============================================================================##
   ## unpack parameters to be used in this function
   ##============================================================================##
-
-  N <- parameters$parms$N
-  B <- parameters$parms$B
-  k_B <- parameters$parms$k_B
-  W <- parameters$parms$W
-  K <- parameters$parms$K
+  N <- parameters$N
+  B <- parameters$B
+  k_B <- parameters$k_B
+  W <- parameters$W
+  K <- parameters$K
 
   temp <- parameters$temp
   b <- parameters$b

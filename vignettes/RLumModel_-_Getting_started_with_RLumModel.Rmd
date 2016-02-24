@@ -2,14 +2,16 @@
 title: "RLumModel - Getting started with RLumModel"
 author: "Johannes Friedrich"
 date: '`r Sys.Date()`'
-output:
+output: 
   pdf_document:
     fig_height: 5
     fig_width: 5
-  html_document: default
+    number_sections: yes
+    toc: yes
+  # html_document: default
 header-includes: \usepackage[utf8]{inputenc}
-vignette: |
-  %\VignetteIndexEntry{Vignette Title} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
+vignette: >
+  %\VignetteIndexEntry{RLumModel - Getting started with RLumModel} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}{inputenc}
 ---
 ```{r, echo=FALSE, message = FALSE}
 library(RLumModel)
@@ -21,7 +23,7 @@ library(RLumModel)
 This vignette shows a few examples for the R-package "RLumModel". The main function "model_LuminescenceSignals()" and their arguments will be explained.
 
 
-# 1. Chosing a quartz luminescence model
+# Chosing a quartz luminescence model
 
 In the R package "RLumModel" are five quartz luminescence parameter sets included. All these parameter sets are common in literature and often used to simulate luminescence phenomena.
 
@@ -34,9 +36,9 @@ model <- "Bailey2001"
 The available models are "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007" and "Pagonis2008".
 With this call the model parameter will automatically be loaded.
 
-# 2. Creating a sequence
+# Creating a sequence
 
-## 2.1 Import a Risø Sequence file
+## Import a Risø Sequence file
 
 The first one is to use the popular and freely available Risø Sequence
 Editor version 4.36 to build a personal sequence and to save it as a SEQ-file
@@ -51,7 +53,7 @@ sequence <- system.file(
   package = "RLumModel")
 ```
 
-## 2.2 Keywords
+## Keywords
 
 The second way of creating a sequence is by referring to a list with keywords 
 and a certain order of code numbers or named values, which are shown
@@ -106,7 +108,7 @@ sequence <- list(
   TL = c(20, 400, 5))
 ```
 
-## 2.3 Creating a SAR/DRT sequence
+## Creating a SAR/DRT sequence
 
 However, to create a SAR or dose-recovery-test (DRT) sequence with
 the Risø Sequence Editor or with keywords is time-consuming, because it
@@ -162,7 +164,7 @@ The test dose is definded as 2 Gy. Preheat and Cutheat are at 220 °C and all OS
 
 The RLumModel function "model_LuminescenceSignals()" is able to interprete this (sequence-) list as a DRT sequence.
 
-# 3. Object structure of "model_LuminescenceSignals()"
+# Object structure of "model_LuminescenceSignals()"
 
 The output from the main function "model_LuminescenceSignals()" is of class "RLum.Analysis" (see R-package Luminescence) and contains data of class "RLum.Data.Curve" in the slot "records". The advantage of this infrastructure is that the package "Luminescence" offers a lot of methods to visualize and manipulate data. 
 
@@ -209,9 +211,9 @@ It is also possible to choose a "RLum.Data.Curve" by their "record.id", which ca
 structure_RLum(model.output)
 ```
 
-# 4. Working examples
+# Working examples
 
-## 4.1 Simulate a TL measurement
+## Simulate a TL measurement
 
 First of all, a sequence is needed, which produces a TL signal after the sample has received a dose:
 
@@ -272,7 +274,7 @@ plot_RLum(
 Some notes to the code above:
 
 * the return of the lapply function is a "RLum.Analysis" object, because of drop = FALSE
-* "recordType " "TL$" is necessary to match the character TL exact and not the concentrations
-* "merge_RLum" is necessary to merge all the sinlge "RLum.Analysis" objects in the list "model.output" together to one "RLum.Analysis" object
-* to see the results with another parameter set only model = "..." has to be changed (see Sec. 1)
+* "recordType = TL$" is necessary to match the character TL exact and not the concentrations
+* "merge_RLum" is necessary to merge all the single "RLum.Analysis" objects in the list "model.output" together to one "RLum.Analysis" object
+* to see the results with another parameter set, only model = "..." has to be changed (see Sec. 2)
 

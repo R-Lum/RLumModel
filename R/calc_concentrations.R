@@ -15,7 +15,7 @@
 #' with the concentrations of all available electron/holes traps including
 #' valence- and conduction band.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany)
 #'
