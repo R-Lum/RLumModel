@@ -2,8 +2,8 @@
 #
 # =================================================================================================
 # RLumModel.CHECK_AND_BUILD shell script
-# author: RLumModel ... Sebastian Kreutzer
-# date: 2015-12-04
+# author: RLumModel ... Sebastian Kreutzer and Johannes Friedrich
+# date: 2016-02-23
 #
 # Customized R check and build routine for the R package 'RLumModel'
 # =================================================================================================
@@ -48,10 +48,20 @@ echo ""
   find ${PATHPACKAGE} -name ".RData" -depth -exec rm {} \;
   check_status
 
+  echo -ne "-> Remove .RcppExports.cpp ... \t\t\t"
+  find ${PATHPACKAGE}/src -name "RcppExports.cpp" -depth -exec rm {} \;
+  check_status
+
   echo -ne "-> Remove NAMESPACE ... \t\t\t"
   find ${PATHPACKAGE} -name "NAMESPACE" -depth -exec rm {} \;
   check_status
 
+
+# Rcpp
+# =================================================================================================
+  echo -ne "-> Build Rcpp ... \t\t\t\t"
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Rcpp.R /dev/null
+  check_status
 
 
 # roxygen2
@@ -133,9 +143,10 @@ echo ""
   mv RLumModel_*.tar.gz RLumModel.BuildResults/ &>/dev/null
   check_status
 
-  echo -ne "-> Moving packge compiles package (*.tgz) ... \t"
-  mv RLumModel_*.tgz RLumModel.BuildResults/ &>/dev/null
-  check_status
+  # only for MAC OS
+  #echo -ne "-> Moving packge compiles package (*.tgz) ... \t"
+  #mv RLumModel_*.tgz RLumModel.BuildResults/ &>/dev/null
+  #check_status
 
   echo -ne "-> Copy manual ... \t\t\t\t"
   cp RLumModel.Rcheck/RLumModel-manual.pdf RLumModel.BuildResults/RLumModel-manual.pdf &>/dev/null
@@ -145,7 +156,7 @@ echo ""
   cp RLumModel.Rcheck/RLumModel-Ex.pdf RLumModel.BuildResults/RLumModel-Ex.pdf &>/dev/null
   check_status
 
-  echo -ne "-> Remove RLumModel.Rcheck ... \t\t"
+  echo -ne "-> Remove RLumModel.Rcheck ... \t\t\t"
   rm -r ${PATHPACKAGE}/RLumModel.Rcheck &>/dev/null
   check_status
 
