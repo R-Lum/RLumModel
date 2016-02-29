@@ -47,7 +47,11 @@ fit_data2RLumModel <- function(
   ...
 ){
   
-  ##load parms
+  # Integrity tests and conversion are done by model_LuminescenceSignals()
+
+  
+  # Load parameters --------------------------------------------------------------
+  
   parms <- extract_pars2FME(model = model)
   
   .fit_RLumModel2FME <- function(parms){

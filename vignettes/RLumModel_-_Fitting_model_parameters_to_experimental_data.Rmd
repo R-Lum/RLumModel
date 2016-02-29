@@ -3,10 +3,10 @@ title: "RLumModel - Fitting model parameters to experimental data"
 author: "Johannes Friedrich"
 date: '`r Sys.Date()`'
 output:
-  pdf_document: null
-  fig_width: 5
   html_document: default
+  fig_width: 5
   fig_height: 5
+  pdf_document: null
 number_sections: yes
 header-includes: \usepackage[utf8]{inputenc}
 toc: yes
@@ -161,7 +161,7 @@ legend('topright',legend = c("New model data (Fit)", "Old model data", "experime
 
 ## Data fitting for OSL data
 ```{r Prepare for OSL fitting}
-sequence <- list(OSL = c(125,20,200))
+sequence <- list(OSL = c(125, 20, 200))
 
 model <- "Pagonis2007"
 
