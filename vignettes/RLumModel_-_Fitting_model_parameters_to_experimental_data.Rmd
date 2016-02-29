@@ -1,0 +1,266 @@
+---
+title: "RLumModel - Fitting model parameters to experimental data"
+author: "Johannes Friedrich"
+date: '`r Sys.Date()`'
+output:
+  pdf_document: null
+  fig_width: 5
+  html_document: default
+  fig_height: 5
+number_sections: yes
+header-includes: \usepackage[utf8]{inputenc}
+toc: yes
+vignette: |
+  %\VignetteIndexEntry{RLumModel - Fitting quartz luminescence model parameters to experimental data} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}{inputenc}
+---
+```{r, echo=FALSE, message = FALSE}
+rm(list = ls(all=TRUE))
+library(RLumModel)
+library(FME)
+```
+
+# Introduction
+
+# Preparing 
+
+```{r}
+parRanges <- data.frame(min = c(5.1e7,  1e5, 1e9,  2.5e6,  5e8,   3e6,   1e8, 1e6,  5e7),
+                        max = c(5.1e11,  1e9, 1e13, 2.5e10, 5e12,  3e10,  1e12, 1e10, 5e11))
+
+rownames(parRanges) <- c("N1","N2","N3","N4","N5","N6","N7","N8","N9")
+
+sequence <-  list(
+    TL = c(20, 450, 5),
+    IRR = c(20, 5, 0.5),
+    TL = c(0,450, 5))
+
+model <- "Pagonis2007"
+
+func_FME <- fit_data2RLumModel(
+  sequence = sequence, 
+  model = model, 
+  seq.step2fit = 3)
+
+parms <- extract_pars2FME(model = model)
+```
+
+
+## Data fitting for TL data
+```{r Global Sensitivity Analysis TL}
+global_Sens <- FME::sensRange(func = func_FME,
+                   parms = parms,
+                   dist = "latin",
+                   sensvar = c("signal"),
+                   parRange = parRanges,
+                   num = 50 
+                   )
+
+global_Sens_sum <- summary(global_Sens)
+
+plot(global_Sens_sum)
+```
+
+```{r Local Sensitivity Analysis TL}
+SensR <- FME::sensFun(func = func_FME,
+                 parms = parms,
+                 sensvar = c("signal"),
+                 senspar = c("N1","N2","N3","s1","s2","s3","E1","E2","E3")
+                 )
+
+
+summary(SensR)
+```
+
+```{r}
+plot(SensR, legpos = "bottomleft", xlab = "Temperature [\u00B0C]", main = "Local Sensitivity Analysis")
+```
+
+```{r Estimate the Collinearity of Parameter Sets}
+
+Coll <- FME::collin(SensR)
+
+plot(Coll, log = "y")
+```
+
+```{r, message=FALSE, include=FALSE}
+Coll[Coll[,"collinearity" ] < 20,]
+```
+
+
+
+```{r}
+data("ExampleData.FittingTL")
+exp_data <- get_RLum(TL_fitting_data, record.id = 2)
+exp_data <- get_RLum(exp_data)
+exp_data[,2] <- exp_data[,2]/max(exp_data[,2])
+colnames(exp_data) <- c("time","signal")
+```
+
+```{r}
+Fit_func <- function(x, parset = names(x)){
+
+  parms[parset] <- exp(x)
+  out <- func_FME(parms)
+  return(modCost(model = out, obs = exp_data))
+}
+
+
+Fit_TL <- modFit(f = Fit_func,
+              p = log(c(parms[parms != 0])),
+              method = "Port")
+```
+
+
+
+```{r, echo = FALSE}
+new_parameters_TL <- data.frame(
+  old = parms[names(coef(Fit_TL))], 
+  new = exp(coef(Fit_TL)), 
+  percent = exp(coef(Fit_TL))/parms[names(coef(Fit_TL))]*100)
+
+print(new_parameters_TL)
+```
+
+
+```{r copy new parameters TL, include=FALSE}
+##copy parms
+parms_new_TL <- parms
+names <- names(coef(Fit_TL))
+
+for(i in 1:length(coef(Fit_TL))){
+
+  parms_new_TL[names[i]] <- exp(Fit_TL$par[names[i]])
+
+}
+```
+
+```{r Plot results TL, echo=FALSE}
+plot(func_FME(parms_new_TL),
+     type = "l",
+     main = "TL Fitting "
+)
+
+lines(func_FME(parms),
+      type = "l", col = "green")
+
+lines(exp_data, col = "red")
+
+legend('topright',legend = c("New model data (Fit)", "Old model data", "experimental data"), col = c("black","green","red"), lwd = 1)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+## Data fitting for OSL data
+```{r Prepare for OSL fitting}
+sequence <- list(OSL = c(125,20,200))
+
+model <- "Pagonis2007"
+
+func_FME <- fit_data2RLumModel(
+  sequence = sequence, 
+  model = model, 
+  seq.step2fit = 1)
+
+parms <- extract_pars2FME(model = model)
+```
+
+
+
+```{r Local Sensitivity Analysis OSL}
+SensR <- FME::sensFun(func = func_FME,
+                 parms = parms,
+                 sensvar = c("signal"),
+                 senspar = c("N1","N2","N3","E_th1","E_th3","Th1","Th3")
+                 )
+
+```
+
+```{r, include=FALSE}
+summary(SensR)
+```
+
+```{r, echo=FALSE}
+plot(SensR, legpos = "bottomright", xlab = "Time [s]", main = "Local Sensitivity Analysis")
+```
+
+```{r Estimate the Collinearity of Parameter Sets OSL}
+
+Coll <- FME::collin(SensR)
+
+plot(Coll, log = "y")
+
+abline(h = 20, col = "red") ## 20 = magical number above which there are identifiability problems
+
+```
+
+```{r, message=FALSE, include=FALSE}
+Coll[Coll[,"collinearity" ] < 20 & Coll[,"N" ] == 6,]
+```
+
+
+```{r Fitting to OSL data}
+data(ExampleData.CW_OSL_Curve, envir = environment())
+exp_data <- CW_Curve.BosWallinga2012
+
+exp_data[,2] <- exp_data[,2]/max(exp_data[,2])
+colnames(exp_data) <- c("time","signal")
+
+Fit_func_OSL <- function(x, parset = names(x)){
+
+  parms[parset] <- exp(x)
+  out <- func_FME(parms)
+  return(modCost(model = out, obs = exp_data))
+}
+
+Fit_OSL <- modFit(f = Fit_func,
+              p = log(c(parms[parms != 0])),
+              method = "Port")
+
+```
+
+```{r, echo = FALSE}
+new_parameters_OSL <- data.frame(
+  old = parms[names(coef(Fit_OSL))], 
+  new = exp(coef(Fit_OSL)), 
+  percent = exp(coef(Fit_OSL))/parms[names(coef(Fit_OSL))]*100)
+
+head(new_parameters_OSL)
+```
+
+
+```{r copy new parameters OSL, include=FALSE}
+parms_new_OSL <- parms
+names <- names(coef(Fit_OSL))
+
+for(i in 1:length(coef(Fit_OSL))){
+
+  parms_new_OSL[names[i]] <- exp(Fit_OSL$par[names[i]])
+
+}
+
+
+```
+
+```{r Plot results OSL, echo=FALSE}
+plot(func_FME(parms_new_OSL),
+     type = "l",
+     main = "OSL Fitting "
+)
+
+lines(func_FME(parms),
+      type = "l", col = "green")
+
+lines(exp_data, col = "red")
+
+legend('topright',legend = c("New model data (Fit)", "Old model data", "experimental data"), col = c("black","green","red"), lwd = 1)
+```
+
