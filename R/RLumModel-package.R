@@ -84,3 +84,18 @@ NULL
 #'
 #' @name ExampleData.ModelOutput
 NULL
+
+#' Example data with TL curves extracted from a TL-SAR protocol
+#'
+#' @format A RLum.Analysis object containing measured TL curves.
+#'
+#' @keywords datasets
+#' @docType data
+#' @aliases TL_fitting_data
+#' @seealso \code{\link[FME]{modCost}}
+#' @examples
+#' 
+#' data(ExampleData.FittingTL)
+#'
+#' @name ExampleData.FittingTL
+NULL

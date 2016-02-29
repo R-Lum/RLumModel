@@ -51,7 +51,6 @@
 
   ylab <- "Concentration [1/cm^3]"
 
-
 ##calculate concentrations
 
   concentrations <- lapply(2:ncol(data), function(x){
@@ -78,7 +77,7 @@
                     info = list(
                       curveDescripter = paste(xlab,ylab, sep = ";"),
                       max.change = (1-min(value)/max(value))*100),
-                    .pid = as.character(RLumModel_ID))
+                    .pid = paste(as.character(RLumModel_ID),x-1,sep = "_"))
            )
 
   })

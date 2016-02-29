@@ -32,6 +32,8 @@ Collate:
   create_DRT.sequence.R
   create_SAR.sequence.R
   extract_pars.R
+  extract_pars2FME.R
+  fit_data2RLumModel.R
   model_LuminescenceSignals.R
   read_SEQ2R.R
   set_ODE.R
@@ -47,7 +49,9 @@ Collate:
   simulate_pause.R
   translate_sequence.R
 RoxygenNote: 5.0.1
-Suggests: testthat,
-    R.rsp
+Suggests: 
+  FME,
+  R.rsp,
+  testthat
 VignetteBuilder: R.rsp
 LinkingTo: Rcpp, RcppArmadillo

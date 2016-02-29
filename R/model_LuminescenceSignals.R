@@ -62,6 +62,10 @@
 #'
 #' @param show.structure \code{\link{logical}} (with default): Shows the structure of the result.
 #' Recommended to show record.id to analyse concentrations.
+#' 
+#' @param parms \code{\link{list}} or \code{\link{numeric}} (with default): This argument is only necessary,
+#' if fit_data2RLumModel is used. There is no need to change this parameter per hand, all is done automatically. 
+#' Nevertheless is it necessary for the package "FME" to have the parameters direct in the function call. 
 #'
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information.
@@ -70,7 +74,7 @@
 #' in the sequence. Every entry is an \code{\linkS4class{RLum.Data.Curve}} object and can be plotted, analysed etc. with
 #' further \code{RLum}-functions.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -133,7 +137,8 @@
 #' 
 #' ##plot 110 deg. C trap concentration
 #' 
-#' plot_RLum(TL_conc, recordType = "conc. level 1")
+#' TL_110 <- get_RLum(TL_conc, recordType = "conc. level 1") 
+#' plot_RLum(TL_110)
 #' 
 #' ##============================================================================##
 #' ## Example 2: compare different optical powers of stimulation light
@@ -242,10 +247,9 @@
 #' # because the sample history is not part of the sequence
 #'
 #'  model.output <- model_LuminescenceSignals(
-#'
-#'  sequence = sequence,
-#'  model = "Pagonis2007",
-#'  plot = FALSE
+#'    sequence = sequence,
+#'    model = "Pagonis2007",
+#'    plot = FALSE
 #'  )
 #'
 #' # in environment is a new object "model.output" with the results of
@@ -345,6 +349,7 @@ model_LuminescenceSignals <- function(
   plot = TRUE,
   verbose = TRUE,
   show.structure = FALSE,
+  parms = NULL,
   ...
 ) {
 
@@ -475,19 +480,60 @@ model_LuminescenceSignals <- function(
       stop("[model_LuminescenceSignals()] lab.dose_rate has to be a positive number! ")
 
     }
+    
+    extraArgs <- list(...)
 
 # Load model parameters ------------------------------------------------------------------------------------
 
-    parms <- .set_pars(model)
-    if(simulate_sample_history == TRUE){
-      n <- Luminescence::set_RLum(class = "RLum.Results",
-                                  data = list(n = rep(0,length(parms$N)+2),
-                                              temp = 20,
-                                              model = model))
-    } else {
-      n <- parms$n
-    }
+    ## check if "parms" in extra arguments for fitting data to model parameters
+    if(!is.null(parms)){
 
+      n.temp <- .set_pars(model)
+
+      N <- parms[grepl("N",names(parms))]
+      E <- parms[grepl("E\\d",names(parms))]
+      s <- parms[grepl("s",names(parms))]
+      A <- parms[grepl("A",names(parms))]
+      B <- parms[grepl("\\<B",names(parms))]
+      Th <- parms[grepl("Th",names(parms))]
+      E_th <- parms[grepl("E_th",names(parms))]
+
+      parms <- set_RLum(class = "RLum.Results",
+                        data = list(N = N,
+                                    E = E,
+                                    s = s,
+                                    A = A,
+                                    B = B,
+                                    Th = Th,
+                                    E_th = E_th,
+                                    n = n.temp$n,
+                                    k_B = n.temp$k_B,
+                                    W = n.temp$W,
+                                    K = n.temp$K,
+                                    model = n.temp$model
+                        )
+      )
+
+      if(simulate_sample_history == TRUE){
+        n <- Luminescence::set_RLum(class = "RLum.Results",
+                                    data = list(n = rep(0,length(parms$N)+2),
+                                                temp = 20,
+                                                model = model))
+      } else {
+        n <- parms$n
+      }
+      
+    } else {
+      parms <- .set_pars(model)
+      if(simulate_sample_history == TRUE){
+        n <- Luminescence::set_RLum(class = "RLum.Results",
+                                     data = list(n = rep(0,length(parms$N)+2),
+                                                 temp = 20,
+                                                 model = model))
+      } else {
+        n <- parms$n
+      }
+  }
 
 # sequence ------------------------------------------------------------------------------------
 

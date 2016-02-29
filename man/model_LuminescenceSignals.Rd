@@ -6,7 +6,7 @@
 \usage{
 model_LuminescenceSignals(model, sequence, lab.dose_rate = 1,
   simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE,
-  show.structure = FALSE, ...)
+  show.structure = FALSE, parms = NULL, ...)
 }
 \arguments{
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
@@ -27,6 +27,10 @@ process}
 
 \item{show.structure}{\code{\link{logical}} (with default): Shows the structure of the result.
 Recommended to show record.id to analyse concentrations.}
+
+\item{parms}{\code{\link{list}} or \code{\link{numeric}} (with default): This argument is only necessary,
+if fit_data2RLumModel is used. There is no need to change this parameter per hand, all is done automatically. 
+Nevertheless is it necessary for the package "FME" to have the parameters direct in the function call.}
 
 \item{\dots}{further arguments and graphical parameters passed to
 \code{\link{plot.default}}. See details for further information.}
@@ -81,7 +85,7 @@ Irr_2recover \tab Dose to be recovered in a dose-recovery-test \tab 20
 }
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 \examples{
 
@@ -115,7 +119,8 @@ plot_RLum(TL_conc)
 
 ##plot 110 deg. C trap concentration
 
-plot_RLum(TL_conc, recordType = "conc. level 1")
+TL_110 <- get_RLum(TL_conc, recordType = "conc. level 1") 
+plot_RLum(TL_110)
 
 ##============================================================================##
 ## Example 2: compare different optical powers of stimulation light
@@ -224,10 +229,9 @@ sequence <- list(
 # because the sample history is not part of the sequence
 
  model.output <- model_LuminescenceSignals(
-
- sequence = sequence,
- model = "Pagonis2007",
- plot = FALSE
+   sequence = sequence,
+   model = "Pagonis2007",
+   plot = FALSE
  )
 
 # in environment is a new object "model.output" with the results of

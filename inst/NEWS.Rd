@@ -3,45 +3,64 @@
 
 \section{Changes in version 0.1.1 (, 2016)}{
 \itemize{
-\item{new functions:}
+
  \item{calc_concentrations():}
-    \itemize{ \item add maximum change of concentration in specific level to slot 'info'
-   }
+    \itemize{ 
+      \item Add maximum change of concentration in specific level to slot 'info' in every RLum.Data.Curve}
+      
+      
+  \item{model_LuminescenceSignals():}
+
+	   \itemize{
+	   \item Add new parameter "parms": Necessary for use with package FME
+	   \item Recalculate parameters, if parameter "parms" is used: Necessary for use with package FME}
+      
     \item{set_ODE():}
 
 	  \itemize{
-	    \item remove 'b', 'temp', 'R' and 'P' from unpacking, because these parameters are already stored in parameters.step.}
+	    \item Remove 'b', 'temp', 'R' and 'P' from unpacking, because these parameters are already stored in parameters.step.}
 
   \item{set_ODE_LM_OSL():}
 
 	   \itemize{
-	   \item remove 'a', 'b', 'temp', 'R' and 'P' from unpacking, because these parameters are already stored in parameters.step.}
+	   \item Remove 'a', 'b', 'temp', 'R' and 'P' from unpacking, because these parameters are already stored in parameters.step.}
+	   
+	 \item{set_pars():}
+
+	   \itemize{
+	   \item Output is now a list and not a RLum.Results object. This is better for use with package FME}
 
 	\item{simulate_CW_OSL():}
 
 	  \itemize{
-	  \item  remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.}
+	  \item  Remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.}
 
 	\item{simulate_LM_OSL():}
 
 	  \itemize{
-	  \item remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.}
+	  \item Remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.}
 
 	\item{simulate_RF():}
 
 	  \itemize{
-	  \item remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.}
+	  \item Remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.}
 
 	\item{simulate_TL():}
 
 	  \itemize{
-	  \item remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.}
+	  \item Remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.}
+
+  \item{tests:}
+
+	  \itemize{
+	  \item Expanded tests.
+	}
 
 
   \item{translate_sequence():}
 
 	  \itemize{
-	  \item add sequence to slot 'info' in returning RLum.Analysis object.
+	  \item Add sequence to slot 'info' in returning RLum.Analysis object.
 	}
 
 
