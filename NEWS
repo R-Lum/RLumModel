@@ -2,67 +2,80 @@ NEWS for the R Package Luminescence
 
 Changes in version 0.1.1 (, 2016):
 
-        • calc_concentrations():
+  New functions::
 
-            • Add maximum change of concentration in specific level to
-              slot 'info' in every RLum.Data.Curve
+         • extract_pars2FME: Helper function to generate the right data
+           format for the FME-package
 
-        • model_LuminescenceSignals():
+         • fit_RLumModel2data: Fitting function for quartz luminescence
+           model parameters to experimental data
 
-            • Add new parameter "parms": Necessary for use with package
-              FME
+  Bugfixes and changes::
 
-            • Recalculate parameters, if parameter "parms" is used:
-              Necessary for use with package FME
+         • calc_concentrations():
 
-        • set_ODE():
+             • Add maximum change of concentration in specific level to
+               slot 'info' in every RLum.Data.Curve
 
-            • Remove 'b', 'temp', 'R' and 'P' from unpacking, because
-              these parameters are already stored in parameters.step.
+         • model_LuminescenceSignals():
 
-        • set_ODE_LM_OSL():
+             • Add new parameter "parms": Necessary for use with
+               package FME
 
-            • Remove 'a', 'b', 'temp', 'R' and 'P' from unpacking,
-              because these parameters are already stored in
-              parameters.step.
+             • Recalculate parameters, if parameter "parms" is used:
+               Necessary for use with package FME
 
-        • set_pars():
+         • set_ODE():
 
-            • Output is now a list and not a RLum.Results object. This
-              is better for use with package FME
+             • Remove 'b', 'temp', 'R' and 'P' from unpacking, because
+               these parameters are already stored in parameters.step.
 
-        • simulate_CW_OSL():
+         • set_ODE_LM_OSL():
 
-            • Remove 'RLumModel_ID' from slot info to slot .pid. This
-              RLumModel_ID describes the order of the command in the
-              sequence.
+             • Remove 'a', 'b', 'temp', 'R' and 'P' from unpacking,
+               because these parameters are already stored in
+               parameters.step.
 
-        • simulate_LM_OSL():
+         • set_pars():
 
-            • Remove 'RLumModel_ID' from slot info to slot .pid. This
-              RLumModel_ID describes the order of the command in the
-              sequence.
+             • Output is now a list and not a RLum.Results object. This
+               is better for use with package FME
 
-        • simulate_RF():
+         • simulate_CW_OSL():
 
-            • Remove 'RLumModel_ID' from slot info to slot .pid. This
-              RLumModel_ID describes the order of the command in the
-              sequence.
+             • Remove 'RLumModel_ID' from slot info to slot .pid. This
+               RLumModel_ID describes the order of the command in the
+               sequence.
 
-        • simulate_TL():
+         • simulate_LM_OSL():
 
-            • Remove 'RLumModel_ID' from slot info to slot .pid. This
-              RLumModel_ID describes the order of the command in the
-              sequence.
+             • Remove 'RLumModel_ID' from slot info to slot .pid. This
+               RLumModel_ID describes the order of the command in the
+               sequence.
 
-        • tests:
+         • simulate_RF():
 
-            • Expanded tests.
+             • Remove 'RLumModel_ID' from slot info to slot .pid. This
+               RLumModel_ID describes the order of the command in the
+               sequence.
 
-        • translate_sequence():
+         • simulate_TL():
 
-            • Add sequence to slot 'info' in returning RLum.Analysis
-              object.
+             • Remove 'RLumModel_ID' from slot info to slot .pid. This
+               RLumModel_ID describes the order of the command in the
+               sequence.
+
+         • tests:
+
+             • Expanded tests.
+
+         • translate_sequence():
+
+             • Add sequence to slot 'info' in returning RLum.Analysis
+               object.
+
+             • Add originators to slot 'info' in returning
+               RLum.Analysis object.
 
 Changes in version 0.1.0 (3rd February, 2016):
 
