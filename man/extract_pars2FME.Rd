@@ -21,7 +21,7 @@ Prepare parameters for use with R package FME
 }
 \examples{
 
-pars2FME <- extract_pars2FME(model = "Bailey2001")
+parms <- extract_pars2FME(model = "Bailey2001")
 
 }
 \author{
@@ -46,10 +46,15 @@ Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a
 for quartz based on thermally transferred OSL (TT-OSL).
 Radiation Measurements 43, 704-708.
 
-Soetaert, K., Cash, J., Mazzia, F., 2012. Solving differential equations in R.
+Soetaert K., Petzoldt T., 2010: Inverse Modelling, Sensitivity and Monte Carlo Analysis in
+R Using Package FME. 
+Journal of Statistical Software, 33, 1-28.
+
+Soetaert, K., Cash, J., Mazzia, F., 2012: Solving differential equations in R.
 Springer Science & Business Media.
 }
 \seealso{
-\code{\link{model_LuminescenceSignals}}, \code{\link[FME]{sensFun}}, \code{\link[FME]{sensRange}}
+\code{\link{model_LuminescenceSignals}}, \code{\link[FME]{sensFun}}, 
+\code{\link[FME]{sensRange}}, \code{\link{fit_RLumModel2data}}
 }
 

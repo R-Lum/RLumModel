@@ -1,4 +1,4 @@
-"extract_pars2FME","fit_data2RLumModel","model_LuminescenceSignals","read_SEQ2R"
+"extract_pars2FME","fit_RLumModel2data","model_LuminescenceSignals","read_SEQ2R"
 "model","sequence","model","file"
 NA,"model","sequence","lab.dose_rate"
 NA,"seq.step2fit","lab.dose_rate","txtProgressBar"

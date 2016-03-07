@@ -1,4 +1,4 @@
-#' Fit experimental data to model parameters
+#' Fit model parameters to experimental data
 #' 
 #' @param sequence \code{\link{list}} (\bold{required}): set sequence to model as \code{\link{list}} or as *.seq file from the
 #' Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).
@@ -32,11 +32,45 @@
 #' @return This function returns a function, which is necessary for further calculations
 #' with the package "FME".
 #' 
+#' @references 
+#' 
+#' Soetaert K., Petzoldt T., 2010: Inverse Modelling, Sensitivity and Monte Carlo Analysis in
+#' R Using Package FME. 
+#' Journal of Statistical Software, 33, 1-28.
+#' 
 #' @seealso \code{\link[FME]{sensFun}}, \code{\link[FME]{sensRange}}, 
-#' \code{\link{model_LuminescenceSignals}}
+#' \code{\link{model_LuminescenceSignals}}, \code{\link{extract_pars2FME}}
+#' 
+#' @examples 
+#' 
+#'  sequence <- list(
+#'    TL = c(20, 450, 5),
+#'    IRR = c(20, 5, 0.5),
+#'    TL = c(0, 450, 5))
 #'
-#' @export 
-fit_data2RLumModel <- function(
+#'  model <- "Pagonis2007"
+#'  
+#'  parms <- extract_pars2FME(model = model)
+#'
+#'  func_FME <- fit_RLumModel2data(
+#'    sequence = sequence, 
+#'    model = model, 
+#'    seq.step2fit = 3)
+#'  
+#'  SensR <- FME::sensFun(
+#'    func = func_FME,
+#'    parms = parms,
+#'    sensvar = "signal",
+#'    senspar = c("N1","s1","E1"))
+#'    
+#'  plot(
+#'    SensR, 
+#'    legpos = "bottomleft", 
+#'    xlab = "Temperature [\u00B0C]", 
+#'    main = "Local Sensitivity Analysis TL")  
+#'      
+#' @export
+fit_RLumModel2data <- function(
   sequence,
   model,
   seq.step2fit,
@@ -44,13 +78,13 @@ fit_data2RLumModel <- function(
   simulate_sample_history = FALSE,
   verbose = FALSE,
   plot = FALSE,
-  ...
-){
-  
-  # Integrity tests and conversion are done by model_LuminescenceSignals()
+  ...){
 
   
-  # Load parameters --------------------------------------------------------------
+# Integrity tests and conversion are done by model_LuminescenceSignals()
+
+  
+# Load parameters --------------------------------------------------------------
   
   parms <- extract_pars2FME(model = model)
   

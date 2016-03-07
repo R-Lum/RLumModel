@@ -9,10 +9,16 @@
 \description{
 Example data with TL curves extracted from a TL-SAR protocol
 }
+\section{Function version}{
+ 0.1.0
+}
 \examples{
 
-data(ExampleData.FittingTL)
+data("ExampleData.FittingTL", envir = environment())
 
+}
+\author{
+Johannes Friedrich, University of Bayreuth (Germany)
 }
 \seealso{
 \code{\link[FME]{modCost}}

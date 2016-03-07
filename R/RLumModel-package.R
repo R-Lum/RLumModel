@@ -45,14 +45,14 @@
 #'
 #' @keywords package
 #'
-#' @import Luminescence deSolve methods utils
+#' @import Luminescence deSolve methods utils FME
 #' @importFrom stats setNames
 #' @importFrom Rcpp evalCpp
 #' @useDynLib RLumModel
 NULL
 
 
-#' Example data (TL curve) simulated from Bailey (2001 ,fig. 1)
+#' Example data (TL curve) simulated from Bailey (2001, fig. 1)
 #'
 #' @format A RLum.Analysis object containing one TL curve as RLum.Data.Curve.
 #'
@@ -70,9 +70,12 @@ NULL
 #' @keywords datasets
 #' @docType data
 #' @aliases model.output
+#' @section Function version: 0.1.0
+#' @author Johannes Friedrich, University of Bayreuth (Germany)
 #' @examples
-#'
-#' data(ExampleData.ModelOutput)
+#' 
+#' data("ExampleData.ModelOutput", envir = environment())
+#' 
 #' TL_curve <- get_RLum(model.output, recordType = "TL$", drop = FALSE)
 #'
 #' ##plot TL curve
@@ -85,6 +88,7 @@ NULL
 #' @name ExampleData.ModelOutput
 NULL
 
+
 #' Example data with TL curves extracted from a TL-SAR protocol
 #'
 #' @format A RLum.Analysis object containing measured TL curves.
@@ -93,9 +97,11 @@ NULL
 #' @docType data
 #' @aliases TL_fitting_data
 #' @seealso \code{\link[FME]{modCost}}
+#' @section Function version: 0.1.0
+#' @author Johannes Friedrich, University of Bayreuth (Germany)
 #' @examples
 #' 
-#' data(ExampleData.FittingTL)
+#' data("ExampleData.FittingTL", envir = environment())
 #'
 #' @name ExampleData.FittingTL
 NULL
