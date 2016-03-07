@@ -22,6 +22,7 @@ Depends:
     Luminescence (>= 0.5.1)
 Imports:
     deSolve (>= 1.12),
+    FME,
     methods,
     Rcpp
 Collate:
@@ -33,7 +34,7 @@ Collate:
   create_SAR.sequence.R
   extract_pars.R
   extract_pars2FME.R
-  fit_data2RLumModel.R
+  fit_RLumModel2data.R
   model_LuminescenceSignals.R
   read_SEQ2R.R
   set_ODE.R
@@ -50,7 +51,6 @@ Collate:
   translate_sequence.R
 RoxygenNote: 5.0.1
 Suggests: 
-  FME,
   R.rsp,
   testthat
 VignetteBuilder: R.rsp
