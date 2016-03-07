@@ -4,6 +4,14 @@
 \section{Changes in version 0.1.1 (, 2016)}{
 \itemize{
 
+ \subsection{New functions:}{
+    \itemize{ 
+      \item extract_pars2FME: Helper function to generate the right data format for the FME-package
+      \item fit_RLumModel2data: Fitting function for quartz luminescence model parameters to experimental data}
+}
+
+\subsection{Bugfixes and changes:}{
+\itemize{
  \item{calc_concentrations():}
     \itemize{ 
       \item Add maximum change of concentration in specific level to slot 'info' in every RLum.Data.Curve}
@@ -61,22 +69,17 @@
 
 	  \itemize{
 	  \item Add sequence to slot 'info' in returning RLum.Analysis object.
+	  \item Add originators to slot 'info' in returning RLum.Analysis object.
 	}
 
-
- 
 }}
-
-
-
-
+}
+}
 
 \section{Changes in version 0.1.0 (3rd February, 2016)}{
 
  \itemize{
   \item Initial version.
-
-
  }
 
 }
