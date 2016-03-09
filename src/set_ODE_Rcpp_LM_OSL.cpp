@@ -10,7 +10,7 @@
 using namespace Rcpp;
 
 //  [[Rcpp::export(".set_ODE_Rcpp_LM_OSL")]]
-List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters) {
+List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters, std::string model) {
   
   //unpack parameters for ODEs
   
@@ -51,14 +51,21 @@ List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters) {
   arma::vec temp_dn1 = dn.subvec(0,j-1);   
   arma::vec temp_dn2 = dn.subvec(j,jj-1);
   
-  arma::vec temp_n = n.subvec(j,jj-1);
+  arma::vec temp_n = n[N.size()]*n.subvec(j,jj-1);
   arma::vec temp_B = B.subvec(j,jj-1);
   
   //conduction band
-  dn[N.size()] = R - sum(temp_dn1) - n[N.size()]*(std::inner_product(temp_n.begin(),temp_n.end(),temp_B.begin(), 0.0));
+  dn[N.size()] = R - sum(temp_dn1) - (std::inner_product(temp_n.begin(),temp_n.end(),temp_B.begin(), 0.0));
   
   //valence band
-  dn[N.size()+1] = R - sum(temp_dn2) - n[N.size()]*(std::inner_product(temp_n.begin(),temp_n.end(),temp_B.begin(), 0.0));
-  
+  if (model == "Bailey2001" || model == "Bailey2004" || model == "Bailey2002"){
+    
+    dn[N.size()+1] = R - sum(temp_dn2);
+    
+  } else {
+    
+    dn[N.size()+1] = R - sum(temp_dn2) - (std::inner_product(temp_n.begin(),temp_n.end(),temp_B.begin(), 0.0));
+    
+  }
   return(Rcpp::List::create(dn));
 }
