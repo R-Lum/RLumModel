@@ -7,7 +7,8 @@
  \subsection{New functions:}{
     \itemize{ 
       \item extract_pars2FME: Helper function to generate the right data format for the FME-package
-      \item fit_RLumModel2data: Fitting function for quartz luminescence model parameters to experimental data}
+      \item fit_RLumModel2data: Fitting function for quartz luminescence model parameters to experimental data
+      \item plot_concentrations: Plot electron/hole concentrations of specific .pid}
 }
 
 \subsection{Bugfixes and changes:}{

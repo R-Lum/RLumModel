@@ -10,6 +10,9 @@ Changes in version 0.1.1 (, 2016):
          • fit_RLumModel2data: Fitting function for quartz luminescence
            model parameters to experimental data
 
+         • plot_concentrations: Plot electron/hole concentrations of
+           specific .pid
+
   Bugfixes and changes::
 
          • calc_concentrations():
