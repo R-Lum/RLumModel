@@ -10,7 +10,7 @@
 using namespace Rcpp;
 
 //  [[Rcpp::export(".set_ODE_Rcpp_LM_OSL")]]
-List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters, std::string model) {
+List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters) {
   
   //unpack parameters for ODEs
   
@@ -23,9 +23,7 @@ List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters, std::stri
   arma::vec E_th = parameters["E_th"];
   
   double k_B = parameters["k_B"];
-  double W = parameters["W"];
-  double K = parameters["K"];
-  
+
   double R = parameters["R"];
   double P = parameters["P"]; 
   double temp = parameters["temp"]; 
@@ -43,7 +41,7 @@ List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters, std::stri
       dn[i] = n[N.size()]*(N[i]-n[i])*A[i]-n[i]*P*a*t*Th[i]*exp(-E_th[i]/(k_B*(273+temp+b*t)))-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)));
     } else {//calculate recombination centers
       jj++;
-      dn[i] = n[N.size()+1]*(N[i]-n[i])*A[i]-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)))-n[N.size()+1]*n[i]*B[i];
+      dn[i] = n[N.size()+1]*(N[i]-n[i])*A[i]-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)))-n[N.size()]*n[i]*B[i];
     }
   }
   
@@ -55,17 +53,10 @@ List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters, std::stri
   arma::vec temp_B = B.subvec(j,jj-1);
   
   //conduction band
-  dn[N.size()] = R - sum(temp_dn1) - (std::inner_product(temp_n.begin(),temp_n.end(),temp_B.begin(), 0.0));
+  dn[N.size()] = R - sum(temp_dn1) - sum(arma::trans(temp_n) * temp_B);
   
   //valence band
-  if (model == "Bailey2001" || model == "Bailey2004" || model == "Bailey2002"){
+  dn[N.size()+1] = R - sum(temp_dn2) - sum(arma::trans(temp_n) * temp_B);
     
-    dn[N.size()+1] = R - sum(temp_dn2);
-    
-  } else {
-    
-    dn[N.size()+1] = R - sum(temp_dn2) - (std::inner_product(temp_n.begin(),temp_n.end(),temp_B.begin(), 0.0));
-    
-  }
   return(Rcpp::List::create(dn));
 }

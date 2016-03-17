@@ -7,30 +7,28 @@
 using namespace Rcpp;
 
 // set_ODE_Rcpp
-List set_ODE_Rcpp(double t, arma::vec n, Rcpp::List parameters, std::string model);
-RcppExport SEXP RLumModel_set_ODE_Rcpp(SEXP tSEXP, SEXP nSEXP, SEXP parametersSEXP, SEXP modelSEXP) {
+List set_ODE_Rcpp(double t, arma::vec n, Rcpp::List parameters);
+RcppExport SEXP RLumModel_set_ODE_Rcpp(SEXP tSEXP, SEXP nSEXP, SEXP parametersSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< double >::type t(tSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type n(nSEXP);
     Rcpp::traits::input_parameter< Rcpp::List >::type parameters(parametersSEXP);
-    Rcpp::traits::input_parameter< std::string >::type model(modelSEXP);
-    __result = Rcpp::wrap(set_ODE_Rcpp(t, n, parameters, model));
+    __result = Rcpp::wrap(set_ODE_Rcpp(t, n, parameters));
     return __result;
 END_RCPP
 }
 // set_ODE_Rcpp_LM_OSL
-List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters, std::string model);
-RcppExport SEXP RLumModel_set_ODE_Rcpp_LM_OSL(SEXP tSEXP, SEXP nSEXP, SEXP parametersSEXP, SEXP modelSEXP) {
+List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters);
+RcppExport SEXP RLumModel_set_ODE_Rcpp_LM_OSL(SEXP tSEXP, SEXP nSEXP, SEXP parametersSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< double >::type t(tSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type n(nSEXP);
     Rcpp::traits::input_parameter< Rcpp::List >::type parameters(parametersSEXP);
-    Rcpp::traits::input_parameter< std::string >::type model(modelSEXP);
-    __result = Rcpp::wrap(set_ODE_Rcpp_LM_OSL(t, n, parameters, model));
+    __result = Rcpp::wrap(set_ODE_Rcpp_LM_OSL(t, n, parameters));
     return __result;
 END_RCPP
 }
