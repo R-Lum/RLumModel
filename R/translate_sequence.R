@@ -82,7 +82,7 @@ for (i in 1:length(sequence)){
   #automatically cool to temperatrue of current sequence step
   if(n$temp > sequence[[i]]["temp"]){
     n <- .simulate_heating(temp_begin = n$temp,temp_end = sequence[[i]]["temp"], heating_rate = -5,n,parms)
-    
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
   }

@@ -134,7 +134,6 @@
 
   signal <- .calc_signal(object = out, parameters = parameters.step)
 
-
   ##============================================================================##
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING
   ##============================================================================##

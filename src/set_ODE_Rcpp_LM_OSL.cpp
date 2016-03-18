@@ -1,6 +1,6 @@
 //set_ODE_Rcpp_LM_OSL.cpp
 //author: Johannes Friedrich, University of Bayreuth (Germany)
-//version: 0.1.0 [2016-02-23]
+//version: 0.1.0 [2016-03-18]
 //Function calculates the ODEs for LM-OSL for all quartz luminescence models iterativly
 //
 
