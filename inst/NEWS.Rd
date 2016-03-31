@@ -27,7 +27,8 @@
     \item{set_ODE():}
 
 	  \itemize{
-	    \item Remove 'b', 'temp', 'R' and 'P' from unpacking, because these parameters are already stored in parameters.step.}
+	    \item Remove 'b', 'temp', 'R' and 'P' from unpacking, because these parameters are already stored in parameters.step.
+	    \item Remove distinction of cases "model = Pagonis" or "model = Bailey" due to a misstake in Bailey 2001, 2002 and 2004. The rate equation for the valence band is wrong. Thanks to an unknown reviewer of Friedrich et al. 2016}
 
   \item{set_ODE_LM_OSL():}
 

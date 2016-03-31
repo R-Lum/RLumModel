@@ -89,7 +89,7 @@ NULL
 NULL
 
 
-#' Example data with TL curves extracted from a TL-SAR protocol
+#' Example data with TL curves extracted from a TL-SAR protocol (lab code BT1195)
 #'
 #' @format A RLum.Analysis object containing measured TL curves.
 #'

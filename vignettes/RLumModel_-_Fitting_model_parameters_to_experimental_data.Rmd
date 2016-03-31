@@ -49,7 +49,7 @@ sequence <-  list(
     IRR = c(20, 5, 0.5),
     TL = c(0, 450, 5))
 
-model <- "Pagonis2007"
+model <- "Bailey2001"
 
 func_FME <- fit_RLumModel2data(
   sequence = sequence, 
@@ -249,7 +249,7 @@ legend('topright',legend = c("New model data (Fit)", "Old model data", "experime
 ```{r Prepare for OSL fitting}
 sequence <- list(OSL = c(125, 20, 200))
 
-model <- "Pagonis2007"
+model <- "Bailey2004"
 
 func_FME <- fit_RLumModel2data(
   sequence = sequence, 

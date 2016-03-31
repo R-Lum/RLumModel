@@ -1,6 +1,6 @@
-//set_ODE_Rcpp.cpp
+c("#FFFFFF", "#FFFFFF")//set_ODE_Rcpp.cpp
 //author: Johannes Friedrich, University of Bayreuth (Germany)
-//version: 0.1.0 [2016-03-18]
+//version: 0.1.0 [2016-03-29]
 //Function calculates the ODEs for all quartz luminescence models iterativly
 //
 
@@ -56,8 +56,8 @@ List set_ODE_Rcpp(double t, arma::vec n, Rcpp::List parameters) {
   dn[N.size()] = R - sum(temp_dn1) - sum(arma::trans(temp_n) * temp_B);
  
   //valence band
-
   dn[N.size()+1] = R - sum(temp_dn2) - sum(arma::trans(temp_n) * temp_B);
-    
+  
+  //return list 
   return(Rcpp::List::create(dn));
 }
