@@ -10,8 +10,8 @@
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}):  S4
 #' object of class \code{RLum.Analysis}, e.g. the values of \code{\link{model_LuminescenceSignals}}.
 #'
-#' @param pid \code{\link{numeric}} (\bold{required}): pid of the simulated record, which
-#' is to plot. To see all pids use \code{\link[Luminescence]{structure_RLum}}, see examples.
+#' @param pid \code{\link{numeric}} (\bold{required}): pid of the simulated record, which 
+#' to plot. To see all pid's use \code{\link[Luminescence]{structure_RLum}}, see examples.
 #'
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}} and \code{\link{plot_RLum.Analysis}}.

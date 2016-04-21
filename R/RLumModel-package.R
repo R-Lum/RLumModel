@@ -1,10 +1,10 @@
-#' Modelling Ordinary Differential Equations Leading to Luminescence
+#' Solving Ordinary Differential Equations to Unterstand Luminescence
 #'
 #' A collection of function to simulate luminescence signals in the mineral quartz based on
 #' published models.
 #'
 #' \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-#' \tab 0.1.1\cr Date: \tab 2016-02-24 \cr License: \tab GPL-3\cr }
+#' \tab 0.2.0\cr Date: \tab 2016-04-14 \cr License: \tab GPL-3\cr }
 #'
 #' @name RLumModel-package
 #' @docType package
@@ -41,7 +41,7 @@
 #' \bold{Acknowledgement}
 #'
 #'  The work of Johannes Friedrich is gratefully supported by the DFG in framework of the project
-#'  'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1)
+#'  'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1).
 #'
 #' @keywords package
 #'
@@ -52,14 +52,14 @@
 NULL
 
 
-#' Example data (TL curve) simulated from Bailey (2001, fig. 1)
+#' Example data (TL curve) simulated with parameter set from Pagonis 2007
 #'
 #' @format A RLum.Analysis object containing one TL curve as RLum.Data.Curve.
 #'
 #' @references
 #'
-#' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
-#' luminescence of quartz. Radiation Measurements 33, 17-45.
+#' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
+#' stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
 #'
 #' @source \bold{model_LuminescenceSignals()}
 #'
@@ -70,7 +70,7 @@ NULL
 #' @keywords datasets
 #' @docType data
 #' @aliases model.output
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #' @author Johannes Friedrich, University of Bayreuth (Germany)
 #' @examples
 #' 
