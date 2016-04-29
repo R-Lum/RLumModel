@@ -2,26 +2,46 @@
 % Please edit documentation in R/extract_pars2FME.R
 \name{extract_pars2FME}
 \alias{extract_pars2FME}
-\title{Prepare parameters for use with R package FME}
+\title{Prepare parameters for use with R package FME and function \code{\link{fit_RLumModel2data}}}
 \usage{
-extract_pars2FME(model)
+extract_pars2FME(model = NULL, parms = NULL)
 }
 \arguments{
-\item{model}{Name of the quartz luminescence model. Possible choices are: 
-"Bailey2001", "Bailey2002, "Bailey2004", "Pagonis2007" and "Pagonis2008".}
+\item{model}{\code{\link{character}}: set model to be used. Available models are:
+"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"}
+
+\item{parms}{\code{\link{list}}: If an own parameter set is used for 'inverse modelling'.}
 }
 \value{
 This function returns a named \code{\link{vector}} for use with R package FME
 }
 \description{
-Prepare parameters for use with R package FME
+Prepare parameters for use with R package FME and function \code{\link{fit_RLumModel2data}}
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 [2016-04-29]
 }
 \examples{
 
+## use default model
 parms <- extract_pars2FME(model = "Bailey2001")
+
+## use own parameter set
+
+own_parameters <- list(
+ N = c(1e13,0),
+ E = c(1.3, 0),
+ s = c(1e12, 0),
+ A = c(1e-8, 0),
+ B = c(0, 1e-8),
+ Th = c(0, 0),
+ E_th = c(0, 0),
+ k_B = 8.617e-5,
+ K = 0,
+ model = "customized"
+)
+
+parms <- extract_pars2FME(parms = own_parameters)
 
 }
 \author{

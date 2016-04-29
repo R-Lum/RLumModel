@@ -3,14 +3,14 @@
 \docType{package}
 \name{RLumModel-package}
 \alias{RLumModel-package}
-\title{Modelling Ordinary Differential Equations Leading to Luminescence}
+\title{Solving Ordinary Differential Equations to Unterstand Luminescence}
 \description{
 A collection of function to simulate luminescence signals in the mineral quartz based on
 published models.
 }
 \details{
 \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-\tab 0.1.1\cr Date: \tab 2016-02-24 \cr License: \tab GPL-3\cr }
+\tab 0.2.0\cr Date: \tab 2016-04-25 \cr License: \tab GPL-3\cr }
 }
 \author{
 \bold{Authors}
@@ -46,7 +46,7 @@ Johannes Friedrich, University of Bayreuth, Germany
 \bold{Acknowledgement}
 
  The work of Johannes Friedrich is gratefully supported by the DFG in framework of the project
- 'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1)
+ 'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1).
 }
 \keyword{package}
 

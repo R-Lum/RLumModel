@@ -4,10 +4,10 @@
 \name{ExampleData.FittingTL}
 \alias{ExampleData.FittingTL}
 \alias{TL_fitting_data}
-\title{Example data with TL curves extracted from a TL-SAR protocol}
+\title{Example data with TL curves extracted from a TL-SAR protocol (lab code BT1195)}
 \format{A RLum.Analysis object containing measured TL curves.}
 \description{
-Example data with TL curves extracted from a TL-SAR protocol
+Example data with TL curves extracted from a TL-SAR protocol (lab code BT1195)
 }
 \section{Function version}{
  0.1.0

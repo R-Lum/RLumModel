@@ -17,15 +17,46 @@
 #' @param simulate_sample_history \code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, TRUE: simulations begins at crystallization (all levels 0)
 #' process
 #' 
-#' @param plot \code{\link{logical}} (with default): Enables or disables plot output. 
-#' Recommended: No plot output, because fitting function will run a lot of times.
 #'
 #' @param verbose \code{\link{logical}} (with default): Verbose mode on/off.
+#' 
+#' @param show_structure \code{\link{logical}} (with default): Shows the structure of the result.
+#' Recommended to show record.id to analyse concentrations.
+#' 
+#' @param own_parameters \code{\link{list}} (with default): This argument allows the user to submit own parameter sets. The \code{\link{list}}
+#' has to contain the following items:
+#' \itemize{
+#'  \item{N: Concentration of electron- and hole traps [cm^(-3)]}
+#'  \item{E: Electron/Hole trap depth [eV}
+#'  \item{s: Frequency factor [s^(-1)]}
+#'  \item{A: Conduction band to electron trap and valence band to hole trap transition probability [s^(-1) * cm^(3)]. 
+#'  \bold{CAUTION: Not every publication uses 
+#'  the same definition of parameter A and B! See vignette "RLumModel - Usage with own parameter sets" for further details}}
+#'  \item{B: Conduction band to hole centre transition probability [s^(-1) * cm^(3)].}
+#'  \item{Th: Photo-eviction constant or photoionisation cross section, respectively}
+#'  \item{E_th: Thermal assistence energy [eV]}
+#'  \item{k_B: Boltzman constant 8.617e-05 [eV/K]}
+#'  \item{W: activation energy 0.64 [eV] (for UV)}
+#'  \item{K: 2.8e7 (dimensionless constant)}
+#'  \item{model: "customized"}
+#'  \item{R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [s^(-1) * cm^(-3)]}
+#'  }
+#' 
+#' For further details see Bailey 2001, Wintle 1975, vignette "RLumModel - Using own parameter sets" 
+#' and example 3. 
+#' 
+#' @param own_state_parameters \code{\link{numeric}} (with default): Some publications (e.g. Pagonis 2009)
+#' offer state parameters. With this argument the user can submit this state parameters. \bold{Note:} 
+#' You have to submit the state parameters for the conduction band and the valence band, too. For further details
+#' see vignette ""RLumModel - Using own parameter sets" and example 3.
+#' 
+#' @param plot \code{\link{logical}} (with default): Enables or disables plot output. 
+#' Recommended: No plot output, because fitting function will run a lot of times.
 #' 
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information.
 #' 
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.0 [2016-04-29]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany)
 #' 
@@ -77,7 +108,11 @@ fit_RLumModel2data <- function(
   lab.dose_rate = 1,
   simulate_sample_history = FALSE,
   verbose = FALSE,
+  show_structure = FALSE,
+  own_parameters = NULL,
+  own_state_parameters = NULL,
   plot = FALSE,
+  
   ...){
 
   
@@ -86,8 +121,21 @@ fit_RLumModel2data <- function(
   
 # Load parameters --------------------------------------------------------------
   
-  parms <- extract_pars2FME(model = model)
-  
+  if(model != "customized"){
+    parms <- extract_pars2FME(model = model)
+  } else {
+    
+    parms <- own_parameters
+    
+    parms$model <- NULL
+    parms$k_B <- NULL
+    parms$W <- NULL
+    parms$K <- NULL
+    
+    parms <- unlist(parms)
+
+  }
+
   .fit_RLumModel2FME <- function(parms){
     temp_out <- model_LuminescenceSignals(
       model = model,
@@ -95,6 +143,9 @@ fit_RLumModel2data <- function(
       plot = plot,
       verbose = verbose, 
       parms = parms,
+      show_structure = show_structure,
+      own_state_parameters = own_state_parameters,
+      own_parameters = own_parameters,
       ...) 
 
     record.id <- which(structure_RLum(temp_out)[".pid"] == as.character(seq.step2fit))

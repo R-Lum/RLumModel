@@ -53,15 +53,42 @@
 #' @param lab.dose_rate \code{\link{numeric}} (with default): laboratory dose rate in XXX
 #' Gy/s for calculating seconds into Gray in the *.seq file.
 #'
-#' @param simulate_sample_history \code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, TRUE: simulations begins at crystallization (all levels 0)
-#' process
+#' @param simulate_sample_history \code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, 
+#' TRUE: simulations begins at crystallization (all levels 0) process
 #'
 #' @param plot \code{\link{logical}} (with default): Enables or disables plot output
 #'
 #' @param verbose \code{\link{logical}} (with default): Verbose mode on/off
 #'
-#' @param show.structure \code{\link{logical}} (with default): Shows the structure of the result.
+#' @param show_structure \code{\link{logical}} (with default): Shows the structure of the result.
 #' Recommended to show record.id to analyse concentrations.
+#' 
+#' @param own_parameters \code{\link{list}} (with default): This argument allows the user to submit own parameter sets. The \code{\link{list}}
+#' has to contain the following items:
+#' \itemize{
+#'  \item{N: Concentration of electron- and hole traps [cm^(-3)]}
+#'  \item{E: Electron/Hole trap depth [eV}
+#'  \item{s: Frequency factor [s^(-1)]}
+#'  \item{A: Conduction band to electron trap and valence band to hole trap transition probability [s^(-1) * cm^(3)]. 
+#'  \bold{CAUTION: Not every publication uses 
+#'  the same definition of parameter A and B! See vignette "RLumModel - Usage with own parameter sets" for further details}}
+#'  \item{B: Conduction band to hole centre transition probability [s^(-1) * cm^(3)].}
+#'  \item{Th: Photo-eviction constant or photoionisation cross section, respectively}
+#'  \item{E_th: Thermal assistence energy [eV]}
+#'  \item{k_B: Boltzman constant 8.617e-05 [eV/K]}
+#'  \item{W: activation energy 0.64 [eV] (for UV)}
+#'  \item{K: 2.8e7 (dimensionless constant)}
+#'  \item{model: "customized"}
+#'  \item{R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [s^(-1) * cm^(-3)]}
+#'  }
+#' 
+#' For further details see Bailey 2001, Wintle 1975, vignette "RLumModel - Using own parameter sets" 
+#' and example 3. 
+#' 
+#' @param own_state_parameters \code{\link{numeric}} (with default): Some publications (e.g. Pagonis 2009)
+#' offer state parameters. With this argument the user can submit this state parameters. \bold{Note:} 
+#' You have to submit the state parameters for the conduction band and the valence band, too. For further details
+#' see vignette ""RLumModel - Using own parameter sets" and example 3.
 #' 
 #' @param parms \code{\link{list}} or \code{\link{numeric}} (with default): This argument is only necessary,
 #' if fit_data2RLumModel is used. There is no need to change this parameter per hand, all is done automatically. 
@@ -74,7 +101,7 @@
 #' in the sequence. Every entry is an \code{\linkS4class{RLum.Data.Curve}} object and can be plotted, analysed etc. with
 #' further \code{RLum}-functions.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2 [2016-04-28]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -98,9 +125,14 @@
 #' Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
 #' for quartz based on thermally transferred OSL (TT-OSL).
 #' Radiation Measurements 43, 704-708.
+#' 
+#' Pagonis, V., Lawless, J., Chen, R., Anderson, C., 2009. Radioluminescence in Al2O3:C - analytical and numerical 
+#' simulation results. Journal of Physics D: Applied Physics 42, 175107 (9pp).
 #'
 #' Soetaert, K., Cash, J., Mazzia, F., 2012. Solving differential equations in R.
 #' Springer Science & Business Media.
+#' 
+#' Wintle, A., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophysical Journal International 41, 107-113.
 #'
 #' @seealso \code{\link{plot}}, \code{\linkS4class{RLum}},
 #' \code{\link{read_SEQ2R}}
@@ -180,9 +212,52 @@
 #'  legend.text = paste("Optical power density", 20*optical_power/100, "mW/cm^2"),
 #'  combine = TRUE)
 #'  
+#' ##============================================================================##
+#' ## Example 3: Usage of own parameter sets (Pagonis 2009)
+#' ##============================================================================##
+#' 
+#' own_parameters <- list(
+#'   N = c(2e15, 2e15, 1e17, 2.4e16),
+#'   E = c(0, 0, 0, 0),
+#'   s = c(0, 0, 0, 0),
+#'   A = c(2e-8, 2e-9, 4e-9, 1e-8),
+#'   B = c(0, 0, 5e-11, 4e-8),
+#'   Th = c(0, 0),
+#'   E_th = c(0, 0),
+#'   k_B = 8.617e-5,
+#'   W = 0.64,
+#'   K = 2.8e7,
+#'   model = "customized",
+#'   R = 1.7e15
+#'  )
+#'  ## Note: In Pagonis 2009 is B the valence band to hole centre probability, 
+#'  ## but in Bailey 2001 this is A_j. So the values of B (in Pagonis 2009)
+#'  ## are A in the notation above. Also notice that the first two entries in N, A and 
+#'  ## B belong to the electron traps and the last two entries to the hole centres.
+#'  
+#'  own_state_parameters <- c(0, 0, 0, 9.4e15, 0, 0)
+#'  
+#'  ## Note: The vector "own_state_parameters" needs six entries (2 electron traps, 2 hole traps, 
+#'  ## 1 valence band, 1 conduction band).
+#'  
+#'  ## calculate Fig. 3 in Pagonis 2009. Note: The labels for the dose rate in the original 
+#'  ## publication are not correct.
+#'  ## For a dose rate of 0.1 Gy/s belongs a RF signal to ~ 1.5e14 (see Fig. 6).
+#'  
+#'  sequence <- list(RF = c(20, 0.1, 0.1))
+#'  
+#'  model_LuminescenceSignals(
+#'    model = "customized", 
+#'    sequence = sequence, 
+#'    own_parameters = own_parameters, 
+#'    own_state_parameters = own_state_parameters)
+#'  
+#'  
+#'  
+#'  
 #' \dontrun{  
 #' ##============================================================================##
-#' ## Example 3: Simulate Thermal-Activation-Characteristics (TAC)
+#' ## Example 4: Simulate Thermal-Activation-Characteristics (TAC)
 #' ##============================================================================##
 #'  
 #'  ##set temperature
@@ -223,7 +298,7 @@
 #'  )
 #'
 #' ##============================================================================##
-#' ## Example 4: Simulate SAR sequence
+#' ## Example 5: Simulate SAR sequence
 #' ##============================================================================##
 #'
 #' ##set SAR sequence with the following steps
@@ -267,7 +342,7 @@
 #'
 #'
 #' ##============================================================================##
-#' ## Example 5: generate sequence from *.seq file and run SAR simulation
+#' ## Example 6: generate sequence from *.seq file and run SAR simulation
 #' ##============================================================================##
 #'
 #' # load example *.SEQ file and construct a sequence.
@@ -301,7 +376,7 @@
 #'
 #'
 #' ##============================================================================##
-#' ## Example 6: Simulate sequence at labour without sample history
+#' ## Example 7: Simulate sequence at labour without sample history
 #' ##============================================================================##
 #'
 #' ##set sequence with the following steps
@@ -348,16 +423,17 @@ model_LuminescenceSignals <- function(
   simulate_sample_history = FALSE,
   plot = TRUE,
   verbose = TRUE,
-  show.structure = FALSE,
+  show_structure = FALSE,
+  own_parameters = NULL,
+  own_state_parameters = NULL,
   parms = NULL,
   ...
 ) {
 
-
 # Integrity tests and conversion --------------------------------------------------------------
 
   #Check if model is supported
-  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002")
+  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002", "customized")
 
   if(!model%in%model.allowed_keywords){
     stop(paste0("[model_LuminescenceSignals()] Model not supported. Supported models are: ", paste(model.allowed_keywords, collapse = ", ")))
@@ -487,6 +563,56 @@ model_LuminescenceSignals <- function(
 
     ## check if "parms" in extra arguments for fitting data to model parameters
     if(!is.null(parms)){
+      
+      if(model == "customized"){
+        
+        n.temp <- own_parameters
+        
+        N <- parms[grepl("N",names(parms))]
+        E <- parms[grepl("E\\d",names(parms))]
+        s <- parms[grepl("s",names(parms))]
+        A <- parms[grepl("A",names(parms))]
+        B <- parms[grepl("\\<B",names(parms))]
+        Th <- parms[grepl("Th",names(parms))]
+        E_th <- parms[grepl("E_th",names(parms))]
+        k_B <- ifelse("k_B" %in% names(n.temp), unname(unlist(n.temp["k_B"])), 8.617e-05)
+        W <- ifelse("W" %in% names(n.temp), unname(unlist(n.temp["W"])), 0.64)
+        K <- ifelse("K" %in% names(n.temp), unname(unlist(n.temp["K"])), 2.8e7)
+        
+
+        
+        if(!is.null(own_state_parameters)){ ## state parameters submitted
+          n <- Luminescence::set_RLum(class = "RLum.Results",
+                                      data = list(n = own_state_parameters,
+                                                  temp = 20,
+                                                  model = model))
+          
+        } else { ## no state parameters submitted
+          
+          n <- Luminescence::set_RLum(class = "RLum.Results",
+                                      data = list(n = rep(0,length(parms$N)+2),
+                                                  temp = 20,
+                                                  model = model))
+        }
+        
+        parms <- set_RLum(class = "RLum.Results",
+                          data = list(N = N,
+                                      E = E,
+                                      s = s,
+                                      A = A,
+                                      B = B,
+                                      Th = Th,
+                                      E_th = E_th,
+                                      k_B = k_B,
+                                      n = n,
+                                      W = W,
+                                      K = K,
+                                      model = "customized"
+                          )
+        )
+        
+        
+      } else { ##model not customized
 
       n.temp <- .set_pars(model)
 
@@ -514,6 +640,7 @@ model_LuminescenceSignals <- function(
                         )
       )
 
+      
       if(simulate_sample_history == TRUE){
         n <- Luminescence::set_RLum(class = "RLum.Results",
                                     data = list(n = rep(0,length(parms$N)+2),
@@ -521,17 +648,39 @@ model_LuminescenceSignals <- function(
                                                 model = model))
       } else {
         n <- parms$n
-      }
+        }
+      } 
+    } else { ##else: parms not set
       
-    } else {
-      parms <- .set_pars(model)
-      if(simulate_sample_history == TRUE){
-        n <- Luminescence::set_RLum(class = "RLum.Results",
-                                     data = list(n = rep(0,length(parms$N)+2),
-                                                 temp = 20,
-                                                 model = model))
-      } else {
-        n <- parms$n
+      if(model == "customized"){
+        
+        parms <- own_parameters
+
+        if(!is.null(own_state_parameters)){ ## state parameters submitted
+          n <- Luminescence::set_RLum(class = "RLum.Results",
+                                      data = list(n = own_state_parameters,
+                                                  temp = 20,
+                                                  model = model))
+          
+        } else { ## no state parameters submitted
+          
+          n <- Luminescence::set_RLum(class = "RLum.Results",
+                                      data = list(n = rep(0,length(parms$N)+2),
+                                                  temp = 20,
+                                                  model = model))
+        }
+        
+      } else { ## model not customized and 
+      
+        parms <- .set_pars(model)
+        if(simulate_sample_history == TRUE){
+          n <- Luminescence::set_RLum(class = "RLum.Results",
+                                      data = list(n = rep(0,length(parms$N)+2),
+                                                  temp = 20,
+                                                  model = model))
+          } else {
+            n <- parms$n
+          }
       }
   }
 
@@ -558,7 +707,7 @@ model_LuminescenceSignals <- function(
 
 # model.output structure --------------------------------------------------
 
-  if(show.structure){
+  if(show_structure){
     cat("[model_LuminescenceSignals()] \n\t>> Structure of output from 'model_LuminescenceSignals()' \n\n")
     print(Luminescence::structure_RLum(model.output))
   }

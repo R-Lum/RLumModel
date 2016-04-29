@@ -1,8 +1,8 @@
 Package: RLumModel
 Type: Package
-Title: Modelling Ordinary Differential Equations Leading to Luminescence
-Version: 0.1.1
-Date: 2016-02-24
+Title: Solving Ordinary Differential Equations to Unterstand Luminescence
+Version: 0.2.0
+Date: 2016-04-25
 Author: Johannes Friedrich [aut, trl, cre],
     Sebastian Kreutzer [aut, ths],
     Christoph Schmidt [aut, ths]
@@ -19,7 +19,7 @@ License: GPL-3
 Depends:
     R (>= 3.2.3),
     utils,
-    Luminescence (>= 0.5.1)
+    Luminescence (>= 0.6.0)
 Imports:
     deSolve (>= 1.12),
     FME,

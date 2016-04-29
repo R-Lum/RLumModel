@@ -97,16 +97,24 @@
   # P: Photonflux (in Bailey 2004: wavelength [nm])
   # b: heating rate [deg. C/s]
   ##============================================================================##
-  if(parms$model == "Bailey2004"){
-    R <- dose_rate*2.5e10
-  }
-
-  if(parms$model == "Bailey2002"){
-    R <- dose_rate*3e10
+  ## check if R is given in customized parameter sets
+  if("R" %in% names(parms) && parms$R != 0){
+    
+    R <- dose_rate*parms$R
+    
   } else {
-    R <- dose_rate*5e7  # all other simulations
-  }
+  
+    if(parms$model == "Bailey2004"){
+      R <- dose_rate*2.5e10
+    }
 
+    if(parms$model == "Bailey2002"){
+      R <- dose_rate*3e10
+    } else {
+      R <- dose_rate*5e7  # all other simulations
+    }
+  }
+  
   P <- 0
   b <- 0
 

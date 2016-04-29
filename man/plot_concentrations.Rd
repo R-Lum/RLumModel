@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_concentrations.R
 \name{plot_concentrations}
 \alias{plot_concentrations}
-\title{Plot electron/hole concentrations of a specific record.id}
+\title{Plot electron/hole concentrations of a specific pid}
 \usage{
 plot_concentrations(object, pid, ...)
 }
@@ -10,8 +10,8 @@ plot_concentrations(object, pid, ...)
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):  S4
 object of class \code{RLum.Analysis}, e.g. the values of \code{\link{model_LuminescenceSignals}}.}
 
-\item{pid}{\code{\link{numeric}} (\bold{required}): pid of the simulated record, which
-is to plot. To see all pids use \code{\link[Luminescence]{structure_RLum}}, see examples.}
+\item{pid}{\code{\link{numeric}} (\bold{required}): pid of the simulated record, which 
+to plot. To see all pid's use \code{\link[Luminescence]{structure_RLum}}, see examples.}
 
 \item{\dots}{further arguments and graphical parameters passed to
 \code{\link{plot.default}} and \code{\link{plot_RLum.Analysis}}.}
@@ -29,7 +29,7 @@ The function produces a multiple plot output and uses in main parts the Luminesc
 A file output is recommended (e.g., \code{\link{pdf}}).
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 [2016-04-29]
 }
 \examples{
 

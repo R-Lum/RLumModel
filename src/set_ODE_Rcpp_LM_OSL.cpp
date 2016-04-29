@@ -38,10 +38,10 @@ List set_ODE_Rcpp_LM_OSL(double t, arma::vec n, Rcpp::List parameters) {
       j++;
       jj++;
 
-      dn[i] = n[N.size()]*(N[i]-n[i])*A[i]-n[i]*P*a*t*Th[i]*exp(-E_th[i]/(k_B*(273+temp+b*t)))-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)));
+      dn[i] = n[N.size()]*(N[i]-n[i])*A[i] - n[i]*P*a*t*Th[i]*exp(-E_th[i]/(k_B*(273+temp+b*t))) - n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)));
     } else {//calculate recombination centers
       jj++;
-      dn[i] = n[N.size()+1]*(N[i]-n[i])*A[i]-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)))-n[N.size()]*n[i]*B[i];
+      dn[i] = n[N.size()+1]*(N[i]-n[i])*A[i] - n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t))) - n[N.size()]*n[i]*B[i];
     }
   }
 

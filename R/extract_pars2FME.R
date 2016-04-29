@@ -1,11 +1,13 @@
-#' Prepare parameters for use with R package FME
+#' Prepare parameters for use with R package FME and function \code{\link{fit_RLumModel2data}}
 #' 
-#' @param model Name of the quartz luminescence model. Possible choices are: 
-#' "Bailey2001", "Bailey2002, "Bailey2004", "Pagonis2007" and "Pagonis2008".
+#' @param model \code{\link{character}}: set model to be used. Available models are:
+#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"
+#' 
+#' @param parms \code{\link{list}}: If an own parameter set is used for 'inverse modelling'.
 #' 
 #' @return This function returns a named \code{\link{vector}} for use with R package FME 
 #' 
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.0 [2016-04-29]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #' 
@@ -41,25 +43,81 @@
 #' 
 #' @examples
 #' 
+#' ## use default model
 #' parms <- extract_pars2FME(model = "Bailey2001")
+#' 
+#' ## use own parameter set
+#' 
+#' own_parameters <- list(
+#'  N = c(1e13,0),
+#'  E = c(1.3, 0),
+#'  s = c(1e12, 0),
+#'  A = c(1e-8, 0),
+#'  B = c(0, 1e-8),
+#'  Th = c(0, 0),
+#'  E_th = c(0, 0),
+#'  k_B = 8.617e-5,
+#'  K = 0,
+#'  model = "customized"
+#' )
+#' 
+#' parms <- extract_pars2FME(parms = own_parameters)
 #' 
 #' @export
 extract_pars2FME <- function(
-  model
+  model = NULL,
+  parms = NULL
 ){
   
+  # Integrity tests and conversion --------------------------------------------------------------
+  
+  if(is.null(model) & is.null(parms)){
+    
+    stop("[extract_pars2FME()] Either 'model' or 'parms' has to be a function argument")
+  }
+  
+  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002")
+  
+  if(!is.null(model)){
+    if(!model%in%model.allowed_keywords){
+    stop(paste0("[model_LuminescenceSignals()] Model not supported. Supported models are: ", paste(model.allowed_keywords, collapse = ", ")))
+    }
+  }
+  
+  if(!is.null(parms) & class(parms)!= "list"){
+    
+    stop("[extract_pars2FME()] Function argument 'parms' has to be of class list")
+  }
+  
+  # Function ------------------------------------------------------------------------------------ 
+  
   ##load model parameters
-  temp_pars <- .set_pars(model)
+  if(is.null(parms)){
+    
+    temp_pars <- .set_pars(model)
   
-  ##prepare parms for use with FME, remove RLum.Results objects and character strings,
-  ##as well as natural constants
-  temp_pars$n <- NULL
-  temp_pars$model <- NULL
-  temp_pars$k_B <- NULL
-  temp_pars$W <- NULL
-  temp_pars$K <- NULL
+    ##prepare parms for use with FME, remove RLum.Results objects and character strings,
+    ##as well as natural constants
+    
+    temp_pars$model <- NULL
+    temp_pars$k_B <- NULL
+    temp_pars$W <- NULL
+    temp_pars$K <- NULL
+    temp_pars$n <- NULL
   
-  ##unlist parms for direct call, e.g. parms["N1"]
-  return(unlist(temp_pars))
+    ##unlist parms for direct call, e.g. parms["N1"]
+    return(unlist(temp_pars))
+    
+  } else { ##model = NULL
+    
+    parms$model <- NULL
+    parms$k_B <- NULL
+    parms$W <- NULL
+    parms$K <- NULL
+    
+    ##unlist parms for direct call, e.g. parms["N1"]
+    return(unlist(parms))
+    
+  }
 
 }

@@ -1,4 +1,4 @@
-#' Plot electron/hole concentrations of a specific record.id
+#' Plot electron/hole concentrations of a specific pid
 #'
 #' The functions provides a plot of all changes in time of the electron respectively hole concentration
 #' in electron traps, hole centres, in the condunction and valence band.
@@ -18,7 +18,7 @@
 #'
 #' @return Returns multiple plots.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.0 [2016-04-29]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'

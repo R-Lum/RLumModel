@@ -5,7 +5,9 @@
 \title{Fit model parameters to experimental data}
 \usage{
 fit_RLumModel2data(sequence, model, seq.step2fit, lab.dose_rate = 1,
-  simulate_sample_history = FALSE, verbose = FALSE, plot = FALSE, ...)
+  simulate_sample_history = FALSE, verbose = FALSE,
+  show_structure = FALSE, own_parameters = NULL,
+  own_state_parameters = NULL, plot = FALSE, ...)
 }
 \arguments{
 \item{sequence}{\code{\link{list}} (\bold{required}): set sequence to model as \code{\link{list}} or as *.seq file from the
@@ -15,7 +17,7 @@ See \code{\link{model_LuminescenceSignals}} for a detailed description.}
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
 "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"}
 
-\item{seq.step2fit}{\code{\link{numeric}}: Choose the sequence step number to fit.
+\item{seq.step2fit}{\code{\link{numeric}} (\bold{required}): Choose the sequence step number to fit.
 \bold{Note: Only sequence steps with an signal output are allowed! This sequence steps are:
 RF, TL, OSL, LM-OSL}}
 
@@ -26,6 +28,36 @@ Gy/s for calculating seconds into Gray in the *.seq file.}
 process}
 
 \item{verbose}{\code{\link{logical}} (with default): Verbose mode on/off.}
+
+\item{show_structure}{\code{\link{logical}} (with default): Shows the structure of the result.
+Recommended to show record.id to analyse concentrations.}
+
+\item{own_parameters}{\code{\link{list}} (with default): This argument allows the user to submit own parameter sets. The \code{\link{list}}
+has to contain the following items:
+\itemize{
+ \item{N: Concentration of electron- and hole traps [cm^(-3)]}
+ \item{E: Electron/Hole trap depth [eV}
+ \item{s: Frequency factor [s^(-1)]}
+ \item{A: Conduction band to electron trap and valence band to hole trap transition probability [s^(-1) * cm^(3)]. 
+ \bold{CAUTION: Not every publication uses 
+ the same definition of parameter A and B! See vignette "RLumModel - Usage with own parameter sets" for further details}}
+ \item{B: Conduction band to hole centre transition probability [s^(-1) * cm^(3)].}
+ \item{Th: Photo-eviction constant or photoionisation cross section, respectively}
+ \item{E_th: Thermal assistence energy [eV]}
+ \item{k_B: Boltzman constant 8.617e-05 [eV/K]}
+ \item{W: activation energy 0.64 [eV] (for UV)}
+ \item{K: 2.8e7 (dimensionless constant)}
+ \item{model: "customized"}
+ \item{R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [s^(-1) * cm^(-3)]}
+ }
+
+For further details see Bailey 2001, Wintle 1975, vignette "RLumModel - Using own parameter sets" 
+and example 3.}
+
+\item{own_state_parameters}{\code{\link{numeric}} (with default): Some publications (e.g. Pagonis 2009)
+offer state parameters. With this argument the user can submit this state parameters. \bold{Note:} 
+You have to submit the state parameters for the conduction band and the valence band, too. For further details
+see vignette ""RLumModel - Using own parameter sets" and example 3.}
 
 \item{plot}{\code{\link{logical}} (with default): Enables or disables plot output. 
 Recommended: No plot output, because fitting function will run a lot of times.}
@@ -41,7 +73,7 @@ with the package "FME".
 Fit model parameters to experimental data
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 [2016-04-29]
 }
 \examples{
 

@@ -16,3 +16,5 @@ RLumModel.Debug
 RLumModel.Experiment
 ^packrat/
 packrat
+^.*\.bibj$
+^.*\.cls$

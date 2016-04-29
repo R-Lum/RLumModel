@@ -1,6 +1,6 @@
 //set_ODE_Rcpp.cpp
 //author: Johannes Friedrich, University of Bayreuth (Germany)
-//version: 0.1.0 [2016-03-29]
+//version: 0.1.1 [2016-04-04]
 //Function calculates the ODEs for all quartz luminescence models iterativly
 //
 
@@ -38,14 +38,15 @@ List set_ODE_Rcpp(double t, arma::vec n, Rcpp::List parameters) {
      j++;
      jj++;
 
-     dn[i] = n[N.size()]*(N[i]-n[i])*A[i]-n[i]*P*Th[i]*exp(-E_th[i]/(k_B*(273+temp+b*t)))-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)));
+     dn[i] = n[N.size()]*(N[i]-n[i])*A[i] - n[i]*P*Th[i]*exp(-E_th[i]/(k_B*(273+temp+b*t))) - n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)));
    } else {//calculate recombination centers
      jj++;
-     dn[i] = n[N.size()+1]*(N[i]-n[i])*A[i]-n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)))-n[N.size()]*n[i]*B[i];
+     dn[i] = n[N.size()+1]*(N[i]-n[i])*A[i] - n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t))) - n[N.size()]*n[i]*B[i];
    }
  }
 
-  //build sub-vectors for conduction/valenece band calculation
+  //build sub-vectors for conduction/valence band calculation
+  
   arma::vec temp_dn1 = dn.subvec(0,j-1);
   arma::vec temp_dn2 = dn.subvec(j,jj-1);
 
