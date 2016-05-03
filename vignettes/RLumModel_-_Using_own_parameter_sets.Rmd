@@ -1,0 +1,336 @@
+---
+title: "RLumModel - Using own parameter sets"
+author: "Johannes Friedrich"
+date: '`r Sys.Date()`'
+output:
+  pdf_document:
+    fig_height: 5
+    fig_width: 5
+    number_sections: yes
+header-includes: \usepackage[utf8]{inputenc}
+bibliography: /home/johannes/RLumModel.bib
+csl: /home/johannes/elsevier-harvard.csl
+toc: true
+vignette: |
+  %\VignetteIndexEntry{RLumModel - Using own parameter sets} 
+  %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteEngine{knitr::rmarkdown} 
+---
+```{r, echo=FALSE, message = FALSE}
+rm(list = ls(all=TRUE))
+library(RLumModel)
+```
+
+# Introduction
+
+With RLumModel $\geq$ 0.2.0 it is possible to simulate quartz luminescence behaviour of own parameter sets or parameter sets, which are not included in the package but also known in literature. 
+This little manual gives two examples how to implement parameter sets and prooves the results simulating the original simulations.
+
+RLumModel offers maximum flexibility and fast calculation of first-order ordinary differential equations (ODEs), because of:
+
+* flexible handling of different numbers of electron traps and hole centres in generating the model equations. So the user has not to care about coding ODEs in R. 
+* Solving these equations is performed with C++ [@Eddelbuettel_2013] and offers a fast calculation of simulation results.
+
+# Examples
+
+This chapter shows the handling of own parameter sets with RLumModel. For this purpose three quartz luminescence models known from literature were taken, @Lawless_2009, @Pagonis_2009a and @Adamiec_2005. 
+
+
+
+## Pagonis 2009 
+
+@Pagonis_2009a presented parameters for their luminescence modelling of radioluminescence. This model was built for $Al_2O_3:C$ but the rate equations are identical. Below is a step-by-step manual for invlving these parameters in RLumModel and re-calculate the simulation made by @Pagonis_2009a. Note that in the original publication Figure 3 and Figure 6 are inconsistent with one another. For a doserate of 0.1 Gy/s an initial RL intensity of ca. 1.5e14 is obtained (see Figure 6 in original publication and simulations below). 
+
+
+### Set parameters
+
+First of all the model parameters had to be set. In RLumModel this can be done via list().
+The list has to contain the following items:
+
+* N: Concentration of electron- and hole traps [$cm^{-3}$]
+* E: Electron/Hole trap depth [eV]
+* s: Frequency factor [$s^(-1)$]
+* A: Conduction band to electron trap and valence band to hole trap transition probability [$s^{-1} \cdot cm^3$].
+* B: Conduction band to hole centre transition probability [$s^{-1} \cdot cm^3$].
+* Th: Photo-eviction constant or photoionisation cross section, respectively
+* E_th: Thermal assistence energy [eV]
+* k_B: Boltzman constant 8.617e-05 [eV/K]
+* W: activation energy 0.64 [eV] (for UV)
+* K: 2.8e7 (dimensionless constant). 
+* model: "customized"
+* R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [$s^{-1} \cdot cm^{-3}$]
+
+**Note**: 
+
+* Not every publication uses the same definition of parameter A and B.
+* When no thermal quenching is expected, set $\mathrm{K} = 0$. A numerical value of W is necessary, if K $\neq$ 0.
+* The parameter model = "customized" is necessary not to load a stored model within the RLumModel pacakge.
+* The luminescence center, which is responsible for the luminescence production (TL-, OSL-, RF-signal), has to be the last entry in the model parameters, see examples below.
+* For further details of the parameter see @Bailey_2001 and @Wintle_1975.
+* The first two entries in N, A and B belong to the electron traps and the last two entries to the hole centres. This is not necessary but recommended.
+* The first entry in N, E, s, A, B, Th and E_th belong to the first energy level (e.g. 110°C), the second, third, ... entries to second, third, ... energy levels.
+
+```{r}
+own_parameters <- list(
+  N = c(2e15, 2e15, 2.4e16, 1e17),
+  E = c(0, 0, 0, 0),
+  s = c(0, 0, 0, 0),
+  A = c(2e-8, 2e-9, 4e-9, 1e-8),
+  B = c(0, 0, 5e-11, 4e-8),
+  Th = c(0, 0),
+  E_th = c(0, 0),
+  k_B = 8.617e-5,
+  K = 0,
+  model = "customized",
+  R = 1.7e15)
+```
+
+It is important to notive, that in @Pagonis_2009a *B* is the valence band to hole centre probability, but in @Bailey_2001 this is $\mathrm{A_j}$. The default setting of RLumModel is the definition by @Bailey_2001 and so the values of *B* (in @Pagonis_2009a) are *A* in the notation above.
+
+As a next stept it is possible to set own 'starting-parameters', also called state parameters. In the case of @Pagonis_2009a they submitted initial concentrations of electrons and holes. This can be done via:
+  
+```{r}  
+own_state_parameters <- c(0, 0, 0, 9.4e15, 0, 0)
+```
+
+Here the first entry is the first electron trap, the second entry the second electron trap, the third entry the hole center
+and the fourth entry the luminescence center responsible for the RF signal.
+The vector "own_state_parameters" needs six entries to be compatible with RLumModel (2 electron traps, 2 hole traps, 1 valence band, 1 conduction band).
+This is necessary for the used R-package deSolve [@Soetaert_2012], because it requires as much state conditions as rate equations.
+  
+### Running the simulation with RLumModel
+
+When all parameters are set the simulation can be started. The maim function in RLumModel is 'model_LuminescenceSignals()' and the usage with own parameter sets are described below. For a general overview for creating a sequence, running RLumModel with stored models etc. the user is referred to @Friedrich_2016 and to the vignette 'RLumModel - Getting started with RLumModel'. For simulating the results of @Pagonis_2009a the follwing sequence is needed.
+
+```{r set sequence Pagonis 2009}  
+sequence <- list(RF = c(20, 0.1, 0.1))
+```
+  
+This sequence describes a radiofluorescence simulation at 20°C with a dose of 0.1 Gy and a dose rate of 0.1 Gy/s, so the stimulation time is 1s. 
+Now all parts are prepared to simulate this sequence. 
+The parameters 'own_parameters' and 'own_state_parameters' in 'model_LuminescenceSignals()' are prepared for using own created parameter sets. As parameter 'model =  "customized"' is necessary to not load stored parameters. 
+  
+  
+```{r, fig.align="center"}  
+RF_Pagonis2009 <- model_LuminescenceSignals(
+  model = "customized", 
+  sequence = sequence, 
+  own_parameters = own_parameters, 
+  own_state_parameters = own_state_parameters,
+  verbose = FALSE)
+```
+  
+As in the original publication initially the RF signal increases and is followed by an approximately linear region until the stimulation ends.
+Figure 5 in @Pagonis_2009a shows the concentration of the luminescence center m1 for the stimulation time of 1s.
+With RLumModel this can be plotted very fast with the following command (for a detailed description see vignette "RLumModel - Getting started with RLumModel").
+The ylim command in *Luminescence::plot_RLum* was used to generate the same plot as Figure 5 in @Pagonis_2009a.
+  
+```{r, echo=FALSE, fig.align="center"}
+concentration_m1 <- Luminescence::get_RLum(
+  RF_Pagonis2009, 
+  recordType = c("conc. level 4"))
+  
+Luminescence::plot_RLum(
+  concentration_m1, 
+  ylim = c(9.2e15, 9.6e15))
+```
+
+
+### Re-calculate the original results
+
+Reproducing Figure 3 and Figure 6 in @Pagonis_2009a a loop over different dose rates is necessary. 
+The following code lines are able to run the model for five different dose rates from 0.1 to 0.5 Gy/s and plot all contained RF curves and the initial RF signal.
+For a more detailed descripton of the loop and the single commands therein the user is referred to @Friedrich_2016 and the vignette 'RLumModel - Getting started with RLumModel'.
+
+```{r Different Dose rates Pagonis 2009, fig.align="center"}
+dose.rate <- seq(from = 0.1, to = 0.5, by = 0.1)
+
+model.output <- lapply(dose.rate, function(x) {
+    
+    sequence <- list(RF = c(20, x, x))
+    
+    RF_data <- model_LuminescenceSignals(
+      model = "customized", 
+      sequence = sequence, 
+      own_parameters = own_parameters, 
+      own_state_parameters = own_state_parameters,
+      verbose = FALSE,
+      plot = FALSE
+    )
+    
+    ## "RF$" for exact matching RF and not (RF)
+    return(get_RLum(RF_data, recordType = "RF$", drop = FALSE))
+    
+  })
+
+model.output.merged <- merge_RLum(model.output)
+
+plot_RLum(
+ object = model.output.merged,
+ xlab = "Stimulation time [s]",
+ ylab = "RF signal [a.u.]",
+ legend.text = paste(dose.rate, "Gy/s"),
+ legend.pos = "outside",
+ combine = TRUE)
+```
+
+
+
+The following code calcultes the initial RF signal for the five different dose rates.
+
+
+```{r Initial signal, fig.align="center"}
+dose.rate <- seq(from = 0.1, to = 0.5, by = 0.1)
+
+model.output <- vapply(X = dose.rate, FUN = function(x) {
+    
+    sequence <- list(RF = c(20, x, x))
+    
+    temp <- model_LuminescenceSignals(
+      model = "customized", 
+      sequence = sequence, 
+      own_parameters = own_parameters, 
+      own_state_parameters = own_state_parameters,
+      verbose = FALSE,
+      plot = FALSE
+    )
+    
+    ## "RF$" for exact matching RF and not (RF)
+    RF_curve <- get_RLum(temp, recordType = "RF$")
+    
+    return(max(get_RLum(RF_curve)[2,2]))
+    
+  }, FUN.VALUE = 1)
+
+plot(
+  dose.rate,
+  model.output,
+  type = "b",
+  xlab = "Stimulation Time [s]",
+  ylab = "Initial RF intensitiy [a.u.]"
+  )
+```
+
+
+The results show that RLumModel is able to simulate the same results as published in @Pagonis_2009a with only little effort. All these examples can be modified to own needs, e.g. own sequences or own parameters.
+
+## Lawless 2009
+
+### Set parameters
+
+```{r Lawless 2009 set parameters, fig.align="center"}
+own_parameters <- list(
+  N = c(1e14, 1e15),
+  E = c(0, 0),
+  s = c(0, 0),
+  A = c(1e-13, 1e-14),
+  B = c(0, 1e-7),
+  Th = c(0, 0),
+  E_th = c(0, 0),
+  k_B = 8.617e-5,
+  K = 0,
+  model = "customized",
+  R = 1e8)
+
+sequence <- list(RF = c(20, 100, 1))
+
+RF_Lawless_2009 <- model_LuminescenceSignals(
+  model = "customized", 
+  sequence = sequence, 
+  own_parameters = own_parameters,
+  verbose = FALSE,
+  plot = FALSE)
+
+concentration_n <- Luminescence::get_RLum(
+  RF_Lawless_2009, 
+    recordType = c("conc. level 1"))
+```
+
+```{r, echo=FALSE}
+Luminescence::plot_RLum(
+  concentration_n,
+  ylim = c(0,15e8), lwd = 3)
+
+t <- seq(0, 100, 2)
+numerical_eq16 <- 1e-13*1e14/1e-7 *((1 + 2*1e-7*1e8*t/(1e-13*1e14))^(0.5)-1)
+
+numerical_eq18 <- (2*1e-13*1e14*1e8*t/(1e-7))^(0.5)
+
+lines(t, numerical_eq16, pch = 3, col = "red", type = "b")
+lines(t, numerical_eq18, pch = 4, col = "green", type = "b")
+
+legend("bottomright", legend = c("Simulated", "Eq. 16","Eq. 18"), col = c("black", "red", "green"), lwd = 1)
+```
+
+
+
+## Adamiec 2005
+
+
+@Adamiec_2005 published model parameters for simulating thermal activation characteristics (TACs). 
+
+
+
+### Set parameters
+
+```{r Adamiec 2005 set parameters}
+own_parameters <- list(
+  N = c(1e8, 1e9, 5e10, 1.4e11, 1.8e11, 2e11, 1e11),
+  E = c(0.7, 1.6, 4.0, 1.16, 1.75, 2.6, 3.2),
+  s = c(4.7e8, 8.5e12, 0, 1.2e10, 7e14, 2e14, 0),
+  A = c(2e-9, 3e-10, 2e-11, 4e-10, 6e-10, 1e-10, 1e-9),
+  B = c(0, 0, 0, 3e-10, 3e-10, 2e-9, 1e-9),
+  Th = c(0, 0, 0),
+  E_th = c(0, 0, 0),
+  k_B = 8.617e-5,
+  K = 0,
+  model = "customized",
+  R = 1e9)
+```
+
+
+### Calculate TACs
+
+```{r Adamiec 2005 TAC, echo=FALSE, fig.align="center"}
+
+act.temp <- seq(from = 200, to = 700, by = 20)
+
+##loop over temperature
+model.output <- vapply(X = act.temp, FUN = function(x) {
+  
+sequence <- list(IRR = c(20, 1, 1), 
+                 PH = c(x, 1000, 5), 
+                 IRR = c(20, 0.01, 0.01), 
+                 TL = c(20, 180, 2))
+  
+TAC_Adamiec2005 <- model_LuminescenceSignals(
+  model = "customized", 
+  sequence = sequence, 
+  own_parameters = own_parameters, 
+  verbose = FALSE,
+  plot = FALSE)
+
+
+  ## "TL$" for exact matching TL and not (TL)
+  TL_curve <- get_RLum(TAC_Adamiec2005, recordType = "TL$")
+
+  ##return max value in TL curve
+  return(max(get_RLum(TL_curve)[,2]))
+
+}, FUN.VALUE = 1)
+
+
+plot(
+  act.temp,
+  model.output,
+  type = "b",
+  xlab = "Temperature [\u00B0C]",
+  ylab = "TL [a.u.]"
+  )
+```
+
+
+
+# Summary
+
+# References

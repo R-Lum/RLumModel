@@ -1,13 +1,15 @@
 ### ===============================================================================================
 ### R package Luminescence BUILDSCRIPTS
-### roxygen2
+### Rcpp
 ### sebastian.kreutzer@u-bordeaux-montaigne.fr
-### 2015-09-30
+### 2015-04-29
 ### ===============================================================================================
 
-if(!require("devtools"))
-  install.packages("devtools")
+if(!require("Rcpp"))
+  install.packages("Rcpp")
 
-library(devtools)
+library(Rcpp)
 
-document(pkg = ".", roclets = NULL)
+
+##compile new attributes
+Rcpp::compileAttributes()

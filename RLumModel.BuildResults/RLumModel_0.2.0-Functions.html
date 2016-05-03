@@ -1,6 +1,6 @@
 
 <p class='character'><h2 align="center">Major functions in the R package 'RLumModel'</h2>
-           <h4 align="center"> [version: 0.1.0 ]</h4>
+           <h4 align="center"> [version: 0.2.0 ]</h4>
            <style type="text/css">
            <!--
            h2 {font-family: Arial, Helvetica, sans-serif
@@ -47,29 +47,11 @@
 <tr> 
 <td class=firstcolumn>1
 </td>
-<td class=cellinside>ExampleData.ModelOutput
+<td class=cellinside>ExampleData.FittingTL
 </td>
-<td class=cellinside>Example data (TL curve) simulated from Bailey (2001 ,fig. 1)
+<td class=cellinside>Example data with TL curves extracted from a TL-SAR protocol (lab code BT1195)
 </td>
-<td class=cellinside><br /> Example data (TL curve) simulated from Bailey (2001 ,fig. 1)<br />
-</td>
-<td class=cellinside> 
-</td>
-<td class=cellinside> 
-</td>
-<td class=cellinside> 
-</td>
-<td class=cellinside> 
-</td></tr>
- 
-<tr> 
-<td class=firstcolumn>2
-</td>
-<td class=cellinside>model_LuminescenceSignals
-</td>
-<td class=cellinside>Model Luminescence Signals
-</td>
-<td class=cellinside><br /> This function models luminescence signals for quartz based on published physical models.<br /> It is possible to simulate TL, (CW-) OSL, RF measurements in a arbitrary sequence. This<br /> sequence is definded as a  list  of certain abrivations. Furthermore it is possible to<br /> load a sequence direct from the Riso Sequence Editor.<br /> The output is an  RLum.Analysis object and so the plots are done<br /> by the  plot_RLum.Analysis  function. If a SAR sequence is simulated the plot output can be disabled and SAR analyse functions<br /> can be used.<br />
+<td class=cellinside><br /> Example data with TL curves extracted from a TL-SAR protocol (lab code BT1195)<br />
 </td>
 <td class=cellinside>0.1.0
 
@@ -78,11 +60,106 @@
 </td>
 <td class=cellinside> 
 </td>
-<td class=cellinside><br /> Johannes Friedrich, University of Bayreuth (Germany),<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
+<td class=cellinside><br /> Johannes Friedrich, University of Bayreuth (Germany)<br />
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>2
+</td>
+<td class=cellinside>ExampleData.ModelOutput
+</td>
+<td class=cellinside>Example data (TL curve) simulated with parameter set from Pagonis 2007
+</td>
+<td class=cellinside><br /> Example data (TL curve) simulated with parameter set from Pagonis 2007<br />
+</td>
+<td class=cellinside>0.1.1
+
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside><br /> Johannes Friedrich, University of Bayreuth (Germany)<br />
 </td></tr>
  
 <tr> 
 <td class=firstcolumn>3
+</td>
+<td class=cellinside>extract_pars2FME
+</td>
+<td class=cellinside>Prepare parameters for use with R package FME and function  fit_RLumModel2data
+</td>
+<td class=cellinside><br /> Prepare parameters for use with R package FME and function  fit_RLumModel2data <br />
+</td>
+<td class=cellinside>0.1.0
+</td>
+<td class=cellinside>[2016-04-29]
+
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside><br /> Johannes Friedrich, University of Bayreuth (Germany),<br />
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>4
+</td>
+<td class=cellinside>fit_RLumModel2data
+</td>
+<td class=cellinside>Fit model parameters to experimental data
+</td>
+<td class=cellinside><br /> Fit model parameters to experimental data<br />
+</td>
+<td class=cellinside>0.1.0
+</td>
+<td class=cellinside>[2016-04-29]
+
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside><br /> Johannes Friedrich, University of Bayreuth (Germany)<br />
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>5
+</td>
+<td class=cellinside>model_LuminescenceSignals
+</td>
+<td class=cellinside>Model Luminescence Signals
+</td>
+<td class=cellinside><br /> This function models luminescence signals for quartz based on published physical models.<br /> It is possible to simulate TL, (CW-) OSL, RF measurements in a arbitrary sequence. This<br /> sequence is definded as a  list  of certain abrivations. Furthermore it is possible to<br /> load a sequence direct from the Riso Sequence Editor.<br /> The output is an  RLum.Analysis object and so the plots are done<br /> by the  plot_RLum.Analysis  function. If a SAR sequence is simulated the plot output can be disabled and SAR analyse functions<br /> can be used.<br />
+</td>
+<td class=cellinside>0.1.2
+</td>
+<td class=cellinside>[2016-04-28]
+
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside><br /> Johannes Friedrich, University of Bayreuth (Germany),<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>6
+</td>
+<td class=cellinside>plot_concentrations
+</td>
+<td class=cellinside>Plot electron/hole concentrations of a specific pid
+</td>
+<td class=cellinside><br /> The functions provides a plot of all changes in time of the electron respectively hole concentration<br /> in electron traps, hole centres, in the condunction and valence band.<br />
+</td>
+<td class=cellinside>0.1.0
+</td>
+<td class=cellinside>[2016-04-29]
+
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside><br /> Johannes Friedrich, University of Bayreuth (Germany),<br />
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>7
 </td>
 <td class=cellinside>read_SEQ2R
 </td>
