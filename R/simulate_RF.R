@@ -23,11 +23,9 @@
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information
 #'
-#' @return This function returns an Rlum.Results object of the RF/RL simulation.
+#' @return This function returns an RLum.Results object of the RF/RL simulation.
 #'
-#' @note This function can do just nothing at the moment.
-#'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -99,16 +97,24 @@
   # P: Photonflux (in Bailey 2004: wavelength [nm])
   # b: heating rate [deg. C/s]
   ##============================================================================##
-  if(parms$model == "Bailey2004"){
-    R <- dose_rate*2.5e10
-  }
-
-  if(parms$model == "Bailey2002"){
-    R <- dose_rate*3e10
+  ## check if R is given in customized parameter sets
+  if("R" %in% names(parms) && parms$R != 0){
+    
+    R <- dose_rate*parms$R
+    
   } else {
-    R <- dose_rate*5e7  # all other simulations
-  }
+  
+    if(parms$model == "Bailey2004"){
+      R <- dose_rate*2.5e10
+    }
 
+    if(parms$model == "Bailey2002"){
+      R <- dose_rate*3e10
+    } else {
+      R <- dose_rate*5e7  # all other simulations
+    }
+  }
+  
   P <- 0
   b <- 0
 
@@ -117,19 +123,24 @@
   ##============================================================================##
 
   times   <- seq(0, dose/(dose_rate), by = (dose/dose_rate)/100)
-  parameters.step  <- list(R = R, P = P, temp = temp, b = b, times = times, parms = parms)
-
+  parameters.step <- .extract_pars(parameters.step = list(
+    R = R,
+    P = P,
+    temp = temp,
+    b = b,
+    times = times,
+    parms = parms))
+  
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE ,  rtol=1e-3, atol=1e-3, maxsteps=1e5);
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp);
 
   ##============================================================================##
   # CALCULATING RESULTS FROM ODE SOLVING
   ##============================================================================##
 
   signal <- .calc_signal(object = out, parameters = parameters.step)
-
 
   ##============================================================================##
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING
@@ -154,7 +165,7 @@
                       data = matrix(data = c(times, signal), ncol = 2),
                       recordType = "RF",
                       curveType = "simulated",
-                      info = list(RLumModel_ID = RLumModel_ID)
+                      .pid = as.character(RLumModel_ID)
                     ),
                     temp = temp,
                     concentrations = concentrations)

@@ -15,12 +15,12 @@
 #' with the concentrations of all available electron/holes traps including
 #' valence- and conduction band.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany)
 #'
 #' @seealso \code{\link{simulate_TL}}, \code{\link{simulate_CW_OSL}}, \code{\link{simulate_LM_OSL}},
-#' \code{\link{simulate_RF}}, \code{\link{plot_concentrations}}
+#' \code{\link{simulate_RF}}
 #'
 #' @examples
 #'
@@ -51,7 +51,6 @@
 
   ylab <- "Concentration [1/cm^3]"
 
-
 ##calculate concentrations
 
   concentrations <- lapply(2:ncol(data), function(x){
@@ -77,9 +76,9 @@
                     curveType = "simulated",
                     info = list(
                       curveDescripter = paste(xlab,ylab, sep = ";"),
-                      RLumModel_ID = RLumModel_ID
-                      )
-           ))
+                      max.change = (1-min(value)/max(value))*100),
+                    .pid = paste(as.character(RLumModel_ID),x-1,sep = "_"))
+           )
 
   })
 
