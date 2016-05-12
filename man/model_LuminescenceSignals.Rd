@@ -7,7 +7,8 @@
 model_LuminescenceSignals(model, sequence, lab.dose_rate = 1,
   simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE,
   show_structure = FALSE, own_parameters = NULL,
-  own_state_parameters = NULL, parms = NULL, ...)
+  own_state_parameters = NULL, own_start_temperature = NULL, parms = NULL,
+  ...)
 }
 \arguments{
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
@@ -55,6 +56,9 @@ and example 3.}
 offer state parameters. With this argument the user can submit this state parameters. \bold{Note:} 
 You have to submit the state parameters for the conduction band and the valence band, too. For further details
 see vignette ""RLumModel - Using own parameter sets" and example 3.}
+
+\item{own_start_temperature}{\code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
+a simulation. This parameter takes effect only when 'model = "customized"' is choosen.}
 
 \item{parms}{\code{\link{list}} or \code{\link{numeric}} (with default): This argument is only necessary,
 if fit_data2RLumModel is used. There is no need to change this parameter per hand, all is done automatically. 

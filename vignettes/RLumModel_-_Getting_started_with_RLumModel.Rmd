@@ -175,7 +175,7 @@ All simualted data are stored in the slot "records": TL/OSL/RF curves as well as
 
 The following code loads a data set provided by the RLumModel package and shows how to seperate TL/OSL/RF data from concentrations and how to visualize them.
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, fig.align = "center"}
 data("ExampleData.ModelOutput", package = "RLumModel")
 
 ##show class
@@ -203,7 +203,7 @@ Some notes to the code example above:
 * "drop = FALSE" was used to keep the "RLum.Analysis" class for "TL_conc", too.
 * To see a single plot of every energy-level, use the option "plot.single = TRUE" in "plot_RLum". For more details see the manual of "Luminescence".
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, fig.align = "center"}
 ##plot every energy-level by an extra plot
 plot_RLum(TL_conc, plot.single = TRUE)
 ```
@@ -237,7 +237,7 @@ model.output <- model_LuminescenceSignals(
 
 This results in a TL curve like the one published in Bailey (2001, Fig. 1), see figure above. In a further step, it is easy to produce known TL phenomena like the shift of the TL peak with varying heating rate. For this purpose, a loop over a TL simulation changes the heating rate in each run.
 
-```{r}
+```{r, fig.align = "center"}
 ##set heating rate
 heating.rate <- seq(from = 2, to = 10, by = 2)
 

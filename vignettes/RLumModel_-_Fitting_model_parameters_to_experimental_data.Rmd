@@ -3,11 +3,11 @@ title: "RLumModel - Fitting model parameters to experimental data"
 author: "Johannes Friedrich"
 date: '`r Sys.Date()`'
 output:
-  html_document: default
   pdf_document:
     fig_height: 5
     fig_width: 5
     number_sections: yes
+  html_document: default
 header-includes: \usepackage[utf8]{inputenc}
 toc: yes
 vignette: |
@@ -49,7 +49,7 @@ sequence <-  list(
     IRR = c(20, 5, 0.5),
     TL = c(0, 450, 5))
 
-model <- "Bailey2001"
+model <- "Pagonis2007"
 
 func_FME <- fit_RLumModel2data(
   sequence = sequence, 
@@ -71,8 +71,8 @@ on certain model ouput variables assessed. A few preparations are necessary for 
 parms <- extract_pars2FME(model = model)
 
 
-parRanges <- data.frame(min = c(5.1e7,  1e5, 1e9,  2.5e6,  5e8,   3e6,   1e8,  1e6,  5e7),
-                        max = c(5.1e11, 1e9, 1e13, 2.5e10, 5e12,  3e10,  1e12, 1e10, 5e11))
+parRanges <- data.frame(min = c(5.1e7,  1e5, 1e9,  2.5e6,  5e8,   3e6,   1e8,  5e7,  1e6),
+                        max = c(5.1e11, 1e9, 1e13, 2.5e10, 5e12,  3e10,  1e12, 5e11, 1e10))
 
 rownames(parRanges) <- c("N1","N2","N3","N4","N5","N6","N7","N8","N9")
 ```
@@ -101,7 +101,7 @@ global_Sens <- FME::sensRange(func = func_FME,
 global_Sens_sum <- summary(global_Sens)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.align = "center"}
 plot(global_Sens_sum, 
      main = "Global Sensitivity Analysis TL",
      xlab = "Temperature [\u00B0C]"
@@ -120,13 +120,16 @@ With the above defined "parms" the user is now able run a local sensitivity anal
 ```{r Local Sensitivity Analysis TL}
 SensR <- FME::sensFun(func = func_FME,
                  parms = parms,
-                 senspar = c("N1","N2","N3","N4","N5","E1","E2", "E3", "E4", "E5"))
+                 senspar = c("N1", "N2", "N3", "E1", "E2", "E3"))
 
 summary(SensR)
 ```
 
-```{r, echo=FALSE}
-plot(SensR, legpos = "bottomleft", xlab = "Temperature [\u00B0C]", main = "Local Sensitivity Analysis TL")
+```{r, echo=FALSE, fig.align = "center"}
+plot(SensR, 
+     legpos = "bottomleft", 
+     xlab = "Temperature [\u00B0C]", 
+     main = "Local Sensitivity Analysis TL")
 ```
 
 
@@ -144,7 +147,7 @@ The larger the collinearity value, the less identifiable the parameter based on 
 general a collinearity value less than about 20 is ”identifiable”. Below we plot the collinarity
 as a function of the number of parameters selected. In this case all parameter sets are below this "magic number". 
 
-```{r Estimate the Collinearity of Parameter Sets}
+```{r Estimate the Collinearity of Parameter Sets, fig.align = "center"}
 Coll <- FME::collin(SensR)
 
 plot(Coll, log = "y")
@@ -187,7 +190,7 @@ Fit_func <- function(x, parset = names(x)){
 }
 
 Fit_TL <- modFit(f = Fit_func,
-              p = log(c(parms[parms != 0])),
+              p = log(parms[c("N1", "N2", "N3", "N4", "N5", "E1", "E2", "E3", "E4", "E5", "s1", "s2", "s3", "s4", "s5")]),
               method = "Port")
 ```
 
@@ -218,7 +221,7 @@ for(i in 1:length(coef(Fit_TL))){
 }
 ```
 
-```{r Plot results TL, echo=FALSE}
+```{r Plot results TL, echo=FALSE, fig.align = "center"}
 plot(func_FME(parms_new_TL),
      type = "l",
      main = "TL Fitting",
@@ -273,7 +276,7 @@ SensR <- FME::sensFun(func = func_FME,
 summary(SensR)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.align = "center"}
 plot(SensR, legpos = "bottomright", xlab = "Time [s]", main = "Local Sensitivity Analysis")
 ```
 
@@ -322,7 +325,7 @@ for(i in 1:length(coef(Fit_OSL))){
 
 ```
 
-```{r Plot results OSL, echo=FALSE}
+```{r Plot results OSL, echo=FALSE, fig.align = "center"}
 plot(func_FME(parms_new_OSL),
      type = "l",
      main = "OSL Fitting",

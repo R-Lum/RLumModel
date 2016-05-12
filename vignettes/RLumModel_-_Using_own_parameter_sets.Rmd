@@ -39,7 +39,7 @@ This chapter shows the handling of own parameter sets with RLumModel. For this p
 
 ## Pagonis 2009 
 
-@Pagonis_2009a presented parameters for their luminescence modelling of radioluminescence. This model was built for $Al_2O_3:C$ but the rate equations are identical. Below is a step-by-step manual for invlving these parameters in RLumModel and re-calculate the simulation made by @Pagonis_2009a. Note that in the original publication Figure 3 and Figure 6 are inconsistent with one another. For a doserate of 0.1 Gy/s an initial RL intensity of ca. 1.5e14 is obtained (see Figure 6 in original publication and simulations below). 
+@Pagonis_2009a presented parameters for their luminescence modelling of radioluminescence. This model was built for $Al_2O_3:C$ but the rate equations are identical. Below is a step-by-step manual for involving these parameters in RLumModel and re-calculate the simulation made by @Pagonis_2009a. Note that in the original publication Figure 3 and Figure 6 are inconsistent with each other. For a doserate of 0.1 Gy/s an initial RL intensity of ca. 1.5e14 is obtained (see Figure 6 in original publication and simulations below). 
 
 
 ### Set parameters
@@ -49,7 +49,7 @@ The list has to contain the following items:
 
 * N: Concentration of electron- and hole traps [$cm^{-3}$]
 * E: Electron/Hole trap depth [eV]
-* s: Frequency factor [$s^(-1)$]
+* s: Frequency factor [$s^{-1}$]
 * A: Conduction band to electron trap and valence band to hole trap transition probability [$s^{-1} \cdot cm^3$].
 * B: Conduction band to hole centre transition probability [$s^{-1} \cdot cm^3$].
 * Th: Photo-eviction constant or photoionisation cross section, respectively
@@ -64,10 +64,10 @@ The list has to contain the following items:
 
 * Not every publication uses the same definition of parameter A and B.
 * When no thermal quenching is expected, set $\mathrm{K} = 0$. A numerical value of W is necessary, if K $\neq$ 0.
-* The parameter model = "customized" is necessary not to load a stored model within the RLumModel pacakge.
+* The parameter model = "customized" is necessary to not load a stored model within the RLumModel pacakge.
 * The luminescence center, which is responsible for the luminescence production (TL-, OSL-, RF-signal), has to be the last entry in the model parameters, see examples below.
 * For further details of the parameter see @Bailey_2001 and @Wintle_1975.
-* The first two entries in N, A and B belong to the electron traps and the last two entries to the hole centres. This is not necessary but recommended.
+* The first two entries in N, A and B belong to the electron traps and the last two entries to the hole centres. This order is necessary.
 * The first entry in N, E, s, A, B, Th and E_th belong to the first energy level (e.g. 110°C), the second, third, ... entries to second, third, ... energy levels.
 
 ```{r}
@@ -95,12 +95,12 @@ own_state_parameters <- c(0, 0, 0, 9.4e15, 0, 0)
 
 Here the first entry is the first electron trap, the second entry the second electron trap, the third entry the hole center
 and the fourth entry the luminescence center responsible for the RF signal.
-The vector "own_state_parameters" needs six entries to be compatible with RLumModel (2 electron traps, 2 hole traps, 1 valence band, 1 conduction band).
+The vector 'own_state_parameters' (here) needs six entries to be compatible with RLumModel (2 electron traps, 2 hole traps, 1 valence band, 1 conduction band).
 This is necessary for the used R-package deSolve [@Soetaert_2012], because it requires as much state conditions as rate equations.
   
 ### Running the simulation with RLumModel
 
-When all parameters are set the simulation can be started. The maim function in RLumModel is 'model_LuminescenceSignals()' and the usage with own parameter sets are described below. For a general overview for creating a sequence, running RLumModel with stored models etc. the user is referred to @Friedrich_2016 and to the vignette 'RLumModel - Getting started with RLumModel'. For simulating the results of @Pagonis_2009a the follwing sequence is needed.
+When all parameters are set the simulation can be started. The main function in RLumModel is 'model_LuminescenceSignals()' and the usage with own parameter sets is described below. For a general overview for creating a sequence, running RLumModel with stored models etc. the user is referred to @Friedrich_2016 and to the vignette 'RLumModel - Getting started with RLumModel'. For simulating the results of @Pagonis_2009a the follwing sequence is needed.
 
 ```{r set sequence Pagonis 2009}  
 sequence <- list(RF = c(20, 0.1, 0.1))
@@ -108,7 +108,7 @@ sequence <- list(RF = c(20, 0.1, 0.1))
   
 This sequence describes a radiofluorescence simulation at 20°C with a dose of 0.1 Gy and a dose rate of 0.1 Gy/s, so the stimulation time is 1s. 
 Now all parts are prepared to simulate this sequence. 
-The parameters 'own_parameters' and 'own_state_parameters' in 'model_LuminescenceSignals()' are prepared for using own created parameter sets. As parameter 'model =  "customized"' is necessary to not load stored parameters. 
+The parameters 'own_parameters' and 'own_state_parameters' in 'model_LuminescenceSignals()' are prepared for using own created parameter sets. Parameter 'model =  "customized"' is necessary to not load stored parameters. 
   
   
 ```{r, fig.align="center"}  
@@ -122,8 +122,8 @@ RF_Pagonis2009 <- model_LuminescenceSignals(
   
 As in the original publication initially the RF signal increases and is followed by an approximately linear region until the stimulation ends.
 Figure 5 in @Pagonis_2009a shows the concentration of the luminescence center m1 for the stimulation time of 1s.
-With RLumModel this can be plotted very fast with the following command (for a detailed description see vignette "RLumModel - Getting started with RLumModel").
-The ylim command in *Luminescence::plot_RLum* was used to generate the same plot as Figure 5 in @Pagonis_2009a.
+With RLumModel this can be plotted very fast with the following command (for a detailed description see vignette 'RLumModel - Getting started with RLumModel').
+
   
 ```{r, echo=FALSE, fig.align="center"}
 concentration_m1 <- Luminescence::get_RLum(
@@ -246,7 +246,7 @@ concentration_n <- Luminescence::get_RLum(
     recordType = c("conc. level 1"))
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.align = "center"}
 Luminescence::plot_RLum(
   concentration_n,
   ylim = c(0,15e8), lwd = 3)
@@ -329,8 +329,61 @@ plot(
   )
 ```
 
+## Chen 2013
 
+@Chen_2013d published a numerical model to investigate the quasi-equilibrium assumptions in TL. 
+This model is the first in this vignette which did not start its simulation at 20 °C. For this cases RLumModel offers a parameter called 'own_start_temperature'. This parameter offers maximal flexibility for the user to set the initial condition of the simulation. The parameter takes effect when 'model = "customized"' is used, see example below.
 
+```{r Chen 2013 set parameters}
+own_parameters <- list(
+  N = c(1e9, 0),
+  E = c(0.4, 0),
+  s = c(1e11, 0),
+  A = c(1e-9,0),
+  B = c(0, 1e-10),
+  Th = c(0, 0),
+  E_th = c(0, 0),
+  k_B = 8.617e-5,
+  K = 0,
+  model = "customized")
+
+own_state_parameters <- c(1e8, 1e8, 0, 0)
+
+own_start_temperature = -220
+
+sequence <- list(TL = c(-220, 130, 1))
+```
+
+```{r solve Chen 2013, fig.align="center"}
+TL_Chen2013 <- model_LuminescenceSignals(
+  model = "customized", 
+  sequence = sequence, 
+  own_parameters = own_parameters, 
+  own_state_parameters = own_state_parameters,
+  own_start_temperature = own_start_temperature,
+  verbose = FALSE,
+  plot = TRUE)
+```
+
+```{r, echo=FALSE, fig.align="center"}
+concentration <- Luminescence::get_RLum(
+  TL_Chen2013, 
+  recordType = c("conc. level 1", "conc. level 2", "conc. n_c"),
+  drop = FALSE)
+
+concentration@records[[1]]@recordType <- "TL"
+concentration@records[[2]]@recordType <- "TL"
+concentration@records[[3]]@recordType <- "TL"
+
+Luminescence::plot_RLum(
+  concentration,
+  combine = TRUE,
+  ylab = "concentrations",
+  main = "",
+  legend.text = c("n", "m","nc")
+  )
+
+```
 # Summary
 
 # References
