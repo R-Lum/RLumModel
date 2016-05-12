@@ -90,6 +90,9 @@
 #' You have to submit the state parameters for the conduction band and the valence band, too. For further details
 #' see vignette ""RLumModel - Using own parameter sets" and example 3.
 #' 
+#' @param own_start_temperature \code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
+#' a simulation. This parameter takes effect only when 'model = "customized"' is choosen. 
+#' 
 #' @param parms \code{\link{list}} or \code{\link{numeric}} (with default): This argument is only necessary,
 #' if fit_data2RLumModel is used. There is no need to change this parameter per hand, all is done automatically. 
 #' Nevertheless is it necessary for the package "FME" to have the parameters direct in the function call. 
@@ -426,6 +429,7 @@ model_LuminescenceSignals <- function(
   show_structure = FALSE,
   own_parameters = NULL,
   own_state_parameters = NULL,
+  own_start_temperature = NULL,
   parms = NULL,
   ...
 ) {
@@ -580,19 +584,19 @@ model_LuminescenceSignals <- function(
         K <- ifelse("K" %in% names(n.temp), unname(unlist(n.temp["K"])), 2.8e7)
         R <- unname(unlist(n.temp["R"]))
         
-
+        start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
         
         if(!is.null(own_state_parameters)){ ## state parameters submitted
           n <- Luminescence::set_RLum(class = "RLum.Results",
                                       data = list(n = own_state_parameters,
-                                                  temp = 20,
+                                                  temp = start_temp,
                                                   model = model))
           
         } else { ## no state parameters submitted
           
           n <- Luminescence::set_RLum(class = "RLum.Results",
-                                      data = list(n = rep(0,length(parms$N)+2),
-                                                  temp = 20,
+                                      data = list(n = rep(0,length(N)+2),
+                                                  temp = start_temp,
                                                   model = model))
         }
         
@@ -657,18 +661,20 @@ model_LuminescenceSignals <- function(
       if(model == "customized"){
         
         parms <- own_parameters
+        
+        start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
 
         if(!is.null(own_state_parameters)){ ## state parameters submitted
           n <- Luminescence::set_RLum(class = "RLum.Results",
                                       data = list(n = own_state_parameters,
-                                                  temp = 20,
+                                                  temp = start_temp,
                                                   model = model))
           
         } else { ## no state parameters submitted
           
           n <- Luminescence::set_RLum(class = "RLum.Results",
                                       data = list(n = rep(0,length(parms$N)+2),
-                                                  temp = 20,
+                                                  temp = start_temp,
                                                   model = model))
         }
         
