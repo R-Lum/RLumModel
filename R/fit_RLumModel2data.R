@@ -52,6 +52,9 @@
 #' You have to submit the state parameters for the conduction band and the valence band, too. For further details
 #' see vignette ""RLumModel - Using own parameter sets" and example 3.
 #' 
+#' @param own_start_temperature \code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
+#' a simulation. This parameter takes effect only when 'model = "customized"' is choosen. 
+#' 
 #' @param plot \code{\link{logical}} (with default): Enables or disables plot output. 
 #' Recommended: No plot output, because fitting function will run a lot of times.
 #' 
@@ -104,8 +107,8 @@
 #'      
 #' @export
 fit_RLumModel2data <- function(
-  sequence,
   model,
+  sequence,
   seq.step2fit,
   norm = TRUE,
   lab.dose_rate = 1,
@@ -114,8 +117,8 @@ fit_RLumModel2data <- function(
   show_structure = FALSE,
   own_parameters = NULL,
   own_state_parameters = NULL,
+  own_start_temperature = NULL,
   plot = FALSE,
-  
   ...){
 
   
@@ -136,12 +139,15 @@ fit_RLumModel2data <- function(
     temp_out <- model_LuminescenceSignals(
       model = model,
       sequence = sequence,
+      lab.dose_rate = lab.dose_rate,
+      simulate_sample_history = simulate_sample_history,
       plot = plot,
-      verbose = verbose, 
-      parms = parms,
+      verbose = verbose,
       show_structure = show_structure,
+      parms = parms,
       own_state_parameters = own_state_parameters,
       own_parameters = own_parameters,
+      own_start_temperature = own_start_temperature,
       ...) 
 
     record.id <- which(structure_RLum(temp_out)[".pid"] == as.character(seq.step2fit))

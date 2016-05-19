@@ -238,10 +238,7 @@
 #'  ## are A in the notation above. Also notice that the first two entries in N, A and 
 #'  ## B belong to the electron traps and the last two entries to the hole centres.
 #'  
-#'  own_state_parameters <- c(0, 0, 0, 9.4e15, 0, 0)
-#'  
-#'  ## Note: The vector "own_state_parameters" needs six entries (2 electron traps, 2 hole traps, 
-#'  ## 1 valence band, 1 conduction band).
+#'  own_state_parameters <- c(0, 0, 0, 9.4e15)
 #'  
 #'  ## calculate Fig. 3 in Pagonis 2009. Note: The labels for the dose rate in the original 
 #'  ## publication are not correct.
@@ -379,7 +376,7 @@
 #'
 #'
 #' ##============================================================================##
-#' ## Example 7: Simulate sequence at labour without sample history
+#' ## Example 7: Simulate sequence at laboratory without sample history
 #' ##============================================================================##
 #'
 #' ##set sequence with the following steps
@@ -433,7 +430,7 @@ model_LuminescenceSignals <- function(
   parms = NULL,
   ...
 ) {
-
+print(parms)
 # Integrity tests and conversion --------------------------------------------------------------
 
   #Check if model is supported
@@ -587,6 +584,9 @@ model_LuminescenceSignals <- function(
         start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
         
         if(!is.null(own_state_parameters)){ ## state parameters submitted
+          
+          own_state_parameters <- c(own_state_parameters, 0, 0)
+          
           n <- Luminescence::set_RLum(class = "RLum.Results",
                                       data = list(n = own_state_parameters,
                                                   temp = start_temp,
@@ -665,6 +665,9 @@ model_LuminescenceSignals <- function(
         start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
 
         if(!is.null(own_state_parameters)){ ## state parameters submitted
+          
+          own_state_parameters <- c(own_state_parameters, 0, 0)
+          
           n <- Luminescence::set_RLum(class = "RLum.Results",
                                       data = list(n = own_state_parameters,
                                                   temp = start_temp,
