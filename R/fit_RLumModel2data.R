@@ -128,7 +128,9 @@ fit_RLumModel2data <- function(
 # Load parameters --------------------------------------------------------------
   
   if(model != "customized"){
+    
     parms <- extract_pars2FME(model = model)
+    
   } else {
     
     parms <- extract_pars2FME(parms = own_parameters)
@@ -155,7 +157,7 @@ fit_RLumModel2data <- function(
     ## ---- check if norm = TRUE
     if(norm){
       data_model <- data.frame(time = temp_out@records[[record.id]]@data[,1], signal = temp_out@records[[record.id]]@data[,2]/max(temp_out@records[[record.id]]@data[,2]))
-    }else {
+    } else {
       data_model <- data.frame(time = temp_out@records[[record.id]]@data[,1], signal = temp_out@records[[record.id]]@data[,2])
     }
     

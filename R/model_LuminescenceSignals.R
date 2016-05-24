@@ -104,7 +104,7 @@
 #' in the sequence. Every entry is an \code{\linkS4class{RLum.Data.Curve}} object and can be plotted, analysed etc. with
 #' further \code{RLum}-functions.
 #'
-#' @section Function version: 0.1.2 [2016-04-28]
+#' @section Function version: 0.1.2 [2016-05-24]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
