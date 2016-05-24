@@ -11,10 +11,11 @@ output:
 header-includes: \usepackage[utf8]{inputenc}
 toc: yes
 vignette: |
-  %\VignetteIndexEntry{RLumModel - Fitting model parameters to experimental data} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteIndexEntry{RLumModel - Fitting model parameters to experimental data} 
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteEncoding{UTF-8}{inputenc}
 ---
 ```{r, echo=FALSE, message = FALSE}
-rm(list = ls(all=TRUE))
 library(RLumModel)
 library(FME)
 ```
@@ -118,9 +119,11 @@ value is estimated.
 With the above defined "parms" the user is now able run a local sensitivity analysis with the FME function "sensFun". In parameter "senspar" the parameters to be analysed are written. In the example below the a few parameters of N and E are observed. It is also possible to observe all parameters, then the argument "sensvar" is omit.
 
 ```{r Local Sensitivity Analysis TL}
-SensR <- FME::sensFun(func = func_FME,
-                 parms = parms,
-                 senspar = c("N1", "N2", "N3", "E1", "E2", "E3"))
+SensR <- FME::sensFun(
+    func = func_FME,
+    parms = parms,
+    senspar = c("N1", "N2", "N3", "E1", "E2", "E3"),
+    varscale = NULL)
 
 summary(SensR)
 ```
@@ -239,6 +242,14 @@ legend('topright',legend = c("New model data (Fit)", "Old model data", "experime
 ```
 
 
+```{r}
+SF <- summary(Fit_TL)
+
+var0 <- SF$modVariance
+cov0 <- SF$cov.scaled *2.4^2/2
+
+MCMC <- modMCMC(f = Fit_func, p = log(parms_new_TL), jump = cov0, var0 = var0)
+```
 
 
 
@@ -265,10 +276,12 @@ parms <- extract_pars2FME(model = model)
 
 
 ```{r Local Sensitivity Analysis OSL}
-SensR <- FME::sensFun(func = func_FME,
-                 parms = parms,
-                 sensvar = c("signal"),
-                 senspar = c("N3", "N4", "E_th3", "E_th4", "Th3", "Th4"))
+SensR <- FME::sensFun(
+  func = func_FME,
+  parms = parms,
+  sensvar = c("signal"),
+  senspar = c("N3", "N4", "E_th3", "E_th4", "Th3", "Th4"),
+  varscale = 1)
 
 ```
 

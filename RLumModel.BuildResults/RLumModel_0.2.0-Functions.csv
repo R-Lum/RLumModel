@@ -3,7 +3,7 @@
 ",NA,NA,"<br /> Johannes Friedrich, University of Bayreuth (Germany)<br />"
 "ExampleData.ModelOutput","Example data (TL curve) simulated with parameter set from Pagonis 2007","<br /> Example data (TL curve) simulated with parameter set from Pagonis 2007<br />","0.1.1
 ",NA,NA,"<br /> Johannes Friedrich, University of Bayreuth (Germany)<br />"
-"extract_pars2FME","Prepare parameters for use with R package FME and function  fit_RLumModel2data","<br /> Prepare parameters for use with R package FME and function  fit_RLumModel2data <br />","0.1.0","[2016-04-29]
+"extract_pars2FME","Prepare parameters for use with R package FME and function  fit_RLumModel2data","<br /> Prepare parameters for use with R package FME and function  fit_RLumModel2data <br />","0.1.1","[2016-05-24]
 ",NA,"<br /> Johannes Friedrich, University of Bayreuth (Germany),<br />"
 "fit_RLumModel2data","Fit model parameters to experimental data","<br /> Fit model parameters to experimental data<br />","0.1.0","[2016-04-29]
 ",NA,"<br /> Johannes Friedrich, University of Bayreuth (Germany)<br />"

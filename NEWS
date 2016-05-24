@@ -37,6 +37,10 @@ Changes in version 0.2.0 (, 2016):
                submit own state parameters together with an own
                parameter set.
 
+             • Add new parameter 'own_start_temperature': Parameter to
+               submit own start temperature together with an own
+               parameter set.
+
          • set_ODE():
 
              • Remove 'b', 'temp', 'R' and 'P' from unpacking, because
@@ -103,11 +107,18 @@ Changes in version 0.2.0 (, 2016):
 
          • translate_sequence():
 
-             • Add sequence to slot 'info' in returning RLum.Analysis
+             • Add 'sequence' to slot 'info' in returning RLum.Analysis
                object.
 
-             • Add originators to slot 'info' in returning
+             • Add 'originators' to slot 'info' in returning
                RLum.Analysis object.
+
+Changes in version 0.1.1 (2rd May, 2016):
+
+        • tests:
+
+            • Changed syntax of tests due to changes in the package
+              'testthat' (v. 1.0)
 
 Changes in version 0.1.0 (3rd February, 2016):
 

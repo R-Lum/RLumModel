@@ -93,6 +93,17 @@
 }
 }
 
+\section{Changes in version 0.1.1 (2rd May, 2016)}{
+
+\itemize{
+\item{tests:}{
+
+ \itemize{
+  \item Changed syntax of tests due to changes in the package 'testthat' (v. 1.0)
+ }
+} 
+}}
+
 \section{Changes in version 0.1.0 (3rd February, 2016)}{
 
  \itemize{

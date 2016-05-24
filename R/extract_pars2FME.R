@@ -7,7 +7,7 @@
 #' 
 #' @return This function returns a named \code{\link{vector}} for use with R package FME 
 #' 
-#' @section Function version: 0.1.0 [2016-04-29]
+#' @section Function version: 0.1.1 [2016-05-24]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #' 

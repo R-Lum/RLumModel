@@ -13,38 +13,37 @@ csl: /home/johannes/elsevier-harvard.csl
 toc: true
 vignette: |
   %\VignetteIndexEntry{RLumModel - Using own parameter sets} 
-  %\VignetteEncoding{UTF-8}{inputenc}
   %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteEncoding{UTF-8}{inputenc}
 ---
 ```{r, echo=FALSE, message = FALSE}
-rm(list = ls(all=TRUE))
 library(RLumModel)
 ```
 
 # Introduction
 
-With RLumModel $\geq$ 0.2.0 it is possible to simulate quartz luminescence behaviour of own parameter sets or parameter sets, which are not included in the package but also known in literature. 
-This little manual gives two examples how to implement parameter sets and prooves the results simulating the original simulations.
+With RLumModel $\geq$ 0.2.0 is it possible to simulate quartz luminescence behaviour of own parameter sets or parameter sets, which are not included in the package but also known in literature. 
+This vignette gives four comprehensive examples how to implement parameter sets, and prooves the results recalculating the original simulations.
 
-RLumModel offers maximum flexibility and fast calculation of first-order ordinary differential equations (ODEs), because of:
+RLumModel offers maximum flexibility and fast calculation of ordinary first-order differential equations (ODEs) describing luminescence behaviour, because of:
 
-* flexible handling of different numbers of electron traps and hole centres in generating the model equations. So the user has not to care about coding ODEs in R. 
-* Solving these equations is performed with C++ [@Eddelbuettel_2013] and offers a fast calculation of simulation results.
+* flexible handling of different numbers of electron traps and hole centres in generating the model equations. The user has not to care about coding ODEs in R. 
+* Solving these equations is performed with C++ [@Eddelbuettel_2013] and offers a faster calculation.
 
 # Examples
 
-This chapter shows the handling of own parameter sets with RLumModel. For this purpose three quartz luminescence models known from literature were taken, @Lawless_2009, @Pagonis_2009a and @Adamiec_2005. 
+This chapter shows the handling of own parameter sets with RLumModel. For this purpose four (quartz) luminescence models known from literature were taken @Pagonis_2009a, @Lawless_2009, @Adamiec_2005 and @Chen_2013d. 
 
 
 
 ## Pagonis 2009 
 
-@Pagonis_2009a presented parameters for their luminescence modelling of radioluminescence. This model was built for $Al_2O_3:C$ but the rate equations are identical. Below is a step-by-step manual for involving these parameters in RLumModel and re-calculate the simulation made by @Pagonis_2009a. Note that in the original publication Figure 3 and Figure 6 are inconsistent with each other. For a doserate of 0.1 Gy/s an initial RL intensity of ca. 1.5e14 is obtained (see Figure 6 in original publication and simulations below). 
+@Pagonis_2009a presented parameters for their luminescence modelling of radioluminescence. This model was built for $Al_2O_3:C$, but the rate equations are identical with describing electron movements in quartz. Below is a step-by-step manual for involving these parameters in RLumModel and re-calculating the simulationa made by @Pagonis_2009a. Note that in the original publication Figure 3 and Figure 6 are inconsistent with each other. For a doserate of 0.1 Gy/s an initial RL intensity of ca. 1.5e14 is obtained (see Figure 6 in original publication and simulations below). 
 
 
 ### Set parameters
 
-First of all the model parameters had to be set. In RLumModel this can be done via list().
+First of all the model parameters had to be set. In RLumModel this can be done via \texttt{list()}.
 The list has to contain the following items:
 
 * N: Concentration of electron- and hole traps [$cm^{-3}$]
@@ -52,11 +51,11 @@ The list has to contain the following items:
 * s: Frequency factor [$s^{-1}$]
 * A: Conduction band to electron trap and valence band to hole trap transition probability [$s^{-1} \cdot cm^3$].
 * B: Conduction band to hole centre transition probability [$s^{-1} \cdot cm^3$].
-* Th: Photo-eviction constant or photoionisation cross section, respectively
-* E_th: Thermal assistence energy [eV]
-* k_B: Boltzman constant 8.617e-05 [eV/K]
-* W: activation energy 0.64 [eV] (for UV)
-* K: 2.8e7 (dimensionless constant). 
+* Th: Photo-eviction constant or photoionisation cross section, respectively. If not set: by default 0.
+* E_th: Thermal assistence energy [eV]. If not set: by default 0.
+* k_B: Boltzman constant 8.617e-05 [eV/K]. If not set: by default  8.617e-05.
+* W: activation energy 0.64 [eV] (for UV). If not set: by default  0.64.
+* K: 2.8e7 (dimensionless constant). If not set: by default  2.8e7.
 * model: "customized"
 * R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [$s^{-1} \cdot cm^{-3}$]
 
@@ -77,25 +76,22 @@ own_parameters <- list(
   s = c(0, 0, 0, 0),
   A = c(2e-8, 2e-9, 4e-9, 1e-8),
   B = c(0, 0, 5e-11, 4e-8),
-  Th = c(0, 0),
-  E_th = c(0, 0),
-  k_B = 8.617e-5,
   K = 0,
   model = "customized",
   R = 1.7e15)
 ```
 
-It is important to notive, that in @Pagonis_2009a *B* is the valence band to hole centre probability, but in @Bailey_2001 this is $\mathrm{A_j}$. The default setting of RLumModel is the definition by @Bailey_2001 and so the values of *B* (in @Pagonis_2009a) are *A* in the notation above.
+It is important to notice, that in @Pagonis_2009a *B* is the valence band to hole centre probability, but in @Bailey_2001 this is $\mathrm{A_j}$. The default setting of RLumModel is the definition by @Bailey_2001 and so the values of *B* (in @Pagonis_2009a) are *A* in the notation above.
 
 As a next stept it is possible to set own 'starting-parameters', also called state parameters. In the case of @Pagonis_2009a they submitted initial concentrations of electrons and holes. This can be done via:
   
 ```{r}  
-own_state_parameters <- c(0, 0, 0, 9.4e15, 0, 0)
+own_state_parameters <- c(0, 0, 0, 9.4e15)
 ```
 
 Here the first entry is the first electron trap, the second entry the second electron trap, the third entry the hole center
 and the fourth entry the luminescence center responsible for the RF signal.
-The vector 'own_state_parameters' (here) needs six entries to be compatible with RLumModel (2 electron traps, 2 hole traps, 1 valence band, 1 conduction band).
+The vector 'own_state_parameters' needs as much entries as energy levels used in the model.
 This is necessary for the used R-package deSolve [@Soetaert_2012], because it requires as much state conditions as rate equations.
   
 ### Running the simulation with RLumModel
@@ -142,7 +138,7 @@ Reproducing Figure 3 and Figure 6 in @Pagonis_2009a a loop over different dose r
 The following code lines are able to run the model for five different dose rates from 0.1 to 0.5 Gy/s and plot all contained RF curves and the initial RF signal.
 For a more detailed descripton of the loop and the single commands therein the user is referred to @Friedrich_2016 and the vignette 'RLumModel - Getting started with RLumModel'.
 
-```{r Different Dose rates Pagonis 2009, fig.align="center"}
+```{r Different Dose-rates Pagonis 2009, fig.align="center"}
 dose.rate <- seq(from = 0.1, to = 0.5, by = 0.1)
 
 model.output <- lapply(dose.rate, function(x) {
@@ -201,7 +197,9 @@ model.output <- vapply(X = dose.rate, FUN = function(x) {
     return(max(get_RLum(RF_curve)[2,2]))
     
   }, FUN.VALUE = 1)
+```
 
+```{r, echo=FALSE, fig.align = "center"}
 plot(
   dose.rate,
   model.output,
@@ -216,7 +214,13 @@ The results show that RLumModel is able to simulate the same results as publishe
 
 ## Lawless 2009
 
+@Lawless_2009 investigateted the sublinear dose dependence of TL and OSL. They published a set of parameters to simulate the behaviour of the quartz luminescence
+system. In contrast to the example above this simulation has no state paramters and so they were not definded.
+
 ### Set parameters
+
+All used parameters are defined in the named list "own_parameters". "K=0" was chosen, because no thermal quenching was simulated.
+Note: In the "Bailey 2001" notation has $B$ the same meaning as $Am$ (for details see example in chapter 2.1.1). 
 
 ```{r Lawless 2009 set parameters, fig.align="center"}
 own_parameters <- list(
@@ -225,9 +229,6 @@ own_parameters <- list(
   s = c(0, 0),
   A = c(1e-13, 1e-14),
   B = c(0, 1e-7),
-  Th = c(0, 0),
-  E_th = c(0, 0),
-  k_B = 8.617e-5,
   K = 0,
   model = "customized",
   R = 1e8)
@@ -246,10 +247,12 @@ concentration_n <- Luminescence::get_RLum(
     recordType = c("conc. level 1"))
 ```
 
+This code lead to the following results and show the results as printed in @Lawless_2009, Fig. 2 (plot commands not shown here).
+
 ```{r, echo=FALSE, fig.align = "center"}
 Luminescence::plot_RLum(
   concentration_n,
-  ylim = c(0,15e8), lwd = 3)
+  ylim = c(0, 15e8), lwd = 3)
 
 t <- seq(0, 100, 2)
 numerical_eq16 <- 1e-13*1e14/1e-7 *((1 + 2*1e-7*1e8*t/(1e-13*1e14))^(0.5)-1)
@@ -266,10 +269,7 @@ legend("bottomright", legend = c("Simulated", "Eq. 16","Eq. 18"), col = c("black
 
 ## Adamiec 2005
 
-
-@Adamiec_2005 published model parameters for simulating thermal activation characteristics (TACs). 
-
-
+@Adamiec_2005 published model parameters for simulating thermal activation characteristics (TACs).
 
 ### Set parameters
 
@@ -280,9 +280,6 @@ own_parameters <- list(
   s = c(4.7e8, 8.5e12, 0, 1.2e10, 7e14, 2e14, 0),
   A = c(2e-9, 3e-10, 2e-11, 4e-10, 6e-10, 1e-10, 1e-9),
   B = c(0, 0, 0, 3e-10, 3e-10, 2e-9, 1e-9),
-  Th = c(0, 0, 0),
-  E_th = c(0, 0, 0),
-  k_B = 8.617e-5,
   K = 0,
   model = "customized",
   R = 1e9)
@@ -291,7 +288,7 @@ own_parameters <- list(
 
 ### Calculate TACs
 
-```{r Adamiec 2005 TAC, echo=FALSE, fig.align="center"}
+```{r Adamiec 2005 TAC}
 
 act.temp <- seq(from = 200, to = 700, by = 20)
 
@@ -318,8 +315,9 @@ TAC_Adamiec2005 <- model_LuminescenceSignals(
   return(max(get_RLum(TL_curve)[,2]))
 
 }, FUN.VALUE = 1)
+```
 
-
+```{r plot TAC, echo=FALSE, fig.align = "center"}
 plot(
   act.temp,
   model.output,
@@ -332,7 +330,10 @@ plot(
 ## Chen 2013
 
 @Chen_2013d published a numerical model to investigate the quasi-equilibrium assumptions in TL. 
-This model is the first in this vignette which did not start its simulation at 20 °C. For this cases RLumModel offers a parameter called 'own_start_temperature'. This parameter offers maximal flexibility for the user to set the initial condition of the simulation. The parameter takes effect when 'model = "customized"' is used, see example below.
+This model is the first in this vignette which did not start its simulation at 20 °C. For this cases, RLumModel offers a parameter called 'own_start_temperature'. This parameter offers maximal flexibility for the user to set the initial condition of the simulation. The parameter takes effect when 'model = "customized"' is used, see example below.
+
+
+### Set parameters
 
 ```{r Chen 2013 set parameters}
 own_parameters <- list(
@@ -341,20 +342,22 @@ own_parameters <- list(
   s = c(1e11, 0),
   A = c(1e-9,0),
   B = c(0, 1e-10),
-  Th = c(0, 0),
-  E_th = c(0, 0),
-  k_B = 8.617e-5,
   K = 0,
   model = "customized")
 
-own_state_parameters <- c(1e8, 1e8, 0, 0)
+own_state_parameters <- c(1e8, 1e8)
 
-own_start_temperature = -220
+own_start_temperature <- -220
 
 sequence <- list(TL = c(-220, 130, 1))
 ```
 
-```{r solve Chen 2013, fig.align="center"}
+
+### Re-calculate the original results
+
+Here the parameter "own_start_temperature" from the function "model_LuminescenceSignals()" is used to set the beginning of the measurement to -220°C. It is important, that RLumModel always uses temperature in °C.
+
+```{r solve Chen 2013, fig.align = "center"}
 TL_Chen2013 <- model_LuminescenceSignals(
   model = "customized", 
   sequence = sequence, 
@@ -365,7 +368,9 @@ TL_Chen2013 <- model_LuminescenceSignals(
   plot = TRUE)
 ```
 
-```{r, echo=FALSE, fig.align="center"}
+With this result it is possible to plot the concentration of the single energy levels, which leads to the following plot (see also Fig. 6 in @Chen_2013d)
+
+```{r, echo=FALSE, fig.align = "center"}
 concentration <- Luminescence::get_RLum(
   TL_Chen2013, 
   recordType = c("conc. level 1", "conc. level 2", "conc. n_c"),
@@ -384,6 +389,9 @@ Luminescence::plot_RLum(
   )
 
 ```
+
 # Summary
+
+This vignette showed the potential of the R package "RLumModel" to use own parameter sets simulating quartz luminescence behaviour. 
 
 # References

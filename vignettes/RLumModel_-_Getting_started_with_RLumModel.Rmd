@@ -60,7 +60,7 @@ Some notes to the code example above:
 
 * in "TL_curve <- ..." appears "TL$". This is necessary to match the pattern "TL" without any sign after "TL", e.g. a bracket. The brackets are used (by default) for the concentrations.
 * in "TL_conc <- ..." the pattern "(TL)" will match all concentrations with "(TL)", see structure.
-* "drop = FALSE" was used to keep the "RLum.Analysis" class for "TL_conc", too.
+* "drop = FALSE" was used to keep the "RLum.Analysis" class for "TL_conc".
 * To see a single plot of every energy-level, use the option "plot.single = TRUE" in "plot_RLum". For more details see the manual of "Luminescence".
 
 ```{r, eval = FALSE, fig.align = "center"}
