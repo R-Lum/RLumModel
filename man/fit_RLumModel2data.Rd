@@ -4,18 +4,19 @@
 \alias{fit_RLumModel2data}
 \title{Fit model parameters to experimental data}
 \usage{
-fit_RLumModel2data(sequence, model, seq.step2fit, norm = TRUE,
+fit_RLumModel2data(model, sequence, seq.step2fit, norm = TRUE,
   lab.dose_rate = 1, simulate_sample_history = FALSE, verbose = FALSE,
   show_structure = FALSE, own_parameters = NULL,
-  own_state_parameters = NULL, plot = FALSE, ...)
+  own_state_parameters = NULL, own_start_temperature = NULL, plot = FALSE,
+  ...)
 }
 \arguments{
+\item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
+"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"}
+
 \item{sequence}{\code{\link{list}} (\bold{required}): set sequence to model as \code{\link{list}} or as *.seq file from the
 Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).
 See \code{\link{model_LuminescenceSignals}} for a detailed description.}
-
-\item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
-"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"}
 
 \item{seq.step2fit}{\code{\link{numeric}} (\bold{required}): Choose the sequence step number to fit.
 \bold{Note: Only sequence steps with an signal output are allowed! This sequence steps are:
@@ -61,6 +62,9 @@ and example 3.}
 offer state parameters. With this argument the user can submit this state parameters. \bold{Note:} 
 You have to submit the state parameters for the conduction band and the valence band, too. For further details
 see vignette ""RLumModel - Using own parameter sets" and example 3.}
+
+\item{own_start_temperature}{\code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
+a simulation. This parameter takes effect only when 'model = "customized"' is choosen.}
 
 \item{plot}{\code{\link{logical}} (with default): Enables or disables plot output. 
 Recommended: No plot output, because fitting function will run a lot of times.}

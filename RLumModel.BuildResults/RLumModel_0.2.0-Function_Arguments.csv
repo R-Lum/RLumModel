@@ -1,6 +1,6 @@
 "extract_pars2FME","fit_RLumModel2data","model_LuminescenceSignals","read_SEQ2R"
-"model","sequence","model","file"
-"parms","model","sequence","lab.dose_rate"
+"model","model","model","file"
+"parms","sequence","sequence","lab.dose_rate"
 NA,"seq.step2fit","lab.dose_rate","txtProgressBar"
 NA,"norm","simulate_sample_history",NA
 NA,"lab.dose_rate","plot",NA
@@ -22,5 +22,6 @@ NA," K: 2.8e7 (dimensionless constant)}"," model: \"customized\"}",NA
 NA," model: \"customized\"}"," R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [s^(-1) * cm^(-3)]}",NA
 NA," R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [s^(-1) * cm^(-3)]}","own_state_parameters",NA
 NA,"own_state_parameters","own_start_temperature",NA
-NA,"plot","parms",NA
-NA,"dots","dots",NA
+NA,"own_start_temperature","parms",NA
+NA,"plot","dots",NA
+NA,"dots",NA,NA
