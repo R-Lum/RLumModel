@@ -430,7 +430,7 @@ model_LuminescenceSignals <- function(
   parms = NULL,
   ...
 ) {
-print(parms)
+
 # Integrity tests and conversion --------------------------------------------------------------
 
   #Check if model is supported
@@ -662,6 +662,12 @@ print(parms)
         
         parms <- own_parameters
         
+        parms["Th"] <- ifelse("Th" %in% names(parms), unname(unlist(parms["Th"])), rep(0, length(parms$N)))
+        parms["E_th"] <- ifelse("E_th" %in% names(parms), unname(unlist(parms["E_th"])), rep(0, length(parms$N)))
+        parms["k_B"] <- ifelse("k_B" %in% names(parms), unname(unlist(parms["k_B"])), 8.617e-05)
+        parms["W"] <- ifelse("W" %in% names(parms), unname(unlist(parms["W"])), 0.64)
+        parms["K"] <- ifelse("K" %in% names(parms), unname(unlist(parms["K"])), 2.8e7)
+
         start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
 
         if(!is.null(own_state_parameters)){ ## state parameters submitted
