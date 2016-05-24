@@ -665,13 +665,13 @@ model_LuminescenceSignals <- function(
         
         ##check if "Th", "E_th", "k_B", "W" or "K" are set
         if("Th" %in% names(parms)){
-          parms["Th"] <- unname(unlist(parms["Th"]))
+          parms$Th <- unname(unlist(parms["Th"]))
         } else {
           parms$Th <- rep(0, length(parms$N))
         }
         
         if("E_th" %in% names(parms)){
-          parms["E_th"] <- unname(unlist(parms["E_th"]))
+          parms$E_th <- unname(unlist(parms["E_th"]))
         } else {
           parms$E_th <- rep(0, length(parms$N))
         }
