@@ -27,7 +27,8 @@
 	   \item Add new parameter 'parms': Necessary for using the package FME.
 	   \item Add new parameter 'own_parameters': Parameter to submit an own parameter set for simulations. For further details see
 	   vignette 'RLumModel - Using own parameter sets'.
-	   \item Add new parameter 'own_state_parameters': Parameter to submit own state parameters together with an own parameter set.}
+	   \item Add new parameter 'own_state_parameters': Parameter to submit own state parameters together with an own parameter set.
+	   \item Add new parameter 'own_start_temperature': Parameter to submit own start temperature together with an own parameter set.}
       
     \item{set_ODE():}
 
@@ -84,8 +85,8 @@
   \item{translate_sequence():}
 
 	  \itemize{
-	  \item Add sequence to slot 'info' in returning RLum.Analysis object.
-	  \item Add originators to slot 'info' in returning RLum.Analysis object.
+	  \item Add 'sequence' to slot 'info' in returning RLum.Analysis object.
+	  \item Add 'originators' to slot 'info' in returning RLum.Analysis object.
 	}
 
 }}
