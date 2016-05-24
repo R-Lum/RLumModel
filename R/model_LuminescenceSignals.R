@@ -581,6 +581,7 @@ model_LuminescenceSignals <- function(
         K <- ifelse("K" %in% names(n.temp), unname(unlist(n.temp["K"])), 2.8e7)
         R <- unname(unlist(n.temp["R"]))
         
+        ## set start temperature
         start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
         
         if(!is.null(own_state_parameters)){ ## state parameters submitted
@@ -662,12 +663,24 @@ model_LuminescenceSignals <- function(
         
         parms <- own_parameters
         
-        parms["Th"] <- ifelse("Th" %in% names(parms), unname(unlist(parms["Th"])), rep(0, length(parms$N)))
-        parms["E_th"] <- ifelse("E_th" %in% names(parms), unname(unlist(parms["E_th"])), rep(0, length(parms$N)))
+        ##check if "Th", "E_th", "k_B", "W" or "K" are set
+        if("Th" %in% names(parms)){
+          parms["Th"] <- unname(unlist(parms["Th"]))
+        } else {
+          parms$Th <- rep(0, length(parms$N))
+        }
+        
+        if("E_th" %in% names(parms)){
+          parms["E_th"] <- unname(unlist(parms["E_th"]))
+        } else {
+          parms$E_th <- rep(0, length(parms$N))
+        }
+        
         parms["k_B"] <- ifelse("k_B" %in% names(parms), unname(unlist(parms["k_B"])), 8.617e-05)
         parms["W"] <- ifelse("W" %in% names(parms), unname(unlist(parms["W"])), 0.64)
         parms["K"] <- ifelse("K" %in% names(parms), unname(unlist(parms["K"])), 2.8e7)
-
+        
+        ## set start temperature
         start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
 
         if(!is.null(own_state_parameters)){ ## state parameters submitted
@@ -687,7 +700,7 @@ model_LuminescenceSignals <- function(
                                                   model = model))
         }
         
-      } else { ## model not customized and 
+      } else { ## model not customized and parms not set
       
         parms <- .set_pars(model)
         if(simulate_sample_history == TRUE){
