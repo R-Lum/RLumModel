@@ -569,17 +569,31 @@ model_LuminescenceSignals <- function(
         
         n.temp <- own_parameters
         
+        ##check if "Th", "E_th", "k_B", "W" or "K" are set
+        if("Th" %in% names(n.temp)){
+          Th <- unname(unlist(n.temp["Th"]))
+        } else {
+          Th <- rep(0, length(n.temp$N))
+        }
+        
+        if("E_th" %in% names(parms)){
+          E_th <- unname(unlist(n.temp["E_th"]))
+        } else {
+          E_th <- rep(0, length(n.temp$N))
+        }
+        
+
         N <- parms[grepl("N",names(parms))]
         E <- parms[grepl("E\\d",names(parms))]
         s <- parms[grepl("s",names(parms))]
         A <- parms[grepl("A",names(parms))]
         B <- parms[grepl("\\<B",names(parms))]
-        Th <- parms[grepl("Th",names(parms))]
-        E_th <- parms[grepl("E_th",names(parms))]
+        # Th <- parms[grepl("Th",names(parms))]
+        # E_th <- parms[grepl("E_th",names(parms))]
         k_B <- ifelse("k_B" %in% names(n.temp), unname(unlist(n.temp["k_B"])), 8.617e-05)
         W <- ifelse("W" %in% names(n.temp), unname(unlist(n.temp["W"])), 0.64)
         K <- ifelse("K" %in% names(n.temp), unname(unlist(n.temp["K"])), 2.8e7)
-        R <- unname(unlist(n.temp["R"]))
+        R <- ifelse("R" %in% names(n.temp), unname(unlist(n.temp["R"])), 0)
         
         ## set start temperature
         start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)

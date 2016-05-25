@@ -22,17 +22,18 @@ library(RLumModel)
 
 # Introduction
 
-With RLumModel $\geq$ 0.2.0 is it possible to simulate quartz luminescence behaviour of own parameter sets or parameter sets, which are not included in the package but also known in literature. 
-This vignette gives four comprehensive examples how to implement parameter sets, and prooves the results recalculating the original simulations.
+With RLumModel $\geq$ 0.2.0 is it possible to simulate quartz luminescence behaviour of own parameter sets or parameter sets, which are not included in the package but also known in literature. Wide spreaded OTOR (One-Trap-One-Recombination-center) models can be included, too. 
+This vignette gives three comprehensive examples how to implement parameter sets, and prooves the results recalculating the original simulations.
 
 RLumModel offers maximum flexibility and fast calculation of ordinary first-order differential equations (ODEs) describing luminescence behaviour, because of:
 
 * flexible handling of different numbers of electron traps and hole centres in generating the model equations. The user has not to care about coding ODEs in R. 
 * Solving these equations is performed with C++ [@Eddelbuettel_2013] and offers a faster calculation.
+* Sensitivity analysis and inverse modelling is also possible with own parameter sets (see chapter 2.3.3)
 
 # Examples
 
-This chapter shows the handling of own parameter sets with RLumModel. For this purpose four (quartz) luminescence models known from literature were taken @Pagonis_2009a, @Lawless_2009, @Adamiec_2005 and @Chen_2013d. 
+This chapter shows the handling of own parameter sets with RLumModel. For this purpose three model parameters known from literature were taken @Pagonis_2009a, @Lawless_2009 and @Chen_2013d. 
 
 
 
@@ -68,6 +69,7 @@ The list has to contain the following items:
 * For further details of the parameter see @Bailey_2001 and @Wintle_1975.
 * The first two entries in N, A and B belong to the electron traps and the last two entries to the hole centres. This order is necessary.
 * The first entry in N, E, s, A, B, Th and E_th belong to the first energy level (e.g. 110°C), the second, third, ... entries to second, third, ... energy levels.
+* The entries "Th" and "E_th" are not necessary, because when they miss in the definition of the own parameters they will automatically be set to 0. 
 
 ```{r}
 own_parameters <- list(
@@ -76,6 +78,8 @@ own_parameters <- list(
   s = c(0, 0, 0, 0),
   A = c(2e-8, 2e-9, 4e-9, 1e-8),
   B = c(0, 0, 5e-11, 4e-8),
+  Th = c(0, 0),
+  E_th = c(0, 0),
   K = 0,
   model = "customized",
   R = 1.7e15)
@@ -214,13 +218,13 @@ The results show that RLumModel is able to simulate the same results as publishe
 
 ## Lawless 2009
 
-@Lawless_2009 investigateted the sublinear dose dependence of TL and OSL. They published a set of parameters to simulate the behaviour of the quartz luminescence
-system. In contrast to the example above this simulation has no state paramters and so they were not definded.
+@Lawless_2009 investigateted the sublinear dose dependence of TL and OSL. They published a set of model parameters to simulate the behaviour of the quartz luminescence
+system during different dose rates. In contrast to the example above, this simulation has no state parameters and so they were not definded.
 
 ### Set parameters
 
-All used parameters are defined in the named list "own_parameters". "K=0" was chosen, because no thermal quenching was simulated.
-Note: In the "Bailey 2001" notation has $B$ the same meaning as $Am$ (for details see example in chapter 2.1.1). 
+All used parameters are defined in the named list 'own_parameters'. 'K=0' was chosen, because no thermal quenching was simulated.
+Note: In the "Bailey 2001" notation $B$ has the same meaning as $Am$ in @Lawless_2009 (for details see example in chapter 2.1.1). 
 
 ```{r Lawless 2009 set parameters, fig.align="center"}
 own_parameters <- list(
@@ -247,7 +251,7 @@ concentration_n <- Luminescence::get_RLum(
     recordType = c("conc. level 1"))
 ```
 
-This code lead to the following results and show the results as printed in @Lawless_2009, Fig. 2 (plot commands not shown here).
+This code leads to the following results and shows the same as plotted in @Lawless_2009, Fig. 2 (plot commands not shown here). More details to the equations mentioned in the legend are available in the original publication.
 
 ```{r, echo=FALSE, fig.align = "center"}
 Luminescence::plot_RLum(
@@ -267,73 +271,15 @@ legend("bottomright", legend = c("Simulated", "Eq. 16","Eq. 18"), col = c("black
 
 
 
-## Adamiec 2005
-
-@Adamiec_2005 published model parameters for simulating thermal activation characteristics (TACs).
-
-### Set parameters
-
-```{r Adamiec 2005 set parameters}
-own_parameters <- list(
-  N = c(1e8, 1e9, 5e10, 1.4e11, 1.8e11, 2e11, 1e11),
-  E = c(0.7, 1.6, 4.0, 1.16, 1.75, 2.6, 3.2),
-  s = c(4.7e8, 8.5e12, 0, 1.2e10, 7e14, 2e14, 0),
-  A = c(2e-9, 3e-10, 2e-11, 4e-10, 6e-10, 1e-10, 1e-9),
-  B = c(0, 0, 0, 3e-10, 3e-10, 2e-9, 1e-9),
-  K = 0,
-  model = "customized",
-  R = 1e9)
-```
-
-
-### Calculate TACs
-
-```{r Adamiec 2005 TAC}
-
-act.temp <- seq(from = 200, to = 700, by = 20)
-
-##loop over temperature
-model.output <- vapply(X = act.temp, FUN = function(x) {
-  
-sequence <- list(IRR = c(20, 1, 1), 
-                 PH = c(x, 1000, 5), 
-                 IRR = c(20, 0.01, 0.01), 
-                 TL = c(20, 180, 2))
-  
-TAC_Adamiec2005 <- model_LuminescenceSignals(
-  model = "customized", 
-  sequence = sequence, 
-  own_parameters = own_parameters, 
-  verbose = FALSE,
-  plot = FALSE)
-
-
-  ## "TL$" for exact matching TL and not (TL)
-  TL_curve <- get_RLum(TAC_Adamiec2005, recordType = "TL$")
-
-  ##return max value in TL curve
-  return(max(get_RLum(TL_curve)[,2]))
-
-}, FUN.VALUE = 1)
-```
-
-```{r plot TAC, echo=FALSE, fig.align = "center"}
-plot(
-  act.temp,
-  model.output,
-  type = "b",
-  xlab = "Temperature [\u00B0C]",
-  ylab = "TL [a.u.]"
-  )
-```
 
 ## Chen 2013
 
-@Chen_2013d published a numerical model to investigate the quasi-equilibrium assumptions in TL. 
-This model is the first in this vignette which did not start its simulation at 20 °C. For this cases, RLumModel offers a parameter called 'own_start_temperature'. This parameter offers maximal flexibility for the user to set the initial condition of the simulation. The parameter takes effect when 'model = "customized"' is used, see example below.
+@Chen_2013d published a numerical model to investigate the quasi-equilibrium assumptions in TL. For the descripton of the system a OTOR model was used. 
 
 
 ### Set parameters
+
+This model is the first in this vignette which did not start its simulation at 20 °C. For this cases, 'model_LuminescenceSignals()' offers a parameter called 'own_start_temperature'. This parameter offers maximal flexibility for the user to set the initial temperature of the simulation. The parameter takes effect when 'model = "customized"' is used, see example below.
 
 ```{r Chen 2013 set parameters}
 own_parameters <- list(
@@ -342,6 +288,8 @@ own_parameters <- list(
   s = c(1e11, 0),
   A = c(1e-9,0),
   B = c(0, 1e-10),
+  Th = c(0, 0),
+  E_th = c(0, 0),
   K = 0,
   model = "customized")
 
@@ -355,7 +303,7 @@ sequence <- list(TL = c(-220, 130, 1))
 
 ### Re-calculate the original results
 
-Here the parameter "own_start_temperature" from the function "model_LuminescenceSignals()" is used to set the beginning of the measurement to -220°C. It is important, that RLumModel always uses temperature in °C.
+Here the parameter "own_start_temperature" from the function "model_LuminescenceSignals()" is used to set the beginning of the measurement to -220°C. It is important, that RLumModel always uses temperatures in °C.
 
 ```{r solve Chen 2013, fig.align = "center"}
 TL_Chen2013 <- model_LuminescenceSignals(
@@ -368,7 +316,7 @@ TL_Chen2013 <- model_LuminescenceSignals(
   plot = TRUE)
 ```
 
-With this result it is possible to plot the concentration of the single energy levels, which leads to the following plot (see also Fig. 6 in @Chen_2013d)
+With this result it is possible to plot the concentration of every single energy level, leading to the following plot (see also Fig. 6 in @Chen_2013d)
 
 ```{r, echo=FALSE, fig.align = "center"}
 concentration <- Luminescence::get_RLum(
@@ -390,8 +338,72 @@ Luminescence::plot_RLum(
 
 ```
 
+### Sensitivity analysis with own parameters
+
+Sensitivity analysis and inverse modelling with model parameters is one of the big advantages of 'RLumModel'. A manual how to perform a sensitivtiy analysis with 'RLumModel' can be found in the vignette 'RLumModel - Fitting model parameters to experimental data'.
+The main function to use is 'fit_RLumModel2data()'. As 'model_LuminescenceSignals()' sequence, model and own parameters had to be the parameters. Additional to that, the (required) parameter 'seq.step2fit' is used to choose the sequence step in the defined sequence, which will be analysed. In the example from @Chen_2013d only the sequence step 1 is available and a analysis from this step is expected. Another (optional) parameter is 'norm': If true all results qill be normalized to the highest value. This is recommended in fitting experimental data to model parameters, but not when a sensitivity analysis is performed.
+
+The function 'extract_pars2FME()' has two possible arguments: \texttt{parms} and \texttt{model}. If a own parameter set is used, the parameter to chose is \texttt{parms}. This is necessary to bring the parameters in the correct form for using the R-package FME.
+
+```{r}
+func_FME <- fit_RLumModel2data(
+  sequence = sequence, 
+  model = "customized", 
+  seq.step2fit = 1,
+  own_parameters = own_parameters,
+  own_state_parameters = own_state_parameters,
+  own_start_temperature = own_start_temperature,
+  norm = FALSE)
+
+parms <- extract_pars2FME(parms = own_parameters)
+```
+
+Then, as described in the vignette 'RLumModel - Fitting model parameters to experimental data', different analysis and fitting methods can be performend on the parameter set. 
+
+```{r, eval=FALSE, include=FALSE}
+parRanges <- data.frame(min = c(1e-10),
+                        max = c(1e-7))
+
+rownames(parRanges) <- c("B2")
+
+
+global_Sens <- FME::sensRange(func = func_FME,
+                              parms = parms,
+                              dist = "grid",
+                              sensvar = "signal",
+                              parRange = parRanges,
+                              num = 10)
+
+global_Sens_sum <- summary(global_Sens)
+
+plot(global_Sens_sum, 
+     main = "",
+     ylab = "TL signal [a.u.]",
+     xlab = "Temperature [\u00B0C]",
+     legpos = "topright"
+)
+
+
+```
+
+```{r, fig.align = "center"}
+SensR <- FME::sensFun(func = func_FME,
+                      parms = parms,
+                      senspar = c("B2", "A1", "N1", "s1", "E1"),
+                      varscale = 1
+                      )
+
+
+plot(SensR, 
+     legpos = "bottomright", 
+     xlab = "Temperature [\u00B0C]", 
+     main = "")
+```
+
+
 # Summary
 
-This vignette showed the potential of the R package "RLumModel" to use own parameter sets simulating quartz luminescence behaviour. 
+This vignette showed the potential of the R package "RLumModel" to use own parameter sets simulating quartz luminescence behaviour.
+Quartz as well as $Al_2O_3$ luminescence phenomena can be numerically described and graphically plotted.
 
 # References

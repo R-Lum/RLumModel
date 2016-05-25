@@ -137,6 +137,7 @@ fit_RLumModel2data <- function(
 
   }
 
+  ## set function to use with FME
   .fit_RLumModel2FME <- function(parms){
     temp_out <- model_LuminescenceSignals(
       model = model,
@@ -154,11 +155,14 @@ fit_RLumModel2data <- function(
 
     record.id <- which(structure_RLum(temp_out)[".pid"] == as.character(seq.step2fit))
     
-    ## ---- check if norm = TRUE
+    ## get data ----
+    data <- get_RLum(get_RLum(temp_out, record.id = record.id))
+    
+    ## check if norm = TRUE ---- 
     if(norm){
-      data_model <- data.frame(time = temp_out@records[[record.id]]@data[,1], signal = temp_out@records[[record.id]]@data[,2]/max(temp_out@records[[record.id]]@data[,2]))
+      data_model <- data.frame(time = data[,1], signal = data[,2]/max(data[,2]))
     } else {
-      data_model <- data.frame(time = temp_out@records[[record.id]]@data[,1], signal = temp_out@records[[record.id]]@data[,2])
+      data_model <- data.frame(time = data[,1], signal = data[,2])
     }
     
     return(data_model)
