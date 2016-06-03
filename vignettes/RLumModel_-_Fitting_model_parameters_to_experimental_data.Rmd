@@ -130,7 +130,7 @@ summary(SensR)
 
 ```{r, echo=FALSE, fig.align = "center"}
 plot(SensR, 
-     legpos = "bottomleft", 
+     legpos = "topright", 
      xlab = "Temperature [\u00B0C]", 
      main = "Local Sensitivity Analysis TL")
 ```

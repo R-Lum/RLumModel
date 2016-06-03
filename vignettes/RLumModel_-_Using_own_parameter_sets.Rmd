@@ -221,7 +221,7 @@ The results show that RLumModel is able to simulate the same results as publishe
 @Lawless_2009 investigateted the sublinear dose dependence of TL and OSL. They published a set of model parameters to simulate the behaviour of the quartz luminescence
 system during different dose rates. In contrast to the example above, this simulation has no state parameters and so they were not definded.
 
-### Set parameters
+### Set parameters and recalculate the results
 
 All used parameters are defined in the named list 'own_parameters'. 'K=0' was chosen, because no thermal quenching was simulated.
 Note: In the "Bailey 2001" notation $B$ has the same meaning as $Am$ in @Lawless_2009 (for details see example in chapter 2.1.1). 
@@ -404,6 +404,6 @@ plot(SensR,
 # Summary
 
 This vignette showed the potential of the R package "RLumModel" to use own parameter sets simulating quartz luminescence behaviour.
-Quartz as well as $Al_2O_3$ luminescence phenomena can be numerically described and graphically plotted.
+Quartz as well as $Al_2O_3$ luminescence phenomena can be numerically described and graphically plotted. Another feature is the possibility to perform sensitivity analysis and inverse modelling with own data sets. 
 
 # References
