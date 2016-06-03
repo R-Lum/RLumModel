@@ -109,7 +109,7 @@
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp);
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol = 1e-10, atol = 1e-10);
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP

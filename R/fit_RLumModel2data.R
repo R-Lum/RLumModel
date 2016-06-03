@@ -97,6 +97,7 @@
 #'    func = func_FME,
 #'    parms = parms,
 #'    sensvar = "signal",
+#'    varscale = 1,
 #'    senspar = c("N1","s1","E1"))
 #'    
 #'  plot(
