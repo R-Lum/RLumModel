@@ -4,18 +4,24 @@ author: "Johannes Friedrich"
 date: '`r Sys.Date()`'
 output: 
   pdf_document:
+    fig_caption: yes
     fig_height: 5
     fig_width: 5
+    keep_tex: yes
     number_sections: yes
     toc: yes
-header-includes: \usepackage[utf8]{inputenc}
+header-includes: \usepackage[utf8]{inputenc} \usepackage{float}
 bibliography: /home/johannes/RLumModel.bib
 csl: /home/johannes/elsevier-harvard.csl
 vignette: |
   %\VignetteIndexEntry{RLumModel - Getting started with RLumModel} 
-  %\VignetteEngine{knitr::rmarkdown} 
   %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteEngine{knitr::rmarkdown} 
 ---
+```{r setup, eval=FALSE, echo=FALSE, message = FALSE}
+knitr::opts_knit$set(root.dir = "/home/johannes/GIT/RLumModel/vignettes/")
+```
+
 ```{r, echo=FALSE, message = FALSE}
 library(RLumModel)
 ```
@@ -23,17 +29,17 @@ library(RLumModel)
 
 # Introduction
 
-This vignette shows a few examples for the R-package "RLumModel". The main function "model_LuminescenceSignals()" and their arguments will be explained.
-All calculations were done with RLumodel 0.2.0 and Luminescence 0.6.0.
+This vignette shows a few examples for the **R**-package 'RLumModel'. The main function `model_LuminescenceSignals()` and their arguments will be explained.
+All calculations were done with 'RLumodel' 0.2.0 and 'Luminescence' 0.6.0.
 
 
 # Object structure of RLumModel
 
-The output from the main function "model_LuminescenceSignals()" is of class "RLum.Analysis" [@Kreutzer_2012] and contains data of class "RLum.Data.Curve" in the slot "records". The advantage of this infrastructure is that the package "Luminescence" offers a lot of methods to visualize and manipulate data. 
+The output from the main function `model_LuminescenceSignals()` is of class `RLum.Analysis` [@Kreutzer_2012] and contains data of class `RLum.Data.Curve` in the slot 'records'. The advantage of this infrastructure is that the package 'Luminescence' offers a lot of methods to visualize and manipulate data. 
 
-All simualted data are stored in the slot "records": TL/OSL/RF curves as well as the concentrations of every energy level from every step.
+All simualted data are stored in the slot 'records': TL/OSL/RF curves as well as the concentrations of every energy level from every step.
 
-The following code loads a data set provided by the RLumModel package and shows how to seperate TL/OSL/RF data from concentrations and how to visualize them.
+The following code loads a data set provided by the 'RLumModel' package and shows how to seperate TL/OSL/RF data from concentrations and how to visualize them.
 
 ```{r, eval = FALSE, fig.align = "center"}
 data("ExampleData.ModelOutput", package = "RLumModel")
@@ -58,17 +64,18 @@ Luminescence::plot_RLum(TL_conc)
 
 Some notes to the code example above:
 
-* in "TL_curve <- ..." appears "TL$". This is necessary to match the pattern "TL" without any sign after "TL", e.g. a bracket. The brackets are used (by default) for the concentrations.
-* in "TL_conc <- ..." the pattern "(TL)" will match all concentrations with "(TL)", see structure.
-* "drop = FALSE" was used to keep the "RLum.Analysis" class for "TL_conc".
-* To see a single plot of every energy-level, use the option "plot.single = TRUE" in "plot_RLum". For more details see the manual of "Luminescence".
+* in 'TL_curve <- ...' appears "TL$". This is necessary to match the pattern "TL" without any sign after "TL", e.g. a bracket. The brackets are used (by default) for the concentrations.
+* in 'TL_conc <- ...' the pattern "(TL)" will match all concentrations with "(TL)", see structure.
+* `drop = FALSE` was used to keep the `RLum.Analysis` class for 'TL_conc'.
+* To see a single plot of every energy-level, use the option `plot.single = TRUE` in `plot_RLum()`. For more details see the manual of 'Luminescence'.
 
 ```{r, eval = FALSE, fig.align = "center"}
 ##plot every energy-level by an extra plot
 Luminescence::plot_RLum(TL_conc, plot.single = TRUE)
 ```
 
-It is also possible to choose a "RLum.Data.Curve" by their "record.id", which can be seen with 
+It is also possible to choose a `RLum.Data.Curve` by their 'record.id', which can be seen with:
+
 ```{r, eval = FALSE}
 ##see structure of model.output
 Luminescence::structure_RLum(model.output)
@@ -79,10 +86,10 @@ Luminescence::structure_RLum(model.output)
 
 # Selecting a quartz luminescence model
 
-The first argument required for the function \texttt{model\_LuminescenceSignals()} is the name of a 
+The first argument required for the function `model_LuminescenceSignals()` is the name of a 
 quartz luminescence model to be used, respectively the used parameter set in this quartz luminescence model. 
-All currently implemented quartz luminescence models were described in Section~\ref{sec:description_models}. 
-The command to select a set of parameters from a specific model in \mbox{'RLumModel'} is a character string
+All currently implemented quartz luminescence models were described in @Friedrich_2016.
+The command to select a set of parameters from a specific model in `RLumModel` is a character string
 with the name of the author and the year, e.g.
 
 ```{r}
@@ -95,7 +102,7 @@ The corresponding parameter set will be loaded automatically with the function c
 
 # Creating a sequence
 
-The second argument in the \texttt{model\_LuminescenceSignals()} function is the sequence to be simulated. 
+The second argument in the `model\_LuminescenceSignals()` function is the sequence to be simulated. 
 There are three different ways of creating a sequence. 
 
 For all sequences, temperature differences between sequence steps are automatically simulated with a heating or 
@@ -121,8 +128,8 @@ sequence <- system.file(
 
 or wherever the SEQ-file is stored. While in the Sequence Editor irradiation is commonly defined in seconds, 
 performing the simulation requires a dose transformation to gray. 
-Therefore, the function \texttt{model\_LuminescenceSignals()} offers a special argument 
-called \texttt{lab.dose\_rate}, representing the dose rate of the irradiation unit in the laboratory. 
+Therefore, the function `model\_LuminescenceSignals()` offers a special argument 
+called `lab.dose_rate`, representing the dose rate of the irradiation unit in the laboratory. 
 By default, this dose rate is $1\,\mathrm{Gy}\,\mathrm{s}^{-1}$, but can be modified, e.g.,
 
 ```{r}
@@ -136,7 +143,7 @@ The second way of creating a sequence is by referring to a list with keywords
 and a certain order of code numbers or named values, which are shown
 in Table 1.
 With these keywords, it is possible to create quickly an R object of type list, 
-which can be read by the model_LuminescenceSignals()
+which can be read by the `model_LuminescenceSignals()`
 function.
 
 \begin{table}[ht]
@@ -174,8 +181,8 @@ sequence <- list(
 This sequences describes an irradiation simulation at 20 °C with a dose of
 10 Gy and a dose rate of 1 Gy/s, which is followed by a TL simulation from
 20 °C to 400 °C with a heating rate of 5 °C/s. Note that it is important
-that for each sequence keyword like ’IRR’ or ’TL’ either the vector has to
-be named or the correct order of arguments is used, see ’sub-arguments’ in
+that for each sequence keyword like 'IRR' or 'TL' either the vector has to
+be named or the correct order of arguments is used, see 'sub-arguments' in
 Table 1. Thus the above mentioned code is equivalent to the following one:
 
 ```{r}
@@ -188,11 +195,11 @@ sequence <- list(
 
 However, to create a SAR or dose-recovery-test (DRT) sequence with
 the Risø Sequence Editor or with keywords is time-consuming, because it
-contains a lot of individual sequence steps (preheat, optical stimulation, ir-
-radiation, ...). Therefore, a third way was implemented in ’RLumModel’ to
+contains a lot of individual sequence steps (preheat, optical stimulation, irradiation, ...). 
+Therefore, a third way was implemented in 'RLumModel' to
 create a (SAR) sequence after Murray and Wintle (2000) with the (required)
-keywords RegDose, TestDose, PH, CH and OSL temp. In addition to these key-
-words, the user is able to set more detailed parameters for the SAR sequence,
+keywords RegDose, TestDose, PH, CH and OSL temp. In addition to these keywords, 
+the user is able to set more detailed parameters for the SAR sequence,
 see Table 2:
 
 \begin{table}[ht]
@@ -238,7 +245,7 @@ sequence <- list(
 This sequence describes a DRT, where a dose of 20 Gy will be recovered with this test. The regenerative doses are definded as 0 (natural), 10 Gy, 20 Gy, 50 Gy, 90 Gy and for recuperation and recycling ratio 0 Gy and 10 Gy, respectively.
 The test dose is definded as 2 Gy. Preheat and Cutheat are at 220 °C and all OSL measurements are simualted at 125 °C. There are more options to set, see Table 2.
 
-The RLumModel function "model_LuminescenceSignals()" is able to interprete this (sequence-) list as a DRT sequence.
+The RLumModel function `model_LuminescenceSignals()` is able to interprete this (sequence-) list as a DRT sequence.
 
 # Working examples
 
@@ -252,9 +259,9 @@ IRR = c (20 , 10 , 1) ,
 TL = c (20 , 400 , 5))
 ```
 
-Here, at a temperature of 20 °C a dose of 10 Gy was applied with a dose rate of 1 Gy/s followed by a TL measurement from 20 °C to 400 °C with a heating rate of 5 °C/s. Running this sequence with the "model_LuminescenceSignals()" function produces a model output:
+Here, at a temperature of 20 °C a dose of 10 Gy was applied with a dose rate of 1 Gy/s followed by a TL measurement from 20 °C to 400 °C with a heating rate of 5 °C/s. Running this sequence with the `model_LuminescenceSignals()` function produces a model output:
 
-```{r, fig.align = "center"}
+```{r, fig.align = "center", fig.cap = "TL curve with parameter set 'Bailey2001' after 10 Gy laboratory dose"}
 model.output <- model_LuminescenceSignals(
   model = "Bailey2001",
   sequence = sequence,
@@ -263,7 +270,7 @@ model.output <- model_LuminescenceSignals(
 
 This results in a TL curve like the one published in (@Bailey_2001, Fig. 1), see figure above. In a further step, it is easy to produce known TL phenomena like the shift of the TL peak with varying heating rate. For this purpose, a loop over a TL simulation changes the heating rate in each run.
 
-```{r, fig.align = "center"}
+```{r, fig.align = "center", fig.cap = "TL signal with different heating rates"}
 ##set heating rate
 heating.rate <- seq(from = 2, to = 10, by = 2)
 
@@ -302,17 +309,17 @@ plot_RLum(
 
 Some notes to the code above:
 
-* the return of the lapply function is a "RLum.Analysis" object, because of drop = FALSE
-* "recordType = TL$" is necessary to match the character TL exact and not the concentrations
-* "merge_RLum" is necessary to merge all the single "RLum.Analysis" objects in the list "model.output" together to one "RLum.Analysis" object
-* to see the results with another parameter set, only model = "..." has to be changed (see Sec. 2)
+* the return of the lapply function is a `RLum.Analysis` object, because of drop = FALSE
+* `recordType = TL$` is necessary to match the character TL exact and not the concentrations
+* `merge_RLum` is necessary to merge all the single `RLum.Analysis` objects in the list 'model.output' together to one `RLum.Analysis` object
+* to see the results with another parameter set, only `model = "..."` has to be changed (see Sec. 2)
 
 ## Simulating thermal activation characteristics (TACs)
 
 Another frequently simulated phenomenon is the sensitisation of quartz TL by $\beta$- or $\gamma$-irradiation 
 followed by activation at high temperatures [@Zimmerman_1971, @Pagonis_2003, @Pagonis_2008a, @Adamiec_2004], termed as thermal activation characteristics (TACs). 
-For a simulation sequence, the reader is referred to @Pagonis_2008a, Tab. 1. To simulate this phenomenon 
-with the \texttt{model\_LuminescenceSignals()} function, a loop causing a stepwise increase 
+For a simulation sequence, the reader is referred to @Pagonis_2008a, Tab. 1. To simulate this phenomenon
+with the `model\_LuminescenceSignals()` function, a loop causing a stepwise increase 
 of the activation temperature is needed. The resulting intensity of the $110\,\,^{\circ}\mathrm{C}$ TL peak can be plotted 
 against the activation temperature, which shows TAC for the model parameters 
 of "Pagonis2007".
@@ -351,7 +358,7 @@ model.output <- vapply(X = act.temp, FUN = function(x) {
 }, FUN.VALUE = 1)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap = "TAC with parameter set of 'Pagonis2007'"}
 ##plot resutls
 plot(
   act.temp[-(1:3)],
@@ -364,10 +371,10 @@ plot(
 
 ## Simulating dependency of the OSL signal on the illumination power density
 
-The function \texttt{model\_LuminescenceSignals()} is also capable of simulating OSL phenomena.
+The function `model\_LuminescenceSignals()` is also capable of simulating OSL phenomena.
 The next figure shows the dependency of the OSL signal on the power density of illumination for the model "Bailey2004". 
 
-```{r, fig.align = "center"}
+```{r, fig.align = "center", fig.cap = "OSL measurement with different optical power densities with the parameter set of 'Bailey2004'"}
 ##set optical power [%]
 optical_power <- c(0,20,40,60,80,100)
 
@@ -407,7 +414,7 @@ Luminescence::plot_RLum(
 
 ## Simulating and analysing SAR measurements
 
-For simulating a DRT, it is necessary to define a sequence with the keyword \texttt{Irr\_2recover}, 
+For simulating a DRT, it is necessary to define a sequence with the keyword `Irr_2recover`, 
 as  mentioned in Section 4.3. 
 
 It should be mentioned that a simulation of a combinded PHPT and DRT may be very time-consuming, 
@@ -418,10 +425,10 @@ utilising characteristic parameters from the literature. The test dose is set to
 dose points to 40\,\%, 70\,\%, 130\,\%, 160\,\%, 0\,\% and 40\,\% of the recovery dose.
 
 The data created by 'RLumModel' can be directly passed to the functions 
-\texttt{Luminescence::analyse\_SAR.CWOSL()} and \texttt{Luminescence::plot\_DRTResults()} 
+`Luminescence::analyse_SAR.CWOSL()` and `Luminescence::plot_DRTResults()` 
 for routine analyses and plotting.
 
-```{r DRT, fig.align = "center"}
+```{r DRT, fig.align = "center", fig.cap = "Dose recovery test (DRT) with the parameter set of 'Pagonis2008'"}
 ##set PH temperatures
 PH_temp <- seq(from = 160, to = 300, by = 20)
 
@@ -473,17 +480,17 @@ Luminescence::plot_DRTResults(
      given.dose = 200)
 ```
 
-In the code above, \texttt{plot = FALSE} was chosen, because a single OSL plot is not necessary to 
+In the code above, `plot = FALSE` was chosen, because a single OSL plot is not necessary to 
 analyse a SAR sequence. To calculate a $D_e$ from the 
-produced \texttt{RLum.Analysis} object \texttt{model.output}, the 
-function \texttt{Luminescence::analyse\_SAR.CWOSL()} is suitable.
+produced `RLum.Analysis` object 'model.output', the 
+function `Luminescence::analyse_SAR.CWOSL()` is suitable.
 After specifying a number of evaluation parameters (signal and background integration interval, 
 dose points and fit function for the dose response curve) and the analysis process, the reduced data are stored 
-in an \texttt{RLum.Results} object, here termed \texttt{results}. 
+in an `RLum.Results` object, here termed 'results' . 
 A background integration interval from 301 to 401 translates to the signal from 30\,s to 40\,s, 
 because a channel has the default width of 0.1\,s. Accordingly, the signal integral ranges from 0.1\,s to 0.7\,s. 
 
-```{r SAR, fig.align = "center"}
+```{r SAR, fig.align = "center", fig.pos = "H", fig.cap = "SAR protocol with the parameter set of 'Pagonis2008'"}
 ##set RegDose
 RegDose = c(0, 80, 140, 260, 320, 0, 80)
 
@@ -517,5 +524,6 @@ results <-Luminescence::analyse_SAR.CWOSL(
   plot.single = c(6)
   )
 ```
+
 
 # References 
