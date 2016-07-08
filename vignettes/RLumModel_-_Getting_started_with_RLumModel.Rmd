@@ -7,7 +7,6 @@ output:
     fig_caption: yes
     fig_height: 5
     fig_width: 5
-    keep_tex: yes
     number_sections: yes
     toc: yes
 header-includes: \usepackage[utf8]{inputenc} \usepackage{float}
@@ -18,10 +17,6 @@ vignette: |
   %\VignetteEncoding{UTF-8}{inputenc}
   %\VignetteEngine{knitr::rmarkdown} 
 ---
-```{r setup, eval=FALSE, echo=FALSE, message = FALSE}
-knitr::opts_knit$set(root.dir = "/home/johannes/GIT/RLumModel/vignettes/")
-```
-
 ```{r, echo=FALSE, message = FALSE}
 library(RLumModel)
 ```

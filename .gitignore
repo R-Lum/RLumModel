@@ -1,11 +1,9 @@
 /.Rproj.user/*
-*.RData
 *.Rhistory
 *.Rproj
 *.Rbuildignore
 *.DS_Store
 *.eps
-*.pdf
 .Rproj.user
 .Rprofile
 RLumModel.Debug/
