@@ -17,7 +17,7 @@
 #'
 #' @return This function returns an RLum.Results object.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.1 [2016-09-02]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -64,8 +64,10 @@
     n <- n$n
   }
 
-# Set parameters for ODE ---------------------------------------------------
-
+# solving ODE ---------------------------------------------------
+  
+  if(dose != 0){
+  
   ##============================================================================##
   # SETTING PARAMETERS FOR IRRADIATION
   #
@@ -79,15 +81,16 @@
     R <- dose_rate*parms$R
     
   } else {
-    
+
     if(parms$model == "Bailey2004"){
       R <- dose_rate*2.5e10
-    }
-    
-    if(parms$model == "Bailey2002"){
-      R <- dose_rate*3e10
     } else {
-      R <- dose_rate*5e7  # all other simulations
+      
+      if(parms$model == "Bailey2002"){
+        R <- dose_rate*3e10
+      } else {
+        R <- dose_rate*5e7  # all other simulations
+      }
     }
   }
 
@@ -106,20 +109,30 @@
     b = b,
     times = times,
     parms = parms))
+  
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol = 1e-10, atol = 1e-10);
+  
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol = 1e-6, atol = 1e-6);
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
-# print(out[length(times),-1])
+
   return(Luminescence::set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1],
                     temp = temp
                   )))
 
+  } else {
+  return(Luminescence::set_RLum(class = "RLum.Results",
+                                data = list(
+                                  n = n,
+                                  temp = temp
+                                )))
+  
+  
 }
-
+}

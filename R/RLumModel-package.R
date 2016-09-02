@@ -45,7 +45,7 @@
 #'
 #' @keywords package
 #'
-#' @import Luminescence deSolve methods utils FME
+#' @import Luminescence deSolve methods utils
 #' @importFrom stats setNames
 #' @importFrom Rcpp evalCpp
 #' @useDynLib RLumModel
@@ -86,22 +86,4 @@ NULL
 #'
 #'
 #' @name ExampleData.ModelOutput
-NULL
-
-
-#' Example data with TL curves extracted from a TL-SAR protocol (lab code BT1195)
-#'
-#' @format A RLum.Analysis object containing measured TL curves.
-#'
-#' @keywords datasets
-#' @docType data
-#' @aliases TL_fitting_data
-#' @seealso \code{\link[FME]{modCost}}
-#' @section Function version: 0.1.0
-#' @author Johannes Friedrich, University of Bayreuth (Germany)
-#' @examples
-#' 
-#' data("ExampleData.FittingTL", envir = environment())
-#'
-#' @name ExampleData.FittingTL
 NULL

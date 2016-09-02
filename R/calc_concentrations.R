@@ -75,7 +75,7 @@
                     recordType = recordType,
                     curveType = "simulated",
                     info = list(
-                      curveDescripter = paste(xlab,ylab, sep = ";"),
+                      curveDescripter = paste(xlab, ylab, sep = ";"),
                       max.change = (1-min(value)/max(value))*100),
                     .pid = paste(as.character(RLumModel_ID),x-1,sep = "_"))
            )

@@ -8,7 +8,7 @@ output:
     fig_width: 5
     number_sections: yes
   html_document: default
-header-includes: \usepackage[utf8]{inputenc}
+header-includes: \usepackage[utf8]{inputenc} \usepackage{float}
 csl: /home/johannes/elsevier-harvard.csl
 bibliography: /home/johannes/RLumModel.bib
 toc: yes
@@ -21,6 +21,10 @@ vignette: |
 library(RLumModel)
 ```
 
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.pos = 'H')
+```
+
 # Introduction
 
 With 'RLumModel' $\geq$ 0.2.0 is it possible to simulate quartz luminescence behaviour of own parameter sets or parameter sets, which are not included in the package but also known in literature. Wide spreaded OTOR (One-Trap-One-Recombination-center) models can be included, too. 
@@ -30,7 +34,7 @@ This vignette gives three comprehensive examples how to implement parameter sets
 
 * flexible handling of different numbers of electron traps and hole centres in generating the model equations. The user has not to care about coding ODEs in R. 
 * Solving these equations is performed with C++ [@Eddelbuettel_2013] and offers a faster calculation.
-* Sensitivity analysis and inverse modelling is also possible with own parameter sets (see chapter 2.3.3)
+
 
 # Examples
 
@@ -307,7 +311,7 @@ sequence <- list(TL = c(-220, 130, 1))
 
 Here the parameter `own_start_temperature` from the function `model_LuminescenceSignals()` is used to set the beginning of the measurement to -220°C. It is important, that 'RLumModel' always uses temperatures in °C.
 
-```{r solve Chen 2013, fig.align = "center", fig.cap = "TL with parameter sets of Chen 2013"}
+```{r solve Chen 2013, fig.align = "center", fig.pos="H", fig.cap = "TL with parameter sets of Chen 2013"}
 TL_Chen2013 <- model_LuminescenceSignals(
   model = "customized", 
   sequence = sequence, 
@@ -320,7 +324,7 @@ TL_Chen2013 <- model_LuminescenceSignals(
 
 With this result it is possible to plot the concentration of every single energy level, leading to the following plot (see also Fig. 6 in @Chen_2013d)
 
-```{r, echo=FALSE, fig.align = "center", fig.cap = "Concentrations of different energy levels"}
+```{r, echo=FALSE, fig.align = "center", fig.pos="H", fig.cap = "Concentrations of different energy levels"}
 concentration <- Luminescence::get_RLum(
   TL_Chen2013, 
   recordType = c("conc. level 1", "conc. level 2", "conc. n_c"),
@@ -337,78 +341,12 @@ Luminescence::plot_RLum(
   main = "",
   legend.text = c("n", "m","nc")
   )
-
-```
-
-### Sensitivity analysis with own parameters
-
-Sensitivity analysis and inverse modelling with model parameters is one of the big advantages of 'RLumModel'. A manual how to perform a sensitivtiy analysis with 'RLumModel' can be found in the vignette 'RLumModel - Fitting model parameters to experimental data'.
-
-The main function to use this feature is `fit_RLumModel2data()`. As in `model_LuminescenceSignals()`, sequence, model and own parameters had to be the parameters. Additional to that, the (required) parameter `seq.step2fit()` is used to choose the sequence step in the defined sequence, which will be analysed. In the example from @Chen_2013d only the sequence step 1 is available and a analysis from this step is expected. Another (optional) parameter is 'norm': If true all results will be normalized to the highest value. This is recommended in fitting experimental data to model parameters, but not when a sensitivity analysis is performed.
-
-To execute a sensitivity analysis with your own parameters, the function `extract_pars2FME()` is necessary to prepare the parameters for the usage with 'RLumModel'.
-
-The function `extract_pars2FME()` has two possible arguments: \texttt{parms} and \texttt{model}. If a own parameter set is used, the parameter to chose is \texttt{parms}. This is necessary to bring the parameters in the correct form for using the **R**-package `FME`.
-
-```{r}
-func_FME <- fit_RLumModel2data(
-  sequence = sequence, 
-  model = "customized", 
-  seq.step2fit = 1,
-  own_parameters = own_parameters,
-  own_state_parameters = own_state_parameters,
-  own_start_temperature = own_start_temperature,
-  norm = FALSE)
-
-parms <- extract_pars2FME(parms = own_parameters)
-```
-
-Then, as described in the vignette 'RLumModel - Fitting model parameters to experimental data', different analysis and fitting methods can be performend on the parameter set. 
-
-```{r, eval=FALSE, include=FALSE}
-parRanges <- data.frame(min = c(1e-10),
-                        max = c(1e-7))
-
-rownames(parRanges) <- c("B2")
-
-
-global_Sens <- FME::sensRange(func = func_FME,
-                              parms = parms,
-                              dist = "grid",
-                              sensvar = "signal",
-                              parRange = parRanges,
-                              num = 10)
-
-global_Sens_sum <- summary(global_Sens)
-
-plot(global_Sens_sum, 
-     main = "",
-     ylab = "TL signal [a.u.]",
-     xlab = "Temperature [\u00B0C]",
-     legpos = "topright"
-)
-
-
-```
-
-```{r, fig.align = "center", fig.cap = "Local sensitivity analysis with own parameter sets"}
-SensR <- FME::sensFun(func = func_FME,
-                      parms = parms,
-                      senspar = c("B2", "A1", "N1", "s1", "E1"),
-                      varscale = 1
-                      )
-
-
-plot(SensR, 
-     legpos = "bottomright", 
-     xlab = "Temperature [\u00B0C]", 
-     main = "")
 ```
 
 
 # Summary
 
 This vignette showed the potential of the R package 'RLumModel' to use own parameter sets simulating quartz luminescence behaviour.
-Quartz as well as $Al_2O_3$ luminescence phenomena can be numerically described and graphically plotted. Another feature is the possibility to perform sensitivity analysis and inverse modelling with own data sets. 
+Quartz as well as Al$_2$O$_3$ luminescence phenomena can be numerically described and graphically plotted.
 
 # References

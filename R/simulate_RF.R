@@ -106,12 +106,13 @@
   
     if(parms$model == "Bailey2004"){
       R <- dose_rate*2.5e10
-    }
-
-    if(parms$model == "Bailey2002"){
-      R <- dose_rate*3e10
     } else {
-      R <- dose_rate*5e7  # all other simulations
+      
+      if(parms$model == "Bailey2002"){
+        R <- dose_rate*3e10
+      } else {
+        R <- dose_rate*5e7  # all other simulations
+      }
     }
   }
   
@@ -122,7 +123,7 @@
   # SETTING PARAMETERS FOR ODE
   ##============================================================================##
 
-  times   <- seq(0, dose/(dose_rate), by = (dose/dose_rate)/100)
+  times   <- seq(0, dose/(dose_rate), by = (dose/dose_rate)/1000)
   parameters.step <- .extract_pars(parameters.step = list(
     R = R,
     P = P,

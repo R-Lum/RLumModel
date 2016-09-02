@@ -25,7 +25,7 @@ library(RLumModel)
 # Introduction
 
 This vignette shows a few examples for the **R**-package 'RLumModel'. The main function `model_LuminescenceSignals()` and their arguments will be explained.
-All calculations were done with 'RLumodel' 0.2.0 and 'Luminescence' 0.6.0.
+All calculations were done with 'RLumodel' 0.2.0 and 'Luminescence' 0.6.2.
 
 
 # Object structure of RLumModel
@@ -97,7 +97,7 @@ The corresponding parameter set will be loaded automatically with the function c
 
 # Creating a sequence
 
-The second argument in the `model\_LuminescenceSignals()` function is the sequence to be simulated. 
+The second argument in the `model_LuminescenceSignals()` function is the sequence to be simulated. 
 There are three different ways of creating a sequence. 
 
 For all sequences, temperature differences between sequence steps are automatically simulated with a heating or 
@@ -123,7 +123,7 @@ sequence <- system.file(
 
 or wherever the SEQ-file is stored. While in the Sequence Editor irradiation is commonly defined in seconds, 
 performing the simulation requires a dose transformation to gray. 
-Therefore, the function `model\_LuminescenceSignals()` offers a special argument 
+Therefore, the function `model_LuminescenceSignals()` offers a special argument 
 called `lab.dose_rate`, representing the dose rate of the irradiation unit in the laboratory. 
 By default, this dose rate is $1\,\mathrm{Gy}\,\mathrm{s}^{-1}$, but can be modified, e.g.,
 
@@ -148,15 +148,15 @@ function.
 			\hline
 			\textbf{ARGUMENTS} & \textbf{DESCRIPTION} & \textbf{SUB-ARGUMENTS}\\
 			\hline
-			\texttt{TL} & Thermally stimulated luminescence & 'temp\_begin', 'temp\_end', 'heating\_rate'\\
-			\texttt{OSL} & Optically stimulated luminescence & 'temp', 'duration', 'optical\_power'\\
-			\texttt{ILL} & Illumination & 'temp', 'duration', 'optical\_power'\\
-		\texttt{LM\_OSL} & Linear modulated OSL & 'temp', 'duration', optional: 'start\_power', 'end\_power'\\
-			\texttt{RF} & Radiofluorescence & 'temp', 'dose', 'dose\_rate' \\
-			\texttt{IRR} & Irradiation & 'temp', 'dose', 'dose\_rate' \\
-			\texttt{CH} & Cutheat & 'temp', optional: 'duration', 'heating\_rate' \\
-			\texttt{PH}  & Preheat & 'temp', 'duration', optional: 'heating\_rate' \\
-			\texttt{PAUSE} & Pause & 'temp', 'duration' \\
+			\texttt{TL} & Thermally stimulated luminescence & 'temp\_begin' [$\,^{\circ}\mathrm{C}$], 'temp\_end' [$\,^{\circ}\mathrm{C}$], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s],\\
+			\texttt{OSL} & Optically stimulated luminescence & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], 'optical\_power' [\%]\\
+			\texttt{ILL} & Illumination & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], 'optical\_power' [\%]\\
+		\texttt{LM\_OSL} & Linear modulated OSL & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], optional: 'start\_power' [\%], 'end\_power' [\%]\\
+			\texttt{RF} & Radiofluorescence & 'temp' [$\,^{\circ}\mathrm{C}$], 'dose' [Gy], 'dose\_rate' [Gy/s] \\
+			\texttt{IRR} & Irradiation & 'temp' [$\,^{\circ}\mathrm{C}$], 'dose' [Gy], 'dose\_rate' [Gy/s]\\
+			\texttt{CH} & Cutheat & 'temp' [$\,^{\circ}\mathrm{C}$], optional: 'duration' [s], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s]\\
+			\texttt{PH}  & Preheat & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], optional: 'heating\_rate'  [$\,^{\circ}\mathrm{C}$/s]\\
+			\texttt{PAUSE} & Pause & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration [s]' \\
 			\hline
 		\end{tabular}
 	\end{footnotesize}
@@ -314,7 +314,7 @@ Some notes to the code above:
 Another frequently simulated phenomenon is the sensitisation of quartz TL by $\beta$- or $\gamma$-irradiation 
 followed by activation at high temperatures [@Zimmerman_1971, @Pagonis_2003, @Pagonis_2008a, @Adamiec_2004], termed as thermal activation characteristics (TACs). 
 For a simulation sequence, the reader is referred to @Pagonis_2008a, Tab. 1. To simulate this phenomenon
-with the `model\_LuminescenceSignals()` function, a loop causing a stepwise increase 
+with the `model_LuminescenceSignals()` function, a loop causing a stepwise increase 
 of the activation temperature is needed. The resulting intensity of the $110\,\,^{\circ}\mathrm{C}$ TL peak can be plotted 
 against the activation temperature, which shows TAC for the model parameters 
 of "Pagonis2007".
@@ -366,7 +366,7 @@ plot(
 
 ## Simulating dependency of the OSL signal on the illumination power density
 
-The function `model\_LuminescenceSignals()` is also capable of simulating OSL phenomena.
+The function `model_LuminescenceSignals()` is also capable of simulating OSL phenomena.
 The next figure shows the dependency of the OSL signal on the power density of illumination for the model "Bailey2004". 
 
 ```{r, fig.align = "center", fig.cap = "OSL measurement with different optical power densities with the parameter set of 'Bailey2004'"}
@@ -401,7 +401,7 @@ model.output.merged <- Luminescence::merge_RLum(model.output)
 Luminescence::plot_RLum(
   object = model.output.merged,
   xlab = "Illumination time [s]",
-  ylab = "OSL signal [a.u]",
+  ylab = "OSL signal [a.u.]",
   legend.text = paste("Optical power ", 20 * optical_power / 100," mW/cm^2"),
   combine = TRUE 
   )

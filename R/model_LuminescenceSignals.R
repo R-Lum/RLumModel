@@ -13,15 +13,15 @@
 #'
 #' \tabular{lll}{
 #' \bold{Arguments} \tab \bold{Description} \tab \bold{Sub-arguments}\cr
-#' TL \tab thermally stimulated luminescence \tab 'temp begin', 'temp end', 'heating rate'\cr
-#' OSL\tab optically stimulated luminescence \tab 'temp', 'duration','optical_power'\cr
-#' ILL\tab illumination \tab 'temp', 'duration','optical_power'\cr
-#' LM_OSL\tab linear modulated OSL \tab 'temp', 'duration', optional: 'start_power', 'end_power'\cr
-#' RL/RF\tab radioluminescence\tab 'temp','dose', 'dose_rate' \cr
-#' IRR\tab irradiation \tab 'temp','dose', 'dose_rate' \cr
-#' CH \tab cutheat \tab 'temp', optional: 'duration', 'heating_rate' \cr
-#' PH  \tab preheat \tab 'temp', 'duration' optional: 'heating_rate' \cr
-#' PAUSE \tab pause \tab 'temp', 'duration'
+#' TL \tab thermally stimulated luminescence \tab 'temp begin' [\eqn{^{\circ}}C], 'temp end' [\eqn{^{\circ}}C], 'heating rate' [\eqn{^{\circ}}C/s]\cr
+#' OSL\tab optically stimulated luminescence \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], 'optical_power' [\%]\cr
+#' ILL\tab illumination \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], 'optical_power' [\%]\cr
+#' LM_OSL\tab linear modulated OSL \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], optional: 'start_power' [\%], 'end_power' [\%]\cr
+#' RL/RF\tab radioluminescence\tab 'temp' [\eqn{^{\circ}}C], 'dose' [Gy], 'dose_rate' [Gy/s] \cr
+#' IRR\tab irradiation \tab 'temp' [\eqn{^{\circ}}C], 'dose' [Gy], 'dose_rate' [Gy/s] \cr
+#' CH \tab cutheat \tab 'temp' [\eqn{^{\circ}}C], optional: 'duration' [s], 'heating_rate' [\eqn{^{\circ}}C/s]\cr
+#' PH  \tab preheat \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], optional: 'heating_rate' [\eqn{^{\circ}}C/s]\cr
+#' PAUSE \tab pause \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s]
 #' }
 #'
 #' Note: 100 \% illumination power equates to 20 mW/cm^2
@@ -31,17 +31,17 @@
 #'
 #' \tabular{lll}{
 #' \bold{Abrivation} \tab \bold{Description} \tab \bold{examples} \cr
-#' RegDose \tab Dose points of the regenerative cycles\tab c(0, 80, 140, 260, 320, 0, 80)\cr
-#' TestDose\tab Test dose for the SAR cycles  \tab 50 \cr
-#' PH\tab Temperature of the preheat \tab 240 \cr
-#' CH\tab Temperature of the cutheat \tab 200 \cr
-#' OSL_temp\tab Temperature of OSL read out\tab  125 \cr
-#' OSL_duration\tab  Duration of OSL read out\tab default: 40 \cr
-#' Irr_temp \tab Temperature of irradiation \tab default: 20\cr
-#' PH_duration  \tab Duration of the preheat \tab default: 10 \cr
-#' dose_rate \tab Dose rate of the laboratory irradiation source \tab default: 1 \cr
-#' optical_power \tab Percentage of the full illumination power \tab default: 90 \cr
-#' Irr_2recover \tab Dose to be recovered in a dose-recovery-test \tab 20
+#' RegDose \tab Dose points of the regenerative cycles [Gy]\tab c(0, 80, 140, 260, 320, 0, 80)\cr
+#' TestDose\tab Test dose for the SAR cycles  [Gy]\tab 50 \cr
+#' PH\tab Temperature of the preheat [\eqn{^{\circ}}C]\tab 240 \cr
+#' CH\tab Temperature of the cutheat [\eqn{^{\circ}}C]\tab 200 \cr
+#' OSL_temp\tab Temperature of OSL read out [\eqn{^{\circ}}C]\tab  125 \cr
+#' OSL_duration\tab  Duration of OSL read out [s]\tab default: 40 \cr
+#' Irr_temp \tab Temperature of irradiation [\eqn{^{\circ}}C]\tab default: 20\cr
+#' PH_duration  \tab Duration of the preheat [s]\tab default: 10 \cr
+#' dose_rate \tab Dose rate of the laboratory irradiation source [Gy/s]\tab default: 1 \cr
+#' optical_power \tab Percentage of the full illumination power [\%]\tab default: 90 \cr
+#' Irr_2recover \tab Dose to be recovered in a dose-recovery-test [Gy]\tab 20
 #' }
 #'
 #' @param sequence \code{\link{list}} (\bold{required}): set sequence to model as \code{\link{list}} or as *.seq file from the
@@ -92,10 +92,6 @@
 #' 
 #' @param own_start_temperature \code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
 #' a simulation. This parameter takes effect only when 'model = "customized"' is choosen. 
-#' 
-#' @param parms \code{\link{list}} or \code{\link{numeric}} (with default): This argument is only necessary,
-#' if fit_data2RLumModel is used. There is no need to change this parameter per hand, all is done automatically. 
-#' Nevertheless is it necessary for the package "FME" to have the parameters direct in the function call. 
 #'
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information.
@@ -104,7 +100,7 @@
 #' in the sequence. Every entry is an \code{\linkS4class{RLum.Data.Curve}} object and can be plotted, analysed etc. with
 #' further \code{RLum}-functions.
 #'
-#' @section Function version: 0.1.2 [2016-05-24]
+#' @section Function version: 0.1.3 [2016-09-02]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -427,7 +423,6 @@ model_LuminescenceSignals <- function(
   own_parameters = NULL,
   own_state_parameters = NULL,
   own_start_temperature = NULL,
-  parms = NULL,
   ...
 ) {
 
@@ -562,118 +557,7 @@ model_LuminescenceSignals <- function(
 
 # Load model parameters ------------------------------------------------------------------------------------
 
-    ## check if "parms" in extra arguments for fitting data to model parameters
-    if(!is.null(parms)){
-      
-      if(model == "customized"){
-        
-        n.temp <- own_parameters
-        
-        ##check if "Th", "E_th", "k_B", "W" or "K" are set
-        if("Th" %in% names(n.temp)){
-          Th <- unname(unlist(n.temp["Th"]))
-        } else {
-          Th <- rep(0, length(n.temp$N))
-        }
-        
-        if("E_th" %in% names(parms)){
-          E_th <- unname(unlist(n.temp["E_th"]))
-        } else {
-          E_th <- rep(0, length(n.temp$N))
-        }
-        
-
-        N <- parms[grepl("N",names(parms))]
-        E <- parms[grepl("E\\d",names(parms))]
-        s <- parms[grepl("s",names(parms))]
-        A <- parms[grepl("A",names(parms))]
-        B <- parms[grepl("\\<B",names(parms))]
-        # Th <- parms[grepl("Th",names(parms))]
-        # E_th <- parms[grepl("E_th",names(parms))]
-        k_B <- ifelse("k_B" %in% names(n.temp), unname(unlist(n.temp["k_B"])), 8.617e-05)
-        W <- ifelse("W" %in% names(n.temp), unname(unlist(n.temp["W"])), 0.64)
-        K <- ifelse("K" %in% names(n.temp), unname(unlist(n.temp["K"])), 2.8e7)
-        R <- ifelse("R" %in% names(n.temp), unname(unlist(n.temp["R"])), 0)
-        
-        ## set start temperature
-        start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
-        
-        if(!is.null(own_state_parameters)){ ## state parameters submitted
-          
-          own_state_parameters <- c(own_state_parameters, 0, 0)
-          
-          n <- Luminescence::set_RLum(class = "RLum.Results",
-                                      data = list(n = own_state_parameters,
-                                                  temp = start_temp,
-                                                  model = model))
-          
-        } else { ## no state parameters submitted
-          
-          n <- Luminescence::set_RLum(class = "RLum.Results",
-                                      data = list(n = rep(0,length(N)+2),
-                                                  temp = start_temp,
-                                                  model = model))
-        }
-        
-        parms <- set_RLum(class = "RLum.Results",
-                          data = list(N = N,
-                                      E = E,
-                                      s = s,
-                                      A = A,
-                                      B = B,
-                                      Th = Th,
-                                      E_th = E_th,
-                                      k_B = k_B,
-                                      n = n,
-                                      W = W,
-                                      K = K,
-                                      model = "customized",
-                                      R = R
-                          )
-        )
-        
-        
-      } else { ##model not customized
-
-      n.temp <- .set_pars(model)
-
-      N <- parms[grepl("N",names(parms))]
-      E <- parms[grepl("E\\d",names(parms))]
-      s <- parms[grepl("s",names(parms))]
-      A <- parms[grepl("A",names(parms))]
-      B <- parms[grepl("\\<B",names(parms))]
-      Th <- parms[grepl("Th",names(parms))]
-      E_th <- parms[grepl("E_th",names(parms))]
-
-      parms <- set_RLum(class = "RLum.Results",
-                        data = list(N = N,
-                                    E = E,
-                                    s = s,
-                                    A = A,
-                                    B = B,
-                                    Th = Th,
-                                    E_th = E_th,
-                                    n = n.temp$n,
-                                    k_B = n.temp$k_B,
-                                    W = n.temp$W,
-                                    K = n.temp$K,
-                                    model = n.temp$model
-                        )
-      )
-
-      
-      if(simulate_sample_history == TRUE){
-        n <- Luminescence::set_RLum(class = "RLum.Results",
-                                    data = list(n = rep(0,length(parms$N)+2),
-                                                temp = 20,
-                                                model = model))
-      } else {
-        n <- parms$n
-        }
-      } 
-    } else { ##else: parms not set
-      
-      if(model == "customized"){
+  if(model == "customized"){
         
         parms <- own_parameters
         
@@ -726,7 +610,7 @@ model_LuminescenceSignals <- function(
             n <- parms$n
           }
       }
-  }
+  
 
 # sequence ------------------------------------------------------------------------------------
 

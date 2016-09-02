@@ -289,7 +289,7 @@ for (i in 1:length(sequence)){
                                RLumModel_ID = i)
     
     ##collect originators
-    output.steps <- c(output.steps,n@originator)
+    output.steps <- c(output.steps, n@originator)
 
     output.model <- c(output.model,n$RF.data, n$concentrations)
 
@@ -306,10 +306,14 @@ for (i in 1:length(sequence)){
     if(!"temp" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp" }
     if(!"duration" %in% names(sequence[[i]])) {names(sequence[[i]])[2] <- "duration"}
 
-    n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = sequence[[i]]["duration"], n, parms)
+    n <- .simulate_pause(temp = sequence[[i]]["temp"], 
+                         duration = sequence[[i]]["duration"], 
+                         n, 
+                         parms)
     
     ##collect originators
     output.steps <- c(output.steps,n@originator)
+    
   }
 
   ##update progress bar

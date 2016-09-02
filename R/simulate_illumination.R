@@ -98,7 +98,7 @@
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp);
+  out <- deSolve::ode(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol=1e-3, atol=1e-3, maxsteps=1e5, method = "bdf")
   ##============================================================================##
 
   ##============================================================================##

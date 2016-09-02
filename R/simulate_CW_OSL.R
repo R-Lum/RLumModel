@@ -95,7 +95,7 @@
   # P: Photonflux (in Bailey 2004: wavelength [nm]) = 1
   # b: heating rate [deg. C/s] = 0
   ##============================================================================##
-  
+ 
   if(parms$model == "Bailey2004" || parms$model == "Bailey2002"){
     P <- 0.02/(1.6*10^(-19)*(1240/470))*(optical_power/100)
   }
@@ -122,7 +122,7 @@
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol = 1e-10, atol = 1e-10);
+  out <- deSolve::ode(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol=1e-3, atol=1e-3, maxsteps=1e5, method = "bdf")
   ##============================================================================##
 
   ##============================================================================##
