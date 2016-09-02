@@ -127,6 +127,7 @@
                   )))
 
   } else {
+    
   return(Luminescence::set_RLum(class = "RLum.Results",
                                 data = list(
                                   n = n,

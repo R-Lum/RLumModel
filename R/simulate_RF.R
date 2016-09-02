@@ -25,7 +25,7 @@
 #'
 #' @return This function returns an RLum.Results object of the RF/RL simulation.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2 [2016-09-02]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -90,7 +90,7 @@
 
 # Set parameters for ODE ---------------------------------------------------
 
-  ##============================================================================##
+    ##============================================================================##
   # SETTING PARAMETERS FOR IRRADIATION
   #
   # R: electron-hole-production-rate (in Bailey 2004: 2.5e10, else: 5e7)
@@ -132,6 +132,8 @@
     times = times,
     parms = parms))
   
+  if(dose != 0){
+  
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
@@ -159,18 +161,42 @@
   ##============================================================================##
 
   return(Luminescence::set_RLum(class = "RLum.Results",
-                  data = list(
-                    n = out[length(times), -1],
-                    RF.data = Luminescence::set_RLum(
-                      class = "RLum.Data.Curve",
-                      data = matrix(data = c(times, signal), ncol = 2),
-                      recordType = "RF",
-                      curveType = "simulated",
-                      .pid = as.character(RLumModel_ID)
-                    ),
-                    temp = temp,
-                    concentrations = concentrations)
+                                data = list(
+                                n = out[length(times), -1],
+                                RF.data = Luminescence::set_RLum(
+                                  class = "RLum.Data.Curve",
+                                  data = matrix(data = c(times, signal), ncol = 2),
+                                  recordType = "RF",
+                                  curveType = "simulated",
+                                  # info = list(
+                                  #   curveDescripter = ),
+                                    .pid = as.character(RLumModel_ID)
+                                  ),
+                                  temp = temp,
+                                  concentrations = concentrations)
                   )
          )
 
+  } else { ## dose == 0
+    
+    return(Luminescence::set_RLum(class = "RLum.Results",
+                                  data = list(
+                                    n = n,
+                                    RF.data = Luminescence::set_RLum(
+                                      class = "RLum.Data.Curve",
+                                      data = matrix(data = c(times, 0), ncol = 2),
+                                      recordType = "RF",
+                                      curveType = "simulated",
+                                      # info = list(
+                                      #   curveDescripter = c("STR; RF signal")
+                                      #   ),
+                                      .pid = as.character(RLumModel_ID)
+                                    ),
+                                    temp = temp,
+                                    concentrations = NULL)
+                                  )
+    )
+    
+    
+  }
 }

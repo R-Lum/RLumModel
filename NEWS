@@ -4,11 +4,12 @@ Changes in version 0.2.0 (, 2016):
 
   New functions::
 
-         • extract_pars2FME(): Helper function to generate the right
-           data format for the FME-package.
+         • set_ODE_Rcpp() & set_ODE_Rcpp():
 
-         • fit_RLumModel2data(): Fitting function for quartz
-           luminescence model parameters to experimental data.
+             • Changed the main calculations of the ODEs to C++ via
+               Rcpp. This results in an extreme fast calculation of ODE
+               calcualtions. Slow calculations like DRT or SAR can be
+               solved much faster now.
 
   Bugfixes and changes::
 
@@ -24,9 +25,6 @@ Changes in version 0.2.0 (, 2016):
                'calc_signal'.
 
          • model_LuminescenceSignals():
-
-             • Add new parameter 'parms': Necessary for using the
-               package FME.
 
              • Add new parameter 'own_parameters': Parameter to submit
                an own parameter set for simulations. For further
@@ -64,6 +62,9 @@ Changes in version 0.2.0 (, 2016):
              • New distinction of cases adding the possibility to use
                own pair-production-rates.
 
+             • argument 'dose = 0' is now possible without error (#4,
+               thanks to Christoph Burow)
+
          • simulate_LM_OSL():
 
              • Remove 'RLumModel_ID' from slot info to slot .pid. This
@@ -84,6 +85,11 @@ Changes in version 0.2.0 (, 2016):
              • Remove 'RLumModel_ID' from slot info to slot .pid. This
                RLumModel_ID describes the order of the command in the
                sequence.
+
+         • translage_sequence():
+
+             • Hardcoded originator from returning object to
+               "model_LuminescenceSignals()"
 
          • tests:
 

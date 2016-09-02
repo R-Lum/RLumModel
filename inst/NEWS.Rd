@@ -4,10 +4,15 @@
 \section{Changes in version 0.2.0 (, 2016)}{
 \itemize{
 
- \subsection{New functions:}{
+\subsection{New functions:}{
+
+\itemize{
+
+  \item{set_ODE_Rcpp() & set_ODE_Rcpp():}
     \itemize{ 
-      \item extract_pars2FME(): Helper function to generate the right data format for the FME-package.
-      \item fit_RLumModel2data(): Fitting function for quartz luminescence model parameters to experimental data.}
+      \item Changed the main calculations of the ODEs to C++ via Rcpp. This results in an extreme fast calculation of ODE calcualtions. Slow calculations like DRT or SAR can be solved much faster now.}
+}
+
 }
 
 \subsection{Bugfixes and changes:}{
@@ -24,7 +29,6 @@
   \item{model_LuminescenceSignals():}
 
 	   \itemize{
-	   \item Add new parameter 'parms': Necessary for using the package FME.
 	   \item Add new parameter 'own_parameters': Parameter to submit an own parameter set for simulations. For further details see
 	   vignette 'RLumModel - Using own parameter sets'.
 	   \item Add new parameter 'own_state_parameters': Parameter to submit own state parameters together with an own parameter set.
@@ -47,7 +51,8 @@
 	\item{simulate_irradiation():}
 
 	  \itemize{
-	  \item New distinction of cases adding the possibility to use own pair-production-rates.}
+	  \item New distinction of cases adding the possibility to use own pair-production-rates.
+	  \item argument 'dose = 0' is now possible without error (#4, thanks to Christoph Burow)}
 
 	\item{simulate_LM_OSL():}
 
@@ -64,6 +69,11 @@
 
 	  \itemize{
 	  \item Remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.}
+	  
+	\item{translage_sequence():}
+
+	  \itemize{
+	  \item Hardcoded originator from returning object to "model_LuminescenceSignals()"}
 
   \item{tests:}
 
