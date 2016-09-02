@@ -134,6 +134,8 @@
                       data = matrix(data = c(TSkala, signal),ncol = 2),
                       recordType = "TL",
                       curveType = "simulated",
+                      info = list(
+                        curveDescripter = NA_character_),
                       .pid = as.character(RLumModel_ID)
                       ),
                     temp = temp_end,

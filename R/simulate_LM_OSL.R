@@ -150,6 +150,8 @@
                       data = matrix(data = c(times[2:length(times)], signal[2:length(signal)]),ncol = 2),
                       recordType = "LM-OSL",
                       curveType = "simulated",
+                      info = list(
+                        curveDescripter = NA_character_),
                       .pid = as.character(RLumModel_ID)
                       ),
                     temp = temp,

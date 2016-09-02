@@ -154,6 +154,8 @@
                       data = matrix(data = c(times, signal),ncol = 2),
                       recordType = "OSL",
                       curveType = "simulated",
+                      info = list(
+                        curveDescripter = NA_character_),
                       .pid = as.character(RLumModel_ID)
                     ),
                   temp = temp,

@@ -7,7 +7,7 @@
 [![Downloads](http://cranlogs.r-pkg.org/badges/last-day/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
 
 [![Build Status](https://travis-ci.org/R-Lum/RLumModel.svg?branch=dev_0.2.0)](https://travis-ci.org/R-Lum/RLumModel)
-[![Build status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/dev_0.2.0?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/dev_0.2.0?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/dev_0.2.0)
 
 
 The **R** package 'RLumModel' by Johannes Friedrich (University of Bayreuth, Germany), 

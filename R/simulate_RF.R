@@ -168,8 +168,8 @@
                                   data = matrix(data = c(times, signal), ncol = 2),
                                   recordType = "RF",
                                   curveType = "simulated",
-                                  # info = list(
-                                  #   curveDescripter = ),
+                                  info = list(
+                                    curveDescripter = NA_character_),
                                     .pid = as.character(RLumModel_ID)
                                   ),
                                   temp = temp,
@@ -187,9 +187,9 @@
                                       data = matrix(data = c(times, 0), ncol = 2),
                                       recordType = "RF",
                                       curveType = "simulated",
-                                      # info = list(
-                                      #   curveDescripter = c("STR; RF signal")
-                                      #   ),
+                                      info = list(
+                                        curveDescripter = NA_character_
+                                        ),
                                       .pid = as.character(RLumModel_ID)
                                     ),
                                     temp = temp,
