@@ -17,7 +17,7 @@ Description: A collection of functions to simulate luminescence signals in the
 Contact: Package Developer Team <developer@model.r-luminescence.de>
 License: GPL-3
 Depends:
-    R (>= 3.2.3),
+    R (>= 3.3.0),
     utils,
     Luminescence (>= 0.6.0)
 Imports:
