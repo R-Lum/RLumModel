@@ -24,6 +24,7 @@ Imports:
     deSolve (>= 1.12),
     methods,
     Rcpp
+URL: https://CRAN.R-project.org/package=RLumModel
 Collate:
   RLumModel-package.R
   RcppExports.R

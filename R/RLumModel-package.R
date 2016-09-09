@@ -25,13 +25,13 @@
 #' \email{developers@@model.r-luminescence.de}\cr
 #'
 #' \bold{Project source code repository}\cr
-#' \url{https://github.com/R-Lum}\cr
+#' \url{https://github.com/R-Lum/RLumModel}\cr
 #'
-#' \bold{Related projects}\cr
+#' \bold{Related package projects}\cr
 #' \url{http://www.r-luminescence.de}\cr
-#' \url{http://cran.r-project.org/package=Luminescence}\cr
+#' \url{https://cran.r-project.org/package=Luminescence}\cr
 #' \url{http://shiny.r-luminescence.de}\cr
-#' \url{http://cran.r-project.org/package=RLumShiny}\cr
+#' \url{https://cran.r-project.org/package=RLumShiny}\cr
 #'
 #' \bold{Package maintainer}
 #'
