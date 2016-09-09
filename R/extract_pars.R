@@ -6,7 +6,7 @@
 #'
 #' @return This function returns an \code{\link{list}}.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.0 [2016-09-02]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'

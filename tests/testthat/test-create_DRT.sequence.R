@@ -2,15 +2,17 @@ context("create_DRT.sequence")
 
 
 test_that("check class of output",{
-  expect_equal(class(sequence <- .create_DRT.sequence(
+  
+  sequence <- .create_DRT.sequence(
     Irr_2recover = 20,
     RegDose = c(0,8),
     TestDose = 5,
     PH = 240,
     CH = 200,
     OSL_temp = 125
-  ))
-  , "list")
+  )
+  
+  expect_equal(class(sequence), "list")
 })
 
 test_that("check error for missing object",{
