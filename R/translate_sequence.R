@@ -315,6 +315,35 @@ for (i in 1:length(sequence)){
     output.steps <- c(output.steps,n@originator)
     
   }
+  
+  #check if current sequence step is RF
+  if("RF_heating" %in% names(sequence)[i] || "RL_heating" %in% names(sequence)[i]){
+    
+    if(!"temp_begin" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp_begin"}
+    if(!"temp_end" %in% names(sequence[[i]])) {names(sequence[[i]])[2] <- "temp_end"}
+    if(!"heating_rate" %in% names(sequence[[i]])) {names(sequence[[i]])[3] <- "heating_rate"}
+    if(!"dose_rate" %in% names(sequence[[i]])) {names(sequence[[i]])[4] <- "dose_rate"}
+    
+    n <- .simulate_RF_and_heating(temp_begin = sequence[[i]]["temp_begin"],
+                      temp_end = sequence[[i]]["temp_end"],
+                      heating_rate = sequence[[i]]["heating_rate"],
+                      dose_rate = sequence[[i]]["dose_rate"],
+                      n = n,
+                      parms = parms,
+                      RLumModel_ID = i)
+    
+    ##collect originators
+    output.steps <- c(output.steps, n@originator)
+    
+    output.model <- c(output.model, n$RF_heating.data, n$concentrations)
+    
+    ##pause to releax
+    n <- .simulate_pause(temp = sequence[[i]]["temp_end"], duration = 5, n, parms)   
+    
+    ##collect originators
+    output.steps <- c(output.steps,n@originator)
+    
+  }
 
   ##update progress bar
   if (txtProgressBar & verbose) {

@@ -41,6 +41,7 @@ Collate:
   simulate_RF.R  
   simulate_TL.R
   simulate_heating.R
+  simulate_RF_and_heating.R
   simulate_illumination.R
   simulate_irradiation.R
   simulate_pause.R

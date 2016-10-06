@@ -538,7 +538,7 @@ model_LuminescenceSignals <- function(
   #check for wrong elements in the sequence
 
     ##allowed keywords
-    sequence.allowed_keywords <- c("IRR","PH", "CH", "TL", "OSL", "PAUSE", "LM_OSL", "RL", "RF", "ILL")
+    sequence.allowed_keywords <- c("IRR","PH", "CH", "TL", "OSL", "PAUSE", "LM_OSL", "RL", "RF", "ILL", "RF_heating")
 
     ##check
     if(!all(names(sequence)%in%sequence.allowed_keywords)){
@@ -629,7 +629,7 @@ model_LuminescenceSignals <- function(
 
   if(plot){
 
-    plot.data <- get_RLum(model.output, recordType = c("RF$", "TL$", "OSL$", "LM-OSL$"), drop = FALSE)
+    plot.data <- get_RLum(model.output, recordType = c("RF$", "TL$", "OSL$", "LM-OSL$", "RF_heating$"), drop = FALSE)
     Luminescence::plot_RLum(plot.data, ...)
   }
 
