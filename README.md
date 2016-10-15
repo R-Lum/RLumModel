@@ -8,6 +8,7 @@
 
 [![Build Status](https://travis-ci.org/R-Lum/RLumModel.svg?branch=master)](https://travis-ci.org/R-Lum/RLumModel)
 [![Build status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/master?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/RLumModel.svg)](https://codecov.io/github/R-Lum/RLumModel?branch=master)
 
 
 The **R** package 'RLumModel' by Johannes Friedrich (University of Bayreuth, Germany), 
@@ -62,6 +63,12 @@ For stable branches please visit the package on CRAN.
 
 ## License
 
-The RLumModel package is licensed under the GPLv3. See these files in the main directory for additional details: 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
 
-- LICENSE - RLumModel package license (GPLv3)
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+[GNU General Public License](https://github.com/R-Lum/RLumModel/blob/master/LICENSE) for more details.
