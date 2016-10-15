@@ -1,32 +1,11 @@
 language: r
-cache: packages
 warnings_are_errors: true
 sudo: required
 
-##test for different platforms
-matrix:
-  include:
-    - os: linux
-      r: devel
-    - os: osx
-      r: devel
-      r_binary_packages:
-        - dsolve
-        - Luminescence
-  
-##ask for additional package for the tests
-r_packages:
-  - covr
-
-##sent notifications
 notifications:
   email:
     recipients:
       - sk@r-luminescence.de
       - jf@r-luminescence.de
     on_success: change
-    on_failure: change
-
-##grep testthat results
-after_success:
-- Rscript -e 'covr::codecov()'
+    on_failure: change 
