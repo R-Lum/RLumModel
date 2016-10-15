@@ -1,7 +1,13 @@
 language: r
+cache: packages
 warnings_are_errors: true
 sudo: required
 
+##load additional package
+r_packages:
+  - covr
+
+##create notification
 notifications:
   email:
     recipients:
@@ -9,3 +15,7 @@ notifications:
       - jf@r-luminescence.de
     on_success: change
     on_failure: change
+
+##grep data from testthat
+after_success:
+- Rscript -e 'covr::codecov()'
