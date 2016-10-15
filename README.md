@@ -75,4 +75,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 
 ## Related projects 
 
-* [RLumModel](https://github.com/R-Lum/Luminescence)
+* [Luminescence](https://github.com/R-Lum/Luminescence)
