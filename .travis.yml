@@ -2,6 +2,16 @@ language: r
 warnings_are_errors: true
 sudo: required
 
+r:
+  - devel
+
+os:
+  - linux
+  - osx
+  
+r_packages:
+  - covr
+
 notifications:
   email:
     recipients:
@@ -9,3 +19,6 @@ notifications:
       - jf@r-luminescence.de
     on_success: change
     on_failure: change
+
+after_success:
+- Rscript -e 'covr::codecov()'
