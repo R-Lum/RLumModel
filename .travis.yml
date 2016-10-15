@@ -5,7 +5,7 @@ sudo: required
 
 ##test for different platforms
 matrix:
-  includues:
+  include:
     - os: linux
       r: devel
     - os: osx
