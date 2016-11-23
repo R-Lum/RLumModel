@@ -26,7 +26,7 @@
 #'
 #' @note This function calculates the ODE for the energy-band-model for LM-OSL measurements.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.0
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'

@@ -48,20 +48,10 @@ echo ""
   find ${PATHPACKAGE} -name ".RData" -depth -exec rm {} \;
   check_status
 
-  echo -ne "-> Remove .RcppExports.cpp ... \t\t\t"
-  find ${PATHPACKAGE}/src -name "RcppExports.cpp" -depth -exec rm {} \;
-  check_status
-
   echo -ne "-> Remove NAMESPACE ... \t\t\t"
   find ${PATHPACKAGE} -name "NAMESPACE" -depth -exec rm {} \;
   check_status
 
-
-# Rcpp
-# =================================================================================================
-  echo -ne "-> Build Rcpp ... \t\t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Rcpp.R /dev/null
-  check_status
 
 
 # roxygen2

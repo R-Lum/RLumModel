@@ -18,9 +18,11 @@
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information
 #'
-#' @return This function returns an RLum.Results object from the heating/cooling simulation.
+#' @return This function returns an Rlum.Results object from the heating/cooling simulation.
 #'
-#' @section Function version: 0.1.1
+#' @note This function can do just nothing at the moment.
+#'
+#' @section Function version: 0.1.0
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -82,17 +84,12 @@
   ##============================================================================##
 
   times <- seq(from = 0, to = (temp_end-temp_begin)/b, by = 1)
-  parameters.step <- .extract_pars(parameters.step = list(
-    R = R,
-    P = P,
-    temp = temp_begin,
-    b = b,
-    times = times,
-    parms = parms))
+  parameters.step  <- list(R = R, P = P, temp = temp_begin, b = b, times = times, parms = parms)
+
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp)
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE, rtol=1e-3, atol=1e-3, maxsteps=1e5)
   ##============================================================================##
 
   ##============================================================================##

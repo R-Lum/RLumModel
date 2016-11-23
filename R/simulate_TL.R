@@ -81,6 +81,8 @@
   # b: heating rate [deg. C/s]
   ##============================================================================##
 
+
+
   R <- 0
   P <- 0
   b <- heating_rate
@@ -90,18 +92,12 @@
   ##============================================================================##
 
   times <- seq(0, (temp_end-temp_begin)/b, by = 0.1)
-  parameters.step <- .extract_pars(parameters.step = list(
-    R = R,
-    P = P,
-    temp = temp_begin,
-    b = b,
-    times = times,
-    parms = parms))
+  parameters.step  <- list(R = R, P = P, temp = temp_begin, b = b, times = times, parms = parms)
 
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp)
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE, rtol=1e-3, atol=1e-3, maxsteps=1e5)
   ##============================================================================##
 
   ##============================================================================##
@@ -134,7 +130,7 @@
                       data = matrix(data = c(TSkala, signal),ncol = 2),
                       recordType = "TL",
                       curveType = "simulated",
-                      .pid = as.character(RLumModel_ID)
+                      info = list(RLumModel_ID = RLumModel_ID)
                       ),
                     temp = temp_end,
                     concentrations = concentrations)

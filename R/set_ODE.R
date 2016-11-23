@@ -72,13 +72,12 @@
   k_B <- parameters.step$parms$k_B
   W <- parameters.step$parms$W
   K <- parameters.step$parms$K
-  
-  model <- parameters.step$parms@data$model
 
   ##============================================================================##
 
 
   with(as.list(c(n,parameters.step)), {
+
 
     dn <- numeric(length(N)+2)
 
@@ -98,18 +97,11 @@
 
     dn[length(N)+1] = R-sum(dn[1:j])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])
 
-    if (model == "Bailey2001" || model == "Bailey2004" || model == "Bailey2002")
-    {
-
-      dn[length(N)+2] = R-sum(dn[(j+1):jj])           # valence band ODE for Bailey model 2001/2002/2004
-
-    } else { # valence band ODE for all other models
-
-      dn[length(N)+2] = R-sum(dn[(j+1):jj])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])
-    }
+    dn[length(N)+2] = R-sum(dn[(j+1):jj])-sum(n[length(N)+1]*n[(j+1):jj]*B[(j+1):jj])
 
   return(list(dn)) # return the rate of change
 
   })
+
 
 }

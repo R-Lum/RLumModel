@@ -1,10 +1,10 @@
-#' Solving Ordinary Differential Equations to Unterstand Luminescence
+#' Solving Ordinary Differential Equations to Understand Luminescence
 #'
 #' A collection of function to simulate luminescence signals in the mineral quartz based on
 #' published models.
 #'
 #' \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-#' \tab 0.2.0\cr Date: \tab 2016-04-25 \cr License: \tab GPL-3\cr }
+#' \tab 0.1.2\cr Date: \tab 2016-09-02 \cr License: \tab GPL-3\cr }
 #'
 #' @name RLumModel-package
 #' @docType package
@@ -41,26 +41,26 @@
 #' \bold{Acknowledgement}
 #'
 #'  The work of Johannes Friedrich is gratefully supported by the DFG in framework of the project
-#'  'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1).
+#'  'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1)
 #'
 #' @keywords package
 #'
-#' @import Luminescence deSolve methods utils FME
+#' @import Luminescence deSolve methods utils
 #' @importFrom stats setNames
-#' @importFrom Rcpp evalCpp
-#' @useDynLib RLumModel
 NULL
 
 
-#' Example data (TL curve) simulated with parameter set from Pagonis 2007
+#' Example data (TL curve) simulated from Bailey (2001 ,fig. 1)
 #'
 #' @format A RLum.Analysis object containing one TL curve as RLum.Data.Curve.
 #'
 #' @references
 #'
-#' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
-#' stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
-#'
+#' Friedrich, Johannes, Sebastian Kreutzer and Christoph Schmidt. 
+#' Solving ordinary differential equations to understand luminescence:
+#' RLumModel, an advanced research tool for simulating luminescence in quartz using R. 
+#' Quaternary Geochronology 2016.
+#
 #' @source \bold{model_LuminescenceSignals()}
 #'
 #' @note This example has only one record (TL). The used sequence was
@@ -70,12 +70,9 @@ NULL
 #' @keywords datasets
 #' @docType data
 #' @aliases model.output
-#' @section Function version: 0.1.1
-#' @author Johannes Friedrich, University of Bayreuth (Germany)
 #' @examples
-#' 
-#' data("ExampleData.ModelOutput", envir = environment())
-#' 
+#'
+#' data(ExampleData.ModelOutput)
 #' TL_curve <- get_RLum(model.output, recordType = "TL$", drop = FALSE)
 #'
 #' ##plot TL curve
@@ -86,22 +83,4 @@ NULL
 #'
 #'
 #' @name ExampleData.ModelOutput
-NULL
-
-
-#' Example data with TL curves extracted from a TL-SAR protocol (lab code BT1195)
-#'
-#' @format A RLum.Analysis object containing measured TL curves.
-#'
-#' @keywords datasets
-#' @docType data
-#' @aliases TL_fitting_data
-#' @seealso \code{\link[FME]{modCost}}
-#' @section Function version: 0.1.0
-#' @author Johannes Friedrich, University of Bayreuth (Germany)
-#' @examples
-#' 
-#' data("ExampleData.FittingTL", envir = environment())
-#'
-#' @name ExampleData.FittingTL
 NULL

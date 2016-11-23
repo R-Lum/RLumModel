@@ -24,7 +24,7 @@
 #' @return This function returns an \code{\linkS4class{RLum.Analysis}} object which can be analysed
 #' by further \code{\linkS4class{RLum}} functions.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.0
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -47,7 +47,7 @@
   ){
 
 output.model <- list()
-output.steps <- list()
+
 ##terminal output for sequence progress
 if(verbose) cat("\n[.translate_Sequence()] \n\t>> Simulate sequence \n")
 ##PROGRESS BAR
@@ -68,23 +68,14 @@ for (i in 1:length(sequence)){
   #check if temp_begin is part of sequence, if so, temp = temp_begin
   if("temp_begin" %in% names(sequence[[i]])) {sequence[[i]]["temp"] <- sequence[[i]]["temp_begin"]}
 
-  #check if temperature is higher than the step before
-  #automatically heat to temperatrue of current sequence step, except stepname is "PH" or "CH"
   if(((n$temp < sequence[[i]]["temp"])&&(names(sequence)[i] != "PH")&&(names(sequence)[i] != "CH")) == TRUE){
     n <- .simulate_heating(temp_begin = n$temp,temp_end = sequence[[i]]["temp"], heating_rate = 5,n,parms)
-    
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
   }
-  
 
   #check if temperature is lower than the step before
   #automatically cool to temperatrue of current sequence step
   if(n$temp > sequence[[i]]["temp"]){
     n <- .simulate_heating(temp_begin = n$temp,temp_end = sequence[[i]]["temp"], heating_rate = -5,n,parms)
-
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
   }
   ##### end check temperature differences between different steps #####
 
@@ -102,9 +93,6 @@ for (i in 1:length(sequence)){
                              heating_rate = 5,
                              n,
                              parms)
-      
-      ##collect originators
-      output.steps <- c(output.steps,n@originator)
     }
 
 
@@ -116,16 +104,11 @@ for (i in 1:length(sequence)){
                              heating_rate = 5,
                              n,
                              parms)
-      ##collect originators
-      output.steps <- c(output.steps,n@originator)
-      
+
       n <- .simulate_pause(temp = sequence[[i]]["temp"],
                            duration = sequence[[i]]["duration"],
                            n,
                            parms)
-      
-      ##collect originators
-      output.steps <- c(output.steps,n@originator)
     }
 
     if(length(sequence[[i]]) == 3){
@@ -138,17 +121,11 @@ for (i in 1:length(sequence)){
                              heating_rate =  sequence[[i]]["heating_rate"],
                              n,
                              parms)
-      
-      ##collect originators
-      output.steps <- c(output.steps,n@originator)
 
       n <- .simulate_pause(temp = sequence[[i]]["temp"],
                            duration = sequence[[i]]["duration"],
                            n,
                            parms)
-      
-      ##collect originators
-      output.steps <- c(output.steps,n@originator)
 
     }
 
@@ -167,9 +144,6 @@ for (i in 1:length(sequence)){
                           n,
                           parms,
                           RLumModel_ID = i)
-    
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
 
     output.model <- c(output.model,n$CW_OSL.data, n$concentrations)
 
@@ -187,9 +161,6 @@ for (i in 1:length(sequence)){
                                 optical_power = sequence[[i]]["optical_power"],
                                 n,
                                 parms)
-    
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
 
   }
 
@@ -205,9 +176,6 @@ for (i in 1:length(sequence)){
                           n=n,
                           parms=parms,
                           RLumModel_ID = i)
-    
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
     }
 
     if(length(sequence[[i]]) > 2){
@@ -222,9 +190,6 @@ for (i in 1:length(sequence)){
                             n=n,
                             parms=parms,
                             RLumModel_ID = i)
-      
-      ##collect originators
-      output.steps <- c(output.steps,n@originator)
 
     }
 
@@ -244,9 +209,7 @@ for (i in 1:length(sequence)){
                       n,
                       parms,
                       RLumModel_ID = i)
-    
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
+
 
     output.model <- c(output.model,n$TL.data, n$concentrations)
   }
@@ -263,15 +226,9 @@ for (i in 1:length(sequence)){
                                dose_rate = sequence[[i]]["dose_rate"],
                                n,
                                parms)
-    
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
-
     ##pause to releax
     n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n, parms)
     
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
   }
 
   #check if current sequence step is RF
@@ -287,19 +244,11 @@ for (i in 1:length(sequence)){
                                n,
                                parms,
                                RLumModel_ID = i)
-    
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
 
     output.model <- c(output.model,n$RF.data, n$concentrations)
 
     ##pause to releax
-    n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n, parms)   
-    
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
-    
-    }
+    n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n, parms)   }
 
   #check if current sequence step is PAUSE
   if("PAUSE" %in% names(sequence)[i]){
@@ -307,30 +256,23 @@ for (i in 1:length(sequence)){
     if(!"duration" %in% names(sequence[[i]])) {names(sequence[[i]])[2] <- "duration"}
 
     n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = sequence[[i]]["duration"], n, parms)
-    
-    ##collect originators
-    output.steps <- c(output.steps,n@originator)
   }
 
   ##update progress bar
   if (txtProgressBar & verbose) {
     setTxtProgressBar(pb, i)
   }
-  
-}##end for loop over sequence-list
+
+
+}
 
 ##close txtProgressBar
 if(txtProgressBar & verbose){close(pb)}
 
 # delete null/empty entries in a list
 output.model <- output.model[unlist(lapply(output.model,length)!=0)]
-
+# print(n$n)
 #return of the function is a "RLum.Analysis" object with the output of the given sequence
-return(set_RLum(
-  class = "RLum.Analysis", 
-  records = output.model, 
-  protocol = model, 
-  info = list(sequence = sequence, originators = unlist(output.steps)))
-)
+return(set_RLum(class = "RLum.Analysis", records = output.model, protocol = model))
 
 }
