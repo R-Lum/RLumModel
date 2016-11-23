@@ -6,7 +6,8 @@
 \usage{
 model_LuminescenceSignals(model, sequence, lab.dose_rate = 1,
   simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE,
-  show.structure = FALSE, ...)
+  show_structure = FALSE, own_parameters = NULL,
+  own_state_parameters = NULL, parms = NULL, ...)
 }
 \arguments{
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
@@ -18,15 +19,46 @@ Riso sequence editor. To simulate SAR measurements there is an extra option to s
 \item{lab.dose_rate}{\code{\link{numeric}} (with default): laboratory dose rate in XXX
 Gy/s for calculating seconds into Gray in the *.seq file.}
 
-\item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, TRUE: simulations begins at crystallization (all levels 0)
-process}
+\item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, 
+TRUE: simulations begins at crystallization (all levels 0) process}
 
 \item{plot}{\code{\link{logical}} (with default): Enables or disables plot output}
 
 \item{verbose}{\code{\link{logical}} (with default): Verbose mode on/off}
 
-\item{show.structure}{\code{\link{logical}} (with default): Shows the structure of the result.
+\item{show_structure}{\code{\link{logical}} (with default): Shows the structure of the result.
 Recommended to show record.id to analyse concentrations.}
+
+\item{own_parameters}{\code{\link{list}} (with default): This argument allows the user to submit own parameter sets. The \code{\link{list}}
+has to contain the following items:
+\itemize{
+ \item{N: Concentration of electron- and hole traps [cm^(-3)]}
+ \item{E: Electron/Hole trap depth [eV}
+ \item{s: Frequency factor [s^(-1)]}
+ \item{A: Conduction band to electron trap and valence band to hole trap transition probability [s^(-1) * cm^(3)]. 
+ \bold{CAUTION: Not every publication uses 
+ the same definition of parameter A and B! See vignette "RLumModel - Usage with own parameter sets" for further details}}
+ \item{B: Conduction band to hole centre transition probability [s^(-1) * cm^(3)].}
+ \item{Th: Photo-eviction constant or photoionisation cross section, respectively}
+ \item{E_th: Thermal assistence energy [eV]}
+ \item{k_B: Boltzman constant 8.617e-05 [eV/K]}
+ \item{W: activation energy 0.64 [eV] (for UV)}
+ \item{K: 2.8e7 (dimensionless constant)}
+ \item{model: "customized"}
+ \item{R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [s^(-1) * cm^(-3)]}
+ }
+
+For further details see Bailey 2001, Wintle 1975, vignette "RLumModel - Using own parameter sets" 
+and example 3.}
+
+\item{own_state_parameters}{\code{\link{numeric}} (with default): Some publications (e.g. Pagonis 2009)
+offer state parameters. With this argument the user can submit this state parameters. \bold{Note:} 
+You have to submit the state parameters for the conduction band and the valence band, too. For further details
+see vignette ""RLumModel - Using own parameter sets" and example 3.}
+
+\item{parms}{\code{\link{list}} or \code{\link{numeric}} (with default): This argument is only necessary,
+if fit_data2RLumModel is used. There is no need to change this parameter per hand, all is done automatically. 
+Nevertheless is it necessary for the package "FME" to have the parameters direct in the function call.}
 
 \item{\dots}{further arguments and graphical parameters passed to
 \code{\link{plot.default}}. See details for further information.}
@@ -61,7 +93,7 @@ PH  \tab preheat \tab 'temp', 'duration' optional: 'heating_rate' \cr
 PAUSE \tab pause \tab 'temp', 'duration'
 }
 
-Note: 100 \% illumination power equates 20 mW/cm^2
+Note: 100 \% illumination power equates to 20 mW/cm^2
 
 Defining a \bold{SAR-sequence}\cr
 
@@ -81,7 +113,7 @@ Irr_2recover \tab Dose to be recovered in a dose-recovery-test \tab 20
 }
 }
 \section{Function version}{
- 0.1.0
+ 0.1.2 [2016-04-28]
 }
 \examples{
 
@@ -107,9 +139,222 @@ model.output <- model_LuminescenceSignals(
   model = "Bailey2001"
 )
 
-\dontrun{
+##get all TL concentrations
+
+TL_conc <- get_RLum(model.output, recordType = "(TL)", drop = FALSE)
+
+plot_RLum(TL_conc)
+
+##plot 110 deg. C trap concentration
+
+TL_110 <- get_RLum(TL_conc, recordType = "conc. level 1") 
+plot_RLum(TL_110)
+
 ##============================================================================##
-## Example 2: Simulate sequence at labour without sample history
+## Example 2: compare different optical powers of stimulation light
+##============================================================================##
+
+# call function "model_LuminescenceSignals", model = "Bailey2004"
+# and simulate_sample_history = FALSE (default),
+# because the sample history is not part of the sequence
+# the optical_power of the LED is varied and then compared.
+
+optical_power <- seq(from = 0,to = 100,by = 20)
+
+model.output <- lapply(optical_power, function(x){
+
+ sequence <- list(IRR = c(20, 50, 1),
+                  PH = c(220, 10, 5),
+                  OSL = c(125, 50, x)
+                  )
+
+ data <- model_LuminescenceSignals(
+           sequence = sequence,
+           model = "Bailey2004",
+           plot = FALSE,
+           verbose = FALSE
+           )
+
+ return(get_RLum(data, recordType = "OSL$", drop = FALSE))
+})
+
+##combine output curves
+model.output.merged <- merge_RLum(model.output)
+
+##plot
+plot_RLum(
+ object = model.output.merged,
+ xlab = "Illumination time [s]",
+ ylab = "OSL signal [a.u.]",
+ main = "OSL signal dependency on optical power of stimulation light",
+ legend.text = paste("Optical power density", 20*optical_power/100, "mW/cm^2"),
+ combine = TRUE)
+ 
+##============================================================================##
+## Example 3: Usage of own parameter sets (Pagonis 2009)
+##============================================================================##
+
+own_parameters <- list(
+  N = c(2e15, 2e15, 1e17, 2.4e16),
+  E = c(0, 0, 0, 0),
+  s = c(0, 0, 0, 0),
+  A = c(2e-8, 2e-9, 4e-9, 1e-8),
+  B = c(0, 0, 5e-11, 4e-8),
+  Th = c(0, 0),
+  E_th = c(0, 0),
+  k_B = 8.617e-5,
+  W = 0.64,
+  K = 2.8e7,
+  model = "customized",
+  R = 1.7e15
+ )
+ ## Note: In Pagonis 2009 is B the valence band to hole centre probability, 
+ ## but in Bailey 2001 this is A_j. So the values of B (in Pagonis 2009)
+ ## are A in the notation above. Also notice that the first two entries in N, A and 
+ ## B belong to the electron traps and the last two entries to the hole centres.
+ 
+ own_state_parameters <- c(0, 0, 0, 9.4e15, 0, 0)
+ 
+ ## Note: The vector "own_state_parameters" needs six entries (2 electron traps, 2 hole traps, 
+ ## 1 valence band, 1 conduction band).
+ 
+ ## calculate Fig. 3 in Pagonis 2009. Note: The labels for the dose rate in the original 
+ ## publication are not correct.
+ ## For a dose rate of 0.1 Gy/s belongs a RF signal to ~ 1.5e14 (see Fig. 6).
+ 
+ sequence <- list(RF = c(20, 0.1, 0.1))
+ 
+ model_LuminescenceSignals(
+   model = "customized", 
+   sequence = sequence, 
+   own_parameters = own_parameters, 
+   own_state_parameters = own_state_parameters)
+ 
+ 
+ 
+ 
+\dontrun{  
+##============================================================================##
+## Example 4: Simulate Thermal-Activation-Characteristics (TAC)
+##============================================================================##
+ 
+ ##set temperature
+ act.temp <- seq(from = 80, to = 600, by = 20)
+ 
+ ##loop over temperature
+ model.output <- vapply(X = act.temp, FUN = function(x) {
+ 
+ ##set sequence, note: sequence includes sample history
+   sequence <- list(
+     IRR = c(20, 1, 1e-11),
+     IRR = c(20, 10, 1),
+     PH = c(x, 1),
+     IRR = c(20, 0.1, 1),
+     TL = c(20, 150, 5)
+ )
+ ##run simulation
+   temp <- model_LuminescenceSignals(
+     sequence = sequence,
+     model = "Pagonis2007",
+     simulate_sample_history = TRUE,
+     plot = FALSE,
+     verbose = FALSE
+   )
+     ## "TL$" for exact matching TL and not (TL)
+   TL_curve <- get_RLum(temp, recordType = "TL$")
+   ##return max value in TL curve
+   return(max(get_RLum(TL_curve)[,2]))
+ }, FUN.VALUE = 1)
+ 
+ ##plot resutls
+ plot(
+   act.temp[-(1:3)],
+   model.output[-(1:3)],
+   type = "b",
+   xlab = "Temperature [\\u00B0C]",
+   ylab = "TL [a.u.]"
+ )
+
+##============================================================================##
+## Example 5: Simulate SAR sequence
+##============================================================================##
+
+##set SAR sequence with the following steps
+## (1) RegDose: set regenerative dose [Gy] as vector
+## (2) TestDose: set test dose [Gy]
+## (3) PH: set preheat temperature in deg. C
+## (4) CH: Set cutheat temperature in deg. C
+## (5) OSL_temp: set OSL reading temperature in deg. C
+## (6) OSL_duration: set OSL reading duration in s
+
+sequence <- list(
+ RegDose = c(0,10,20,50,90,0,10),
+ TestDose = 5,
+ PH = 240,
+ CH = 200,
+ OSL_temp = 125,
+ OSL_duration = 70)
+
+# call function "model_LuminescenceSignals", set sequence = sequence,
+# model = "Pagonis2007" (palaeodose = 20 Gy) and simulate_sample_history = FALSE (default),
+# because the sample history is not part of the sequence
+
+ model.output <- model_LuminescenceSignals(
+   sequence = sequence,
+   model = "Pagonis2007",
+   plot = FALSE
+ )
+
+# in environment is a new object "model.output" with the results of
+# every step of the given sequence.
+# Plots are done at OSL and TL steps and the growth curve
+
+# call "analyse_SAR.CWOSL" from RLum package
+ results <- analyse_SAR.CWOSL(model.output,
+                            signal.integral.min = 1,
+                            signal.integral.max = 15,
+                            background.integral.min = 601,
+                            background.integral.max = 701,
+                            fit.method = "EXP",
+                            dose.points = c(0,10,20,50,90,0,10))
+
+
+##============================================================================##
+## Example 6: generate sequence from *.seq file and run SAR simulation
+##============================================================================##
+
+# load example *.SEQ file and construct a sequence.
+# call function "model_LuminescenceSignals", load created sequence for sequence,
+# set model = "Bailey2002" (palaeodose = 10 Gy)
+# and simulate_sample_history = FALSE (default),
+# because the sample history is not part of the sequence
+
+path <- system.file("extdata", "example_SAR_cycle.SEQ", package="RLumModel")
+
+sequence <- read_SEQ2R(file = path)
+
+model.output <- model_LuminescenceSignals(
+  sequence = sequence,
+  model = "Bailey2001",
+  plot = FALSE
+)
+
+
+## call RLum package function "analyse_SAR.CWOSL" to analyse the simulated SAR cycle
+
+results <- analyse_SAR.CWOSL(model.output,
+                             signal.integral.min = 1,
+                             signal.integral.max = 10,
+                             background.integral.min = 301,
+                             background.integral.max = 401,
+                             dose.points = c(0,8,14,26,32,0,8),
+                             fit.method = "EXP")
+
+print(get_RLum(results))
+
+
+##============================================================================##
+## Example 7: Simulate sequence at labour without sample history
 ##============================================================================##
 
 ##set sequence with the following steps
@@ -147,126 +392,6 @@ model.output <- model_LuminescenceSignals(
    model = "Pagonis2008"
    )
 
-
-
-##============================================================================##
-## Example 3: Simulate SAR sequence
-##============================================================================##
-
-##set SAR sequence with the following steps
-## (1) RegDose: set regenerative dose [Gy] as vector
-## (2) TestDose: set test dose [Gy]
-## (3) PH: set preheat temperature in deg. C
-## (4) CH: Set cutheat temperature in deg. C
-## (5) OSL_temp: set OSL reading temperature in deg. C
-## (6) OSL_duration: set OSL reading duration in s
-
-sequence <- list(
- RegDose = c(0,10,20,50,90,0,10),
- TestDose = 5,
- PH = 240,
- CH = 200,
- OSL_temp = 125,
- OSL_duration = 70)
-
-# call function "model_LuminescenceSignals", set sequence = sequence,
-# model = "Pagonis2007" (palaeodose = 20 Gy) and simulate_sample_history = FALSE (default),
-# because the sample history is not part of the sequence
-
- model.output <- model_LuminescenceSignals(
-
- sequence = sequence,
- model = "Pagonis2007",
- plot = FALSE
- )
-
-# in environment is a new object "model.output" with the results of
-# every step of the given sequence.
-# Plots are done at OSL and TL steps and the growth curve
-
-# call "analyse_SAR.CWOSL" from RLum package
- results <- analyse_SAR.CWOSL(model.output,
-                            signal.integral.min = 1,
-                            signal.integral.max = 15,
-                            background.integral.min = 601,
-                            background.integral.max = 701,
-                            fit.method = "EXP",
-                            dose.points = c(0,10,20,50,90,0,10))
-
-
-##============================================================================##
-## Example 4: generate sequence from *.seq file and run SAR simulation
-##============================================================================##
-
-# load example *.SEQ file and construct a sequence.
-# call function "model_LuminescenceSignals", load created sequence for sequence,
-# set model = "Bailey2002" (palaeodose = 10 Gy)
-# and simulate_sample_history = FALSE (default),
-# because the sample history is not part of the sequence
-
-path <- system.file("extdata", "example_SAR_cycle.SEQ", package="RLumModel")
-
-sequence <- read_SEQ2R(file = path)
-
-model.output <- model_LuminescenceSignals(
-  sequence = sequence,
-  model = "Bailey2001",
-  plot = FALSE
-)
-
-
-## call RLum package function "analyse_SAR.CWOSL" to analyse the simulated SAR cycle
-
-results <- analyse_SAR.CWOSL(model.output,
-                             signal.integral.min = 1,
-                             signal.integral.max = 10,
-                             background.integral.min = 301,
-                             background.integral.max = 401,
-                             dose.points = c(0,8,14,26,32,0,8),
-                             fit.method = "EXP")
-
-print(get_RLum(results))
-
-
-##============================================================================##
-## Example 5: compare different optical powers of stimulation light
-##============================================================================##
-
-# call function "model_LuminescenceSignals", model = "Bailey2004"
-# and simulate_sample_history = FALSE (default),
-# because the sample history is not part of the sequence
-# the optical_power of the LED is varied and then compared.
-
-optical_power <- seq(from = 0,to = 100,by = 20)
-
-model.output <- lapply(1:length(optical_power), function(x){
-
- sequence <- list(IRR = c(20, 50, 1),
-                  PH = c(220, 10, 5),
-                  OSL = c(125, 50, optical_power[x])
-                  )
-
- data <- model_LuminescenceSignals(
-           sequence = sequence,
-           model = "Bailey2004",
-           plot = FALSE
-           )
-
- return(get_RLum(data, recordType = "OSL$", drop = FALSE))
-})
-
-##combine output curves
-model.output.merged <- merge_RLum(model.output)
-
-##plot
-plot_RLum(
- object = model.output.merged,
- xlab = "Illumination time [s]",
- ylab = "OSL signal [a.u.]",
- main = "OSL signal dependency on optical power of stimulation light",
- legend.text = paste("Optical power density", 20*optical_power/100, "mW/cm^2"),
- combine = TRUE)
-
 }
 }
 \author{
@@ -292,8 +417,13 @@ Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a
 for quartz based on thermally transferred OSL (TT-OSL).
 Radiation Measurements 43, 704-708.
 
+Pagonis, V., Lawless, J., Chen, R., Anderson, C., 2009. Radioluminescence in Al2O3:C - analytical and numerical 
+simulation results. Journal of Physics D: Applied Physics 42, 175107 (9pp).
+
 Soetaert, K., Cash, J., Mazzia, F., 2012. Solving differential equations in R.
 Springer Science & Business Media.
+
+Wintle, A., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophysical Journal International 41, 107-113.
 }
 \seealso{
 \code{\link{plot}}, \code{\linkS4class{RLum}},

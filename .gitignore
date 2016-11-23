@@ -5,7 +5,6 @@
 *.Rbuildignore
 *.DS_Store
 *.eps
-*.pdf
 .Rproj.user
 .Rprofile
 RLumModel.Debug/
@@ -19,3 +18,7 @@ packrat/lib*/
 packrat/src/
 src/*.o
 src/*.dll
+inst/doc
+NEWS~
+vignettes/*.bib
+vignettes/*.csl
