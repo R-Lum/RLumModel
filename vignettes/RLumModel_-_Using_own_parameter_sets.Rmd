@@ -82,8 +82,6 @@ own_parameters <- list(
   s = c(0, 0, 0, 0),
   A = c(2e-8, 2e-9, 4e-9, 1e-8),
   B = c(0, 0, 5e-11, 4e-8),
-  Th = c(0, 0),
-  E_th = c(0, 0),
   K = 0,
   model = "customized",
   R = 1.7e15)
@@ -294,8 +292,6 @@ own_parameters <- list(
   s = c(1e11, 0),
   A = c(1e-9,0),
   B = c(0, 1e-10),
-  Th = c(0, 0),
-  E_th = c(0, 0),
   K = 0,
   model = "customized")
 

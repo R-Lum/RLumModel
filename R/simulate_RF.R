@@ -137,7 +137,7 @@
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol = 1e-10, atol = 1e-10);
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol = 1e-4, atol = 1e-4,maxsteps = 10000)
 
   ##============================================================================##
   # CALCULATING RESULTS FROM ODE SOLVING

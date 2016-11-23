@@ -429,7 +429,7 @@ model_LuminescenceSignals <- function(
 # Integrity tests and conversion --------------------------------------------------------------
 
   #Check if model is supported
-  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002", "customized")
+  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002", "Friedrich2017","customized")
 
   if(!model%in%model.allowed_keywords){
     stop(paste0("[model_LuminescenceSignals()] Model not supported. Supported models are: ", paste(model.allowed_keywords, collapse = ", ")))
@@ -629,7 +629,7 @@ model_LuminescenceSignals <- function(
 
   if(plot){
 
-    plot.data <- get_RLum(model.output, recordType = c("RF$", "TL$", "OSL$", "LM-OSL$", "RF_heating$"), drop = FALSE)
+    plot.data <- get_RLum(model.output, recordType = c("RF$", "TL$", "OSL$", "LM-OSL$", "RF_heating$", "pause$"), drop = FALSE)
     Luminescence::plot_RLum(plot.data, ...)
   }
 

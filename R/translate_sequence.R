@@ -121,8 +121,8 @@ for (i in 1:length(sequence)){
       
       n <- .simulate_pause(temp = sequence[[i]]["temp"],
                            duration = sequence[[i]]["duration"],
-                           n,
-                           parms)
+                           n = n,
+                           parms = parms)
       
       ##collect originators
       output.steps <- c(output.steps,n@originator)
@@ -144,8 +144,8 @@ for (i in 1:length(sequence)){
 
       n <- .simulate_pause(temp = sequence[[i]]["temp"],
                            duration = sequence[[i]]["duration"],
-                           n,
-                           parms)
+                           n = n,
+                           parms = parms)
       
       ##collect originators
       output.steps <- c(output.steps,n@originator)
@@ -268,7 +268,7 @@ for (i in 1:length(sequence)){
     output.steps <- c(output.steps,n@originator)
 
     ##pause to releax
-    n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n, parms)
+    n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n = n, parms = parms)
     
     ##collect originators
     output.steps <- c(output.steps,n@originator)
@@ -294,7 +294,7 @@ for (i in 1:length(sequence)){
     output.model <- c(output.model,n$RF.data, n$concentrations)
 
     ##pause to releax
-    n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n, parms)   
+    n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n = n, parms = parms)   
     
     ##collect originators
     output.steps <- c(output.steps,n@originator)
@@ -302,18 +302,43 @@ for (i in 1:length(sequence)){
     }
 
   #check if current sequence step is PAUSE
+  
   if("PAUSE" %in% names(sequence)[i]){
+    
+    if(length(sequence[[i]]) == 2){
+      
     if(!"temp" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp" }
     if(!"duration" %in% names(sequence[[i]])) {names(sequence[[i]])[2] <- "duration"}
 
     n <- .simulate_pause(temp = sequence[[i]]["temp"], 
                          duration = sequence[[i]]["duration"], 
-                         n, 
-                         parms)
+                         n = n, 
+                         parms= parms)
     
     ##collect originators
     output.steps <- c(output.steps,n@originator)
     
+    }
+  
+  if(length(sequence[[i]]) == 3){
+
+      if(!"temp" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp" }
+      if(!"duration" %in% names(sequence[[i]])) {names(sequence[[i]])[2] <- "duration"}
+      if(!"detection" %in% names(sequence[[i]])) {names(sequence[[i]])[3] <- "detection"}
+      
+      n <- .simulate_pause(temp = sequence[[i]]["temp"], 
+                           duration = sequence[[i]]["duration"], 
+                           detection = sequence[[i]]["detection"],
+                           RLumModel_ID = i,
+                           n= n, 
+                           parms = parms)
+      
+      ##collect originators
+      output.steps <- c(output.steps,n@originator)
+      
+      output.model <- c(output.model,n$pause.data, n$concentrations)
+      
+   } 
   }
   
   #check if current sequence step is RF
@@ -338,7 +363,7 @@ for (i in 1:length(sequence)){
     output.model <- c(output.model, n$RF_heating.data, n$concentrations)
     
     ##pause to releax
-    n <- .simulate_pause(temp = sequence[[i]]["temp_end"], duration = 5, n, parms)   
+    n <- .simulate_pause(temp = sequence[[i]]["temp_end"], duration = 5, n = n, parms = parms)   
     
     ##collect originators
     output.steps <- c(output.steps,n@originator)

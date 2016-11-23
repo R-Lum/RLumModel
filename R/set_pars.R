@@ -66,7 +66,7 @@
 # check input arguments ---------------------------------------------------
 
   #Check if model is supported
-  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002", "customized")
+  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002", "Friedrich2017", "customized")
 
   if(!model%in%model.allowed_keywords){
     stop(paste0("[.set_Pars()] Model not supported. Supported models are: ", paste(model.allowed_keywords, collapse = ", ")))
@@ -172,6 +172,23 @@
       model = model
     ),
     
+    Friedrich2017 = list(
+      N = c(1.5e7, 1e7, 1e9, 2.5e8, 5e10, 3e9, 1e10, 5e9, 1e11),
+      E = c(0.97, 1.55, 1.7, 1.72, 1.95, 1.8, 1.75, 5, 5),
+      s = c(5e12, 5e14, 5e13, 5e14, 1e10, 5e13, 5e14, 1e13, 1e13),
+      A = c(1e-8, 1e-8, 1e-9, 5e-10, 1e-10, 5e-7, 1e-9, 1e-10, 1e-9),
+      B = c(0, 0, 0, 0, 0, 5e-9, 5e-10, 1e-10, 1e-10),
+      Th = c(0.75, 0, 6, 4.5, 0),
+      E_th = c(0.1, 0, 0.1, 0.13, 0),
+      n =  set_RLum(class = "RLum.Results", data = list(n = c(4.282981e-02, 2.165932e+06, 1.464513e+08, 1.898261e+07, 1.372718e+10, 2.215388e+09, 4.107361e+07, 6.146246e+07, 1.157685e+10, 4.006611e-07, 5.763883e-11),
+           temp = 20)),
+      k_B = k_B,
+      K = K,
+      W = W,
+      model = model
+    ),
+    
+    
     customized = list(
       n =  set_RLum(class = "RLum.Results", data = list(n = rep(0,4),
                                                         temp = 20,
@@ -203,6 +220,10 @@
 
         "Pagonis2008" = {
           return(parameter.list$Pagonis2008)
+        },
+        
+        "Friedrich2017" = {
+          return(parameter.list$Friedrich2017)
         },
         
         "customized" = {

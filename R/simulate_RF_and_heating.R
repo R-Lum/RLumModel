@@ -1,6 +1,6 @@
 #' sequence step heating/cooling between different simulation steps
 #'
-#' This function simulates the heating/cooling of quartz in the energy-band-model.
+#' This function simulates the heating/cooling and simultaneously irradiation and signal detection  of quartz in the energy-band-model.
 #'
 #' @param temp_begin \code{\link{numeric}} (\bold{required}): initial temperature [deg. C] of the TL-simulation
 #'
