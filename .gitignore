@@ -19,5 +19,3 @@ packrat/src/
 src/*.o
 src/*.dll
 NEWS~
-vignettes/*.bib
-vignettes/*.csl
