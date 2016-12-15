@@ -18,7 +18,6 @@ packrat/lib*/
 packrat/src/
 src/*.o
 src/*.dll
-inst/doc
 NEWS~
 vignettes/*.bib
 vignettes/*.csl
