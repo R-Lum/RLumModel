@@ -16,6 +16,4 @@ RLumModel.BuildResults/*.zip
 RLumModel.BuildResults/*.tgz
 packrat/lib*/
 packrat/src/
-src/*.o
-src/*.dll
 NEWS~
