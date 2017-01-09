@@ -27,13 +27,13 @@ knitr::opts_chunk$set(fig.pos = 'H')
 
 # Introduction
 
-With 'RLumModel' $\geq$ 0.2.0 is it possible to simulate quartz luminescence behaviour of own parameter sets or parameter sets, which are not included in the package but also known in literature. Wide spreaded OTOR (One-Trap-One-Recombination-center) models can be included, too. 
-This vignette gives three comprehensive examples how to implement parameter sets, and prooves the results recalculating the original simulations.
+With 'RLumModel' $\geq$ 0.2.0 is it possible to simulate quartz luminescence behaviour of own parameters or parameter sets, which are not included in the package but also known in literature. Wide spreaded OTOR (One-Trap-One-Recombination-center) models can be included, too. 
+This vignette gives three comprehensive examples how to implement parameter sets and prooves the results recalculating the original simulations.
 
 'RLumModel' offers maximum flexibility and fast calculation of ordinary first-order differential equations (ODEs) describing luminescence behaviour, because of:
 
 * flexible handling of different numbers of electron traps and hole centres in generating the model equations. The user has not to care about coding ODEs in R. 
-* Solving these equations is performed with C++ [@Eddelbuettel_2013] and offers a faster calculation.
+* Solving these equations is performed with C++ [@Eddelbuettel_2013] and offers a fast calculation.
 
 
 # Examples
