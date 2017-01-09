@@ -18,6 +18,7 @@
 #' ILL\tab illumination \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], 'optical_power' [\%]\cr
 #' LM_OSL\tab linear modulated OSL \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], optional: 'start_power' [\%], 'end_power' [\%]\cr
 #' RL/RF\tab radioluminescence\tab 'temp' [\eqn{^{\circ}}C], 'dose' [Gy], 'dose_rate' [Gy/s] \cr
+#' RF_heating\tab RF during heating/cooling\tab 'temp begin' [\eqn{^{\circ}}C], 'temp end' [\eqn{^{\circ}}C], 'heating rate' [\eqn{^{\circ}}C/s], 'dose_rate' [Gy/s] \cr
 #' IRR\tab irradiation \tab 'temp' [\eqn{^{\circ}}C], 'dose' [Gy], 'dose_rate' [Gy/s] \cr
 #' CH \tab cutheat \tab 'temp' [\eqn{^{\circ}}C], optional: 'duration' [s], 'heating_rate' [\eqn{^{\circ}}C/s]\cr
 #' PH  \tab preheat \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], optional: 'heating_rate' [\eqn{^{\circ}}C/s]\cr
@@ -48,7 +49,7 @@
 #' Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).
 #
 #' @param model \code{\link{character}} (\bold{required}): set model to be used. Available models are:
-#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"
+#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008" and "Friedrich2017".
 #'
 #' @param lab.dose_rate \code{\link{numeric}} (with default): laboratory dose rate in XXX
 #' Gy/s for calculating seconds into Gray in the *.seq file.
@@ -117,6 +118,9 @@
 #' Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
 #' and it simplications for the precision and accuracy of optical dating.
 #' Radiation Measurements 38, 299-310.
+#' 
+#' Friedrich, J., Kreutzer, S., & Schmidt, C., 2016. Solving ordinary differential equations to understand luminescence:
+#' 'RLumModel', an advanced research tool for simulating luminescence in quartz using R. Quaternary Geochronology 35, 88-100.
 #'
 #' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
 #' stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
