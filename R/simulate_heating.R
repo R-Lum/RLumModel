@@ -81,7 +81,7 @@
   # SETTING PARAMETERS FOR ODE
   ##============================================================================##
 
-  times <- seq(from = 0, to = (temp_end-temp_begin)/b, by = 1)
+  times <- seq(from = 0, to = (temp_end-temp_begin)/b, by = 0.1)
   parameters.step <- .extract_pars(parameters.step = list(
     R = R,
     P = P,
@@ -92,7 +92,7 @@
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp)
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, maxsteps = 100000, rtol = 1e-4, atol = 1e-4)
   ##============================================================================##
 
   ##============================================================================##

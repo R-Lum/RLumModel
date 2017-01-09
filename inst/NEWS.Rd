@@ -1,7 +1,7 @@
 \name{NEWS}
 \title{NEWS for the R Package RLumModel}
 
-\section{Changes in version 0.2.0 (, 2016)}{
+\section{Changes in version 0.2.0 (, 2017)}{
 \itemize{
 
 \subsection{New functions:}{
@@ -11,6 +11,10 @@
   \item{set_ODE_Rcpp() & set_ODE_Rcpp():}
     \itemize{ 
       \item Changed the main calculations of the ODEs to C++ via Rcpp. This results in an extreme fast calculation of ODE calcualtions. Slow calculations like DRT or SAR can be solved much faster now.}
+      
+  \item{simulate_RF_and_heating():}
+    \itemize{ 
+      \item Simulating the process of heating/cooling a sample and detect luminescence during irradiation.}
 }
 
 }
@@ -40,7 +44,8 @@
 	   \itemize{
 	   \item Changed order in the vectors N, E, s, A, B: The luminescence center is now always the last entry. 
 	   This was necessary to use OTOR models with own parameters much easier.
-	   \item Output is now a list and not a RLum.Results object. This is recommended for using package FME.
+	   \item Output is now a list and not a RLum.Results object.
+	   \item Add new parameter set "Friedrich2017".
 	   \item Add new case 'customized' for own parameter sets.}
 
 	\item{simulate_CW_OSL():}

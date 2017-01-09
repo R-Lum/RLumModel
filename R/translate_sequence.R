@@ -71,7 +71,7 @@ for (i in 1:length(sequence)){
   #check if temperature is higher than the step before
   #automatically heat to temperatrue of current sequence step, except stepname is "PH" or "CH"
   if(((n$temp < sequence[[i]]["temp"])&&(names(sequence)[i] != "PH")&&(names(sequence)[i] != "CH")) == TRUE){
-    n <- .simulate_heating(temp_begin = n$temp,temp_end = sequence[[i]]["temp"], heating_rate = 5,n,parms)
+    n <- .simulate_heating(temp_begin = n$temp,temp_end = sequence[[i]]["temp"], heating_rate = 1, n, parms)
     
     ##collect originators
     output.steps <- c(output.steps,n@originator)
@@ -81,7 +81,7 @@ for (i in 1:length(sequence)){
   #check if temperature is lower than the step before
   #automatically cool to temperatrue of current sequence step
   if(n$temp > sequence[[i]]["temp"]){
-    n <- .simulate_heating(temp_begin = n$temp,temp_end = sequence[[i]]["temp"], heating_rate = -5,n,parms)
+    n <- .simulate_heating(temp_begin = n$temp,temp_end = sequence[[i]]["temp"], heating_rate = -1, n, parms)
 
     ##collect originators
     output.steps <- c(output.steps,n@originator)
@@ -114,8 +114,8 @@ for (i in 1:length(sequence)){
       n <- .simulate_heating(temp_begin = n$temp,
                              temp_end = sequence[[i]]["temp"],
                              heating_rate = 5,
-                             n,
-                             parms)
+                             n = n,
+                             parms = parms)
       ##collect originators
       output.steps <- c(output.steps,n@originator)
       

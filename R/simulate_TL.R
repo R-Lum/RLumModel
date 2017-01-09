@@ -22,7 +22,7 @@
 #' @return This function returns an \code{\linkS4class{RLum.Results}} object from the TL simulation with
 #' TL signal and temperature and concentrations for electron/hole levels.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1 [2017-09-01]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'

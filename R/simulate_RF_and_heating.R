@@ -4,10 +4,16 @@
 #'
 #' @param temp_begin \code{\link{numeric}} (\bold{required}): initial temperature [deg. C] of the TL-simulation
 #'
-#' @param temp_begin \code{\link{numeric}} (\bold{required}): endtemperature [deg. C] of the TL-simulation
+#' @param temp_end \code{\link{numeric}} (\bold{required}): end temperature [deg. C] of the TL-simulation
 #'
 #' @param heating_rate \code{\link{numeric}} (\bold{required}): heatingrate in [deg. C/s] or [K/s]
+#' 
+#' @param dose_rate \code{\link{numeric}} (\bold{required}): dose-rate in [Gy/s] for the irradiation during heating
 #'
+#' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the TL-step. This ID
+#' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
+#' sequence step they were calculated from. This ID is identic to the sequence step in "sequence".
+#' 
 #' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
 #' concentration of electron-/holetraps, valence- and conduction band
 #' from step before. This is necessary to get the boundary condition for the ODEs.
@@ -15,12 +21,9 @@
 #' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
 #' numerical quartz luminescence results.
 #'
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}}. See details for further information
+#' @return This function returns an RLum.Results object from the heating/cooling simulation during irradiation.
 #'
-#' @return This function returns an RLum.Results object from the heating/cooling simulation.
-#'
-#' @section Function version: 0.1.0 [2016-10-06]
+#' @section Function version: 0.1.0 [2017-09-01]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany)
 #'
@@ -28,6 +31,12 @@
 #'
 #' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
 #' luminescence of quartz. Radiation Measurements 33, 17-45.
+#' 
+#' Poolton, N. R. J., et al., 2001. An automated system for the analysis of variable temperature radioluminescence.
+#' Nuclear Instruments and Methods in Physics Research Section B: Beam Interactions with Materials and Atoms 179.4, 575-584.
+#' 
+#' Wintle, A. G. 1975. Thermal quenching of thermoluminescence in quartz. Geophysical Journal International, 41(1), 107-113.#' 
+#' 
 #'
 #' @seealso \code{\link{simulate_TL}}, code{\link{simulate_RF}}
 #'

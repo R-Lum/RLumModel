@@ -1,6 +1,6 @@
 NEWS for the R Package RLumModel
 
-Changes in version 0.2.0 (, 2016):
+Changes in version 0.2.0 (, 2017):
 
   New functions::
 
@@ -10,6 +10,11 @@ Changes in version 0.2.0 (, 2016):
                Rcpp. This results in an extreme fast calculation of ODE
                calcualtions. Slow calculations like DRT or SAR can be
                solved much faster now.
+
+         • simulate_RF_and_heating():
+
+             • Simulating the process of heating/cooling a sample and
+               detect luminescence during irradiation.
 
   Bugfixes and changes::
 
@@ -46,8 +51,9 @@ Changes in version 0.2.0 (, 2016):
                was necessary to use OTOR models with own parameters
                much easier.
 
-             • Output is now a list and not a RLum.Results object. This
-               is recommended for using package FME.
+             • Output is now a list and not a RLum.Results object.
+
+             • Add new parameter set "Friedrich2017".
 
              • Add new case 'customized' for own parameter sets.
 
