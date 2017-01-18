@@ -3,7 +3,12 @@ context("simulate_irradiation")
 
 parms <- .set_pars("Bailey2001")
 n <- parms$n$n
-test_simulate_irradiation <- .simulate_irradiation(temp = 20, dose = 1, dose_rate = 1, n = n, parms = parms)
+test_simulate_irradiation <- .simulate_irradiation(
+  temp = 20, 
+  dose = 1, 
+  dose_rate = 1, 
+  n = n, 
+  parms = parms)
 
 
 test_that("check output",{

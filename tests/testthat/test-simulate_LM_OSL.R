@@ -3,7 +3,11 @@ context("simulate_LM_OSL")
 
 parms <- .set_pars("Bailey2001")
 n <- parms$n$n
-test_simulate_LM_OSL <- .simulate_LM_OSL(temp = 125, duration = 100, n = n, parms = parms)
+test_simulate_LM_OSL <- .simulate_LM_OSL(
+  temp = 125, 
+  duration = 100, 
+  n = n, 
+  parms = parms)
 
 
 test_that("check output",{

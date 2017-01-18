@@ -3,7 +3,11 @@ context("simulate_CW_OSL")
 
 parms <- .set_pars("Bailey2001")
 n <- parms$n$n
-test_simulate_CW_OSL <- .simulate_CW_OSL(temp = 125, duration = 100, n = n, parms = parms)
+test_simulate_CW_OSL <- .simulate_CW_OSL(
+  temp = 125, 
+  duration = 100, 
+  n = n, 
+  parms = parms)
 
 
 test_that("check output",{

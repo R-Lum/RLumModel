@@ -3,7 +3,12 @@ context("simulate_TL")
 
 parms <- .set_pars("Bailey2001")
 n <- parms$n$n
-test_simulate_TL <- .simulate_TL(temp_begin = 20, temp_end = 50, heating_rate = 5, n = n, parms = parms)
+test_simulate_TL <- .simulate_TL(
+  temp_begin = 20, 
+  temp_end = 50, 
+  heating_rate = 5, 
+  n = n, 
+  parms = parms)
 
 
 test_that("check output",{

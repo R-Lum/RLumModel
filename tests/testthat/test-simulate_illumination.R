@@ -3,7 +3,12 @@ context("simulate_illumination")
 
 parms <- .set_pars("Bailey2001")
 n <- parms$n$n
-test_simulate_illumination <- .simulate_illumination(temp = 125, duration = 100, optical_power = 90, n = n, parms = parms)
+test_simulate_illumination <- .simulate_illumination(
+  temp = 125, 
+  duration = 100, 
+  optical_power = 90, 
+  n = n, 
+  parms = parms)
 
 
 test_that("check output",{
