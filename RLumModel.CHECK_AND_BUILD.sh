@@ -3,7 +3,7 @@
 # =================================================================================================
 # RLum.CHECK_AND_BUILD shell script
 # author: RLumModel ... Sebastian Kreutzer
-# date: 2015-12-04
+# date: 2017-04-01
 #
 # Customized R check and build routine for the R package 'RLumModel'
 # =================================================================================================
@@ -31,7 +31,7 @@ echo "[PREPARE FOR PACKAGE CHECK]"
 echo ""
 #
 
-  echo -ne "-> Clean RLumModel.BuildResults folder ... \t\t"
+  echo -ne "-> Clean RLumModel.BuildResults folder ... \t"
   find ${PATHPACKAGE}/RLumModel.BuildResults -type f -exec rm {} \;
   check_status
 
@@ -72,6 +72,12 @@ echo ""
   eval R CMD BATCH ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Function_Arguments.R /dev/null
   check_status
 
+# Set entry points
+# =================================================================================================
+  echo -ne "-> Set entry points ... \t\t\t"
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_EntryPointRegistration.R /dev/null
+  check_status
+
 
 #
 # NEWS
@@ -97,7 +103,7 @@ echo ""
 echo "[CHECK PACKAGE]"
 echo ""
 
-  eval R CMD check --timings ${PATHPACKAGE}/RLumModel*.tar.gz
+  eval R CMD check --timings --as-cran ${PATHPACKAGE}/RLumModel*.tar.gz
 
   echo -ne 'Example timing warnings...:\n\n'
   eval R CMD BATCH ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Timings.R /dev/null
@@ -144,7 +150,7 @@ echo ""
   cp RLumModel.Rcheck/RLumModel-Ex.pdf RLumModel.BuildResults/RLumModel-Ex.pdf &>/dev/null
   check_status
 
-  echo -ne "-> Remove RLumModel.Rcheck ... \t\t"
+  echo -ne "-> Remove RLumModel.Rcheck ... \t\t\t"
   rm -r ${PATHPACKAGE}/RLumModel.Rcheck &>/dev/null
   check_status
 

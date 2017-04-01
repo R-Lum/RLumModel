@@ -115,6 +115,7 @@ Irr_2recover \tab Dose to be recovered in a dose-recovery-test [Gy]\tab 20
 \section{Function version}{
  0.1.3 [2016-09-02]
 }
+
 \examples{
 
 
@@ -391,10 +392,6 @@ model.output <- model_LuminescenceSignals(
 
 }
 }
-\author{
-Johannes Friedrich, University of Bayreuth (Germany),
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
 \references{
 Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
 luminescence of quartz. Radiation Measurements 33, 17-45.
@@ -429,4 +426,7 @@ Wintle, A., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophysical
 \code{\link{plot}}, \code{\linkS4class{RLum}},
 \code{\link{read_SEQ2R}}
 }
-
+\author{
+Johannes Friedrich, University of Bayreuth (Germany),
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+}

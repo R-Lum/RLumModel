@@ -20,6 +20,7 @@ sequence <- list(IRR = c(temp = 20, dose = 10, DoseRate = 1),
 \section{Function version}{
  0.1.1
 }
+
 \examples{
 
 data("ExampleData.ModelOutput", envir = environment())
@@ -34,12 +35,11 @@ plot_RLum(TL_concentrations)
 
 
 }
-\author{
-Johannes Friedrich, University of Bayreuth (Germany)
-}
 \references{
 Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
 stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
 }
+\author{
+Johannes Friedrich, University of Bayreuth (Germany)
+}
 \keyword{datasets}
-

@@ -31,15 +31,13 @@ Supppored and tested: version 4.36.\cr
 \section{Function version}{
  0.1.0 [2016-05-02]
 }
+
 \examples{
 ##search "example_SAR_cycle.SEQ" in "extdata" in package "RLumModel"
 path <- system.file("extdata", "example_SAR_cycle.SEQ", package="RLumModel")
 
 sequence <- read_SEQ2R(file = path)
 
-}
-\author{
-Johannes Friedrich, University of Bayreuth (Germany),
 }
 \references{
 Riso: Sequence Editor User Manual.
@@ -50,4 +48,6 @@ SequenceEditor.ashx?la=da}
 \seealso{
 \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
 }
-
+\author{
+Johannes Friedrich, University of Bayreuth (Germany),
+}

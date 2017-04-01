@@ -49,4 +49,3 @@ Johannes Friedrich, University of Bayreuth, Germany
  'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1).
 }
 \keyword{package}
-
