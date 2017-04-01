@@ -1,5 +1,11 @@
 NEWS for the R Package RLumModel
 
+Changes in version 0.2.1 (XX, 2017):
+
+  Miscellaneous:
+
+         • Fix CRAN NOTE for not declared entry points.
+
 Changes in version 0.2.0 (20th January, 2017):
 
   New functions::
