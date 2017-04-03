@@ -1,21 +1,31 @@
 # RLumModel
 
-[![CRAN](http://www.r-pkg.org/badges/version/RLumModel)](http://cran.rstudio.com/package=RLumModel)
-[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
-[![Downloads](http://cranlogs.r-pkg.org/badges/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
-[![Downloads](http://cranlogs.r-pkg.org/badges/last-week/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
-[![Downloads](http://cranlogs.r-pkg.org/badges/last-day/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
-
-[![Build Status](https://travis-ci.org/R-Lum/RLumModel.svg?branch=dev_0.1.2)](https://travis-ci.org/R-Lum/RLumModel)
-[![Build status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/dev_0.1.2?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master)
-
-
 The **R** package 'RLumModel' by Johannes Friedrich (University of Bayreuth, Germany), 
 Sebastian Kreutzer (IRAMAT-CRP2A, Université Bordeaux Montaigne, France) and Christoph Schmidt 
 (University of Bayreuth, Germany)
 provides a collection of various R functions modelling luminescence signals in quartz.
 
 For an introduction and further details, visit the [RLumModel homepage](http://model.r-luminescence.de).
+
+## Package metrics 
+
+### CRAN statistics
+[![CRAN](http://www.r-pkg.org/badges/version/RLumModel)](http://cran.rstudio.com/package=RLumModel)
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
+[![Downloads](http://cranlogs.r-pkg.org/badges/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
+[![Downloads](http://cranlogs.r-pkg.org/badges/last-week/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
+[![Downloads](http://cranlogs.r-pkg.org/badges/last-day/RLumModel)](http://www.r-pkg.org/pkg/RLumModel)
+
+### Impact metrics
+[![Research software impact](http://depsy.org/api/package/cran/RLumModel/badge.svg)](http://depsy.org/package/r/RLumModel)
+[![Github Stars](https://img.shields.io/github/stars/R-Lum/RLumModel.svg?style=social&label=Github)](https://github.com/R-Lum/RLumModel)
+
+### Platform tests status
+[![Build Status](https://travis-ci.org/R-Lum/RLumModel.svg?branch=dev_0.2.0)](https://travis-ci.org/R-Lum/RLumModel)
+[![Build status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/dev_0.2.0?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/dev_0.2.0)
+
+### Unit test status
+[![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/RLumModel.svg)](https://codecov.io/github/R-Lum/RLumModel?branch=dev_0.2.0)
 
 ## Installation
 
@@ -62,6 +72,11 @@ For stable branches please visit the package on CRAN.
 
 ## License
 
-The RLumModel package is licensed under the GPLv3. See these files in the main directory for additional details: 
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
 
-- LICENSE - RLumModel package license (GPLv3)
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the [GNU General Public License](https://github.com/R-Lum/RLumModel/blob/master/LICENSE) for more details.
+
+## Related projects 
+
+* [Luminescence](https://github.com/R-Lum/Luminescence)
+

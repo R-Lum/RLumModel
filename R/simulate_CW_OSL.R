@@ -21,9 +21,7 @@
 #' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
 #' numerical quartz luminescence results.
 #'
-#' @return This function returns an Rlum.Results object from the CW-OSL simulation.
-#'
-#' @note This function can do just nothing at the moment.
+#' @return This function returns an RLum.Results object from the CW-OSL simulation.
 #'
 #' @section Function version: 0.1.1
 #'
@@ -97,7 +95,7 @@
   # P: Photonflux (in Bailey 2004: wavelength [nm]) = 1
   # b: heating rate [deg. C/s] = 0
   ##============================================================================##
-
+ 
   if(parms$model == "Bailey2004" || parms$model == "Bailey2002"){
     P <- 0.02/(1.6*10^(-19)*(1240/470))*(optical_power/100)
   }
@@ -113,12 +111,18 @@
   ##============================================================================##
 
   times <- seq(0, duration, by = 0.1)
-  parameters.step  <- list(R = R, P = P, temp = temp, b = b, times = times, parms = parms)
-
+  parameters.step <- .extract_pars(parameters.step = list(
+    R = R,
+    P = P,
+    temp = temp,
+    b = b,
+    times = times,
+    parms = parms))
+  
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::ode(y = n, times = times, parms = parameters.step, func = .set_ODE, rtol=1e-3, atol=1e-3, maxsteps=1e5, method = "bdf");  
+  out <- deSolve::ode(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol=1e-3, atol=1e-3, maxsteps=1e5, method = "bdf")
   ##============================================================================##
 
   ##============================================================================##
@@ -150,7 +154,9 @@
                       data = matrix(data = c(times, signal),ncol = 2),
                       recordType = "OSL",
                       curveType = "simulated",
-                      info = list(RLumModel_ID = RLumModel_ID)
+                      info = list(
+                        curveDescripter = NA_character_),
+                      .pid = as.character(RLumModel_ID)
                     ),
                   temp = temp,
                   concentrations = concentrations)

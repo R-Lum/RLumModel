@@ -29,7 +29,7 @@ in the sequence editor.
 Supppored and tested: version 4.36.\cr
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 [2016-05-02]
 }
 \examples{
 ##search "example_SAR_cycle.SEQ" in "extdata" in package "RLumModel"

@@ -15,11 +15,9 @@
 #' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
 #' numerical quartz luminescence results.
 #'
-#' @return This function returns an Rlum.Results object.
+#' @return This function returns an RLum.Results object.
 #'
-#' @note This function can do just nothing at the moment.
-#'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.1 [2016-09-02]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -66,8 +64,10 @@
     n <- n$n
   }
 
-# Set parameters for ODE ---------------------------------------------------
-
+# solving ODE ---------------------------------------------------
+  
+  if(dose != 0){
+  
   ##============================================================================##
   # SETTING PARAMETERS FOR IRRADIATION
   #
@@ -75,14 +75,22 @@
   # P: Photonflux (in Bailey 2004: wavelength [nm])
   # b: heating rate [deg. C/s]
   ##============================================================================##
-  if(parms$model == "Bailey2004"){
-    R <- dose_rate*2.5e10
-  } else {
+  ## check if R is given in customized parameter sets
+  if("R" %in% names(parms) && parms$R != 0){
     
-    if(parms$model == "Bailey2002"){
-      R <- dose_rate*3e10
+    R <- dose_rate*parms$R
+    
+  } else {
+
+    if(parms$model == "Bailey2004"){
+      R <- dose_rate*2.5e10
     } else {
-      R <- dose_rate*5e7  # all other simulations
+      
+      if(parms$model == "Bailey2002"){
+        R <- dose_rate*3e10
+      } else {
+        R <- dose_rate*5e7  # all other simulations
+      }
     }
   }
 
@@ -94,22 +102,38 @@
   ##============================================================================##
 
   times   <- seq(0, dose/(dose_rate), by = (dose/dose_rate)/100)
-  parameters.step  <- list(R = R, P = P, temp = temp, b = b, times = times, parms = parms)
-
+  parameters.step <- .extract_pars(parameters.step = list(
+    R = R,
+    P = P,
+    temp = temp,
+    b = b,
+    times = times,
+    parms = parms))
+  
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE ,  rtol=1e-3, atol=1e-3, maxsteps=1e5);
+  
+  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol = 1e-6, atol = 1e-6);
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
-  # print(out[length(times),-1])
+
   return(Luminescence::set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1],
                     temp = temp
                   )))
 
+  } else {
+    
+  return(Luminescence::set_RLum(class = "RLum.Results",
+                                data = list(
+                                  n = n,
+                                  temp = temp
+                                )))
+  
+  
 }
-
+}

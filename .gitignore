@@ -1,5 +1,4 @@
 /.Rproj.user/*
-*.RData
 *.Rhistory
 *.Rproj
 *.Rbuildignore
@@ -16,4 +15,6 @@ RLumModel.BuildResults/*.zip
 RLumModel.BuildResults/*.tgz
 packrat/lib*/
 packrat/src/
-NEWS~
+src/*.o
+src/*.dll
+*.RData

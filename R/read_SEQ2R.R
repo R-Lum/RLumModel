@@ -18,7 +18,7 @@
 #' @return This function returns a \code{\link{list}} with the parsed *.seq file and the required steps for
 #' \code{\link{model_LuminescenceSignals}}.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.0 [2016-05-02]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'

@@ -1,0 +1,25 @@
+"model_LuminescenceSignals","read_SEQ2R"
+"model","file"
+"sequence","lab.dose_rate"
+"lab.dose_rate","txtProgressBar"
+"simulate_sample_history",NA
+"plot",NA
+"verbose",NA
+"show_structure",NA
+"own_parameters",NA
+"itemize{",NA
+" N: Concentration of electron- and hole traps [cm^(-3)]}",NA
+" E: Electron/Hole trap depth [eV}",NA
+" s: Frequency factor [s^(-1)]}",NA
+" A: Conduction band to electron trap and valence band to hole trap transition probability [s^(-1) * cm^(3)]. ",NA
+" B: Conduction band to hole centre transition probability [s^(-1) * cm^(3)].}",NA
+" Th: Photo-eviction constant or photoionisation cross section, respectively}",NA
+" E_th: Thermal assistence energy [eV]}",NA
+" k_B: Boltzman constant 8.617e-05 [eV/K]}",NA
+" W: activation energy 0.64 [eV] (for UV)}",NA
+" K: 2.8e7 (dimensionless constant)}",NA
+" model: \"customized\"}",NA
+" R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [s^(-1) * cm^(-3)]}",NA
+"own_state_parameters",NA
+"own_start_temperature",NA
+"dots",NA

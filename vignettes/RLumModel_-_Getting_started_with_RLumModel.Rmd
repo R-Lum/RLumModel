@@ -25,7 +25,7 @@ library(RLumModel)
 # Introduction
 
 This vignette shows a few examples for the **R**-package 'RLumModel'. The main function `model_LuminescenceSignals()` and their arguments will be explained.
-All calculations were done with 'RLumodel' 0.1.2 and 'Luminescence' 0.6.2.
+All calculations were done with 'RLumModel' 0.2.0 and 'Luminescence' 0.6.4.
 
 
 # Object structure of RLumModel
@@ -91,7 +91,7 @@ with the name of the author and the year, e.g.
 model <- "Bailey2001"
 ```
 
-The available models are "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007" and "Pagonis2008" (@Bailey_2001, @Bailey_2002, @Bailey_2004, @Pagonis_2007a, @Pagonis_2008b).
+The available models are "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008" and "Friedrich2017" (@Bailey_2001, @Bailey_2002, @Bailey_2004, @Pagonis_2007a, @Pagonis_2008b).
 
 The corresponding parameter set will be loaded automatically with the function call. 
 
@@ -102,7 +102,7 @@ There are three different ways of creating a sequence.
 
 For all sequences, temperature differences between sequence steps are automatically simulated with a heating or 
 cooling step in between. Also, after irradiating the sample, it is automatically kept at irradiation temperature 
-for further 5\,s to allow the system to relax prior to the next step [@Bailey_2001].
+for further 5 s to allow the system to relax prior to the next step [@Bailey_2001].
 
 ## Risø SEQ files
 
@@ -148,12 +148,13 @@ function.
 			\hline
 			\textbf{ARGUMENTS} & \textbf{DESCRIPTION} & \textbf{SUB-ARGUMENTS}\\
 			\hline
-			\texttt{TL} & Thermally stimulated luminescence & 'temp\_begin' [$\,^{\circ}\mathrm{C}$], 'temp\_end' [$\,^{\circ}\mathrm{C}$], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s],\\
+			\texttt{TL} & Thermally stimulated luminescence & 'temp\_begin' [$\,^{\circ}\mathrm{C}$], 'temp\_end' [$\,^{\circ}\mathrm{C}$], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s]\\
 			\texttt{OSL} & Optically stimulated luminescence & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], 'optical\_power' [\%]\\
 			\texttt{ILL} & Illumination & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], 'optical\_power' [\%]\\
 		\texttt{LM\_OSL} & Linear modulated OSL & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], optional: 'start\_power' [\%], 'end\_power' [\%]\\
 			\texttt{RF} & Radiofluorescence & 'temp' [$\,^{\circ}\mathrm{C}$], 'dose' [Gy], 'dose\_rate' [Gy/s] \\
 			\texttt{IRR} & Irradiation & 'temp' [$\,^{\circ}\mathrm{C}$], 'dose' [Gy], 'dose\_rate' [Gy/s]\\
+			\texttt{RF\_heating} & RF during heating/cooling & 'temp\_begin' [$\,^{\circ}\mathrm{C}$], 'temp\_end' [$\,^{\circ}\mathrm{C}$], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s], 'dose\_rate' [Gy/s] \\
 			\texttt{CH} & Cutheat & 'temp' [$\,^{\circ}\mathrm{C}$], optional: 'duration' [s], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s]\\
 			\texttt{PH}  & Preheat & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], optional: 'heating\_rate'  [$\,^{\circ}\mathrm{C}$/s]\\
 			\texttt{PAUSE} & Pause & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration [s]' \\
@@ -401,7 +402,7 @@ model.output.merged <- Luminescence::merge_RLum(model.output)
 Luminescence::plot_RLum(
   object = model.output.merged,
   xlab = "Illumination time [s]",
-  ylab = "OSL signal [a.u]",
+  ylab = "OSL signal [a.u.]",
   legend.text = paste("Optical power ", 20 * optical_power / 100," mW/cm^2"),
   combine = TRUE 
   )
@@ -416,8 +417,8 @@ It should be mentioned that a simulation of a combinded PHPT and DRT may be very
 because for every preheat temperature a complete SAR cycle has to be run. 
 A typical DRT sequence featuring various PH temperatures in 'RLumModel' is listed below. 
 Note that in such a DRT simulation a loop over different preheat temperatures has to be written, 
-utilising characteristic parameters from the literature. The test dose is set to 10\,\% and the regeneration 
-dose points to 40\,\%, 70\,\%, 130\,\%, 160\,\%, 0\,\% and 40\,\% of the recovery dose.
+utilising characteristic parameters from the literature. The test dose is set to 10\% and the regeneration 
+dose points to 40\%, 70\%, 130\%, 160\%, 0\% and 40\% of the recovery dose.
 
 The data created by 'RLumModel' can be directly passed to the functions 
 `Luminescence::analyse_SAR.CWOSL()` and `Luminescence::plot_DRTResults()` 
@@ -466,7 +467,7 @@ DRT.output <- lapply(1:length(PH_temp), function(x){
 })
 
 ##output as data.frame for plot_DRTResults
-DRT.result <- as.data.frame(do.call(rbind,DRT.output))
+DRT.result <- as.data.frame(do.call(rbind, DRT.output))
 
 ##plot DRT.results
 Luminescence::plot_DRTResults(
@@ -482,8 +483,8 @@ function `Luminescence::analyse_SAR.CWOSL()` is suitable.
 After specifying a number of evaluation parameters (signal and background integration interval, 
 dose points and fit function for the dose response curve) and the analysis process, the reduced data are stored 
 in an `RLum.Results` object, here termed 'results' . 
-A background integration interval from 301 to 401 translates to the signal from 30\,s to 40\,s, 
-because a channel has the default width of 0.1\,s. Accordingly, the signal integral ranges from 0.1\,s to 0.7\,s. 
+A background integration interval from 301 to 401 translates to the signal from 30 s to 40 s, 
+because a channel has the default width of 0.1 s. Accordingly, the signal integral ranges from 0.1 s to 0.7 s. 
 
 ```{r SAR, fig.align = "center", fig.pos = "H", fig.cap = "SAR protocol with the parameter set of 'Pagonis2008'"}
 ##set RegDose

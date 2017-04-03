@@ -1,9 +1,0 @@
-"model_LuminescenceSignals","read_SEQ2R"
-"model","file"
-"sequence","lab.dose_rate"
-"lab.dose_rate","txtProgressBar"
-"simulate_sample_history",NA
-"plot",NA
-"verbose",NA
-"show.structure",NA
-"dots",NA
