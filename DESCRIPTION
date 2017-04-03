@@ -46,7 +46,7 @@ Collate:
   simulate_RF_and_heating.R
   simulate_TL.R
   translate_sequence.R
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests: 
   R.rsp,
   testthat

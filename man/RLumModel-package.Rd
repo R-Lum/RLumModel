@@ -3,14 +3,14 @@
 \docType{package}
 \name{RLumModel-package}
 \alias{RLumModel-package}
-\title{Solving Ordinary Differential Equations to Understand Luminescence}
+\title{Solving Ordinary Differential Equations to Unterstand Luminescence}
 \description{
 A collection of function to simulate luminescence signals in the mineral quartz based on
 published models.
 }
 \details{
 \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-\tab 0.1.2\cr Date: \tab 2016-09-02 \cr License: \tab GPL-3\cr }
+\tab 0.2.0\cr Date: \tab 2016-11-01 \cr License: \tab GPL-3\cr }
 }
 \author{
 \bold{Authors}
@@ -30,13 +30,13 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, France
 \email{developers@model.r-luminescence.de}\cr
 
 \bold{Project source code repository}\cr
-\url{https://github.com/R-Lum}\cr
+\url{https://github.com/R-Lum/RLumModel}\cr
 
-\bold{Related projects}\cr
+\bold{Related package projects}\cr
 \url{http://www.r-luminescence.de}\cr
-\url{http://cran.r-project.org/package=Luminescence}\cr
+\url{https://cran.r-project.org/package=Luminescence}\cr
 \url{http://shiny.r-luminescence.de}\cr
-\url{http://cran.r-project.org/package=RLumShiny}\cr
+\url{https://cran.r-project.org/package=RLumShiny}\cr
 
 \bold{Package maintainer}
 
@@ -46,7 +46,6 @@ Johannes Friedrich, University of Bayreuth, Germany
 \bold{Acknowledgement}
 
  The work of Johannes Friedrich is gratefully supported by the DFG in framework of the project
- 'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1)
+ 'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1).
 }
 \keyword{package}
-

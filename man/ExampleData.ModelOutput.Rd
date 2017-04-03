@@ -4,22 +4,27 @@
 \name{ExampleData.ModelOutput}
 \alias{ExampleData.ModelOutput}
 \alias{model.output}
-\title{Example data (TL curve) simulated from Bailey (2001 ,fig. 1)}
+\title{Example data (TL curve) simulated with parameter set from Pagonis 2007}
 \format{A RLum.Analysis object containing one TL curve as RLum.Data.Curve.}
 \source{
 \bold{model_LuminescenceSignals()}
 }
 \description{
-Example data (TL curve) simulated from Bailey (2001 ,fig. 1)
+Example data (TL curve) simulated with parameter set from Pagonis 2007
 }
 \note{
 This example has only one record (TL). The used sequence was
 sequence <- list(IRR = c(temp = 20, dose = 10, DoseRate = 1),
                  TL = c(temp_begin = 20, temp_end = 400, heating_rate = 5))
 }
+\section{Function version}{
+ 0.1.1
+}
+
 \examples{
 
-data(ExampleData.ModelOutput)
+data("ExampleData.ModelOutput", envir = environment())
+
 TL_curve <- get_RLum(model.output, recordType = "TL$", drop = FALSE)
 
 ##plot TL curve
@@ -31,10 +36,10 @@ plot_RLum(TL_concentrations)
 
 }
 \references{
-Friedrich, Johannes, Sebastian Kreutzer and Christoph Schmidt. 
-Solving ordinary differential equations to understand luminescence:
-RLumModel, an advanced research tool for simulating luminescence in quartz using R. 
-Quaternary Geochronology 2016.
+Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
+stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
+}
+\author{
+Johannes Friedrich, University of Bayreuth (Germany)
 }
 \keyword{datasets}
-
