@@ -1,6 +1,15 @@
 context("translate_sequence")
 
-sequence <- list(OSL = c(125,10,90))
+sequence <- list(
+  PH = c(125, 5),
+  OSL = c(125,10,90),
+  PAUSE = c(20,10),
+  TL = c(20, 200,5),
+  RF = c(20,1,1),
+  ILL = c(20,10,10),
+  IRR = c(20,1,1),
+  LM_OSL = c(20, 100),
+  RF_heating = c(20,30,5,1))
 model <- "Bailey2001"
 parms <- .set_pars(model)
 n <- parms$n
@@ -23,11 +32,11 @@ test_that("check output",{
   
   expect_equal(class(test_translate_sequence@records[[1]])[1], "RLum.Data.Curve")
   
-  expect_equal(length(test_translate_sequence), length(parms$N) + 2 + 1)
-  
   expect_true("OSL" %in% names(test_translate_sequence))
-  
-  expect_equal(test_translate_sequence@originator, "model_LuminescenceSignals()")
+  expect_true("TL" %in% names(test_translate_sequence))
+  expect_true("RF" %in% names(test_translate_sequence))
+
+    expect_equal(test_translate_sequence@originator, "model_LuminescenceSignals()")
   
   expect_equal(test_translate_sequence@protocol, "Bailey2001")
   
