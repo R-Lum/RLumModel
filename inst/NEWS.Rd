@@ -9,10 +9,20 @@
     \itemize{
 
       \item Fix CRAN NOTE for not declared entry points.
+      \item Expand tests.
 
     }
 
   }
+  
+  \subsection{Bugfixes and changes:}{
+  
+    \itemize{
+      \item{simulate_LM_OSL:}
+        \itemize{
+      \item Right call to .set_ODE_Rcpp_LM_OSL}
+      }
+    }
 
  }
 }

@@ -32,7 +32,7 @@ echo "[PREPARE FOR PACKAGE CHECK]"
 echo ""
 #
 
-  echo -ne "-> Clean RLumModel.BuildResults folder ... \t\t"
+  echo -ne "-> Clean RLumModel.BuildResults folder ... \t"
   find ${PATHPACKAGE}/RLumModel.BuildResults -type f -exec rm {} \;
   check_status
 
@@ -110,7 +110,7 @@ echo ""
 # COMPACT PDF Vignettes
 # =================================================================================================
 
-  echo -ne "-> Compact vignettes ... \t\t\t\t"
+  echo -ne "-> Compact vignettes ... \t\t\t"
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Compact_Vignettes.R /dev/null
   check_status
 

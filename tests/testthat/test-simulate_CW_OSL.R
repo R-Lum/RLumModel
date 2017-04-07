@@ -26,15 +26,17 @@ test_that("check output",{
   
 })
 
-parms <- .set_pars("Bailey2002")
-n <- parms$n$n
-test_simulate_CW_OSL <- .simulate_LM_OSL(
-  temp = 125, 
-  duration = 100, 
-  n = n, 
-  parms = parms)
 
 test_that("check output of Bailey 2002/2004",{
+  
+  parms <- .set_pars("Bailey2002")
+  n <- parms$n$n
+  test_simulate_CW_OSL <- .simulate_LM_OSL(
+    temp = 125, 
+    duration = 100, 
+    n = n, 
+    parms = parms)
+  
   expect_equal(class(test_simulate_CW_OSL)[1], "RLum.Results")
   
   expect_equal(length(test_simulate_CW_OSL$n), length(parms$N) + 2)

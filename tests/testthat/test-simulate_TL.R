@@ -27,3 +27,40 @@ test_that("check output",{
   
 })
 
+test_that("test controlled crash conditions", {
+  
+  parms <- .set_pars("Bailey2001")
+  n <- parms$n$n
+  
+  expect_error(
+    .simulate_TL(
+      temp_begin = 10, 
+      temp_end = 20,
+      heating_rate = -1,
+      n = n, 
+      parms = parms),
+    regexp = ".simulate_TL()] Heatingrate has the wrong algebraic sign!",
+    fixed = TRUE)
+  
+  expect_error(
+    .simulate_TL(
+      temp_begin = -274, 
+      temp_end = 20,
+      heating_rate = 10,
+      n = n, 
+      parms = parms),
+    regexp = "[.simulate_TL()] Argument 'temp' has to be > 0 K!",
+    fixed = TRUE)
+  
+  expect_error(
+    .simulate_TL(
+      temp_begin = 10, 
+      temp_end = -20,
+      heating_rate = -2,
+      n = n, 
+      parms = parms),
+    regexp = "[.simulate_TL()] Argument 'heating_rate' has to be a positive number!",
+    fixed = TRUE)
+  
+})
+

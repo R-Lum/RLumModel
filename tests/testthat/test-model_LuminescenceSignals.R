@@ -5,8 +5,7 @@ test_that("check class and output", {
   output <- model_LuminescenceSignals(
     model = "Bailey2001", 
     sequence = list(
-      OSL = c(20, 1, 100),
-      PAUSE = c(20,10)), 
+      OSL = c(temp = 20, duration = 1, optical_power = 100)),
     plot = FALSE, 
     verbose = FALSE)
   
@@ -42,6 +41,26 @@ test_that("check SAR sequence", {
 
 })
 
+test_that("check DRT sequence", {
+  
+  sequence <- list(
+    Irr_2recover = c(20),
+    RegDose = c(0,10,20),
+    TestDose = 5,
+    PH = 240,
+    CH = 200,
+    OSL_temp = 125,
+    OSL_duration = 70)
+  
+  temp <- model_LuminescenceSignals(
+    sequence = sequence,
+    model = "Pagonis2007",
+    plot = FALSE,
+    verbose = FALSE
+  )
+  
+})
+
 test_that("check Risoe SEQ", {
   
   path <- system.file("extdata", "example_SAR_cycle.SEQ", package="RLumModel")
@@ -51,6 +70,13 @@ test_that("check Risoe SEQ", {
   
   temp <- model_LuminescenceSignals(
     sequence = sequence,
+    model = "Bailey2001",
+    plot = FALSE,
+    verbose = FALSE
+  )
+  
+  temp <- model_LuminescenceSignals(
+    sequence = path,
     model = "Bailey2001",
     plot = FALSE,
     verbose = FALSE
