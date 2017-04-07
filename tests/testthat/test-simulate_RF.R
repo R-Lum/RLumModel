@@ -101,7 +101,7 @@ test_that("check output for dose = 0",{
   
 })
 
-test_that("test controlled chrash conditions", {
+test_that("test controlled crash conditions", {
   expect_error(
     .simulate_RF(
       temp = -274, 

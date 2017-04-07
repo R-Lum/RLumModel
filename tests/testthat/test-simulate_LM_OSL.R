@@ -50,7 +50,7 @@ test_that("check output of Bailey 2002/2004",{
   
 })
 
-test_that("test controlled chrash conditions", {
+test_that("test controlled crash conditions", {
   expect_error(
     .simulate_LM_OSL(
       temp = -274, 

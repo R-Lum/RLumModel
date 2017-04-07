@@ -82,7 +82,7 @@ test_that("check output Bailey2004",{
   
 })
 
-test_that("test controlled chrash conditions", {
+test_that("test controlled crash conditions", {
   expect_error(
     .simulate_RF_and_heating(
       temp_begin = -274, 
