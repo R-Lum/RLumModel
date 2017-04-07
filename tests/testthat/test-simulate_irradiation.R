@@ -29,6 +29,10 @@ test_that("check different models",{
     n = n, 
     parms = parms)
 
+})
+
+
+test_that("check output",{
   parms <- .set_pars("Bailey2001")
   n <- parms$n$n
   test_simulate_irradiation <- .simulate_irradiation(
@@ -37,11 +41,8 @@ test_that("check different models",{
     dose_rate = 1, 
     n = n, 
     parms = parms)
-
-})
-
-
-test_that("check output",{
+  
+  
   expect_equal(class(test_simulate_irradiation)[1], "RLum.Results")
   
   expect_equal(length(test_simulate_irradiation$n), length(parms$N) + 2)
