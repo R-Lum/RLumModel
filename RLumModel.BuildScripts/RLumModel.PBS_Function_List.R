@@ -2,20 +2,24 @@
 ### R package RLumModel BUILDSCRIPTS
 ### Function_List
 ### sebastian.kreutzer@u-bordeaux-montaigne.fr
-### 2015-12-04
+### 2015-04-29
 ### ===============================================================================================
-if(exists("output"))
-  rm(output)
-
 if(!require("R2HTML"))
   install.packages("R2HTML")
 
 if(!require("xtable"))
   install.packages("xtable")
 
+if(!require("pander"))
+  install.packages("pander")
+
 library(tools)
 library(R2HTML)
 library(xtable)
+library(pander)
+
+# Clean Workspace ---------------------------------------------------------
+rm(list = ls())
 
 # Reading file ------------------------------------------------------------
 
@@ -33,7 +37,6 @@ file.list.man <- file.list.man[which(file.list.man!="RLumModel-package.Rd")]
 
 for(i in 1:length(file.list.man)) {
   
-  
   file <- paste0("man/",file.list.man[i])
   Rd <- parse_Rd(file)
   tags <- tools:::RdTags(Rd)
@@ -43,6 +46,7 @@ for(i in 1:length(file.list.man)) {
   if("\\author" %in% tags){
     
     tag.author <- gsub("\n","<br />",paste(unlist(Rd[[which(tags == "\\author")]]), collapse= " "))
+    tag.author <- trimws(sub("<br />", "", tag.author))
     
   }else{
     
@@ -68,6 +72,7 @@ for(i in 1:length(file.list.man)) {
     
   }
   
+  
   ##TITLE
   if("\\title" %in% tags){
     
@@ -79,8 +84,19 @@ for(i in 1:length(file.list.man)) {
   ##DESCRIPTION
   if("\\description" %in% tags){
     
-    tag.description <- gsub("\n","<br />",paste(unlist(Rd[[which(tags == "\\description")]]),
-                                                collapse= " "))
+    tag.description <- trimws(gsub("\n","",paste(unlist(Rd[[which(tags == "\\description")]]),
+                                                 collapse= " ")))
+    
+  }
+  
+  ##VERSION
+  if(length(grep("How to cite", unlist(Rd)))>0){
+    
+    tag.citation <- unlist(Rd)[grep("How to cite", unlist(Rd))+2]
+    
+  } else {
+    
+    tag.citation <- NA
     
   }
   
@@ -93,7 +109,8 @@ for(i in 1:length(file.list.man)) {
                          Version=tag.version,
                          m.Date = tag.mdate,
                          m.Time = tag.mtime,
-                         Author = tag.author)
+                         Author = tag.author,
+                         Citation = tag.citation)
     
   }else{
     
@@ -103,7 +120,8 @@ for(i in 1:length(file.list.man)) {
                               Version=tag.version,
                               m.Date = tag.mdate,
                               m.Time = tag.mtime,
-                              Author = tag.author)
+                              Author = tag.author,
+                              Citation = tag.citation)
     
     output <- rbind(output,temp.output)
     
@@ -123,14 +141,18 @@ HTML(paste("<h2 align=\"center\">Major functions in the R package 'RLumModel'</h
            <h4 align=\"center\"> [version:", temp.version,"]</h4>
            <style type=\"text/css\">
            <!--
+           
            h2 {font-family: Arial, Helvetica, sans-serif
            }
+           
            h4 {font-family: Arial, Helvetica, sans-serif
            }
+           
            table {text-align:left;
            vertical-align:top;
            border: 1px solid gray;
            }
+           
            th, td {
            border: 1px solid gray;
            padding: 3px;
@@ -139,12 +161,16 @@ HTML(paste("<h2 align=\"center\">Major functions in the R package 'RLumModel'</h
            text-align: left;
            vertical-align: top;
            }
+           
            th {
            background-color: #DDD;
            font-weight: bold;
            }
+           
            -->
            </style>
+           
+           
            "),
      file=output.file)
 
@@ -164,6 +190,26 @@ write.table(output,
 
 # LaTeX Output ------------------------------------------------------------
 
+options(xtable.comment = FALSE)
 latex.table <- xtable(output)
 write(print(latex.table),
-      file =  paste0("RLumModel.BuildResults/RLumModel_",temp.version,"-Functions.tex"))
+      file = paste0("RLumModel.BuildResults/RLumModel_",temp.version,"-Functions.tex"))
+
+
+# Markdown Output ---------------------------------------------------------
+
+pander::panderOptions("table.split.table", Inf)
+pander::panderOptions("table.style", "rmarkdown")
+pander::set.alignment("left")
+markdown.table <- gsub("<br />", " - ", capture.output(pander::pander(output)))
+write(markdown.table,
+      file = paste0("RLumModel.BuildResults/RLum_",temp.version,"-Functions_Markdown.md"))
+
+for (i in 1:ncol(output)) {
+  output[, i] <- gsub("\\n", "", paste0("<sub>", output[, i], "</sub>"))
+}
+pander::panderOptions("table.split.table", Inf)
+pander::panderOptions("table.style", "rmarkdown")
+pander::set.alignment("left")  
+markdown.table <- capture.output(pander::pander(output))
+write(markdown.table, file = paste0("R/README.md"))

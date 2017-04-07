@@ -29,7 +29,7 @@ in the sequence editor.
 Supppored and tested: version 4.36.\cr
 }
 \section{Function version}{
- 0.1.0 [2016-05-02]
+ 0.1.0 (2017-04-07 16:07:03)
 }
 
 \examples{

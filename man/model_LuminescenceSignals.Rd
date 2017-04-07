@@ -113,7 +113,7 @@ Irr_2recover \tab Dose to be recovered in a dose-recovery-test [Gy]\tab 20
 }
 }
 \section{Function version}{
- 0.1.3 [2016-09-02]
+ 0.1.3 (2017-04-07 16:06:33)
 }
 
 \examples{

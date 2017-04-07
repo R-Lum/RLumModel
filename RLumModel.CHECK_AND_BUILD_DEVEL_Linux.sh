@@ -60,7 +60,7 @@ echo ""
 # Rcpp
 # =================================================================================================
   echo -ne "-> Build Rcpp ... \t\t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Rcpp.R /dev/null
+  eval R-devel CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Rcpp.R /dev/null
   check_status
 
 
@@ -71,13 +71,13 @@ echo ""
   check_status
 
   echo -ne "-> Build documentation ... \t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_roxygen2.R /dev/null
+  eval R-devel CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_roxygen2.R /dev/null
   check_status
 
 # Set entry points
 # =================================================================================================
   echo -ne "-> Set entry points ... \t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_EntryPointRegistration.R /dev/null
+  eval R-devel CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLum.PBS_EntryPointRegistration.R /dev/null
   check_status
 
 
@@ -86,16 +86,15 @@ echo ""
 # =================================================================================================
 
   echo -ne "-> Compile function argument list ...\t\t"
-  eval R CMD BATCH ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Function_Arguments.R /dev/null
+  eval R-devel CMD BATCH ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Function_Arguments.R /dev/null
   check_status
-
 
 #
 # NEWS
 # =================================================================================================
 
   echo -ne "-> Build ASCII NEWS ... \t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_NEWS.R /dev/null
+  eval R-devel CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_NEWS.R /dev/null
   check_status
 
 #
@@ -103,7 +102,7 @@ echo ""
 # =================================================================================================
 
   echo -ne "-> Parsing Rd ... \t\t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Parsing_Rd.R /dev/null
+  eval R-devel CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Parsing_Rd.R /dev/null
   check_status
 
 #
@@ -113,7 +112,7 @@ echo ""
 echo "[BUILD PACKAGE]"
 echo ""
 
-  eval R CMD build ${PATHPACKAGE}
+  eval R-devel CMD build ${PATHPACKAGE}
 
 #
 # CHECK PACKAGE
@@ -122,10 +121,10 @@ echo ""
 echo "[CHECK PACKAGE]"
 echo ""
 
-  eval R CMD check --timings ${PATHPACKAGE}/RLumModel*.tar.gz
+  eval R-devel CMD check --timings ${PATHPACKAGE}/RLumModel*.tar.gz
 
   echo -ne 'Example timing warnings...:\n\n'
-  eval R CMD BATCH ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Timings.R /dev/null
+  eval R-devel CMD BATCH ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Timings.R /dev/null
   cat ${PATHPACKAGE}/RLumModel.BuildResults/RLumModel-Ex.timings.*.WARNING
 
 
@@ -136,7 +135,7 @@ echo ""
 echo "[INSTALL PACKAGE]"
 echo ""
 
-  eval R CMD INSTALL --build ${PATHPACKAGE}/RLumModel*.tar.gz
+  eval R-devel CMD INSTALL --build ${PATHPACKAGE}/RLumModel*.tar.gz
 
 #
 # COPY FILES AND CLEANING UP
@@ -146,11 +145,11 @@ echo "[OUTRO]"
 echo ""
 
   echo -ne "-> Write BibTeX ... \t\t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_BibTeX.R /dev/null
+  eval R-devel CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_BibTeX.R /dev/null
   check_status
 
   echo -ne "-> Build function list ... \t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Function_List.R /dev/null
+  eval R-devel CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Function_List.R /dev/null
   check_status
 
   echo -ne "-> Moving packge source files (*.tar.gz) ... \t"
