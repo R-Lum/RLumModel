@@ -99,11 +99,19 @@ echo ""
   check_status
 
 #
-# PARSE RD files and add RLum.Team
+# PARSE RD files
 # =================================================================================================
 
   echo -ne "-> Parsing Rd ... \t\t\t\t"
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Parsing_Rd.R /dev/null
+  check_status
+
+#
+# COMPACT PDF Vignettes
+# =================================================================================================
+
+  echo -ne "-> Compact vignettes ... \t\t\t\t"
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Compact_Vignettes.R /dev/null
   check_status
 
 #
