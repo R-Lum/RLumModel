@@ -314,8 +314,7 @@ TL_Chen2013 <- model_LuminescenceSignals(
   own_parameters = own_parameters, 
   own_state_parameters = own_state_parameters,
   own_start_temperature = own_start_temperature,
-  verbose = FALSE,
-  plot = TRUE)
+  verbose = FALSE)
 ```
 
 With this result it is possible to plot the concentration of every single energy level, leading to the following plot (see also Fig. 6 in @Chen_2013d)

@@ -10,6 +10,7 @@ README\.md
 ^cran-comments\.md$
 RLumModel.CHECK_AND_BUILD.sh
 RLumModel.CHECK_AND_BUILD_Linux.sh
+RLumModel.CHECK_AND_BUILD_DEVEL_Linux.sh
 RLumModel.CHECK_AND_BUILD.BAT
 RLumModel.BuildScripts
 RLumModel.BuildResults

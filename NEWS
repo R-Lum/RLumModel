@@ -1,5 +1,19 @@
 NEWS for the R Package RLumModel
 
+Changes in version 0.2.1 (13th April, 2017):
+
+  Miscellaneous:
+
+         • Fix CRAN NOTE for not declared entry points.
+
+         • Expand tests.
+
+  Bugfixes and changes::
+
+         • simulate_LM_OSL:
+
+             • Right call to .set_ODE_Rcpp_LM_OSL
+
 Changes in version 0.2.0 (20th January, 2017):
 
   New functions::

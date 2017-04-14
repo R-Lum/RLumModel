@@ -25,7 +25,7 @@ library(RLumModel)
 # Introduction
 
 This vignette shows a few examples for the **R**-package 'RLumModel'. The main function `model_LuminescenceSignals()` and their arguments will be explained.
-All calculations were done with 'RLumModel' 0.2.0 and 'Luminescence' 0.6.4.
+All calculations were done with 'RLumModel' 0.2.0 and 'Luminescence' 0.7.4.
 
 
 # Object structure of RLumModel
@@ -91,7 +91,7 @@ with the name of the author and the year, e.g.
 model <- "Bailey2001"
 ```
 
-The available models are "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008" and "Friedrich2017" (@Bailey_2001, @Bailey_2002, @Bailey_2004, @Pagonis_2007a, @Pagonis_2008b).
+The available models are "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008" and "Friedrich2017" (@Bailey_2001, @Bailey_2002, @Bailey_2004, @Pagonis_2007a, @Pagonis_2008b, @Friedrich_2017).
 
 The corresponding parameter set will be loaded automatically with the function call. 
 
@@ -273,11 +273,10 @@ heating.rate <- seq(from = 2, to = 10, by = 2)
 ##model signals
 ##"verbose = FALSE" for no terminal output
 ## "TL$" for exact matching TL and not (TL)
-model.output <- lapply(
- 1:length(heating.rate), function(x){
+model.output <- lapply(heating.rate, function(x){
   sequence <- list(
    IRR = c(20, 10, 1),
-   TL = c(20, 400, heating.rate[x]))
+   TL = c(20, 400, x))
 
 
   TL_data <- model_LuminescenceSignals(
@@ -432,13 +431,13 @@ PH_temp <- seq(from = 160, to = 300, by = 20)
 RegDose = c(0, 80, 140, 260, 320, 0, 80)
 
 ##loop over PH temperatures
-DRT.output <- lapply(1:length(PH_temp), function(x){
+DRT.output <- lapply(PH_temp, function(x){
 
   sequence <- list(
        RegDose = RegDose,
        TestDose = 20,
-       PH = PH_temp[x],
-       CH = PH_temp[x],
+       PH = x,
+       CH = x,
        OSL_temp = 125,
        Irr_2recover = 200)
 

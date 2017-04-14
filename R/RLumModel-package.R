@@ -4,7 +4,7 @@
 #' published models.
 #'
 #' \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-#' \tab 0.2.0\cr Date: \tab 2016-11-01 \cr License: \tab GPL-3\cr }
+#' \tab 0.2.1\cr Date: \tab 2017-XX-XX \cr License: \tab GPL-3\cr }
 #'
 #' @name RLumModel-package
 #' @docType package
@@ -73,9 +73,9 @@ NULL
 #' @section Function version: 0.1.1
 #' @author Johannes Friedrich, University of Bayreuth (Germany)
 #' @examples
-#' 
+#'
 #' data("ExampleData.ModelOutput", envir = environment())
-#' 
+#'
 #' TL_curve <- get_RLum(model.output, recordType = "TL$", drop = FALSE)
 #'
 #' ##plot TL curve
