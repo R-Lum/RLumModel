@@ -1,6 +1,16 @@
 \name{NEWS}
 \title{NEWS for the R Package RLumModel}
 
+\section{Changes in version 0.2.2 (XX-XX, 2017)}{
+\itemize{
+
+  \subsection{Bugfixes and changes:}{
+  
+    }
+
+ }
+}
+
 \section{Changes in version 0.2.1 (13th April, 2017)}{
 \itemize{
 
