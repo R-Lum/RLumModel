@@ -46,17 +46,14 @@ read_SEQ2R <- function(
 
 # Integrity tests and conversion --------------------------------------------------------------
 
-if(class(file)!= "character"){
+if(class(file)!= "character")
   stop("[read_SEQ2R()] class of file has to be a character.")
-}
-
-if(!file.exists(file)){
+  
+if(!file.exists(file))
   stop("[read_SEQ2R()] file name doesn't seem to exist.")
-}
 
-if(lab.dose_rate < 0){
+if(lab.dose_rate < 0)
   stop("[read_SEQ2R()] Argument 'lab.dose_rate' has to be positiv.")
-}
 
 # parse *.SEQ file --------------------------------------------------------
 
@@ -309,5 +306,5 @@ for(x in 1:length(data.list)){
   ##close ProgressBar
   if(txtProgressBar){close(pb)}
 
-  return(sequence <- setNames(object = sequence,nm = names))
+  return(sequence <- setNames(object = sequence, nm = names))
 }

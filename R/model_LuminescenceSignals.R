@@ -49,7 +49,8 @@
 #' Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).
 #
 #' @param model \code{\link{character}} (\bold{required}): set model to be used. Available models are:
-#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008" and "Friedrich2017".
+#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017" and for own models "customized" (or "customised").
+#' Note: When model = "customized" is set, the argument 'own_parameters' has to be set.
 #'
 #' @param lab.dose_rate \code{\link{numeric}} (with default): laboratory dose rate in XXX
 #' Gy/s for calculating seconds into Gray in the *.seq file.
@@ -87,8 +88,7 @@
 #' and example 3. 
 #' 
 #' @param own_state_parameters \code{\link{numeric}} (with default): Some publications (e.g. Pagonis 2009)
-#' offer state parameters. With this argument the user can submit this state parameters. \bold{Note:} 
-#' You have to submit the state parameters for the conduction band and the valence band, too. For further details
+#' offer state parameters. With this argument the user can submit this state parameters. For further details
 #' see vignette ""RLumModel - Using own parameter sets" and example 3.
 #' 
 #' @param own_start_temperature \code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
@@ -101,7 +101,7 @@
 #' in the sequence. Every entry is an \code{\linkS4class{RLum.Data.Curve}} object and can be plotted, analysed etc. with
 #' further \code{RLum}-functions.
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4 
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -119,8 +119,11 @@
 #' and it simplications for the precision and accuracy of optical dating.
 #' Radiation Measurements 38, 299-310.
 #' 
-#' Friedrich, J., Kreutzer, S., & Schmidt, C., 2016. Solving ordinary differential equations to understand luminescence:
+#' Friedrich, J., Kreutzer, S., Schmidt, C., 2016. Solving ordinary differential equations to understand luminescence:
 #' 'RLumModel', an advanced research tool for simulating luminescence in quartz using R. Quaternary Geochronology 35, 88-100.
+#' 
+#' Friedrich, J., Pagonis, V., Chen, R., Kreutzer, S., Schmidt, C., 2017: Quartz radiofluorescence: a modelling approach.
+#' Journal of Luminescence 186, 318-325.
 #'
 #' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
 #' stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
@@ -431,34 +434,47 @@ model_LuminescenceSignals <- function(
 ) {
 
 # Integrity tests and conversion --------------------------------------------------------------
+  
+  if(missing(model))
+    stop("[model_LuminescenceSignals()] Argument 'model' not given!", call. = FALSE)
+  
+  if(missing(sequence))
+    stop("[model_LuminescenceSignals()] Argument 'sequence' not given!", call. = FALSE)
 
   #Check if model is supported
-  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002", "Friedrich2017","customized")
+  model.allowed_keywords <- c("Bailey2001", 
+                              "Bailey2004", 
+                              "Pagonis2008", 
+                              "Pagonis2007", 
+                              "Bailey2002", 
+                              "Friedrich2017", 
+                              "customized",
+                              "customised")
 
-  if(!model%in%model.allowed_keywords){
-    stop(paste0("[model_LuminescenceSignals()] Model not supported. Supported models are: ", paste(model.allowed_keywords, collapse = ", ")))
-
-  }
+  if(!model%in%model.allowed_keywords)
+    stop(paste0("[model_LuminescenceSignals()] Model not supported. Supported models are: ", 
+                paste(model.allowed_keywords, collapse = ", ")))
 
   #Check sequence
-  if(is(sequence,"character")){
-
+  if(is(sequence, "character")){
+    
+    if(!tools::file_ext(sequence) %in% c("SEQ", "seq"))
+      stop("[model_LuminescenceSignals()] Argument 'sequence' is not a *.SEQ file!", call. = FALSE)
+  
     sequence <- read_SEQ2R(
-      file = sequence,
-      lab.dose_rate = lab.dose_rate,
-      txtProgressBar = ifelse(verbose, TRUE, FALSE)
-    )
-
+        file = sequence,
+        lab.dose_rate = lab.dose_rate,
+        txtProgressBar = ifelse(verbose, TRUE, FALSE))
   }
 
   else if(is.list(sequence)){
 
-    if(!is.numeric(unlist(sequence))){
+    if(!is.numeric(unlist(sequence)))
       stop("[model_LuminescenceSignals()] Sequence comprises non-numeric arguments!")
-    }
 
-    if("RegDose"%in%names(sequence)){# test if .create_SAR.sequence is requiered
-
+    # test if .create_SAR.sequence is requiered
+    if("RegDose"%in%names(sequence)){
+      
       RegDose = sequence$RegDose
       TestDose = sequence$TestDose
       PH = sequence$PH
@@ -466,51 +482,40 @@ model_LuminescenceSignals <- function(
       OSL_temp = sequence$OSL_temp
 
       Irr_temp = sequence$Irr_temp
-      if(is.null(Irr_temp)){
-
+      if(is.null(Irr_temp))
         Irr_temp <- 20
-      }
 
       OSL_duration = sequence$OSL_duration
-      if(is.null(sequence$OSL_duration)){
-
+      if(is.null(sequence$OSL_duration))
         OSL_duration <- 40
-      }
 
       PH_duration = sequence$PH_duration
-      if(is.null(PH_duration)){
-
+      if(is.null(PH_duration))
         PH_duration <- 10
-      }
 
       dose_rate = sequence$dose_rate
-      if(is.null(dose_rate)){
-
+      if(is.null(dose_rate))
         dose_rate <- lab.dose_rate
-      }
 
       optical_power = sequence$optical_power
-      if(is.null(optical_power)){
-
+      if(is.null(optical_power))
         optical_power <- 90
-      }
+      
+      if(!"Irr_2recover" %in% names(sequence)){# SAR sequence
 
-
-      if(!"Irr_2recover"%in%names(sequence)){# SAR sequence
-
-      sequence <- .create_SAR.sequence(
-        RegDose = RegDose,
-        TestDose = TestDose,
-        PH = PH,
-        CH = CH,
-        OSL_temp = OSL_temp,
-        Irr_temp = Irr_temp,
-        OSL_duration = OSL_duration,
-        PH_duration = PH_duration,
-        dose_rate = dose_rate,
-        optical_power = optical_power
-      )}
-      else{# DRT sequence
+        sequence <- .create_SAR.sequence(
+          RegDose = RegDose,
+          TestDose = TestDose,
+          PH = PH,
+          CH = CH,
+          OSL_temp = OSL_temp,
+          Irr_temp = Irr_temp,
+          OSL_duration = OSL_duration,
+          PH_duration = PH_duration,
+          dose_rate = dose_rate,
+          optical_power = optical_power)
+        
+      } else {# DRT sequence
 
         sequence <- .create_DRT.sequence(
           RegDose = RegDose,
@@ -523,46 +528,41 @@ model_LuminescenceSignals <- function(
           PH_duration = PH_duration,
           dose_rate = dose_rate,
           optical_power = optical_power,
-          Irr_2recover = sequence$Irr_2recover
-          )}
-
-
-    }else{
-
-      sequence <- sequence
+          Irr_2recover = sequence$Irr_2recover)
     }
+  } else {
+    
+   sequence <- sequence
+   
   }
-
-  else{
-
-    stop("[model_LuminescenceSignals()] Sequence has to be of class list or a *.seq file")
+  } else { # end if(is.list(sequence))
+    stop("[model_LuminescenceSignals()] Sequence has to be of class list or a *.seq file", call. = FALSE)
   }
-
 
   #check for wrong elements in the sequence
 
-    ##allowed keywords
-    sequence.allowed_keywords <- c("IRR","PH", "CH", "TL", "OSL", "PAUSE", "LM_OSL", "RL", "RF", "ILL", "RF_heating")
+  ##allowed keywords
+  sequence.allowed_keywords <- c("IRR","PH", "CH", "TL", "OSL", "PAUSE", "LM_OSL", "RL", "RF", "ILL", "RF_heating")
 
-    ##check
-    if(!all(names(sequence)%in%sequence.allowed_keywords)){
-      stop(paste0("[model_LuminescenceSignals()] Unknow sequence arguments: Allowed arguments are: ", paste(sequence.allowed_keywords, collapse = ", ")))
-
+  ##check
+  if(!all(names(sequence)%in%sequence.allowed_keywords)){
+    stop(paste0("[model_LuminescenceSignals()] Unknow sequence arguments: Allowed arguments are: ", 
+                paste(sequence.allowed_keywords, collapse = ", ")), call. = FALSE)
     }
 
   #check if lab.dose_rate > 0
-    if(lab.dose_rate <= 0){
+  if(lab.dose_rate <= 0)
+    stop("[model_LuminescenceSignals()] lab.dose_rate has to be a positive number!", call. = FALSE)
 
-      stop("[model_LuminescenceSignals()] lab.dose_rate has to be a positive number! ")
-
-    }
-    
-    extraArgs <- list(...)
+  extraArgs <- list(...)
 
 # Load model parameters ------------------------------------------------------------------------------------
 
-  if(model == "customized"){
-        
+  if(model == "customized" || model == "customised"){
+        if(is.null(own_parameters)){
+          stop("[model_LuminescenceSignals()] Argument 'model' set to 'customized' but no own parameters are given!", 
+               call. = FALSE)}
+    
         parms <- own_parameters
         
         ##check if "Th", "E_th", "k_B", "W" or "K" are set
@@ -605,7 +605,7 @@ model_LuminescenceSignals <- function(
       } else { ## model not customized and parms not set
       
         parms <- .set_pars(model)
-        if(simulate_sample_history == TRUE){
+        if(simulate_sample_history){
           n <- Luminescence::set_RLum(class = "RLum.Results",
                                       data = list(n = rep(0,length(parms$N)+2),
                                                   temp = 20,
@@ -633,7 +633,9 @@ model_LuminescenceSignals <- function(
 
   if(plot){
 
-    plot.data <- get_RLum(model.output, recordType = c("RF$", "TL$", "OSL$", "LM-OSL$", "RF_heating$", "pause$"), drop = FALSE)
+    plot.data <- get_RLum(model.output, 
+                          recordType = c("RF$", "TL$", "OSL$", "LM-OSL$", "RF_heating$", "pause$"), 
+                          drop = FALSE)
     Luminescence::plot_RLum(plot.data, ...)
   }
 

@@ -111,7 +111,7 @@ echo ""
 # =================================================================================================
 
   echo -ne "-> Compact vignettes ... \t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Compact_Vignettes.R /dev/null
+  eval R-devel CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Compact_Vignettes.R /dev/null
   check_status
 
 #

@@ -47,6 +47,7 @@
 #'
 #' @import Luminescence deSolve methods utils
 #' @importFrom stats setNames
+#' @importFrom tools file_ext
 #' @importFrom Rcpp evalCpp
 #' @useDynLib RLumModel, .registration = TRUE
 NULL
