@@ -3,14 +3,12 @@
 #' A SEQ-file created by the Risoe Sequence Editor can be imported to simulate the sequence written
 #' in the sequence editor.
 #'
-#' \bold{Supported versions}\cr
-#'
-#' Supppored and tested: version 4.36.\cr
+#' \bold{Supported versions}: Supppored and tested: version 4.36.
 #'
 #' @param file \code{\link{character}} (\bold{required}): a *.seq file created by the Risoe Sequence Editor
 #'
 #' @param lab.dose_rate \code{\link{character}} (with default): set the dose rate of the radiation source
-#' in the laboratory [Gy/s]. Default: 1 Gy/s
+#' in the laboratory Gy/s. Default: 1 Gy/s
 #'
 #' @param txtProgressBar \code{\link{logical}} (with default): enables or disables the txtProgressBar for a visuell
 #' control of the progress. Default: txtProgressBar = TRUE
@@ -25,9 +23,9 @@
 #' @references
 #'
 #' Riso: Sequence Editor User Manual.
-#' Available at: \url{http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter
+#' Available at: http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter
 #' %20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/
-#' SequenceEditor.ashx?la=da}
+#' SequenceEditor.ashx?la=da
 #'
 #' @seealso \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
 #'

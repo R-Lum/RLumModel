@@ -19,3 +19,4 @@ RLumModel.Experiment
 ^packrat/
 packrat
 R/README\.md
+^docs$

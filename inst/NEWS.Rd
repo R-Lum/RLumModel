@@ -4,7 +4,13 @@
 \section{Changes in version 0.2.2 (XX-XX, 2017)}{
 \itemize{
 
-  \subsection{Bugfixes and changes:}{
+  \subsection{Miscellaneous}{
+  
+  \itemize{
+  
+    \item Update error messages and tests
+  
+  }
   
     }
 

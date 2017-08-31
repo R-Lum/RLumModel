@@ -10,7 +10,7 @@ read_SEQ2R(file, lab.dose_rate = 1, txtProgressBar = TRUE)
 \item{file}{\code{\link{character}} (\bold{required}): a *.seq file created by the Risoe Sequence Editor}
 
 \item{lab.dose_rate}{\code{\link{character}} (with default): set the dose rate of the radiation source
-in the laboratory [Gy/s]. Default: 1 Gy/s}
+in the laboratory Gy/s. Default: 1 Gy/s}
 
 \item{txtProgressBar}{\code{\link{logical}} (with default): enables or disables the txtProgressBar for a visuell
 control of the progress. Default: txtProgressBar = TRUE}
@@ -24,12 +24,10 @@ A SEQ-file created by the Risoe Sequence Editor can be imported to simulate the 
 in the sequence editor.
 }
 \details{
-\bold{Supported versions}\cr
-
-Supppored and tested: version 4.36.\cr
+\bold{Supported versions}: Supppored and tested: version 4.36.
 }
 \section{Function version}{
- 0.1.0 (2017-08-08 11:44:00)
+ 0.1.0
 }
 
 \examples{
@@ -41,9 +39,9 @@ sequence <- read_SEQ2R(file = path)
 }
 \references{
 Riso: Sequence Editor User Manual.
-Available at: \url{http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter
+Available at: http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter
 %20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/
-SequenceEditor.ashx?la=da}
+SequenceEditor.ashx?la=da
 }
 \seealso{
 \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
