@@ -113,14 +113,14 @@ Irr_2recover \tab Dose to be recovered in a dose-recovery-test [Gy]\tab 20
 }
 }
 \section{Function version}{
- 0.1.4 (2017-08-31 20:03:34)
+ 0.1.4 (2017-09-02 00:21:49)
 }
 
 \examples{
 
 
 ##================================================================##
-## Example 1: Simulate sample history of Bailey2001
+## Example 1: Simulate Bailey2001
 ## (cf. Bailey, 2001, Fig. 1)
 ##================================================================##
 

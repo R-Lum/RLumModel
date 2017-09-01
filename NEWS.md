@@ -6,7 +6,7 @@
   
 * Update error messages and tests
 * Change vignettes from PDF to HTML
-    * Change vignette builder to knitr
+    * Change vignette builder from r.rsp to knitr
     * Add kableExtra to SUGGESTS
     * Remove r.rsp from vignette builder
 

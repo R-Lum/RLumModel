@@ -22,3 +22,4 @@ R/README\.md
 ^docs$
 ^pkgdown$
 ^_pkgdown\.yml$
+NEWS\.html
