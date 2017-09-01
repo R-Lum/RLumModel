@@ -1,17 +1,18 @@
 ---
 title: "RLumModel - Getting started with RLumModel"
-author: "Johannes Friedrich"
+author: "Johannes Friedrich, University of Bayreuth"
 date: '`r Sys.Date()`'
 output: 
-  pdf_document:
+  html_document:
     fig_caption: yes
     fig_height: 5
     fig_width: 5
     number_sections: yes
     toc: yes
-header-includes: \usepackage[utf8]{inputenc} \usepackage{float}
-bibliography: /home/johannes/RLumModel.bib
-csl: /home/johannes/elsevier-harvard.csl
+    toc_float: yes
+    theme: cerulean
+bibliography: RLumModel.bib
+csl: elsevier-harvard.csl
 vignette: |
   %\VignetteIndexEntry{RLumModel - Getting started with RLumModel} 
   %\VignetteEncoding{UTF-8}{inputenc}
@@ -19,13 +20,15 @@ vignette: |
 ---
 ```{r, echo=FALSE, message = FALSE}
 library(RLumModel)
+library(knitr)
+library(kableExtra)
 ```
 
 
 # Introduction
 
 This vignette shows a few examples for the **R**-package 'RLumModel'. The main function `model_LuminescenceSignals()` and their arguments will be explained.
-All calculations were done with 'RLumModel' 0.2.0 and 'Luminescence' 0.7.4.
+All calculations were done with 'RLumModel' 0.2.2 and 'Luminescence' 0.7.5.
 
 
 # Object structure of RLumModel
@@ -141,29 +144,28 @@ With these keywords, it is possible to create quickly an R object of type list,
 which can be read by the `model_LuminescenceSignals()`
 function.
 
-\begin{table}[ht]
-	\centering
-	\begin{footnotesize}
-		\begin{tabular}{l|l|l}
-			\hline
-			\textbf{ARGUMENTS} & \textbf{DESCRIPTION} & \textbf{SUB-ARGUMENTS}\\
-			\hline
-			\texttt{TL} & Thermally stimulated luminescence & 'temp\_begin' [$\,^{\circ}\mathrm{C}$], 'temp\_end' [$\,^{\circ}\mathrm{C}$], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s]\\
-			\texttt{OSL} & Optically stimulated luminescence & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], 'optical\_power' [\%]\\
-			\texttt{ILL} & Illumination & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], 'optical\_power' [\%]\\
-		\texttt{LM\_OSL} & Linear modulated OSL & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], optional: 'start\_power' [\%], 'end\_power' [\%]\\
-			\texttt{RF} & Radiofluorescence & 'temp' [$\,^{\circ}\mathrm{C}$], 'dose' [Gy], 'dose\_rate' [Gy/s] \\
-			\texttt{IRR} & Irradiation & 'temp' [$\,^{\circ}\mathrm{C}$], 'dose' [Gy], 'dose\_rate' [Gy/s]\\
-			\texttt{RF\_heating} & RF during heating/cooling & 'temp\_begin' [$\,^{\circ}\mathrm{C}$], 'temp\_end' [$\,^{\circ}\mathrm{C}$], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s], 'dose\_rate' [Gy/s] \\
-			\texttt{CH} & Cutheat & 'temp' [$\,^{\circ}\mathrm{C}$], optional: 'duration' [s], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s]\\
-			\texttt{PH}  & Preheat & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], optional: 'heating\_rate'  [$\,^{\circ}\mathrm{C}$/s]\\
-			\texttt{PAUSE} & Pause & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration [s]' \\
-			\hline
-		\end{tabular}
-	\end{footnotesize}
-		\caption{Keywords for creating a sequence in 'RLumModel'. Note that 100 \% optical power equates to 20 mW cm$^{-2}$. Of course, values $>$ 100 \% are allowed.}
-		\label{table:keywords}
-\end{table}
+```{r, echo = FALSE}
+keywords <- data.frame(
+  ARGUMENTS = c("TL","OSL","ILL","LM_OSL", "RF", "RF_heating", "IRR", "CH", "PH", "PAUSE"),
+DESCRIPTION = c("Thermally stimulated luminescence", "Optically stimulated luminescence", "Illumination", "Linear modulated OSL", "Radiofluorescence", "RF during heating/cooling","Irradiation", "Cutheat", "Preheat", "Pause"),
+SUB_ARGUMENTS = c("’temp_begin’ [°C], ’temp_end’ [°C], ’heating_rate’ [°C/s]",
+"’temp’ [°C], ’duration’ [s], ’optical_power’ [%]",
+"’temp’ [°C], ’duration’ [s], ’optical_power’ [%]",
+"’temp’ [°C], ’duration’ [s], optional: ’start_power’ [%], ’end_power’ [%]",
+"’temp’ [°C], ’dose’ [Gy], ’dose_rate’ [Gy/s]",
+"’temp_begin’ [°C], ’temp_end’ [°C], 'heating rate' [°C/s], 'dose_rate' [Gy/s]",
+"’temp’ [°C], ’dose’ [Gy], ’dose_rate’ [Gy/s]",
+"’temp’ [°C], optional: ’duration’ [s], ’heating_rate’ [°C/s]",
+"’temp’ [°C], ’duration’ [s], optional: ’heating_rate’ [°C/s]",
+"’temp’ [°C], ’duration [s]’"))
+
+kable(keywords,
+      format = "html",
+      col.names = c("ARGUMENTS", "DESCRIPTION", "SUB-ARGUMENTS"),
+      caption = "Keywords in RLumModel for creating sequences") %>%
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F)
+
+```
 
 Some examples to this kind of sequence creating:
 
@@ -198,33 +200,38 @@ keywords RegDose, TestDose, PH, CH and OSL temp. In addition to these keywords,
 the user is able to set more detailed parameters for the SAR sequence,
 see Table 2:
 
-\begin{table}[ht]
-	\centering
-	\begin{footnotesize}
-		\begin{tabular}{l|l|l}
-			\hline
-			\textbf{ABBREVIATION} & \textbf{DESCRIPTION} & \textbf{EXAMPLE}\\
-			&&\textbf{ARGUMENTS}\\
-			\hline
-			\texttt{RegDose} & Dose points of the regenerative cycles [Gy] & c(0, 80, 140, 260, 320, 0, 80)\\
-			\texttt{TestDose} & Test dose for the SAR cycles [Gy] & 50 \\
-			\texttt{PH} & Temperature of the preheat [$\,^{\circ}\mathrm{C}$] & 240\\
-			\texttt{CH} & Temperature of the cutheat [$\,^{\circ}\mathrm{C}$] & 200 \\
-			\texttt{OSL\_temp} & Temperature of OSL read out [$\,^{\circ}\mathrm{C}$] & 125 \\
-			\texttt{OSL\_duration} & Duration of OSL read out [s] & default: 40 \\
-			\texttt{Irr\_temp}  & Temperature of irradiation [$\,^{\circ}\mathrm{C}$] & default: 20 \\
-			\texttt{PH\_duration} & Duration of the preheat [s] & default: 10 \\
-			\texttt{dose\_rate} & Dose rate of the laboratory irradiation source [Gy$\, \mathrm{s}^{-1}$] & default: 1\\
-			\texttt{optical\_power} & Percentage of the full illumination power [\%]& default: 90 \\  
-			\texttt{Irr\_2recover} & Dose to be recovered in a dose-recovery-test [Gy]& 20\\
-			\hline
-		\end{tabular}
-		\end{footnotesize}
-		\caption{Keywords for creating a SAR sequence with 'RLumModel'. The keyword \texttt{Irr\_2recover} is  only necessary for
-		creating a DRT sequence. Note that 100 \% optical power equates to 20 mW cm$^{-2}$. Of course, values $>$ 100 \% are
-		allowed.}
-		\label{tab:SAR}
-\end{table}
+```{r, echo = FALSE}
+SAR_sequence_table <- data.frame(
+  ABBREVIATION = c("RegDose", "TestDose", "PH", "CH", "OSL_temp", "OSL_duration", "Irr_temp", "PH_duration", "dose_rate", "optical_power", "Irr_2recover"),
+  DESCRIPTION = c("Dose points of the regenerative cycles [Gy]", 
+                  "Test dose for the SAR cycles [Gy]",
+                  "Temperature of the preheat [°C]",
+                  "Temperature of the cutheat [°C]",
+                  "Temperature of OSL read out [°C]",
+                  "Duration of OSL read out [s]",
+                  "Temperature of irradiation [°C]",
+                  "Duration of the preheat [s]",
+                  "Dose rate of the laboratory irradiation source [Gy/s]",
+                  "Percentage of the full illumination power [%]",
+                  "Dose to be recovered in a dose-recovery-test [Gy]"),
+  EXAMPLE_ARGUMENTS = c("c(0, 80, 140, 260, 320, 0, 80)",
+                        "50",
+                        "240",
+                        "200",
+                        "125",
+                        "default: 40",
+                        "default: 20",
+                        "default: 10",
+                        "default: 1",
+                        "default: 90",
+                        "20"))
+
+kable(SAR_sequence_table,
+      format = "html",
+      col.names = c("ABBREVIATION", "DESCRIPTION", "EXAMPLE ARGUMENTS"),
+      caption = "Keywords in RLumModel for creating SAR sequences") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = F)
+```
 
 So a possible DRT sequence could be the next code example:
 

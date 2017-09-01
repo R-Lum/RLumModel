@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -34,12 +34,24 @@
 <![endif]-->
 
 
+<!-- Google analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84499524-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
   </head>
 
   <body>
     <div class="container template-reference-topic">
       <header>
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -52,33 +64,50 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    How To
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/RLumModel_-_Getting_started_with_RLumModel.html">RLumModel - Getting started with RLumModel</a>
+      <a href="../articles/RLumModel_-_Getting_started_with_RLumModel.html">Getting Started</a>
     </li>
     <li>
-      <a href="../articles/RLumModel_-_Using_own_parameter_sets.html">RLumModel - Using own parameter sets</a>
+      <a href="../articles/RLumModel_-_Using_own_parameter_sets.html">Using own parameter sets</a>
     </li>
   </ul>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">
+    <span class="fa fa-file-code-o"></span>
+     
+    Functions
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/RLumModel">
+    <span class="fa fa-github fa-lg"></span>
+     
+    Github
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -284,7 +313,7 @@ optical_power </td>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.4</p>
+    <p>0.1.4 (2017-08-31 20:03:34)</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -342,7 +371,7 @@ Springer Science &amp; Business Media.</p>
 )</div><div class='output co'>#&gt; 
 #&gt; [.translate_Sequence()] 
 #&gt; 	&gt;&gt; Simulate sequence 
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</div><div class='img'><img src='model_LuminescenceSignals-21.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</div><div class='img'><img src='model_LuminescenceSignals-25.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##get all TL concentrations</span>
 
 <span class='no'>TL_conc</span> <span class='kw'>&lt;-</span> <span class='fu'>get_RLum</span>(<span class='no'>model.output</span>, <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"(TL)"</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -351,7 +380,7 @@ Springer Science &amp; Business Media.</p>
 <span class='co'>##plot 110 deg. C trap concentration</span>
 
 <span class='no'>TL_110</span> <span class='kw'>&lt;-</span> <span class='fu'>get_RLum</span>(<span class='no'>TL_conc</span>, <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"conc. level 1"</span>)
-<span class='fu'>plot_RLum</span>(<span class='no'>TL_110</span>)</div><div class='img'><img src='model_LuminescenceSignals-22.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_RLum</span>(<span class='no'>TL_110</span>)</div><div class='img'><img src='model_LuminescenceSignals-26.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##============================================================================##</span>
 <span class='co'>## Example 2: compare different optical powers of stimulation light</span>
 <span class='co'>##============================================================================##</span>
@@ -390,7 +419,7 @@ Springer Science &amp; Business Media.</p>
  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"OSL signal [a.u.]"</span>,
  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"OSL signal dependency on optical power of stimulation light"</span>,
  <span class='kw'>legend.text</span> <span class='kw'>=</span> <span class='fu'>paste</span>(<span class='st'>"Optical power density"</span>, <span class='fl'>20</span>*<span class='no'>optical_power</span>/<span class='fl'>100</span>, <span class='st'>"mW/cm^2"</span>),
- <span class='kw'>combine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='model_LuminescenceSignals-23.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+ <span class='kw'>combine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='model_LuminescenceSignals-27.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##============================================================================##</span>
 <span class='co'>## Example 3: Usage of own parameter sets (Pagonis 2009)</span>
 <span class='co'>##============================================================================##</span>
@@ -429,7 +458,7 @@ Springer Science &amp; Business Media.</p>
    <span class='kw'>own_state_parameters</span> <span class='kw'>=</span> <span class='no'>own_state_parameters</span>)</div><div class='output co'>#&gt; 
 #&gt; [.translate_Sequence()] 
 #&gt; 	&gt;&gt; Simulate sequence 
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</div><div class='img'><img src='model_LuminescenceSignals-24.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</div><div class='img'><img src='model_LuminescenceSignals-28.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt;  [RLum.Analysis]
 #&gt; 	 originator: model_LuminescenceSignals()()
 #&gt; 	 protocol: customized

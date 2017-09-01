@@ -20,3 +20,5 @@ RLumModel.Experiment
 packrat
 R/README\.md
 ^docs$
+^pkgdown$
+^_pkgdown\.yml$

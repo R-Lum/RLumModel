@@ -1,0 +1,27 @@
+title: RLumModel 
+url: https://github.com/R-Lum/RLumModel 
+template:
+  params:
+    bootswatch: flatly
+    ganalytics: UA-84499524-2
+navbar:
+  type: inverse
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: "How To"  
+      menu: 
+      -  text: Getting Started
+         href: articles/RLumModel_-_Getting_started_with_RLumModel.html
+      -  text: Using own parameter sets
+         href: articles/RLumModel_-_Using_own_parameter_sets.html
+  right:
+    - icon: fa-newspaper-o
+      text: "News"
+      href: news/index.html
+    - icon: fa-file-code-o 
+      text: "Functions"
+      href: reference/index.html
+    - icon: fa-github fa-lg
+      text: "Github"
+      href: https://github.com/R-Lum/RLumModel 

@@ -94,9 +94,9 @@ echo ""
 # NEWS
 # =================================================================================================
 
-  echo -ne "-> Build ASCII NEWS ... \t\t\t"
-  eval R-devel CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_NEWS.R /dev/null
-  check_status
+  # echo -ne "-> Build ASCII NEWS ... \t\t\t"
+  # eval R-devel CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_NEWS.R /dev/null
+  # check_status
 
 #
 # PARSE RD files

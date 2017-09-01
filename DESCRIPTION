@@ -48,7 +48,8 @@ Collate:
   translate_sequence.R
 RoxygenNote: 6.0.1
 Suggests: 
-  R.rsp,
+  knitr,
+  kableExtra,
   testthat
-VignetteBuilder: R.rsp
+VignetteBuilder: knitr
 LinkingTo: Rcpp, RcppArmadillo
