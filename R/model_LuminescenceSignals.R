@@ -560,7 +560,7 @@ model_LuminescenceSignals <- function(
 
   if(model == "customized" || model == "customised"){
         if(is.null(own_parameters)){
-          stop("[model_LuminescenceSignals()] Argument 'model' set to 'customized' but no own parameters are given!", 
+          stop("[model_LuminescenceSignals()] Argument 'model' set to 'customized', but no own parameters are given!", 
                call. = FALSE)}
     
         parms <- own_parameters
@@ -603,6 +603,18 @@ model_LuminescenceSignals <- function(
         }
         
       } else { ## model not customized and parms not set
+        
+        if(!is.null(own_parameters)){
+          warning(paste0("[model_LuminescenceSignals()] Argument 'own_parameters' set, but argument 'model' not set to 'customized'. Used '", model, "' as argument for 'model'."), call. = FALSE)
+        }
+        
+        if(!is.null(own_state_parameters)){
+          warning(paste0("[model_LuminescenceSignals()] Argument 'own_sate_parameters' set, but argument 'model' not set to 'customized'. Ignored argument 'own_state_parameters'."), call. = FALSE)
+        }
+        
+        if(!is.null(own_start_temperature)){
+          warning(paste0("[model_LuminescenceSignals()] Argument 'own_start_temperature' set, but argument 'model' not set to 'customized'. Ignored argument 'own_start_temperature'."), call. = FALSE)
+        }
       
         parms <- .set_pars(model)
         if(simulate_sample_history){

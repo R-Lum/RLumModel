@@ -125,6 +125,42 @@ test_that("check custom models", {
     plot = FALSE,
     verbose = FALSE)
   
+  expect_warning(
+    model_LuminescenceSignals(
+      model = "Bailey2001",
+      sequence = list(TL = c(20, 30, 10)),
+      own_parameters = list(),
+      plot = FALSE,
+      verbose = FALSE
+    ),
+    regexp = "[model_LuminescenceSignals()] Argument 'own_parameters' set, but argument 'model' not set to 'customized'. Used 'Bailey2001' as argument for 'model'.",
+    fixed = TRUE
+  )
+  
+  expect_warning(
+    model_LuminescenceSignals(
+      model = "Bailey2001",
+      sequence = list(TL = c(20, 30, 10)),
+      own_state_parameters = 10,
+      plot = FALSE,
+      verbose = FALSE
+    ),
+    regexp = "[model_LuminescenceSignals()] Argument 'own_sate_parameters' set, but argument 'model' not set to 'customized'. Ignored argument 'own_state_parameters'.",
+    fixed = TRUE
+  )
+  
+  expect_warning(
+    model_LuminescenceSignals(
+      model = "Bailey2001",
+      sequence = list(TL = c(20, 30, 10)),
+      own_start_temperature = 10,
+      plot = FALSE,
+      verbose = FALSE
+    ),
+    regexp = "[model_LuminescenceSignals()] Argument 'own_start_temperature' set, but argument 'model' not set to 'customized'. Ignored argument 'own_start_temperature'.",
+    fixed = TRUE
+  )
+  
 })
 
 test_that("test controlled crash conditions", {
@@ -187,7 +223,7 @@ test_that("test controlled crash conditions", {
     model_LuminescenceSignals(
       model = "customized",
       sequence = list(TL = c(20,100,5))),
-    regexp = "[model_LuminescenceSignals()] Argument 'model' set to 'customized' but no own parameters are given!",
+    regexp = "[model_LuminescenceSignals()] Argument 'model' set to 'customized', but no own parameters are given!",
     fixed = TRUE)
   
 })

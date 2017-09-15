@@ -8,7 +8,6 @@
 * Change vignettes from PDF to HTML
     * Change vignette builder from r.rsp to knitr
     * Add kableExtra to SUGGESTS
-    * Remove r.rsp from vignette builder
 
 ____________________________________________________________________________________
   
@@ -54,7 +53,7 @@ ________________________________________________________________________________
 	   This was necessary to use OTOR models with own parameters much easier.
     * Output is now a list and not a RLum.Results object.
 	  * Add new parameter set "Friedrich2017".
-	  *Add new case 'customized' for own parameter sets.
+	  * Add new case 'customized' for own parameter sets.
 
 * simulate_CW_OSL():
     * Remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.
