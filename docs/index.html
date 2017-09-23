@@ -56,6 +56,9 @@
     <li>
       <a href="articles/RLumModel_-_Using_own_parameter_sets.html">Using own parameter sets</a>
     </li>
+    <li>
+      <a href="articles/RLumModel_-_Simulating_luminescence_in_Al2O3.html">Simulating luminescence in Al&lt;sub&gt;2&lt;/sub&gt;O&lt;sub&gt;3&lt;/sub&gt;</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -96,35 +99,31 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#rlummodel" class="anchor"></a>RLumModel</h1></div>
 
-<p>The <strong>R</strong> package ‘RLumModel’ by Johannes Friedrich (University of Bayreuth, Germany), Sebastian Kreutzer (IRAMAT-CRP2A, Université Bordeaux Montaigne, France) and Christoph Schmidt (University of Bayreuth, Germany) provides a collection of various R functions modelling luminescence signals in quartz.</p>
+<p>The <strong>R</strong> package ‘RLumModel’ by Johannes Friedrich (University of Bayreuth, Germany), Sebastian Kreutzer (IRAMAT-CRP2A, Université Bordeaux Montaigne, France) and Christoph Schmidt (University of Bayreuth, Germany) provides a collection of various R functions modelling luminescence signals in quartz and Al<sub>2</sub>O<sub>3</sub>, based on energy-band models.</p>
 <p>For an introduction and further details, visit the <a href="http://model.r-luminescence.de">RLumModel homepage</a>.</p>
-<div id="package-metrics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#package-metrics" class="anchor"></a>Package metrics</h2>
-</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div id="i--requirements" class="section level4">
-<h4 class="hasAnchor">
-<a href="#i--requirements" class="anchor"></a>i. Requirements</h4>
+<div id="install-the-package" class="section level3">
+<h3 class="hasAnchor">
+<a href="#install-the-package" class="anchor"></a>Install the package</h3>
+<p>To install the stable version from CRAN, simply run the following from an R console:</p>
+<pre class="{r}"><code>install.packages("RLumModel")</code></pre>
+<p>To install the latest development builds directly from GitHub, run</p>
+<pre class="{r}"><code>if(!require("devtools"))
+  install.packages("devtools")
+devtools::install_github("R-Lum/RLumModel@master")</code></pre>
+<p>To install a developer build other than ‘master’, replace the term ‘master’ in the codeline by the name of the wanted developer build.</p>
+</div>
+<div id="requirements" class="section level3">
+<h3 class="hasAnchor">
+<a href="#requirements" class="anchor"></a>Requirements</h3>
 <p>Depending on your OS please download and install one of the following:</p>
 <p><strong>Windows (32/64bit)</strong> - ‘Rtools’ (provided by CRAN)</p>
 <p><a href="http://cran.r-project.org/bin/windows/Rtools/" class="uri">http://cran.r-project.org/bin/windows/Rtools/</a></p>
 <p><strong>Mac OS X</strong> - ‘Xcode’ (provided by Apple)</p>
 <p><a href="https://developer.apple.com/xcode/downloads/" class="uri">https://developer.apple.com/xcode/downloads/</a></p>
 <p>For <strong>Linux</strong> users <em>gcc</em> often comes pre-installed in most distributions. Should <em>gcc</em> be not available, however, we kindly refer to the exhaustive collection of installation guides depending on the linux distribution.</p>
-</div>
-<div id="ii--install-the-package" class="section level4">
-<h4 class="hasAnchor">
-<a href="#ii--install-the-package" class="anchor"></a>ii. Install the package</h4>
-<p>To install the stable version from CRAN, simply run the following from an R console:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"RLumModel"</span>)</code></pre></div>
-<p>To install the latest development builds directly from GitHub, run</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(<span class="st">"devtools"</span>))
-  <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"R-Lum/RLumModel@master"</span>)</code></pre></div>
-<p>To install a developer build other than ‘master’, replace the term ‘master’ in the codeline by the name of the wanted developer build.</p>
 </div>
 </div>
 <div id="note" class="section level2">
@@ -151,12 +150,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
   </div>
 
   <div class="col-md-3" id="sidebar">
-    <h2>Links</h2>
-<ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cran.r-project.org/package=RLumModel">https://​cran.r-project.org/​package=RLumModel</a>
-</li>
-</ul>
-<h2>License</h2>
+    <h2>License</h2>
 <p><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">

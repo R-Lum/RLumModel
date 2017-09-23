@@ -1,10 +1,11 @@
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.2 (XX-XX, 2017)
+## Changes in version 0.2.2 (13th October, 2017)
 
 ### Miscellaneous
   
 * Update error messages and tests
+* Add vignette "RLumModel - Simulating luminescence in Al<sub>2</sub>O<sub>3</sub>"
 * Change vignettes from PDF to HTML
     * Change vignette builder from r.rsp to knitr
     * Add kableExtra to SUGGESTS

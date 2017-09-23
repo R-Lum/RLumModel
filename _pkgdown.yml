@@ -15,6 +15,8 @@ navbar:
          href: articles/RLumModel_-_Getting_started_with_RLumModel.html
       -  text: Using own parameter sets
          href: articles/RLumModel_-_Using_own_parameter_sets.html
+      -  text: Simulating luminescence in Al<sub>2</sub>O<sub>3</sub>
+         href: articles/RLumModel_-_Simulating_luminescence_in_Al2O3.html
   right:
     - icon: fa-newspaper-o
       text: "News"

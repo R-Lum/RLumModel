@@ -82,6 +82,9 @@
     <li>
       <a href="../articles/RLumModel_-_Using_own_parameter_sets.html">Using own parameter sets</a>
     </li>
+    <li>
+      <a href="../articles/RLumModel_-_Simulating_luminescence_in_Al2O3.html">Simulating luminescence in Al&lt;sub&gt;2&lt;/sub&gt;O&lt;sub&gt;3&lt;/sub&gt;</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -158,7 +161,7 @@ stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998
 <span class='no'>TL_curve</span> <span class='kw'>&lt;-</span> <span class='fu'>get_RLum</span>(<span class='no'>model.output</span>, <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"TL$"</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'>##plot TL curve</span>
-<span class='fu'>plot_RLum</span>(<span class='no'>TL_curve</span>)</div><div class='img'><img src='ExampleData.ModelOutput-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_RLum</span>(<span class='no'>TL_curve</span>)</div><div class='img'><img src='ExampleData.ModelOutput-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='no'>TL_concentrations</span> <span class='kw'>&lt;-</span> <span class='fu'>get_RLum</span>(<span class='no'>model.output</span>, <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"(TL)"</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>plot_RLum</span>(<span class='no'>TL_concentrations</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 

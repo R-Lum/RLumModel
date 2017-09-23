@@ -27,14 +27,14 @@ in the sequence editor.
 \bold{Supported versions}: Supppored and tested: version 4.36.
 }
 \section{Function version}{
- 0.1.0 (2017-08-31 20:16:55)
+ 0.1.0 (2017-09-15 20:34:25)
 }
 
 \examples{
 ##search "example_SAR_cycle.SEQ" in "extdata" in package "RLumModel"
 path <- system.file("extdata", "example_SAR_cycle.SEQ", package="RLumModel")
 
-sequence <- read_SEQ2R(file = path)
+sequence <- read_SEQ2R(file = path, txtProgressBar = FALSE)
 
 }
 \references{

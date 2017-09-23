@@ -82,6 +82,9 @@
     <li>
       <a href="../articles/RLumModel_-_Using_own_parameter_sets.html">Using own parameter sets</a>
     </li>
+    <li>
+      <a href="../articles/RLumModel_-_Simulating_luminescence_in_Al2O3.html">Simulating luminescence in Al&lt;sub&gt;2&lt;/sub&gt;O&lt;sub&gt;3&lt;/sub&gt;</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -313,7 +316,7 @@ optical_power </td>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.4 (2017-08-31 20:03:34)</p>
+    <p>0.1.4 (2017-09-15 19:37:19)</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -350,7 +353,7 @@ Springer Science &amp; Business Media.</p>
     <pre class="examples"><div class='input'>
 
 <span class='co'>##================================================================##</span>
-<span class='co'>## Example 1: Simulate sample history of Bailey2001</span>
+<span class='co'>## Example 1: Simulate Bailey2001</span>
 <span class='co'>## (cf. Bailey, 2001, Fig. 1)</span>
 <span class='co'>##================================================================##</span>
 
@@ -371,7 +374,7 @@ Springer Science &amp; Business Media.</p>
 )</div><div class='output co'>#&gt; 
 #&gt; [.translate_Sequence()] 
 #&gt; 	&gt;&gt; Simulate sequence 
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</div><div class='img'><img src='model_LuminescenceSignals-25.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</div><div class='img'><img src='model_LuminescenceSignals-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##get all TL concentrations</span>
 
 <span class='no'>TL_conc</span> <span class='kw'>&lt;-</span> <span class='fu'>get_RLum</span>(<span class='no'>model.output</span>, <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"(TL)"</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -380,7 +383,7 @@ Springer Science &amp; Business Media.</p>
 <span class='co'>##plot 110 deg. C trap concentration</span>
 
 <span class='no'>TL_110</span> <span class='kw'>&lt;-</span> <span class='fu'>get_RLum</span>(<span class='no'>TL_conc</span>, <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"conc. level 1"</span>)
-<span class='fu'>plot_RLum</span>(<span class='no'>TL_110</span>)</div><div class='img'><img src='model_LuminescenceSignals-26.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_RLum</span>(<span class='no'>TL_110</span>)</div><div class='img'><img src='model_LuminescenceSignals-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##============================================================================##</span>
 <span class='co'>## Example 2: compare different optical powers of stimulation light</span>
 <span class='co'>##============================================================================##</span>
@@ -419,7 +422,7 @@ Springer Science &amp; Business Media.</p>
  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"OSL signal [a.u.]"</span>,
  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"OSL signal dependency on optical power of stimulation light"</span>,
  <span class='kw'>legend.text</span> <span class='kw'>=</span> <span class='fu'>paste</span>(<span class='st'>"Optical power density"</span>, <span class='fl'>20</span>*<span class='no'>optical_power</span>/<span class='fl'>100</span>, <span class='st'>"mW/cm^2"</span>),
- <span class='kw'>combine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='model_LuminescenceSignals-27.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+ <span class='kw'>combine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='model_LuminescenceSignals-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##============================================================================##</span>
 <span class='co'>## Example 3: Usage of own parameter sets (Pagonis 2009)</span>
 <span class='co'>##============================================================================##</span>
@@ -458,7 +461,7 @@ Springer Science &amp; Business Media.</p>
    <span class='kw'>own_state_parameters</span> <span class='kw'>=</span> <span class='no'>own_state_parameters</span>)</div><div class='output co'>#&gt; 
 #&gt; [.translate_Sequence()] 
 #&gt; 	&gt;&gt; Simulate sequence 
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</div><div class='img'><img src='model_LuminescenceSignals-28.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</div><div class='img'><img src='model_LuminescenceSignals-4.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt;  [RLum.Analysis]
 #&gt; 	 originator: model_LuminescenceSignals()()
 #&gt; 	 protocol: customized

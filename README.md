@@ -13,15 +13,32 @@
 The **R** package 'RLumModel' by Johannes Friedrich (University of Bayreuth, Germany), 
 Sebastian Kreutzer (IRAMAT-CRP2A, Université Bordeaux Montaigne, France) and Christoph Schmidt 
 (University of Bayreuth, Germany)
-provides a collection of various R functions modelling luminescence signals in quartz.
+provides a collection of various R functions modelling luminescence signals in quartz and Al<sub>2</sub>O<sub>3</sub>, based on energy-band models.
 
 For an introduction and further details, visit the [RLumModel homepage](http://model.r-luminescence.de).
 
-## Package metrics 
-
 ## Installation
 
-#### i. Requirements
+### Install the package
+
+To install the stable version from CRAN, simply run the following from an R console:
+
+```{r}
+install.packages("RLumModel")
+```
+
+To install the latest development builds directly from GitHub, run
+
+```{r}
+if(!require("devtools"))
+  install.packages("devtools")
+devtools::install_github("R-Lum/RLumModel@master")
+```
+
+To install a developer build other than 'master', replace the term 'master' in the codeline by the name
+of the wanted developer build. 
+
+### Requirements 
 
 Depending on your OS please download and install one of the following:
 
@@ -34,25 +51,6 @@ Depending on your OS please download and install one of the following:
    https://developer.apple.com/xcode/downloads/
 
 For **Linux** users *gcc* often comes pre-installed in most distributions. Should *gcc* be not available, however, we kindly refer to the exhaustive collection of installation guides depending on the linux distribution.
-
-#### ii. Install the package
-
-To install the stable version from CRAN, simply run the following from an R console:
-
-```r
-install.packages("RLumModel")
-```
-
-To install the latest development builds directly from GitHub, run
-
-```r
-if(!require("devtools"))
-  install.packages("devtools")
-devtools::install_github("R-Lum/RLumModel@master")
-```
-
-To install a developer build other than 'master', replace the term 'master' in the codeline by the name
-of the wanted developer build. 
 
 
 ## Note

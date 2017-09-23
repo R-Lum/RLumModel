@@ -48,6 +48,9 @@
 #' Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
 #' and it simplications for the precision and accuracy of optical dating.
 #' Radiation Measurements 38, 299-310.
+#' 
+#' Friedrich, J., Pagonis, V., Chen, R., Kreutzer, S., Schmidt, C., 2017: Quartz radiofluorescence: a modelling approach.
+#' Journal of Luminescence 186, 318-325.
 #'
 #' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
 #' stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
@@ -66,7 +69,7 @@
 # check input arguments ---------------------------------------------------
 
   #Check if model is supported
-  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002", "Friedrich2017", "customized")
+  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002", "Friedrich2017", "customized", "customised")
 
   if(!model%in%model.allowed_keywords){
     stop(paste0("[.set_Pars()] Model not supported. Supported models are: ", paste(model.allowed_keywords, collapse = ", ")))

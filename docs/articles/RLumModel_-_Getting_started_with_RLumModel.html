@@ -56,6 +56,9 @@
     <li>
       <a href="../articles/RLumModel_-_Using_own_parameter_sets.html">Using own parameter sets</a>
     </li>
+    <li>
+      <a href="../articles/RLumModel_-_Simulating_luminescence_in_Al2O3.html">Simulating luminescence in Al&lt;sub&gt;2&lt;/sub&gt;O&lt;sub&gt;3&lt;/sub&gt;</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -96,7 +99,7 @@
       <h1>RLumModel - Getting started with RLumModel</h1>
                         <h4 class="author">Johannes Friedrich, University of Bayreuth</h4>
             
-            <h4 class="date">2017-09-01</h4>
+            <h4 class="date">2017-09-22</h4>
           </div>
 
     
@@ -149,7 +152,7 @@ Luminescence<span class="op">::</span><span class="kw"><a href="http://www.rdocu
 <a href="#selecting-a-quartz-luminescence-model" class="anchor"></a>Selecting a quartz luminescence model</h1>
 <p>The first argument required for the function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> is the name of a quartz luminescence model to be used, respectively the used parameter set in this quartz luminescence model. All currently implemented quartz luminescence models were described in <span class="citation">Friedrich et al. (2016)</span>. The command to select a set of parameters from a specific model in <code>RLumModel</code> is a character string with the name of the author and the year, e.g.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> "Bailey2001"</span></code></pre></div>
-<p>The available models are “Bailey2001”, “Bailey2002”, “Bailey2004”, “Pagonis2007”, “Pagonis2008” and “Friedrich2017” (<span class="citation">Bailey (2001)</span>, <span class="citation">Bailey (2002)</span>, <span class="citation">Bailey (2004)</span>, <span class="citation">Pagonis et al. (2007)</span>, <span class="citation">V. Pagonis et al. (2008)</span>, <span class="citation">Friedrich et al. (2017)</span>).</p>
+<p>The available models are “Bailey2001”, “Bailey2002”, “Bailey2004”, “Pagonis2007”, “Pagonis2008”,“Friedrich2017” and “customized” (<span class="citation">Bailey (2001)</span>, <span class="citation">Bailey (2002)</span>, <span class="citation">Bailey (2004)</span>, <span class="citation">Pagonis et al. (2007)</span>, <span class="citation">V. Pagonis et al. (2008)</span>, <span class="citation">Friedrich et al. (2017)</span>). For customized or own parameter sets, see vignette <a href="RLumModel_-_Using_own_parameter_sets.html">RLumModel - Using own parameter sets</a></p>
 <p>The corresponding parameter set will be loaded automatically with the function call.</p>
 </div>
 <div id="creating-a-sequence" class="section level1">
@@ -165,7 +168,7 @@ Luminescence<span class="op">::</span><span class="kw"><a href="http://www.rdocu
   <span class="st">"extdata"</span>,
   <span class="st">"example_SAR_cycle.SEQ"</span>,
   <span class="dt">package =</span> <span class="st">"RLumModel"</span>)</code></pre></div>
-<p>or wherever the SEQ-file is stored. While in the Sequence Editor irradiation is commonly defined in seconds, performing the simulation requires a dose transformation to gray. Therefore, the function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> offers a special argument called <code>lab.dose_rate</code>, representing the dose rate of the irradiation unit in the laboratory. By default, this dose rate is <span class="math inline">\(1\,\mathrm{Gy}\,\mathrm{s}^{-1}\)</span>, but can be modified, e.g.,</p>
+<p>or wherever the SEQ-file is stored. While in the Sequence Editor irradiation is commonly defined in seconds, performing the simulation requires a dose transformation to Gray. Therefore, the function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> offers a special argument called <code>lab.dose_rate</code>, representing the dose rate of the irradiation unit in the laboratory. By default, this dose rate is 1 Gy/s, but can be modified, e.g.,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lab.dose_rate &lt;-<span class="st">  </span><span class="fl">0.105</span></code></pre></div>
 </div>
 <div id="keywords" class="section level2">
@@ -536,7 +539,7 @@ TL signal with different heating rates
 <div id="simulating-thermal-activation-characteristics-tacs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#simulating-thermal-activation-characteristics-tacs" class="anchor"></a>Simulating thermal activation characteristics (TACs)</h2>
-<p>Another frequently simulated phenomenon is the sensitisation of quartz TL by <span class="math inline">\(\beta\)</span>- or <span class="math inline">\(\gamma\)</span>-irradiation followed by activation at high temperatures <span class="citation">(Zimmerman, 1971, <span class="citation">Pagonis et al. (2003)</span>, <span class="citation">V Pagonis et al. (2008)</span>, <span class="citation">Adamiec et al. (2004)</span>)</span>, termed as thermal activation characteristics (TACs). For a simulation sequence, the reader is referred to <span class="citation">V Pagonis et al. (2008)</span>, Tab. 1. To simulate this phenomenon with the <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> function, a loop causing a stepwise increase of the activation temperature is needed. The resulting intensity of the <span class="math inline">\(110\,\,^{\circ}\mathrm{C}\)</span> TL peak can be plotted against the activation temperature, which shows TAC for the model parameters of “Pagonis2007”.</p>
+<p>Another frequently simulated phenomenon is the sensitisation of quartz TL by <span class="math inline">\(\beta\)</span>- or <span class="math inline">\(\gamma\)</span>-irradiation followed by activation at high temperatures <span class="citation">(Zimmerman, 1971, <span class="citation">Pagonis et al. (2003)</span>, <span class="citation">V Pagonis et al. (2008)</span>, <span class="citation">Adamiec et al. (2004)</span>)</span>, termed as thermal activation characteristics (TACs). For a simulation sequence, the reader is referred to <span class="citation">V Pagonis et al. (2008)</span>, Tab. 1. To simulate this phenomenon with the <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> function, a loop causing a stepwise increase of the activation temperature is needed. The resulting intensity of the 110 °C TL peak can be plotted against the activation temperature, which shows TAC for the model parameters of “Pagonis2007”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##set temperature
 act.temp &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">80</span>, <span class="dt">to =</span> <span class="dv">600</span>, <span class="dt">by =</span> <span class="dv">20</span>)
 
@@ -568,7 +571,7 @@ model.output &lt;-<span class="st"> </span><span class="kw">vapply</span>(<span 
   <span class="kw">return</span>(<span class="kw">max</span>(<span class="kw">get_RLum</span>(TL_curve)[,<span class="dv">2</span>]))
 
 }, <span class="dt">FUN.VALUE =</span> <span class="dv">1</span>)</code></pre></div>
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="RLumModel_-_Getting_started_with_RLumModel_files/figure-html/unnamed-chunk-16-1.png" alt="TAC with parameter set of 'Pagonis2007'" width="672"><p class="caption">
 TAC with parameter set of ‘Pagonis2007’
 </p>
@@ -686,7 +689,7 @@ Luminescence<span class="op">::</span><span class="kw"><a href="http://www.rdocu
 Dose recovery test (DRT) with the parameter set of ‘Pagonis2008’
 </p>
 </div>
-<p>In the code above, <code>plot = FALSE</code> was chosen, because a single OSL plot is not necessary to analyse a SAR sequence. To calculate a <span class="math inline">\(D_e\)</span> from the produced <code>RLum.Analysis</code> object ‘model.output’, the function <code><a href="http://www.rdocumentation.org/packages/Luminescence/topics/analyse_SAR.CWOSL">Luminescence::analyse_SAR.CWOSL()</a></code> is suitable. After specifying a number of evaluation parameters (signal and background integration interval, dose points and fit function for the dose response curve) and the analysis process, the reduced data are stored in an <code>RLum.Results</code> object, here termed ‘results’ . A background integration interval from 301 to 401 translates to the signal from 30 s to 40 s, because a channel has the default width of 0.1 s. Accordingly, the signal integral ranges from 0.1 s to 0.7 s.</p>
+<p>In the code above, <code>plot = FALSE</code> was chosen, because a single OSL plot is not necessary to analyse a SAR sequence. To calculate a D<sub>e</sub> from the produced <code>RLum.Analysis</code> object ‘model.output’, the function <code><a href="http://www.rdocumentation.org/packages/Luminescence/topics/analyse_SAR.CWOSL">Luminescence::analyse_SAR.CWOSL()</a></code> is suitable. After specifying a number of evaluation parameters (signal and background integration interval, dose points and fit function for the dose response curve) and the analysis process, the reduced data are stored in an <code>RLum.Results</code> object, here termed ‘results’ . A background integration interval from 301 to 401 translates to the signal from 30 s to 40 s, because a channel has the default width of 0.1 s. Accordingly, the signal integral ranges from 0.1 s to 0.7 s.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##set RegDose
 RegDose =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">140</span>, <span class="dv">260</span>, <span class="dv">320</span>, <span class="dv">0</span>, <span class="dv">80</span>)
 

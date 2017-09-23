@@ -3,5 +3,6 @@ urls:
   article: https://github.com/R-Lum/RLumModel/articles
 articles:
   RLumModel_-_Getting_started_with_RLumModel: RLumModel_-_Getting_started_with_RLumModel.html
+  RLumModel_-_Simulating_luminescence_in_Al2O3: RLumModel_-_Simulating_luminescence_in_Al2O3.html
   RLumModel_-_Using_own_parameter_sets: RLumModel_-_Using_own_parameter_sets.html
 

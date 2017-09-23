@@ -33,7 +33,7 @@
 #' ##search "example_SAR_cycle.SEQ" in "extdata" in package "RLumModel"
 #' path <- system.file("extdata", "example_SAR_cycle.SEQ", package="RLumModel")
 #'
-#' sequence <- read_SEQ2R(file = path)
+#' sequence <- read_SEQ2R(file = path, txtProgressBar = FALSE)
 #'
 #' @export
 read_SEQ2R <- function(
