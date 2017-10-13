@@ -15,7 +15,7 @@ Sebastian Kreutzer (IRAMAT-CRP2A, Université Bordeaux Montaigne, France) and Ch
 (University of Bayreuth, Germany)
 provides a collection of various R functions modelling luminescence signals in quartz and Al<sub>2</sub>O<sub>3</sub>, based on energy-band models.
 
-For an introduction and further details, visit the [RLumModel homepage](http://model.r-luminescence.de).
+For an introduction and further details, visit the [RLumModel homepage](http://r-lum.github.io/RLumModel/).
 
 ## Installation
 

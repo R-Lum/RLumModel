@@ -4,7 +4,7 @@
 #' published models.
 #'
 #' \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-#' \tab 0.2.2\cr Date: \tab 2017-XX-XX \cr License: \tab GPL-3\cr }
+#' \tab 0.2.3\cr Date: \tab 2017-XX-XX \cr License: \tab GPL-3\cr }
 #'
 #' @name RLumModel-package
 #' @docType package
