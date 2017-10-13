@@ -68,14 +68,14 @@ test_that("check Risoe SEQ", {
   sequence <- read_SEQ2R(file = path,
                          txtProgressBar = FALSE)
   
-  temp <- model_LuminescenceSignals(
+  model_LuminescenceSignals(
     sequence = sequence,
     model = "Bailey2001",
     plot = FALSE,
     verbose = FALSE
   )
   
-  temp <- model_LuminescenceSignals(
+  model_LuminescenceSignals(
     sequence = path,
     model = "Bailey2001",
     plot = FALSE,
@@ -125,6 +125,42 @@ test_that("check custom models", {
     plot = FALSE,
     verbose = FALSE)
   
+  expect_warning(
+    model_LuminescenceSignals(
+      model = "Bailey2001",
+      sequence = list(TL = c(20, 30, 10)),
+      own_parameters = list(),
+      plot = FALSE,
+      verbose = FALSE
+    ),
+    regexp = "[model_LuminescenceSignals()] Argument 'own_parameters' set, but argument 'model' not set to 'customized'. Used 'Bailey2001' as argument for 'model'.",
+    fixed = TRUE
+  )
+  
+  expect_warning(
+    model_LuminescenceSignals(
+      model = "Bailey2001",
+      sequence = list(TL = c(20, 30, 10)),
+      own_state_parameters = 10,
+      plot = FALSE,
+      verbose = FALSE
+    ),
+    regexp = "[model_LuminescenceSignals()] Argument 'own_sate_parameters' set, but argument 'model' not set to 'customized'. Ignored argument 'own_state_parameters'.",
+    fixed = TRUE
+  )
+  
+  expect_warning(
+    model_LuminescenceSignals(
+      model = "Bailey2001",
+      sequence = list(TL = c(20, 30, 10)),
+      own_start_temperature = 10,
+      plot = FALSE,
+      verbose = FALSE
+    ),
+    regexp = "[model_LuminescenceSignals()] Argument 'own_start_temperature' set, but argument 'model' not set to 'customized'. Ignored argument 'own_start_temperature'.",
+    fixed = TRUE
+  )
+  
 })
 
 test_that("test controlled crash conditions", {
@@ -142,14 +178,23 @@ test_that("test controlled crash conditions", {
   
   expect_error(
     model_LuminescenceSignals(
+      model = "Bailey2001", 
+      sequence = "test.jpg", 
+      plot = FALSE, 
+      verbose = FALSE), 
+    regexp = "[model_LuminescenceSignals()] Argument 'sequence' is not a *.SEQ file!",
+    fixed = TRUE)
+  
+  expect_error(
+    model_LuminescenceSignals(
       sequence = list(
         OSL = c(20, 1, 100))),
-    "argument \"model\" is missing")
+    "Argument 'model' not given!")
   
   expect_error(
     model_LuminescenceSignals(
       model = "Bailey2001"),
-    "argument \"sequence\" is missing")
+    "Argument 'sequence' not given!")
   
   expect_error(
     model_LuminescenceSignals(
@@ -172,6 +217,13 @@ test_that("test controlled crash conditions", {
       model = "Bailey2001",
       sequence = matrix(NA)),
     regexp = "[model_LuminescenceSignals()] Sequence has to be of class list or a *.seq file",
+    fixed = TRUE)
+  
+  expect_error(
+    model_LuminescenceSignals(
+      model = "customized",
+      sequence = list(TL = c(20,100,5))),
+    regexp = "[model_LuminescenceSignals()] Argument 'model' set to 'customized', but no own parameters are given!",
     fixed = TRUE)
   
 })

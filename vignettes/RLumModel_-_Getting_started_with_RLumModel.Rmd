@@ -1,31 +1,37 @@
 ---
 title: "RLumModel - Getting started with RLumModel"
-author: "Johannes Friedrich"
+author: "Johannes Friedrich, University of Bayreuth"
 date: '`r Sys.Date()`'
 output: 
-  pdf_document:
+  rmarkdown::html_vignette:
     fig_caption: yes
     fig_height: 5
     fig_width: 5
     number_sections: yes
     toc: yes
-header-includes: \usepackage[utf8]{inputenc} \usepackage{float}
-bibliography: /home/johannes/RLumModel.bib
-csl: /home/johannes/elsevier-harvard.csl
+bibliography: RLumModel.bib
+csl: elsevier-harvard.csl
 vignette: |
   %\VignetteIndexEntry{RLumModel - Getting started with RLumModel} 
   %\VignetteEncoding{UTF-8}{inputenc}
   %\VignetteEngine{knitr::rmarkdown} 
 ---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.pos = 'H', fig.align = 'center')
+```
+
 ```{r, echo=FALSE, message = FALSE}
 library(RLumModel)
+library(knitr)
+library(kableExtra)
 ```
 
 
 # Introduction
 
 This vignette shows a few examples for the **R**-package 'RLumModel'. The main function `model_LuminescenceSignals()` and their arguments will be explained.
-All calculations were done with 'RLumModel' 0.2.0 and 'Luminescence' 0.7.4.
+All calculations were done with 'RLumModel' 0.2.2 and 'Luminescence' 0.7.5.
 
 
 # Object structure of RLumModel
@@ -36,7 +42,7 @@ All simualted data are stored in the slot 'records': TL/OSL/RF curves as well as
 
 The following code loads a data set provided by the 'RLumModel' package and shows how to seperate TL/OSL/RF data from concentrations and how to visualize them.
 
-```{r, eval = FALSE, fig.align = "center"}
+```{r, eval = FALSE}
 data("ExampleData.ModelOutput", package = "RLumModel")
 
 ##show class
@@ -91,7 +97,7 @@ with the name of the author and the year, e.g.
 model <- "Bailey2001"
 ```
 
-The available models are "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008" and "Friedrich2017" (@Bailey_2001, @Bailey_2002, @Bailey_2004, @Pagonis_2007a, @Pagonis_2008b, @Friedrich_2017).
+The available models are "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008","Friedrich2017" and "customized" (@Bailey_2001, @Bailey_2002, @Bailey_2004, @Pagonis_2007a, @Pagonis_2008b, @Friedrich_2017). For customized or own parameter sets, see vignette [RLumModel - Using own parameter sets](RLumModel_-_Using_own_parameter_sets.html)
 
 The corresponding parameter set will be loaded automatically with the function call. 
 
@@ -122,10 +128,10 @@ sequence <- system.file(
 ```
 
 or wherever the SEQ-file is stored. While in the Sequence Editor irradiation is commonly defined in seconds, 
-performing the simulation requires a dose transformation to gray. 
+performing the simulation requires a dose transformation to Gray. 
 Therefore, the function `model_LuminescenceSignals()` offers a special argument 
 called `lab.dose_rate`, representing the dose rate of the irradiation unit in the laboratory. 
-By default, this dose rate is $1\,\mathrm{Gy}\,\mathrm{s}^{-1}$, but can be modified, e.g.,
+By default, this dose rate is 1 Gy/s, but can be modified, e.g.,
 
 ```{r}
 lab.dose_rate <-  0.105
@@ -141,29 +147,28 @@ With these keywords, it is possible to create quickly an R object of type list,
 which can be read by the `model_LuminescenceSignals()`
 function.
 
-\begin{table}[ht]
-	\centering
-	\begin{footnotesize}
-		\begin{tabular}{l|l|l}
-			\hline
-			\textbf{ARGUMENTS} & \textbf{DESCRIPTION} & \textbf{SUB-ARGUMENTS}\\
-			\hline
-			\texttt{TL} & Thermally stimulated luminescence & 'temp\_begin' [$\,^{\circ}\mathrm{C}$], 'temp\_end' [$\,^{\circ}\mathrm{C}$], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s]\\
-			\texttt{OSL} & Optically stimulated luminescence & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], 'optical\_power' [\%]\\
-			\texttt{ILL} & Illumination & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], 'optical\_power' [\%]\\
-		\texttt{LM\_OSL} & Linear modulated OSL & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], optional: 'start\_power' [\%], 'end\_power' [\%]\\
-			\texttt{RF} & Radiofluorescence & 'temp' [$\,^{\circ}\mathrm{C}$], 'dose' [Gy], 'dose\_rate' [Gy/s] \\
-			\texttt{IRR} & Irradiation & 'temp' [$\,^{\circ}\mathrm{C}$], 'dose' [Gy], 'dose\_rate' [Gy/s]\\
-			\texttt{RF\_heating} & RF during heating/cooling & 'temp\_begin' [$\,^{\circ}\mathrm{C}$], 'temp\_end' [$\,^{\circ}\mathrm{C}$], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s], 'dose\_rate' [Gy/s] \\
-			\texttt{CH} & Cutheat & 'temp' [$\,^{\circ}\mathrm{C}$], optional: 'duration' [s], 'heating\_rate' [$\,^{\circ}\mathrm{C}$/s]\\
-			\texttt{PH}  & Preheat & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration' [s], optional: 'heating\_rate'  [$\,^{\circ}\mathrm{C}$/s]\\
-			\texttt{PAUSE} & Pause & 'temp' [$\,^{\circ}\mathrm{C}$], 'duration [s]' \\
-			\hline
-		\end{tabular}
-	\end{footnotesize}
-		\caption{Keywords for creating a sequence in 'RLumModel'. Note that 100 \% optical power equates to 20 mW cm$^{-2}$. Of course, values $>$ 100 \% are allowed.}
-		\label{table:keywords}
-\end{table}
+```{r, echo = FALSE}
+keywords <- data.frame(
+  ARGUMENTS = c("TL","OSL","ILL","LM_OSL", "RF", "RF_heating", "IRR", "CH", "PH", "PAUSE"),
+DESCRIPTION = c("Thermally stimulated luminescence", "Optically stimulated luminescence", "Illumination", "Linear modulated OSL", "Radiofluorescence", "RF during heating/cooling","Irradiation", "Cutheat", "Preheat", "Pause"),
+SUB_ARGUMENTS = c("’temp_begin’ [°C], ’temp_end’ [°C], ’heating_rate’ [°C/s]",
+"’temp’ [°C], ’duration’ [s], ’optical_power’ [%]",
+"’temp’ [°C], ’duration’ [s], ’optical_power’ [%]",
+"’temp’ [°C], ’duration’ [s], optional: ’start_power’ [%], ’end_power’ [%]",
+"’temp’ [°C], ’dose’ [Gy], ’dose_rate’ [Gy/s]",
+"’temp_begin’ [°C], ’temp_end’ [°C], 'heating rate' [°C/s], 'dose_rate' [Gy/s]",
+"’temp’ [°C], ’dose’ [Gy], ’dose_rate’ [Gy/s]",
+"’temp’ [°C], optional: ’duration’ [s], ’heating_rate’ [°C/s]",
+"’temp’ [°C], ’duration’ [s], optional: ’heating_rate’ [°C/s]",
+"’temp’ [°C], ’duration [s]’"))
+
+kable(keywords,
+      format = "html",
+      col.names = c("ARGUMENTS", "DESCRIPTION", "SUB-ARGUMENTS"),
+      caption = "Keywords in RLumModel for creating sequences") %>%
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F)
+
+```
 
 Some examples to this kind of sequence creating:
 
@@ -198,33 +203,38 @@ keywords RegDose, TestDose, PH, CH and OSL temp. In addition to these keywords,
 the user is able to set more detailed parameters for the SAR sequence,
 see Table 2:
 
-\begin{table}[ht]
-	\centering
-	\begin{footnotesize}
-		\begin{tabular}{l|l|l}
-			\hline
-			\textbf{ABBREVIATION} & \textbf{DESCRIPTION} & \textbf{EXAMPLE}\\
-			&&\textbf{ARGUMENTS}\\
-			\hline
-			\texttt{RegDose} & Dose points of the regenerative cycles [Gy] & c(0, 80, 140, 260, 320, 0, 80)\\
-			\texttt{TestDose} & Test dose for the SAR cycles [Gy] & 50 \\
-			\texttt{PH} & Temperature of the preheat [$\,^{\circ}\mathrm{C}$] & 240\\
-			\texttt{CH} & Temperature of the cutheat [$\,^{\circ}\mathrm{C}$] & 200 \\
-			\texttt{OSL\_temp} & Temperature of OSL read out [$\,^{\circ}\mathrm{C}$] & 125 \\
-			\texttt{OSL\_duration} & Duration of OSL read out [s] & default: 40 \\
-			\texttt{Irr\_temp}  & Temperature of irradiation [$\,^{\circ}\mathrm{C}$] & default: 20 \\
-			\texttt{PH\_duration} & Duration of the preheat [s] & default: 10 \\
-			\texttt{dose\_rate} & Dose rate of the laboratory irradiation source [Gy$\, \mathrm{s}^{-1}$] & default: 1\\
-			\texttt{optical\_power} & Percentage of the full illumination power [\%]& default: 90 \\  
-			\texttt{Irr\_2recover} & Dose to be recovered in a dose-recovery-test [Gy]& 20\\
-			\hline
-		\end{tabular}
-		\end{footnotesize}
-		\caption{Keywords for creating a SAR sequence with 'RLumModel'. The keyword \texttt{Irr\_2recover} is  only necessary for
-		creating a DRT sequence. Note that 100 \% optical power equates to 20 mW cm$^{-2}$. Of course, values $>$ 100 \% are
-		allowed.}
-		\label{tab:SAR}
-\end{table}
+```{r, echo = FALSE}
+SAR_sequence_table <- data.frame(
+  ABBREVIATION = c("RegDose", "TestDose", "PH", "CH", "OSL_temp", "OSL_duration", "Irr_temp", "PH_duration", "dose_rate", "optical_power", "Irr_2recover"),
+  DESCRIPTION = c("Dose points of the regenerative cycles [Gy]", 
+                  "Test dose for the SAR cycles [Gy]",
+                  "Temperature of the preheat [°C]",
+                  "Temperature of the cutheat [°C]",
+                  "Temperature of OSL read out [°C]",
+                  "Duration of OSL read out [s]",
+                  "Temperature of irradiation [°C]",
+                  "Duration of the preheat [s]",
+                  "Dose rate of the laboratory irradiation source [Gy/s]",
+                  "Percentage of the full illumination power [%]",
+                  "Dose to be recovered in a dose-recovery-test [Gy]"),
+  EXAMPLE_ARGUMENTS = c("c(0, 80, 140, 260, 320, 0, 80)",
+                        "50",
+                        "240",
+                        "200",
+                        "125",
+                        "default: 40",
+                        "default: 20",
+                        "default: 10",
+                        "default: 1",
+                        "default: 90",
+                        "20"))
+
+kable(SAR_sequence_table,
+      format = "html",
+      col.names = c("ABBREVIATION", "DESCRIPTION", "EXAMPLE ARGUMENTS"),
+      caption = "Keywords in RLumModel for creating SAR sequences") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = F)
+```
 
 So a possible DRT sequence could be the next code example:
 
@@ -257,7 +267,7 @@ TL = c (20 , 400 , 5))
 
 Here, at a temperature of 20 °C a dose of 10 Gy was applied with a dose rate of 1 Gy/s followed by a TL measurement from 20 °C to 400 °C with a heating rate of 5 °C/s. Running this sequence with the `model_LuminescenceSignals()` function produces a model output:
 
-```{r, fig.align = "center", fig.cap = "TL curve with parameter set 'Bailey2001' after 10 Gy laboratory dose"}
+```{r, fig.cap = "TL curve with parameter set 'Bailey2001' after 10 Gy laboratory dose"}
 model.output <- model_LuminescenceSignals(
   model = "Bailey2001",
   sequence = sequence,
@@ -266,7 +276,7 @@ model.output <- model_LuminescenceSignals(
 
 This results in a TL curve like the one published in (@Bailey_2001, Fig. 1), see figure above. In a further step, it is easy to produce known TL phenomena like the shift of the TL peak with varying heating rate. For this purpose, a loop over a TL simulation changes the heating rate in each run.
 
-```{r, fig.align = "center", fig.cap = "TL signal with different heating rates"}
+```{r, fig.cap = "TL signal with different heating rates"}
 ##set heating rate
 heating.rate <- seq(from = 2, to = 10, by = 2)
 
@@ -315,7 +325,7 @@ Another frequently simulated phenomenon is the sensitisation of quartz TL by $\b
 followed by activation at high temperatures [@Zimmerman_1971, @Pagonis_2003, @Pagonis_2008a, @Adamiec_2004], termed as thermal activation characteristics (TACs). 
 For a simulation sequence, the reader is referred to @Pagonis_2008a, Tab. 1. To simulate this phenomenon
 with the `model_LuminescenceSignals()` function, a loop causing a stepwise increase 
-of the activation temperature is needed. The resulting intensity of the $110\,\,^{\circ}\mathrm{C}$ TL peak can be plotted 
+of the activation temperature is needed. The resulting intensity of the 110 °C TL peak can be plotted 
 against the activation temperature, which shows TAC for the model parameters 
 of "Pagonis2007".
 
@@ -369,7 +379,7 @@ plot(
 The function `model_LuminescenceSignals()` is also capable of simulating OSL phenomena.
 The next figure shows the dependency of the OSL signal on the power density of illumination for the model "Bailey2004". 
 
-```{r, fig.align = "center", fig.cap = "OSL measurement with different optical power densities with the parameter set of 'Bailey2004'"}
+```{r, fig.cap = "OSL measurement with different optical power densities with the parameter set of 'Bailey2004'"}
 ##set optical power [%]
 optical_power <- c(0,20,40,60,80,100)
 
@@ -423,7 +433,7 @@ The data created by 'RLumModel' can be directly passed to the functions
 `Luminescence::analyse_SAR.CWOSL()` and `Luminescence::plot_DRTResults()` 
 for routine analyses and plotting.
 
-```{r DRT, fig.align = "center", fig.cap = "Dose recovery test (DRT) with the parameter set of 'Pagonis2008'"}
+```{r DRT, fig.cap = "Dose recovery test (DRT) with the parameter set of 'Pagonis2008'"}
 ##set PH temperatures
 PH_temp <- seq(from = 160, to = 300, by = 20)
 
@@ -476,7 +486,7 @@ Luminescence::plot_DRTResults(
 ```
 
 In the code above, `plot = FALSE` was chosen, because a single OSL plot is not necessary to 
-analyse a SAR sequence. To calculate a $D_e$ from the 
+analyse a SAR sequence. To calculate a D<sub>e</sub> from the 
 produced `RLum.Analysis` object 'model.output', the 
 function `Luminescence::analyse_SAR.CWOSL()` is suitable.
 After specifying a number of evaluation parameters (signal and background integration interval, 
@@ -485,7 +495,7 @@ in an `RLum.Results` object, here termed 'results' .
 A background integration interval from 301 to 401 translates to the signal from 30 s to 40 s, 
 because a channel has the default width of 0.1 s. Accordingly, the signal integral ranges from 0.1 s to 0.7 s. 
 
-```{r SAR, fig.align = "center", fig.pos = "H", fig.cap = "SAR protocol with the parameter set of 'Pagonis2008'"}
+```{r SAR, fig.cap = "SAR protocol with the parameter set of 'Pagonis2008'"}
 ##set RegDose
 RegDose = c(0, 80, 140, 260, 320, 0, 80)
 

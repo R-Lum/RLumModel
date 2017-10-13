@@ -4,7 +4,7 @@
 #' published models.
 #'
 #' \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-#' \tab 0.2.1\cr Date: \tab 2017-XX-XX \cr License: \tab GPL-3\cr }
+#' \tab 0.2.2\cr Date: \tab 2017-XX-XX \cr License: \tab GPL-3\cr }
 #'
 #' @name RLumModel-package
 #' @docType package
@@ -47,8 +47,9 @@
 #'
 #' @import Luminescence deSolve methods utils
 #' @importFrom stats setNames
+#' @importFrom tools file_ext
 #' @importFrom Rcpp evalCpp
-#' @useDynLib RLumModel
+#' @useDynLib RLumModel, .registration = TRUE
 NULL
 
 

@@ -10,7 +10,7 @@
 #'
 #' @return This function returns a vector with OSL/TL/RF signal per time.
 #'
-#' @section Function version: 0.1.1 [2016-04-28]
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'

@@ -16,5 +16,7 @@ test_that("output",{
 })
 
 test_that("lab.dose_rate > 0",{
-  expect_error(read_SEQ2R(file = path, txtProgressBar = FALSE, lab.dose_rate =  -1), "Argument 'lab.dose_rate' has to be positiv")
+  expect_error(
+    read_SEQ2R(file = path, txtProgressBar = FALSE, lab.dose_rate =  -1), 
+    "Argument 'lab.dose_rate' has to be positiv")
 })

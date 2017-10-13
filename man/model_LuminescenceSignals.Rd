@@ -11,7 +11,8 @@ model_LuminescenceSignals(model, sequence, lab.dose_rate = 1,
 }
 \arguments{
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
-"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008" and "Friedrich2017".}
+"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017" and for own models "customized" (or "customised").
+Note: When model = "customized" is set, the argument 'own_parameters' has to be set.}
 
 \item{sequence}{\code{\link{list}} (\bold{required}): set sequence to model as \code{\link{list}} or as *.seq file from the
 Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).}
@@ -52,8 +53,7 @@ For further details see Bailey 2001, Wintle 1975, vignette "RLumModel - Using ow
 and example 3.}
 
 \item{own_state_parameters}{\code{\link{numeric}} (with default): Some publications (e.g. Pagonis 2009)
-offer state parameters. With this argument the user can submit this state parameters. \bold{Note:} 
-You have to submit the state parameters for the conduction band and the valence band, too. For further details
+offer state parameters. With this argument the user can submit this state parameters. For further details
 see vignette ""RLumModel - Using own parameter sets" and example 3.}
 
 \item{own_start_temperature}{\code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
@@ -113,14 +113,14 @@ Irr_2recover \tab Dose to be recovered in a dose-recovery-test [Gy]\tab 20
 }
 }
 \section{Function version}{
- 0.1.3 (2017-04-14 16:57:26)
+ 0.1.4 (2017-10-11 09:22:22)
 }
 
 \examples{
 
 
 ##================================================================##
-## Example 1: Simulate sample history of Bailey2001
+## Example 1: Simulate Bailey2001
 ## (cf. Bailey, 2001, Fig. 1)
 ##================================================================##
 
@@ -404,8 +404,11 @@ Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geologi
 and it simplications for the precision and accuracy of optical dating.
 Radiation Measurements 38, 299-310.
 
-Friedrich, J., Kreutzer, S., & Schmidt, C., 2016. Solving ordinary differential equations to understand luminescence:
+Friedrich, J., Kreutzer, S., Schmidt, C., 2016. Solving ordinary differential equations to understand luminescence:
 'RLumModel', an advanced research tool for simulating luminescence in quartz using R. Quaternary Geochronology 35, 88-100.
+
+Friedrich, J., Pagonis, V., Chen, R., Kreutzer, S., Schmidt, C., 2017: Quartz radiofluorescence: a modelling approach.
+Journal of Luminescence 186, 318-325.
 
 Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
 stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
