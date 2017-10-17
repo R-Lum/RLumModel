@@ -1,5 +1,13 @@
 # NEWS for the R Package RLumModel
 
+## Changes in version 0.2.3 (XX , 2017)
+
+### New functions:
+
+* fit_RLumModel2data():
+* extract_parms2FME
+____________________________________________________________________________________
+  
 ## Changes in version 0.2.2 (13th October, 2017)
 
 ### Miscellaneous

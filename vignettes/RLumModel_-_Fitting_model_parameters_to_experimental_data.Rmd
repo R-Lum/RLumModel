@@ -1,0 +1,451 @@
+---
+title: "RLumModel - Fitting model parameters to experimental data"
+author: "Johannes Friedrich"
+date: '`r Sys.Date()`'
+output: 
+  rmarkdown::html_vignette:
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 5
+    number_sections: yes
+    toc: yes
+bibliography: RLumModel.bib
+csl: elsevier-harvard.csl
+vignette: |
+  %\VignetteIndexEntry{RLumModel - Fitting model parameters to experimental data}         
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}{inputenc}
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.pos = 'H', fig.align = 'center')
+```
+
+# Introduction
+
+This vignette gives an overview how to fit quartz luminescence model parameters to experimental data, TL and OSL, respectively. 
+
+
+The sensitivity analysis as well as the fitting procedure is done using the **R**-package 'FME' by Karline Soetaert and Thomas Petzoldt (https://cran.r-project.org/web/packages/FME/index.html). For further information the reader is referred to the FME manual and the FME vignettes therein.
+
+# Getting started
+
+Before starting any analysis the data needed to be prepared to fit to the 'FME' and 'RLumModel' package. For creating a sequence or choosing a model the reader is referred to the RLumModel vignette 'RLumModel - Getting started with RLumModel'.
+
+A new feature from RLumModel version $\geq$ 0.2.3 is the function `fit_RLumModel2data()`. The result from this function is the main function for all sensitivity analysis (local and global). The main arguments of the `fit_RLumModel2data()` function are a sequence to be simulated, a quartz luminescence model and the sequence step in 'sequence' to be analysed. Note that only sequence steps producing a signal output, are allowed. These are: TL, OSL, LM-OSL and RF.
+
+
+# Fitting TL data
+
+First the global and local sensitivity of single parameters and then the procedure to fit model parameters to experimental TL data are shown.
+
+## Sensitivity analysis
+
+The following example shows a TL simulation from 20 °C to 400 °C with a heating rate of 5 °C/s following an irradiation step at 20 °C, a dose of 5 Gy and a doserate of 0.5 Gy/s. The step to be analysed is the last TL step from 0 °C to 400°C with 5 °C/s and therefore the third step in the created sequence. 
+As quartz luminescence model the parameter from @Pagonis_2007a are chosen. 
+For sensitivity analysis the function `func_FME()` will be created with all mentioned arguments.
+
+```{r, message = FALSE}
+library(RLumModel)
+library(FME)
+```
+
+```{r}
+sequence <-  list(
+    TL = c(20, 450, 5),
+    IRR = c(20, 5, 0.5),
+    TL = c(20, 450, 5))
+
+model <- "Pagonis2007"
+
+func_FME <- fit_RLumModel2data(
+  sequence = sequence, 
+  model = model, 
+  seq.step2fit = 3)
+```
+
+
+### Global Sensitivity Analysis
+
+In global sensitivity analysis, certain parameters are changed over a large range, and the effect
+on certain model ouput variables assessed. Only a few preparations are needed to use of the FME function `sensRange()`:
+
+* create parameters, which are able to be fitted with the function `sensRange()`. This is done via RLumModel function `extract_pars2FME()`. The user chooses only the used luminescence model.
+* create a data.frame to specify the minimum and maximum values of parameters
+* name the rowes of this data.frame like the used parameters
+
+```{r}
+parms <- extract_parameters2FME(model = model)
+
+
+parRanges <- data.frame(min = c(5.1e7,  1e5, 1e9,  2.5e6,  5e8,   3e6,   1e8,  5e7,  1e6),
+                        max = c(5.1e11, 1e9, 1e13, 2.5e10, 5e12,  3e10,  1e12, 5e11, 1e10))
+
+rownames(parRanges) <- c("N1","N2","N3","N4","N5","N6","N7","N8","N9")
+```
+
+Now the user is able to calculate the global sensitivity of the chosen sequence-step and the parameters mentioned in `parRanges`. In FME this is done via function `sensRange()`. 
+A short explanation of the parameters in sensRage in the example below:
+
+* func: The above created function `func_FME()`
+* parms: unlisted parameters (done via `extract_parameters2FME()`)
+* dist: The values of parRanges vary according to a regual grid
+* The effect of the sensitivity 'signal' is desired. Note: According to inner structures the parameter sensvar always has to be 'signal'
+* parRange is the minimum and maximum variation of the chosen parameters
+* num: Times the model is run
+
+For a detailed description the user is referred to the FME package.
+Subsequent a plot shows the range of possible TL curves.
+
+```{r Global Sensitivity Analysis TL}
+global_Sens <- FME::sensRange(func = func_FME,
+                   parms = parms,
+                   dist = "latin",
+                   sensvar = "signal",
+                   parRange = parRanges,
+                   num = 50)
+
+global_Sens_sum <- summary(global_Sens)
+```
+
+```{r, echo=FALSE, fig.align = "center"}
+plot(global_Sens_sum, 
+     main = "Global Sensitivity Analysis TL",
+     xlab = "Temperature [\u00B0C]"
+     )
+```
+
+
+
+### Local Sensitivity Analysis
+
+In local sensitivity, the effect of a parameter value in a very small region near its nominal
+value is estimated.
+
+With the above defined parms the user is now able run a local sensitivity analysis with the FME function `sensFun()`. In parameter 'senspar' the parameters to be analysed are written. In the example below parameters of N and E are observed. It is also possible to observe all parameters, then the argument 'senspar' is omitted.
+
+```{r Local Sensitivity Analysis TL}
+SensR <- FME::sensFun(
+    func = func_FME,
+    parms = parms,
+    senspar = c("N1", "N2", "N3", "E1", "E2", "E3"),
+    varscale = NULL)
+
+summary(SensR)
+```
+
+```{r, echo=FALSE, fig.align = "center"}
+plot(SensR, 
+     legpos = "topright", 
+     xlab = "Temperature [\u00B0C]", 
+     main = "Local Sensitivity Analysis TL")
+```
+
+
+
+
+```{r, include=FALSE}
+pairs(SensR)
+```
+
+
+Based on the sensitivity functions of model variables to selection of parameters, a function called 
+`collin()` calculates the collinearity or identifiability of sets of parameters.
+
+The larger the collinearity value, the less identifiable the parameter based on the data. In
+general a collinearity value less than about 20 is 'identifiable'. Below we plot the collinarity
+as a function of the number of parameters selected. In this case all parameter sets are below this 'magic number'. 
+
+```{r Estimate the Collinearity of Parameter Sets, fig.align = "center"}
+Coll <- FME::collin(SensR)
+
+plot(Coll, log = "y")
+```
+
+```{r, message=FALSE, include=FALSE}
+Coll[Coll[,"collinearity" ] < 20,]
+```
+
+
+## Fit model parameters to experimental TL data 
+
+Now the fit from model parameters to experimental data is shown. A data set from **R**-package 'RlumModel' is loaded with a set of SAR-TL curves. The second TL curve (see subsection 3.1) is choosen and normalized. This normalization is recommended because it is difficult for the luminescence models to simulate absolute values but normalized signals are much easier to simualte. 
+From function `func_FME()` automatically normalized data output is provided.
+It is important, that the name of the columns are 'time' and 'signal'. Otherwise the function call will break.
+
+```{r}
+data("ExampleData.FittingTL", envir = environment())
+exp_data <- get_RLum(TL_fitting_data, record.id = 2)
+exp_data <- get_RLum(exp_data)
+
+## normalize data
+exp_data[,2] <- exp_data[,2]/max(exp_data[,2])
+## rename columns
+colnames(exp_data) <- c("time","signal")
+```
+
+
+The **R**-package FME offers the function `modCost()`, which estimates the 'model cost', which is the sum of (weighted) squared residuals of the model versus the data. This function is central to parameter identifiability analysis, model fitting or running a Markov chain Monte Carlo.
+
+We first define an objective function `Fit_func()` that returns the residuals of the model versus the data, as estimated by modcost. It includes several fitting procedures; the default one is the Levenberg-Marquardt algorithm. Input to the function are the current values of the parameters that
+need to be finetuned and their names.
+In this case all parameters $\neq$ 0 are chosen to fit the experimental data. Note that this is not allways possible, because the collinearitiy has to be less than about 20.
+
+```{r}
+Fit_func <- function(x, parset = names(x)){
+
+  parms[parset] <- exp(x)
+  out <- func_FME(parms)
+  return(modCost(model = out, obs = exp_data))
+}
+
+Fit_TL <- modFit(f = Fit_func,
+              p = log(parms[c("N1", "N2", "N3", "N4", "N5", "E1", "E2", "E3", "E4", "E5", "s1", "s2", "s3", "s4", "s5")]),
+              method = "Port")
+```
+
+
+Comparing old and new model parameters show only small differences between the single model parameters.
+
+```{r, echo = FALSE}
+new_parameters_TL <- data.frame(
+  old = parms[names(coef(Fit_TL))], 
+  new = exp(coef(Fit_TL)), 
+  percent = exp(coef(Fit_TL))/parms[names(coef(Fit_TL))]*100)
+
+print(head(new_parameters_TL))
+```
+
+
+## Plot results
+
+At least the simulations with old and new parameters and the experimental data are plotted.
+```{r copy new parameters TL, include=FALSE}
+parms_new_TL <- parms
+names <- names(coef(Fit_TL))
+
+for(i in 1:length(coef(Fit_TL))){
+
+  parms_new_TL[names[i]] <- exp(Fit_TL$par[names[i]])
+
+}
+```
+
+```{r Plot results TL}
+plot(func_FME(parms_new_TL),
+     type = "l",
+     main = "TL Fitting",
+     xlab = "Temperature [\u00B0C]",
+     ylab = "normalized TL signal"
+)
+
+lines(func_FME(parms),
+      type = "l", col = "green")
+
+lines(exp_data, col = "red")
+
+legend('topright',legend = c("New model data (Fit)", "Old model data", "experimental data"), col = c("black","green","red"), lwd = 1)
+
+```
+
+
+<!-- MCMC --> 
+
+```{r, eval=FALSE, include=FALSE}
+SF <- summary(Fit_TL)
+
+var0 <- SF$modVariance
+cov0 <- SF$cov.scaled*2.4^2/9
+
+MCMC <- modMCMC(
+  f = Fit_func, 
+  p = log(parms[c("N1", "N2", "N3", "E1", "E2", "E3", "s1", "s2", "s3")]),
+  jump = cov0,
+  var0 = var0,
+  wvar0 = 1)
+
+
+MCMC$pars <- exp(MCMC$pars)
+# plot(MCMC, Full = TRUE)
+```
+
+```{r copy new parameters TL after MCMC, eval=FALSE, include=FALSE}
+parms_after_MCMC <- parms_new_TL
+names <- names(MCMC$bestpar)
+
+for(i in 1:length(names)){
+
+  parms_after_MCMC[names[i]] <- exp(MCMC$bestpar[names[i]])
+
+}
+```
+
+```{r Plot results TL after MCMC, eval=FALSE, fig.align="center", include=FALSE}
+plot(func_FME(parms_after_MCMC),
+     type = "l",
+     main = "TL Fitting",
+     xlab = "Temperature [\u00B0C]",
+     ylab = "normalized TL signal"
+)
+
+lines(func_FME(parms_new_TL),
+      type = "l", col = "green")
+
+lines(exp_data, col = "red")
+
+legend('topright',legend = c("New model data (Fit after MCMC)", "Old model data (fast Fit)", "experimental data"), col = c("black","green","red"), lwd = 1)
+
+```
+
+
+
+
+
+
+
+
+# Fitting OSL data
+```{r Prepare for OSL fitting}
+sequence <- list(OSL = c(125, 20, 200))
+
+model <- "Bailey2004"
+
+func_FME <- fit_RLumModel2data(
+  sequence = sequence, 
+  model = model, 
+  seq.step2fit = 1)
+
+parms <- extract_parameters2FME(model = model)
+```
+
+
+
+```{r Local Sensitivity Analysis OSL}
+SensR <- FME::sensFun(
+  func = func_FME,
+  parms = parms,
+  sensvar = c("signal"),
+  senspar = c("N3", "N4", "E_th3", "E_th4", "Th3", "Th4"),
+  varscale = 1)
+
+```
+
+```{r, include=FALSE}
+summary(SensR)
+```
+
+```{r, echo=FALSE, fig.align = "center"}
+plot(SensR, legpos = "topright", xlab = "Time [s]", main = "Local Sensitivity Analysis")
+```
+
+
+
+```{r Fitting to OSL data}
+data(ExampleData.CW_OSL_Curve, envir = environment())
+exp_data <- CW_Curve.BosWallinga2012
+
+exp_data[,2] <- exp_data[,2]/max(exp_data[,2])
+colnames(exp_data) <- c("time","signal")
+
+Fit_func_OSL <- function(x, parset = names(x)){
+
+  parms[parset] <- exp(x)
+  out <- func_FME(parms)
+  return(modCost(model = out, obs = exp_data))
+}
+
+Fit_OSL <- modFit(f = Fit_func,
+              p = log(parms[c("N3", "N4", "E_th3", "Th3")]),
+              method = "Port")
+
+```
+
+```{r, echo = FALSE}
+new_parameters_OSL <- data.frame(
+  old = parms[names(coef(Fit_OSL))], 
+  new = exp(coef(Fit_OSL)), 
+  percent = exp(coef(Fit_OSL))/parms[names(coef(Fit_OSL))]*100)
+
+head(new_parameters_OSL)
+```
+
+
+```{r copy new parameters OSL, include=FALSE}
+parms_new_OSL <- parms
+names <- names(coef(Fit_OSL))
+
+for(i in 1:length(coef(Fit_OSL))){
+
+  parms_new_OSL[names[i]] <- exp(Fit_OSL$par[names[i]])
+
+}
+```
+
+```{r Plot results OSL, echo=FALSE, fig.align = "center"}
+plot(func_FME(parms_new_OSL),
+     type = "l",
+     main = "OSL Fitting",
+     xlab = "Time [s]",
+     ylab = "normalized OSL signal"
+)
+
+lines(func_FME(parms),
+      type = "l", col = "green")
+
+lines(exp_data, col = "red")
+
+legend('topright',legend = c("New model data (Fit)", "Old model data", "experimental data"), col = c("black","green","red"), lwd = 1)
+```
+
+<!-- MCMC --> 
+
+<!-- A Monte-Carlo methode  -->
+```{r, eval=FALSE, include=FALSE}
+SF <- summary(Fit_OSL)
+
+var0 <- SF$modVariance
+cov0 <- SF$cov.scaled *2.4^2/3
+
+MCMC <- modMCMC(
+  f = Fit_func, 
+  p = log(c(parms[c("N3", "E_th3", "Th3")])),
+  jump = cov0, 
+  var0 = var0,
+  wvar0 = 1)
+
+
+MCMC$pars <- exp(MCMC$pars)
+# plot(MCMC, Full = TRUE)
+```
+
+```{r copy new parameters OSL after MCMC, eval=FALSE, include=FALSE}
+parms_after_MCMC <- parms_new_OSL
+names <- names(MCMC$bestpar)
+
+for(i in 1:length(names)){
+
+  parms_after_MCMC[names[i]] <- exp(MCMC$bestpar[names[i]])
+
+}
+```
+
+```{r Plot results OSL after MCMC, eval=FALSE, fig.align="center", include=FALSE}
+plot(func_FME(parms_after_MCMC),
+     type = "l",
+     main = "TL Fitting",
+     xlab = "Temperature [\u00B0C]",
+     ylab = "normalized TL signal"
+)
+
+lines(func_FME(parms_new_OSL),
+      type = "l", col = "green")
+
+lines(exp_data, col = "red")
+
+legend('topright',legend = c("New model data (Fit after MCMC)", "Old model data (fast Fit)", "experimental data"), col = c("black","green","red"), lwd = 1)
+
+```
+
+# Summary
+
+# References

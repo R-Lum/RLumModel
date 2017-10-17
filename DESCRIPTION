@@ -32,6 +32,8 @@ Collate:
   create_DRT.sequence.R
   create_SAR.sequence.R
   extract_pars.R
+  extract_parameters2FME.R
+  fit_RLumModel2data.R
   model_LuminescenceSignals.R
   read_SEQ2R.R
   set_pars.R
@@ -47,6 +49,7 @@ Collate:
   translate_sequence.R
 RoxygenNote: 6.0.1
 Suggests: 
+  FME,
   knitr,
   kableExtra,
   testthat
