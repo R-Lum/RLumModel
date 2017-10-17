@@ -4,8 +4,14 @@
 
 ### New functions:
 
-* fit_RLumModel2data():
-* extract_parms2FME
+* fit_RLumModel2data(): Function to convert RLumModel formats to appropriate FME functions
+* extract_parameterss2FME(): Extract parameters to work with R-package FME
+
+### Miscellaneous
+
+* Add vignette "RLumModel - Fitting model parameters to experimental data"
+* Add FME to SUGGESTS
+
 ____________________________________________________________________________________
   
 ## Changes in version 0.2.2 (13th October, 2017)
@@ -45,6 +51,7 @@ ________________________________________________________________________________
     * Simulating the process of heating/cooling a sample and detect luminescence during irradiation.
 
 ### Bugfixes and changes:
+
 * calc_concentrations():
     * Add maximum change of concentration in specific level to slot 'info' in every RLum.Data.Curve.
 

@@ -27,7 +27,7 @@ in the sequence editor.
 \bold{Supported versions}: Supppored and tested: version 4.36.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2017-10-13 13:46:59)
 }
 
 \examples{

@@ -1,4 +1,6 @@
 "Name","Title","Description","Version","m.Date","m.Time","Author","Citation"
+"ExampleData.FittingTL","Example data with TL curves extracted from a TL-SAR protocol (lab code BT1195)","Example data with TL curves extracted from a TL-SAR protocol (lab code BT1195)","0.1.0
+",NA,NA,"Johannes Friedrich, University of Bayreuth (Germany)<br />",NA
 "ExampleData.ModelOutput","Example data (TL curve) simulated with parameter set from Pagonis 2007","Example data (TL curve) simulated with parameter set from Pagonis 2007","0.1.1
 ",NA,NA,"Johannes Friedrich, University of Bayreuth (Germany)<br />",NA
 "extract_parameters2FME","Prepare parameters for use with R package FME and function  fit_RLumModel2data","Prepare parameters for use with R package FME and function  fit_RLumModel2data","0.1.1","[2016-05-24]","(2017-10-17","Johannes Friedrich, University of Bayreuth (Germany),<br />",NA
