@@ -89,7 +89,13 @@
       if(parms$model == "Bailey2002"){
         R <- dose_rate*3e10
       } else {
-        R <- dose_rate*5e7  # all other simulations
+        
+        if(parms$model == "Friedrich2018"){
+          R <- dose_rate*6.3e7
+        } else {
+        
+          R <- dose_rate*5e7  # all other simulations
+        }
       }
     }
   }

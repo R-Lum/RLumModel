@@ -201,7 +201,7 @@ test_that("test controlled crash conditions", {
       model = "Bailey2000",
       sequence = list(
         OSL = c(20,1,100))),
-    regexp = "[model_LuminescenceSignals()] Model not supported. Supported models are: Bailey2001, Bailey2004, Pagonis2008, Pagonis2007, Bailey2002, Friedrich2017, customized",
+    regexp = "[model_LuminescenceSignals()] Model not supported. Supported models are: Bailey2001, Bailey2004, Pagonis2008, Pagonis2007, Bailey2002, Friedrich2017, Friedrich2018, customized",
     fixed = TRUE)
   
   expect_error(

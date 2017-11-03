@@ -1,5 +1,14 @@
 # NEWS for the R Package RLumModel
 
+## Changes in version 0.2.3 (XX-XX, 2017)
+
+### Bugfixes and changes:
+
+* set_pars():
+	  * Add new parameter set "Friedrich2018"
+
+____________________________________________________________________________________
+  
 ## Changes in version 0.2.2 (13th October, 2017)
 
 ### Miscellaneous

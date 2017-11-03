@@ -61,7 +61,7 @@
 #'
 #' @examples
 #'
-#' pars <- .set_Pars("Bailey2001")
+#' pars <- .set_pars("Bailey2001")
 #'
 #' @noRd
 .set_pars <- function(model){
@@ -69,7 +69,15 @@
 # check input arguments ---------------------------------------------------
 
   #Check if model is supported
-  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002", "Friedrich2017", "customized", "customised")
+  model.allowed_keywords <- c("Bailey2001", 
+                              "Bailey2004", 
+                              "Pagonis2008", 
+                              "Pagonis2007", 
+                              "Bailey2002", 
+                              "Friedrich2017", 
+                              "Friedrich2018",
+                              "customized", 
+                              "customised")
 
   if(!model%in%model.allowed_keywords){
     stop(paste0("[.set_Pars()] Model not supported. Supported models are: ", paste(model.allowed_keywords, collapse = ", ")))
@@ -192,6 +200,23 @@
       model = model
     ),
     
+    Friedrich2018 = list(
+      
+      N = c(1.5e7, 1e7, 1e9, 2.5e8, 5e10, 1e10, 1e10, 5e9, 1e11),
+      E = c(0.97, 1.55, 1.7, 1.72, 1.95, 1.8, 1.75, 5, 5),
+      s = c(5e12, 5e14, 5e13, 5e14, 1e10, 5e13, 5e14, 1e13, 1e13),
+      A = c(1e-8, 1e-8, 1e-9, 5e-10, 1e-10, 5e-7, 1e-9, 1e-10, 1e-9),
+      B = c(0, 0, 0, 0, 0, 5e-9, 5e-10, 1e-10, 5e-10),
+      Th = c(0.75, 0, 6, 4.5, 0),
+      E_th = c(0.1, 0, 0.1, 0.13, 0),
+      n =  set_RLum(class = "RLum.Results", data = list(n = c(2.025417e-02, 1.048967e+06, 2.789634e+07, 3.508166e+06, 8.606323e+09, 5.796382e+09, 5.274192e+06, 1.648926e+07, 2.820631e+09, 9.047145e-08, 1.525008e-11),
+                                                        temp = 20)),
+      k_B = k_B,
+      K = K,
+      W = W,
+      model = model
+    ),
+    
     
     customized = list(
       n =  set_RLum(class = "RLum.Results", data = list(n = rep(0,4),
@@ -228,6 +253,10 @@
         
         "Friedrich2017" = {
           return(parameter.list$Friedrich2017)
+        },
+        
+        "Friedrich2018" = {
+          return(parameter.list$Friedrich2018)
         },
         
         "customized" = {

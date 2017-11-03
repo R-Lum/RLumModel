@@ -7,7 +7,8 @@
 model_LuminescenceSignals(model, sequence, lab.dose_rate = 1,
   simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE,
   show_structure = FALSE, own_parameters = NULL,
-  own_state_parameters = NULL, own_start_temperature = NULL, ...)
+  own_state_parameters = NULL, own_start_temperature = NULL,
+  parms_FME = NULL, ...)
 }
 \arguments{
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
@@ -58,6 +59,10 @@ see vignette ""RLumModel - Using own parameter sets" and example 3.}
 
 \item{own_start_temperature}{\code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
 a simulation. This parameter takes effect only when 'model = "customized"' is choosen.}
+
+\item{parms_FME}{\code{\link{logical}} or \code{\link{numeric}} (with default): This argument is only necessary,
+if fit_data2RLumModel is used. There is no need to change this parameter per hand, all is done automatically. 
+Nevertheless is it necessary for the package "FME" to have the parameters directly in the function call.}
 
 \item{\dots}{further arguments and graphical parameters passed to
 \code{\link{plot.default}}. See details for further information.}
@@ -113,7 +118,7 @@ Irr_2recover \tab Dose to be recovered in a dose-recovery-test [Gy]\tab 20
 }
 }
 \section{Function version}{
- 0.1.4 (2017-10-11 09:22:22)
+ 0.1.4 (2017-11-03 14:50:18)
 }
 
 \examples{
