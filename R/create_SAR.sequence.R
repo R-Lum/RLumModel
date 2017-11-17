@@ -85,24 +85,24 @@
     if(RegDose[i] == 0){
 
       temp.list <-list(
-        TL = c(20,PH,5),
-        PAUSE = c(PH,PH_duration),
-        OSL = c(OSL_temp,OSL_duration,optical_power), # Lx measurement
-        IRR = c(Irr_temp,TestDose,dose_rate),
+        TL = c(20, PH, 5),
+        PAUSE = c(PH, PH_duration),
+        OSL = c(OSL_temp, OSL_duration, optical_power), # Lx measurement
+        IRR = c(Irr_temp, TestDose, dose_rate),
         TL = c(20,CH,5),
-        OSL = c(OSL_temp,OSL_duration,optical_power) # Tx measurement
+        OSL = c(OSL_temp, OSL_duration, optical_power) # Tx measurement
         )
 
     } else {
 
       temp.list <- list(
-         IRR = c(Irr_temp,RegDose[i],dose_rate),
-         TL = c(20,PH,5),
-         PAUSE = c(PH,PH_duration),
-         OSL = c(OSL_temp,OSL_duration,optical_power), # Lx measurement
-         IRR = c(Irr_temp,TestDose,dose_rate),
-         TL = c(20,CH,5),
-         OSL = c(OSL_temp,OSL_duration,optical_power) #Tx measurement
+         IRR = c(Irr_temp, RegDose[i], dose_rate),
+         TL = c(20, PH, 5),
+         PAUSE = c(PH, PH_duration),
+         OSL = c(OSL_temp, OSL_duration, optical_power), # Lx measurement
+         IRR = c(Irr_temp, TestDose, dose_rate),
+         TL = c(20, CH, 5),
+         OSL = c(OSL_temp, OSL_duration, optical_power) #Tx measurement
       )
     }
 
