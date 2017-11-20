@@ -22,7 +22,8 @@ Depends:
 Imports:
     deSolve (>= 1.12),
     methods,
-    Rcpp
+    Rcpp,
+    FME
 URL: https://CRAN.R-project.org/package=RLumModel
 Collate:
   RLumModel-package.R
@@ -49,7 +50,6 @@ Collate:
   translate_sequence.R
 RoxygenNote: 6.0.1
 Suggests: 
-  FME,
   knitr,
   kableExtra,
   testthat
