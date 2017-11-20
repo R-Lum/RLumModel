@@ -21,6 +21,22 @@ test_that("check class and output", {
   
 })
 
+test_that("check simulate_sample_history = TRUE", {
+  
+  output <- model_LuminescenceSignals(
+    model = "Bailey2001", 
+    sequence = list(
+      RF = c(20, 1, 1)),
+    plot = FALSE, 
+    simulate_sample_history = TRUE,
+    show_structure = TRUE,
+    verbose = FALSE)
+  
+  expect_equal(length(output), 12)
+  expect_equal(is(output), c("RLum.Analysis", "RLum"))
+
+  })
+
 
 test_that("check SAR sequence", {
   
@@ -224,6 +240,13 @@ test_that("test controlled crash conditions", {
       model = "customized",
       sequence = list(TL = c(20,100,5))),
     regexp = "[model_LuminescenceSignals()] Argument 'model' set to 'customized', but no own parameters are given!",
+    fixed = TRUE)
+  
+  expect_error(
+    model_LuminescenceSignals(
+      model = "customized",
+      sequence = list(TLL = c(20,100,5))),
+    regexp = "[model_LuminescenceSignals()] Unknow sequence arguments: Allowed arguments are: IRR, PH, CH, TL, OSL, PAUSE, LM_OSL, RL, RF, ILL, RF_heating",
     fixed = TRUE)
   
 })
