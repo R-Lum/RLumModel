@@ -1,6 +1,6 @@
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.3 (XX-XX, 2017)
+## Changes in version 0.2.3 (22nd November, 2017)
 
 ### Bugfixes and changes:
 
