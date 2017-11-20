@@ -82,6 +82,33 @@ test_that("check output Bailey2004",{
   
 })
 
+parms <- .set_pars("Friedrich2018")
+n <- parms$n$n
+test_simulate_RF <- .simulate_RF_and_heating(
+  temp_begin = 20,
+  temp_end = 30,
+  heating_rate = 5,
+  dose_rate = 1, 
+  n = n, 
+  parms = parms)
+
+
+test_that("check output Friedrich2018",{
+  expect_equal(class(test_simulate_RF)[1], "RLum.Results")
+  
+  expect_equal(length(test_simulate_RF$n), length(parms$N) + 2)
+  
+  expect_equal(test_simulate_RF$temp, 30)
+  
+  ##check concentrations
+  expect_equal(length(test_simulate_RF$concentrations), length(parms$N) + 2)
+  
+  expect_equal(class(test_simulate_RF$concentrations), "list")
+  
+  expect_equal(class(test_simulate_RF$concentrations[[1]])[1], "RLum.Data.Curve")
+  
+})
+
 test_that("test controlled crash conditions", {
   expect_error(
     .simulate_RF_and_heating(

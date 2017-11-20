@@ -28,6 +28,15 @@ test_that("check different models",{
     dose_rate = 1, 
     n = n, 
     parms = parms)
+  
+  parms <- .set_pars("Friedrich2018")
+  n <- parms$n$n
+  test_simulate_irradiation <- .simulate_irradiation(
+    temp = 20, 
+    dose = 0, 
+    dose_rate = 1, 
+    n = n, 
+    parms = parms)
 
 })
 

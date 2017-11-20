@@ -94,10 +94,6 @@
 #' @param own_start_temperature \code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
 #' a simulation. This parameter takes effect only when 'model = "customized"' is choosen. 
 #' 
-#' @param parms_FME \code{\link{logical}} or \code{\link{numeric}} (with default): This argument is only necessary,
-#' if fit_data2RLumModel is used. There is no need to change this parameter per hand, all is done automatically. 
-#' Nevertheless is it necessary for the package "FME" to have the parameters directly in the function call. 
-#' 
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information.
 #'
@@ -434,7 +430,6 @@ model_LuminescenceSignals <- function(
   own_parameters = NULL,
   own_state_parameters = NULL,
   own_start_temperature = NULL,
-  parms_FME = NULL,
   ...
 ) {
 
@@ -565,131 +560,8 @@ model_LuminescenceSignals <- function(
 # Load model parameters ------------------------------------------------------------------------------------
   
   ## check if "parms" in extra arguments for fitting data to model parameters
-  if(!is.null(parms_FME)){
-    
+
     if(model == "customized" || model == "customised"){
-      if(is.null(own_parameters)){
-        stop("[model_LuminescenceSignals()] Argument 'model' set to 'customized', but no own parameters are given!", 
-             call. = FALSE)}
-      
-      n.temp <- own_parameters
-      
-      ##check if "Th", "E_th", "k_B", "W" or "K" are set
-      if("Th" %in% names(n.temp)){
-        Th <- unname(unlist(n.temp["Th"]))
-      } else {
-        Th <- rep(0, length(n.temp$N))
-      }
-      
-      if("E_th" %in% names(n.temp)){
-        E_th <- unname(unlist(n.temp["E_th"]))
-      } else {
-        E_th <- rep(0, length(n.temp$N))
-      }
-      
-      
-      N <- parms_FME[grepl("N",names(parms_FME))]
-      E <- parms_FME[grepl("E\\d",names(parms_FME))]
-      s <- parms_FME[grepl("s",names(parms_FME))]
-      A <- parms_FME[grepl("A",names(parms_FME))]
-      B <- parms_FME[grepl("\\<B",names(parms_FME))]
-      k_B <- ifelse("k_B" %in% names(n.temp), unname(unlist(n.temp["k_B"])), 8.617e-05)
-      W <- ifelse("W" %in% names(n.temp), unname(unlist(n.temp["W"])), 0.64)
-      K <- ifelse("K" %in% names(n.temp), unname(unlist(n.temp["K"])), 2.8e7)
-      R <- ifelse("R" %in% names(n.temp), unname(unlist(n.temp["R"])), 0)
-      
-      ## set start temperature
-      start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
-      
-      if(!is.null(own_state_parameters)){ ## state parameters submitted
-        
-        own_state_parameters <- c(own_state_parameters, 0, 0)
-        
-        n <- Luminescence::set_RLum(class = "RLum.Results",
-                                    data = list(n = own_state_parameters,
-                                                temp = start_temp,
-                                                model = model))
-        
-      } else { ## no state parameters submitted
-        
-        n <- Luminescence::set_RLum(class = "RLum.Results",
-                                    data = list(n = rep(0,length(N)+2),
-                                                temp = start_temp,
-                                                model = model))
-      }
-      
-      parms <- set_RLum(class = "RLum.Results",
-                        data = list(N = N,
-                                    E = E,
-                                    s = s,
-                                    A = A,
-                                    B = B,
-                                    Th = Th,
-                                    E_th = E_th,
-                                    k_B = k_B,
-                                    n = n,
-                                    W = W,
-                                    K = K,
-                                    model = "customized",
-                                    R = R
-                        )
-      )
-      
-      
-    } else { ##model not customized
-      
-      if(!is.null(own_parameters)){
-        warning(paste0("[model_LuminescenceSignals()] Argument 'own_parameters' set, but argument 'model' not set to 'customized'. Used '", model, "' as argument for 'model'."), call. = FALSE)
-      }
-      
-      if(!is.null(own_state_parameters)){
-        warning(paste0("[model_LuminescenceSignals()] Argument 'own_sate_parameters' set, but argument 'model' not set to 'customized'. Ignored argument 'own_state_parameters'."), call. = FALSE)
-      }
-      
-      if(!is.null(own_start_temperature)){
-        warning(paste0("[model_LuminescenceSignals()] Argument 'own_start_temperature' set, but argument 'model' not set to 'customized'. Ignored argument 'own_start_temperature'."), call. = FALSE)
-      }
-      
-      
-      n.temp <- .set_pars(model)
-      
-      N <- parms_FME[grepl("N",names(parms_FME))]
-      E <- parms_FME[grepl("E\\d",names(parms_FME))]
-      s <- parms_FME[grepl("s",names(parms_FME))]
-      A <- parms_FME[grepl("A",names(parms_FME))]
-      B <- parms_FME[grepl("\\<B",names(parms_FME))]
-      Th <- parms_FME[grepl("Th",names(parms_FME))]
-      E_th <- parms_FME[grepl("E_th",names(parms_FME))]
-      
-      parms <- set_RLum(class = "RLum.Results",
-                        data = list(N = N,
-                                    E = E,
-                                    s = s,
-                                    A = A,
-                                    B = B,
-                                    Th = Th,
-                                    E_th = E_th,
-                                    n = n.temp$n,
-                                    k_B = n.temp$k_B,
-                                    W = n.temp$W,
-                                    K = n.temp$K,
-                                    model = n.temp$model
-                        )
-      )
-
-      if(simulate_sample_history == TRUE){
-        n <- Luminescence::set_RLum(class = "RLum.Results",
-                                    data = list(n = rep(0,length(parms$N)+2),
-                                                temp = 20,
-                                                model = model))
-      } else {
-        n <- parms$n
-      }
-    } 
-  
-  } else { # parms__FME IS NULL
-
-  if(model == "customized" || model == "customised"){
         if(is.null(own_parameters)){
           stop("[model_LuminescenceSignals()] Argument 'model' set to 'customized', but no own parameters are given!", 
                call. = FALSE)}
@@ -758,8 +630,6 @@ model_LuminescenceSignals <- function(
             n <- parms$n
           }
     }
-}
-  
 
 # sequence ------------------------------------------------------------------------------------
 
