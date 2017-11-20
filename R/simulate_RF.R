@@ -25,7 +25,7 @@
 #'
 #' @return This function returns an RLum.Results object of the RF/RL simulation.
 #'
-#' @section Function version: 0.1.2 [2016-09-02]
+#' @section Function version: 0.1.3 [2017-11-20]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'

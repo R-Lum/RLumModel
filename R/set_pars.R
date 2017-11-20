@@ -32,7 +32,7 @@
 #' When a user wants to create his/her own parameter sets he/she only has to take care that the luminescence center is the last
 #' entry in every vector and that the first entries are the electron traps and the last entries the hole centres.
 #'
-#' @section Function version: 0.1.2 [2016-04-29]
+#' @section Function version: 0.1.3 [2017-11-20]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'

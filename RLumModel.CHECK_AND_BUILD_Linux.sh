@@ -93,28 +93,12 @@ echo ""
 
 
 #
-# NEWS
-# =================================================================================================
-
-  # echo -ne "-> Build ASCII NEWS ... \t\t\t"
-  # eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_NEWS.R /dev/null
-  # check_status
-
-#
 # PARSE RD files
 # =================================================================================================
 
   echo -ne "-> Parsing Rd ... \t\t\t\t"
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Parsing_Rd.R /dev/null
   check_status
-
-#
-# COMPACT PDF Vignettes
-# =================================================================================================
-
-  # echo -ne "-> Compact vignettes ... \t\t\t"
-  # eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLumModel.BuildScripts/RLumModel.PBS_Compact_Vignettes.R /dev/null
-  # check_status
 
 #
 # BUILD PACKAGE

@@ -17,7 +17,7 @@
 #'
 #' @return This function returns an RLum.Results object.
 #'
-#' @section Function version: 0.1.1 [2016-09-02]
+#' @section Function version: 0.1.2 [2017-11-20]
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
