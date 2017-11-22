@@ -138,8 +138,7 @@ can be used.</p>
     <pre class="usage"><span class='fu'>model_LuminescenceSignals</span>(<span class='no'>model</span>, <span class='no'>sequence</span>, <span class='kw'>lab.dose_rate</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>simulate_sample_history</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>show_structure</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>own_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>own_state_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>own_start_temperature</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>parms_FME</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>own_state_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>own_start_temperature</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -211,12 +210,6 @@ see vignette ""RLumModel - Using own parameter sets" and example 3.</p></td>
       <th>own_start_temperature</th>
       <td><p><code>numeric</code> (with default): Parameter to control the start temperature (in deg. C) of
 a simulation. This parameter takes effect only when 'model = "customized"' is choosen.</p></td>
-    </tr>
-    <tr>
-      <th>parms_FME</th>
-      <td><p><code>logical</code> or <code>numeric</code> (with default): This argument is only necessary,
-if fit_data2RLumModel is used. There is no need to change this parameter per hand, all is done automatically. 
-Nevertheless is it necessary for the package "FME" to have the parameters directly in the function call.</p></td>
     </tr>
     <tr>
       <th>&#8230;</th>
