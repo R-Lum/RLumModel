@@ -1,7 +1,7 @@
 Package: RLumModel
 Type: Package
 Title: Solving Ordinary Differential Equations to Understand Luminescence
-Version: 0.2.3
+Version: 0.3.0
 Date: 2018-XX-XX
 Author: Johannes Friedrich [aut, trl, cre],
     Sebastian Kreutzer [aut, ths],
@@ -16,14 +16,13 @@ Description: A collection of functions to simulate luminescence signals in quart
 Contact: Package Developer Team <developer@model.r-luminescence.de>
 License: GPL-3
 Depends:
-    R (>= 3.3.0),
+    R (>= 3.4.0),
     utils,
     Luminescence (>= 0.7.0)
 Imports:
     deSolve (>= 1.12),
     methods,
-    Rcpp,
-    FME
+    Rcpp
 URL: https://CRAN.R-project.org/package=RLumModel
 Collate:
   RLumModel-package.R
@@ -50,6 +49,7 @@ Collate:
   translate_sequence.R
 RoxygenNote: 6.0.1
 Suggests: 
+  FME,
   knitr,
   kableExtra,
   testthat

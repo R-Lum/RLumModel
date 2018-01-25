@@ -169,7 +169,7 @@ Coll[Coll[,"collinearity" ] < 20,]
 
 ## Fit model parameters to experimental TL data 
 
-Now the fit from model parameters to experimental data is shown. A data set from **R**-package 'RlumModel' is loaded with a set of SAR-TL curves. The second TL curve (see subsection 3.1) is choosen and normalized. This normalization is recommended because it is difficult for the luminescence models to simulate absolute values but normalized signals are much easier to simualte. 
+Now the fit from model parameters to experimental data is shown. A data set from **R**-package 'RLumModel' is loaded with a set of SAR-TL curves. The second TL curve (see subsection 3.1) is choosen and normalized. This normalization is recommended because it is difficult for the luminescence models to simulate absolute values but normalized signals are much easier to simualte. 
 From function `func_FME()` automatically normalized data output is provided.
 It is important, that the name of the columns are 'time' and 'signal'. Otherwise the function call will break.
 

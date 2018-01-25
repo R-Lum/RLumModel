@@ -19,7 +19,7 @@ This function returns a named \code{\link{vector}} for use with R package FME
 Prepare parameters for use with R package FME and function \code{\link{fit_RLumModel2data}}
 }
 \section{Function version}{
- 0.1.1 [2016-05-24] (2017-10-17 13:28:25)
+ 0.1.1 [2016-05-24] (2018-01-19 09:50:38)
 }
 
 \examples{
