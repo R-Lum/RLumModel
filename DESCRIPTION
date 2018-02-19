@@ -4,11 +4,11 @@ Title: Solving Ordinary Differential Equations to Understand Luminescence
 Version: 0.2.3
 Date: 2017-11-22
 Author: Johannes Friedrich [aut, trl, cre],
-    Sebastian Kreutzer [aut, ths],
+    Sebastian Kreutzer [aut, ths] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Schmidt [aut, ths]
 Authors@R: c(
     person("Johannes", "Friedrich", role = c("aut","trl","cre"), email = "johannes.friedrich@uni-bayreuth.de"),
-    person("Sebastian", "Kreutzer", role = c("aut", "ths")),
+    person("Sebastian", "Kreutzer", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Schmidt", role = c("aut", "ths"))
     )
 Maintainer: Johannes Friedrich <johannes.friedrich@uni-bayreuth.de>
