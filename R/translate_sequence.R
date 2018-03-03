@@ -369,6 +369,26 @@ for (i in 1:length(sequence)){
     output.steps <- c(output.steps,n@originator)
     
   }
+  
+  #check if current sequence step is UV_bleach
+  if("UV_bleach" %in% names(sequence)[i]) {
+    if(!"temp" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp" }
+    if(!"duration" %in% names(sequence[[i]])) {names(sequence[[i]])[2] <- "duration"}
+    if(!"P_UV" %in% names(sequence[[i]])) {names(sequence[[i]])[3] <- "P_UV"}
+    
+    n <- .simulate_UV_bleach(temp = sequence[[i]]["temp"],
+                            duration = sequence[[i]]["duration"],
+                            P_UV = sequence[[i]]["P_UV"],
+                            RLumModel_ID = i,
+                            n,
+                            parms)
+    
+    ##collect originators
+    output.steps <- c(output.steps,n@originator)
+    
+    output.model <- c(output.model,n$UV_bleach.data, n$concentrations)
+    
+  }
 
   ##update progress bar
   if (txtProgressBar & verbose) {

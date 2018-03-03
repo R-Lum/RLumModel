@@ -25,12 +25,19 @@
   
   R <- parameters.step$R
   P <- parameters.step$P
+  P_UV <- parameters.step$P_UV
   temp <- parameters.step$temp
   b <- parameters.step$b
   if("a" %in% names(parameters.step)){
     a <- parameters.step$a
   } else {
     a <- NULL
+  }
+  
+  if("Th_centre" %in% names(parameters.step)) {
+    Th_centre <- parameters.step$parms$Th_centre
+    } else {
+    Th_centre <- rep(0, times = length(parameters.step$parms$N))
   }
 
   N <- parameters.step$parms$N
@@ -61,6 +68,8 @@
     A = A,
     B = B,
     Th = Th,
+    Th_centre = Th_centre,
+    P_UV = P_UV,
     E_th = E_th,
     n = n,
     k_B = k_B,

@@ -6,9 +6,7 @@
 #'
 #' @param duration \code{\link{numeric}} (\bold{required}): heatingrate in [deg. C/s] or [K/s]
 #'
-#' @param optical_power \code{\link{numeric}} (\bold{with default}): optical power in % of full power of the LED.
-#' 100 % equates 20 mW/cm^2. Of course is it possible to go higher than 100 %. 20 mW/cm^2 is a "historical"
-#' value from Bailey 2001, see references.
+#' @param P_UV \code{\link{numeric}} (\bold{required}): optical power of UV bleach.
 #'
 #' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the CW-OSL-step. This ID
 #' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
@@ -54,40 +52,31 @@
 #' #so far no example available
 #'
 #' @noRd
-.simulate_CW_OSL <- function(
+.simulate_UV_bleach <- function(
   temp,
   duration,
-  optical_power = 100,
+  P_UV,
   RLumModel_ID = NULL,
   n,
   parms
 ){
-
-# check input arguments ---------------------------------------------------
-
-  ##check if temperature is > 0 K (-273 degree celsius)
-  if(temp < -273){
-    stop("\n [.simulate_CW_OSL()] Argument 'temp' has to be > 0 K!")
-  }
+  
+  # check input arguments ---------------------------------------------------
+  
   ##check if duration is a positive number
-  if(duration < 0){
-    stop("\n [.simulate_CW_OSL()] Argument 'duration' has to be a positive number!")
+  if(duration < 0) {
+    stop("\n [.simulate_UV_bleach()] Argument 'duration' has to be a positive number!")
   }
-
-  ##check if optical_power is a positive number
-  if(optical_power < 0){
-    stop("\n [.simulate_CW_OSL()] Argument 'optical_power' has to be a positive number!")
-  }
-
+  
   ##check if n is a RLum object
-  if(class(n) != "RLum.Results"){
+  if(class(n) != "RLum.Results") {
     n <- n
   } else {
     n <- n$n
   }
-
-# Set parameters for ODE ---------------------------------------------------
-
+  
+  # Set parameters for ODE ---------------------------------------------------
+  
   ##============================================================================##
   # SETTING PARAMETERS FOR ILLUMINATION
   #
@@ -95,22 +84,18 @@
   # P: Photonflux (in Bailey 2004: wavelength [nm]) = 1
   # b: heating rate [deg. C/s] = 0
   ##============================================================================##
- 
-  if(parms$model == "Bailey2004" || parms$model == "Bailey2002"){
-    P <- 0.02/(1.6*10^(-19)*(1240/470))*(optical_power/100)
-  }
-  else{
-    P <- 2*(optical_power/100)
-  }
-
+  
+  P <- 0
+  P_UV <- P_UV
   R <- 0;
   b <- 0;
-  P_UV <- 0
-
+  
+  temp <- temp
+  
   ##============================================================================##
   # SETTING PARAMETERS FOR ODE
   ##============================================================================##
-
+  
   times <- seq(0, duration, by = 0.1)
   parameters.step <- .extract_pars(parameters.step = list(
     R = R,
@@ -126,43 +111,43 @@
   ##============================================================================##
   out <- deSolve::ode(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol=1e-3, atol=1e-3, maxsteps=1e5, method = "bdf")
   ##============================================================================##
-
+  
   ##============================================================================##
   # CALCULATING RESULTS FROM ODE SOLVING
   ##============================================================================##
-
+  
   signal <- .calc_signal(object = out, parameters = parameters.step)
-
+  
   ##============================================================================##
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING
   ##============================================================================##
-
-  name <- c("OSL")
+  
+  name <- c("UV_bleach")
   concentrations <- .calc_concentrations(
     data = out,
     times = times,
     name = name,
     RLumModel_ID = RLumModel_ID)
-
+  
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
-
+  
   return(Luminescence::set_RLum(class = "RLum.Results",
-                  data = list(
-                    n = out[length(times),-1] ,
-                    CW_OSL.data = Luminescence::set_RLum(
-                      class = "RLum.Data.Curve",
-                      data = matrix(data = c(times, signal),ncol = 2),
-                      recordType = "OSL",
-                      curveType = "simulated",
-                      info = list(
-                        curveDescripter = NA_character_),
-                      .pid = as.character(RLumModel_ID)
-                    ),
-                  temp = temp,
-                  concentrations = concentrations)
-                  )
-         )
-
+                                data = list(
+                                  n = out[length(times),-1] ,
+                                  UV_bleach.data = Luminescence::set_RLum(
+                                    class = "RLum.Data.Curve",
+                                    data = matrix(data = c(times, signal),ncol = 2),
+                                    recordType = "UV_bleach",
+                                    curveType = "simulated",
+                                    info = list(
+                                      curveDescripter = NA_character_),
+                                    .pid = as.character(RLumModel_ID)
+                                  ),
+                                  temp = temp,
+                                  concentrations = concentrations)
+  )
+  )
+  
 }#end function

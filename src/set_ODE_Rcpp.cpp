@@ -20,6 +20,7 @@ List set_ODE_Rcpp(double t, arma::vec n, Rcpp::List parameters) {
   arma::vec A = parameters["A"];
   arma::vec B = parameters["B"];
   arma::vec Th = parameters["Th"];
+  arma::vec Th_centre = parameters["Th_centre"];
   arma::vec E_th = parameters["E_th"];
 
   double k_B = parameters["k_B"];
@@ -28,7 +29,8 @@ List set_ODE_Rcpp(double t, arma::vec n, Rcpp::List parameters) {
   double P = parameters["P"];
   double temp = parameters["temp"];
   double b = parameters["b"];
-
+  double P_UV = parameters["P_UV"];
+  
  arma::vec dn(N.size()+2);
 
  int j = 0;
@@ -41,7 +43,7 @@ List set_ODE_Rcpp(double t, arma::vec n, Rcpp::List parameters) {
      dn[i] = n[N.size()]*(N[i]-n[i])*A[i] - n[i]*P*Th[i]*exp(-E_th[i]/(k_B*(273+temp+b*t))) - n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t)));
    } else {//calculate recombination centers
      jj++;
-     dn[i] = n[N.size()+1]*(N[i]-n[i])*A[i] - n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t))) - n[N.size()]*n[i]*B[i];
+     dn[i] = n[N.size()+1]*(N[i]-n[i])*A[i] - n[i]*s[i]*exp(-E[i]/(k_B*(273+temp+b*t))) - n[N.size()]*n[i]*B[i] - n[i]*Th_centre[i]*P_UV;
    }
  }
 

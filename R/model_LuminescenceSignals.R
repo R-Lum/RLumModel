@@ -543,7 +543,7 @@ model_LuminescenceSignals <- function(
   #check for wrong elements in the sequence
 
   ##allowed keywords
-  sequence.allowed_keywords <- c("IRR","PH", "CH", "TL", "OSL", "PAUSE", "LM_OSL", "RL", "RF", "ILL", "RF_heating")
+  sequence.allowed_keywords <- c("IRR","PH", "CH", "TL", "OSL", "PAUSE", "LM_OSL", "RL", "RF", "ILL", "RF_heating", "UV_bleach")
 
   ##check
   if(!all(names(sequence)%in%sequence.allowed_keywords)){
@@ -579,6 +579,12 @@ model_LuminescenceSignals <- function(
           parms$E_th <- unname(unlist(parms["E_th"]))
         } else {
           parms$E_th <- rep(0, length(parms$N))
+        }
+        
+        if("Th_centre" %in% names(parms)){
+          parms$Th_centre <- unname(unlist(parms["Th_centre"]))
+        } else {
+          parms$Th_centre <- rep(0, length(parms$N))
         }
         
         parms["k_B"] <- ifelse("k_B" %in% names(parms), unname(unlist(parms["k_B"])), 8.617e-05)

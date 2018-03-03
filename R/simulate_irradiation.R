@@ -101,6 +101,7 @@
   }
 
   P <- 0
+  P_UV <- 0
   b <- 0
 
   ##============================================================================##
@@ -111,6 +112,7 @@
   parameters.step <- .extract_pars(parameters.step = list(
     R = R,
     P = P,
+    P_UV = P_UV,
     temp = temp,
     b = b,
     times = times,

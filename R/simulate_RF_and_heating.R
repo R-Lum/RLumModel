@@ -115,6 +115,7 @@
     }
     
     P <- 0
+    P_UV <- 0
     b <- heating_rate
     
     ##============================================================================##
@@ -125,6 +126,7 @@
     parameters.step <- .extract_pars(parameters.step = list(
       R = R,
       P = P,
+      P_UV = P_UV,
       temp = temp_begin,
       b = b,
       times = times,
