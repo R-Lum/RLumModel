@@ -1,16 +1,31 @@
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.3 (XX , 2017)
+## Changes in version 0.3.0 (25th May, 2018)
 
 ### New functions:
 
 * fit_RLumModel2data(): Function to convert RLumModel formats to appropriate FME functions
-* extract_parameterss2FME(): Extract parameters to work with R-package FME
+* extract_parameters2FME(): Extract parameters to work with R-package FME
 
 ### Miscellaneous
 
 * Add vignette "RLumModel - Fitting model parameters to experimental data"
 * Add FME to SUGGESTS
+* Add citation
+
+____________________________________________________________________________________
+
+
+## Changes in version 0.2.3 (22nd November, 2017)
+
+### Miscellaneous
+
+* Add further tests
+
+### Bugfixes and changes:
+
+* set_pars():
+	  * Add new parameter set "Friedrich2018"
 
 ____________________________________________________________________________________
   

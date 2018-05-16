@@ -80,7 +80,7 @@ with the package "FME".
 Fit model parameters to experimental data
 }
 \section{Function version}{
- 0.1.0 [2016-04-29] (2018-01-19 09:50:38)
+ 0.1.0 (2018-05-16 11:16:22)
 }
 
 \examples{

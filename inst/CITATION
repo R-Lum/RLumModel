@@ -1,0 +1,16 @@
+citHeader("To cite the R package 'RLumModel' please use the following citation:")
+
+citEntry(
+  entry = "Article",
+	title = "Solving ordinary differential equations to understand luminescence: 'RLumModel', an advanced research tool for simulating luminescence in quartz using R",
+	author = "Johannes Friedrich,  Christoph Schmidt, Sebastian Kreutzer",
+	year = "2016",
+	journal = "Quaternary Geochronology",
+	volume = "35",
+	pages = "88-100",
+	url = "https://www.sciencedirect.com/science/article/pii/S1871101416300553",
+	doi = "10.1016/j.quageo.2016.05.004",
+	
+	textVersion = 
+	paste("Friedrich, Johannes, Sebastian Kreutzer, and Christoph Schmidt. Solving ordinary differential equations to understand luminescence: 'RLumModel', an advanced research tool for simulating luminescence in quartz using R. Quaternary Geochronology 35 (2016): 88-100.")
+	)

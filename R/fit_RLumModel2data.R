@@ -61,7 +61,7 @@
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information.
 #' 
-#' @section Function version: 0.1.0 [2016-04-29]
+#' @section Function version: 0.1.0
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany)
 #' 
