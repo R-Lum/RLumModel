@@ -70,9 +70,14 @@
 #' 
 #' @references 
 #' 
+#' Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
+#' luminescence of quartz. Radiation Measurements 33, 17-45.
+#' 
 #' Soetaert K., Petzoldt T., 2010: Inverse Modelling, Sensitivity and Monte Carlo Analysis in
 #' R Using Package FME. 
 #' Journal of Statistical Software, 33, 1-28.
+#' 
+#' Wintle, A., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophysical Journal International 41, 107-113.
 #' 
 #' @seealso \code{\link[FME]{sensFun}}, \code{\link[FME]{sensRange}}, 
 #' \code{\link{model_LuminescenceSignals}}, \code{\link{extract_parameters2FME}}

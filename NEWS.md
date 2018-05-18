@@ -1,5 +1,6 @@
 # NEWS for the R Package RLumModel
 
+<<<<<<< HEAD
 ## Changes in version 0.3.0 (25th May, 2018)
 
 ### New functions:
@@ -21,6 +22,9 @@ ________________________________________________________________________________
 ### Miscellaneous
 
 * Add further tests
+=======
+## Changes in version 0.2.3 (XX-XX, 2017)
+>>>>>>> 09603c4... Add "Friedrich2018" parameter set
 
 ### Bugfixes and changes:
 

@@ -49,7 +49,7 @@
 #' Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).
 #
 #' @param model \code{\link{character}} (\bold{required}): set model to be used. Available models are:
-#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017" and for own models "customized" (or "customised").
+#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017", "Friedrich2018" and for own models "customized" (or "customised").
 #' Note: When model = "customized" is set, the argument 'own_parameters' has to be set.
 #'
 #' @param lab.dose_rate \code{\link{numeric}} (with default): laboratory dose rate in XXX
@@ -453,6 +453,7 @@ model_LuminescenceSignals <- function(
                               "Pagonis2007", 
                               "Bailey2002", 
                               "Friedrich2017", 
+                              "Friedrich2018",
                               "customized",
                               "customised")
 

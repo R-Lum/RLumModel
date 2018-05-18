@@ -80,7 +80,7 @@ with the package "FME".
 Fit model parameters to experimental data
 }
 \section{Function version}{
- 0.1.0 (2018-05-16 11:16:22)
+ 0.1.0 (2018-05-16 13:48:38)
 }
 
 \examples{
@@ -114,9 +114,14 @@ Fit model parameters to experimental data
      
 }
 \references{
+Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
+luminescence of quartz. Radiation Measurements 33, 17-45.
+
 Soetaert K., Petzoldt T., 2010: Inverse Modelling, Sensitivity and Monte Carlo Analysis in
 R Using Package FME. 
 Journal of Statistical Software, 33, 1-28.
+
+Wintle, A., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophysical Journal International 41, 107-113.
 }
 \seealso{
 \code{\link[FME]{sensFun}}, \code{\link[FME]{sensRange}}, 
