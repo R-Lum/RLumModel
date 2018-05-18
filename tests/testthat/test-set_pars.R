@@ -8,6 +8,7 @@ test_that("check length of output",{
   expect_equal(length(.set_pars("Pagonis2007")), 12)
   expect_equal(length(.set_pars("Pagonis2008")), 12)
   expect_equal(length(.set_pars("Friedrich2017")), 12)
+  expect_equal(length(.set_pars("Friedrich2018")), 12)
   expect_equal(length(.set_pars("customized")), 5)
   
 })
@@ -20,6 +21,15 @@ test_that("check class of output",{
   expect_equal(class(.set_pars("Pagonis2007")), "list")
   expect_equal(class(.set_pars("Pagonis2008")), "list")
   expect_equal(class(.set_pars("Friedrich2017")), "list")
+  expect_equal(class(.set_pars("Friedrich2018")), "list")
   expect_equal(class(.set_pars("customized")), "list")
+  
+})
+
+test_that("test controlled crash conditions",{
+  
+  expect_error(.set_pars("Bailey2000"), 
+               regexp = "[.set_pars()] Model not supported. Supported models are: Bailey2001, Bailey2004, Pagonis2008, Pagonis2007, Bailey2002, Friedrich2017, Friedrich2018, customized, customised",
+               fixed = TRUE)
   
 })

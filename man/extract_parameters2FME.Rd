@@ -8,7 +8,7 @@ extract_parameters2FME(model = NULL, parms = NULL)
 }
 \arguments{
 \item{model}{\code{\link{character}}: set model to be used. Available models are:
-"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017"}
+"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017", and "Friedrich2018"}
 
 \item{parms}{\code{\link{list}}: If an own parameter set is used for 'inverse modelling'.}
 }
@@ -19,7 +19,7 @@ This function returns a named \code{\link{vector}} for use with R package FME
 Prepare parameters for use with R package FME and function \code{\link{fit_RLumModel2data}}
 }
 \section{Function version}{
- 0.1.1 (2018-05-16 11:16:04)
+ 0.1.0 (2018-05-18 12:07:33)
 }
 
 \examples{

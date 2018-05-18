@@ -5,7 +5,7 @@
 #' See \code{\link{model_LuminescenceSignals}} for a detailed description.
 #
 #' @param model \code{\link{character}} (\bold{required}): set model to be used. Available models are:
-#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"
+#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017", and "Friedrich2018"
 #'
 #' @param seq.step2fit \code{\link{numeric}} (\bold{required}): Choose the sequence step number to fit.
 #' \bold{Note: Only sequence steps with an signal output are allowed! This sequence steps are:

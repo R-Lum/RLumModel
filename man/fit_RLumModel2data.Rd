@@ -12,7 +12,7 @@ fit_RLumModel2data(model, sequence, seq.step2fit, norm = TRUE,
 }
 \arguments{
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
-"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008"}
+"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017", and "Friedrich2018"}
 
 \item{sequence}{\code{\link{list}} (\bold{required}): set sequence to model as \code{\link{list}} or as *.seq file from the
 Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).
@@ -80,7 +80,7 @@ with the package "FME".
 Fit model parameters to experimental data
 }
 \section{Function version}{
- 0.1.0 (2018-05-16 13:48:38)
+ 0.1.0 (2018-05-18 11:53:42)
 }
 
 \examples{

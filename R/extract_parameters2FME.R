@@ -1,13 +1,13 @@
 #' Prepare parameters for use with R package FME and function \code{\link{fit_RLumModel2data}}
 #' 
 #' @param model \code{\link{character}}: set model to be used. Available models are:
-#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017"
+#' "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017", and "Friedrich2018"
 #' 
 #' @param parms \code{\link{list}}: If an own parameter set is used for 'inverse modelling'.
 #' 
 #' @return This function returns a named \code{\link{vector}} for use with R package FME 
 #' 
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.0
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #' 
@@ -71,28 +71,35 @@ extract_parameters2FME <- function(
   
   # Integrity tests and conversion --------------------------------------------------------------
   
-  if(is.null(model) & is.null(parms)){
+  if (is.null(model) & is.null(parms)) {
     
-    stop("[extract_pars2FME()] Either 'model' or 'parms' has to be a function argument")
+    stop("[extract_parameters2FME()] Either 'model' or 'parms' has to be a function argument.")
   }
   
-  model.allowed_keywords <- c("Bailey2001", "Bailey2004", "Pagonis2008", "Pagonis2007", "Bailey2002", "Friedrich2017")
+  model.allowed_keywords <- c("Bailey2001", 
+                              "Bailey2004", 
+                              "Pagonis2008", 
+                              "Pagonis2007", 
+                              "Bailey2002", 
+                              "Friedrich2017", 
+                              "Friedrich2018")
   
-  if(!is.null(model)){
-    if(!model%in%model.allowed_keywords){
-    stop(paste0("[extract_parms2FME()] Model not supported. Supported models are: ", paste(model.allowed_keywords, collapse = ", ")))
+  if (!is.null(model)) {
+    if (!model %in% model.allowed_keywords) {
+    stop(paste0("[extract_parameters2FME()] Model not supported. Supported models are: ", 
+                paste(model.allowed_keywords, collapse = ", ")))
     }
   }
   
-  if(!is.null(parms) & class(parms)!= "list"){
+  if (!is.null(parms) & class(parms) != "list") {
     
-    stop("[extract_pars2FME()] Function argument 'parms' has to be of class list")
+    stop("[extract_parameters2FME()] Function argument 'parms' has to be of class list.")
   }
   
   # Function ------------------------------------------------------------------------------------ 
   
   ##load model parameters
-  if(is.null(parms)){
+  if (is.null(parms)) {
     
     temp_pars <- .set_pars(model)
   
@@ -108,7 +115,7 @@ extract_parameters2FME <- function(
     ##unlist parms for direct call, e.g. parms["N1"]
     return(unlist(temp_pars))
     
-  } else { ##model = NULL
+  } else {##model = NULL
     
     parms$model <- NULL
     parms$k_B <- NULL
