@@ -26,7 +26,7 @@ knitr::opts_chunk$set(fig.pos = 'H', fig.align = 'center')
 This vignette gives an overview how to fit quartz luminescence model parameters to experimental data, TL and OSL, respectively. 
 
 
-The sensitivity analysis as well as the fitting procedure is done using the **R**-package 'FME' by Karline Soetaert and Thomas Petzoldt (https://cran.r-project.org/web/packages/FME/index.html). For further information the reader is referred to the FME manual and the FME vignettes therein.
+The sensitivity analysis as well as the fitting procedure is done using the **R**-package 'FME' by Karline Soetaert and Thomas Petzoldt (https://CRAN.R-project.org/package=FME). For further information the reader is referred to the FME manual and the FME vignettes therein.
 
 # Getting started
 
