@@ -3,13 +3,14 @@ Type: Package
 Title: Solving Ordinary Differential Equations to Understand Luminescence
 Version: 0.2.4.9000-8
 Date: 2019-05-03
-Author: Johannes Friedrich [aut, trl, cre],
+Author: Johannes Friedrich [aut, trl, cre] (<https://orcid.org/0000-0002-0805-9547>),
     Sebastian Kreutzer [aut, ths] (<https://orcid.org/0000-0002-0734-2199>),
-    Christoph Schmidt [aut, ths]
+    Christoph Schmidt [aut, ths] (<https://orcid.org/0000-0002-2309-3209>)
 Authors@R: c(
-    person("Johannes", "Friedrich", role = c("aut","trl","cre"), email = "johannes.friedrich@uni-bayreuth.de"),
+    person("Johannes", "Friedrich", role = c("aut","trl","cre"), comment = c(ORCID = "0000-0002-0805-9547"), 
+    email = "johannes.friedrich@uni-bayreuth.de"),
     person("Sebastian", "Kreutzer", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-0734-2199")),
-    person("Christoph", "Schmidt", role = c("aut", "ths"))
+    person("Christoph", "Schmidt", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-2309-3209"))
     )
 Maintainer: Johannes Friedrich <johannes.friedrich@uni-bayreuth.de>
 Description: A collection of functions to simulate luminescence signals in quartz and Al2O3 based on published models.
