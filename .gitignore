@@ -16,5 +16,6 @@ RLumModel.BuildResults/*.tgz
 packrat/lib*/
 packrat/src/
 src/*.o
+src/*.so
 src/*.dll
 *.RData

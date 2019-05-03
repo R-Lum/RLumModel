@@ -27,7 +27,7 @@ in the sequence editor.
 \bold{Supported versions}: Supppored and tested: version 4.36.
 }
 \section{Function version}{
- 0.1.0 (2017-10-13 13:46:59)
+ 0.1.0
 }
 
 \examples{
@@ -36,7 +36,12 @@ path <- system.file("extdata", "example_SAR_cycle.SEQ", package="RLumModel")
 
 sequence <- read_SEQ2R(file = path, txtProgressBar = FALSE)
 
+} 
+
+\section{How to cite}{
+Friedrich, J. (2019). read_SEQ2R(): Parse a Risoe SEQ-file to a sequence neccessary for simulating quartz luminescence. Function version 0.1.0. In: Friedrich, J., Kreutzer, S., Schmidt, C. (2019). RLumModel: Solving Ordinary Differential Equations to Understand LuminescenceR package version 0.2.4.9000-8. https://CRAN.R-project.org/package=RLumModel
 }
+
 \references{
 Riso: Sequence Editor User Manual.
 Available at: http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter

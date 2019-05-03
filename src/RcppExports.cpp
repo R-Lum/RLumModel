@@ -32,3 +32,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_RLumModel_set_ODE_Rcpp", (DL_FUNC) &_RLumModel_set_ODE_Rcpp, 3},
+    {"_RLumModel_set_ODE_Rcpp_LM_OSL", (DL_FUNC) &_RLumModel_set_ODE_Rcpp_LM_OSL, 3},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_RLumModel(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}
