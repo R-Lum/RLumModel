@@ -10,7 +10,7 @@
     ## Loading required package: magrittr
 
     ## Welcome to the R package Luminescence version 0.9.1.9000-12 [Built: 2019-05-03 17:55:03 UTC]
-    ## Deep trap electron to infrared photon: 'Don't bother me, I need to rest.'
+    ## Der Tatortreiniger: 'Dreck ist nur Materie am falschen Ort.'
 
     ## 
     ## Attaching package: 'RLumModel'
