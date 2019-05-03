@@ -19,3 +19,5 @@ src/*.o
 src/*.so
 src/*.dll
 *.RData
+README.html
+NEWS.html
