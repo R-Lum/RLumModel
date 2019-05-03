@@ -10,7 +10,7 @@
     ## Loading required package: magrittr
 
     ## Welcome to the R package Luminescence version 0.9.1.9000-12 [Built: 2019-05-03 17:55:03 UTC]
-    ## Der Tatortreiniger: 'Dreck ist nur Materie am falschen Ort.'
+    ## Bright grain to dim grains: 'I'm so shiny!'
 
     ## 
     ## Attaching package: 'RLumModel'
