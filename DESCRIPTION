@@ -27,7 +27,8 @@ Imports:
 Suggests: 
     knitr (>= 1.22), 
     kableExtra (>= 1.1.0),
-    testthat (>= 2.1.1)
+    testthat (>= 2.1.1),
+    rmarkdown (>= 1.12)
 URL: https://CRAN.R-project.org/package=RLumModel
 Collate:
   RLumModel-package.R
