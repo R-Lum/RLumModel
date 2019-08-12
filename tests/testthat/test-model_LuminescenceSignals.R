@@ -133,14 +133,6 @@ test_that("check custom models", {
     plot = FALSE,
     verbose = FALSE)
   
-  temp <- model_LuminescenceSignals(
-    model = "customized", 
-    sequence = sequence, 
-    own_parameters = own_parameters,
-    own_start_temperature = own_start_temperature,
-    plot = FALSE,
-    verbose = FALSE)
-  
   expect_warning(
     model_LuminescenceSignals(
       model = "Bailey2001",

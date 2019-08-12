@@ -11,39 +11,39 @@ published models.
 \details{
 \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
 \tab 0.2.3 \cr Date: \tab 2017-11-22 \cr License: \tab GPL-3\cr }
-}
-\author{
-\bold{Authors}
 
-\tabular{ll}{Johannes Friedrich \tab University of Bayreuth, Germany \cr
+**Authors**
+
+\tabular{ll}{
+Johannes Friedrich \tab University of Bayreuth, Germany \cr
 Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France\cr
 Christoph Schmidt \tab University of Bayreuth, Germany
 }
 
-\bold{Supervisor}
+**Supervisor**
 
 Christoph Schmidt, University of Bayreuth, Germany\cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, France
 
-\bold{Support contact}
+**Support contact**
 
-\email{developers@model.r-luminescence.de}\cr
+\email{developers@model.r-luminescence.de}
 
-\bold{Project source code repository}\cr
-\url{https://github.com/R-Lum/RLumModel}\cr
+**Project source code repository**
+-[https://github.com/R-Lum/RLumModel]
 
-\bold{Related package projects}\cr
-\url{http://www.r-luminescence.de}\cr
-\url{https://cran.r-project.org/package=Luminescence}\cr
-\url{http://shiny.r-luminescence.de}\cr
-\url{https://cran.r-project.org/package=RLumShiny}\cr
+**Related package projects**
+- [http://www.r-luminescence.de]
+- [https://cran.r-project.org/package=Luminescence]
+- [http://shiny.r-luminescence.de]
+- [https://cran.r-project.org/package=RLumShiny]
 
-\bold{Package maintainer}
+**Package maintainer**
 
 Johannes Friedrich, University of Bayreuth, Germany
-\cr \email{johannes.friedrich@uni-bayreuth.de}
+\cr \email{johannes.friedrich@posteo.de}
 
-\bold{Acknowledgement}
+**Acknowledgement**
 
  The work of Johannes Friedrich is gratefully supported by the DFG in framework of the project
  'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1).
