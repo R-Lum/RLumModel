@@ -7,7 +7,7 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.4.9000-31 (2019-08-12)
+## Changes in version 0.2.4 (2019-08-16)
 
   - Minor internal corrections
 
