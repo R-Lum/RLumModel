@@ -394,7 +394,7 @@ model.output <- model_LuminescenceSignals(
 } 
 
 \section{How to cite}{
-Friedrich, J., Kreutzer, S., 2019. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2019. RLumModel: Solving Ordinary Differential Equations to Understand LuminescenceR package version 0.2.4. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., Kreutzer, S., 2019. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2019. RLumModel: Solving Ordinary Differential Equations to Understand LuminescenceR package version 0.2.5.9000-1. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
