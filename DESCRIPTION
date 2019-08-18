@@ -12,7 +12,7 @@ Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Schmidt", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-2309-3209"))
     )
-Maintainer: Johannes Friedrich <johannes.friedrich@uni-bayreuth.de>
+Maintainer: Johannes Friedrich <johannes.friedrich@posteo.de>
 Description: A collection of functions to simulate luminescence signals in quartz and Al2O3 based on published models.
 Contact: Package Developer Team <developer@model.r-luminescence.de>
 License: GPL-3
