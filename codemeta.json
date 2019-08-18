@@ -1,0 +1,191 @@
+{
+  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@type": "SoftwareSourceCode",
+  "identifier": "RLumModel",
+  "description": "A collection of functions to simulate luminescence signals in quartz and Al2O3 based on published models.",
+  "name": "RLumModel: Solving Ordinary Differential Equations to Understand Luminescence",
+  "codeRepository": "https://CRAN.R-project.org/package=RLumModel",
+  "license": "https://spdx.org/licenses/GPL-3.0",
+  "version": "0.2.5.9000.1",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "version": "3.7.0",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R Under development (unstable) (2019-07-31 r76909)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Johannes",
+      "familyName": "Friedrich",
+      "email": "johannes.friedrich@uni-bayreuth.de",
+      "@id": "https://orcid.org/0000-0002-0805-9547"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Sebastian",
+      "familyName": "Kreutzer",
+      "@id": "https://orcid.org/0000-0002-0734-2199"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Christoph",
+      "familyName": "Schmidt",
+      "@id": "https://orcid.org/0000-0002-2309-3209"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Sebastian",
+      "familyName": "Kreutzer",
+      "@id": "https://orcid.org/0000-0002-0734-2199"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Christoph",
+      "familyName": "Schmidt",
+      "@id": "https://orcid.org/0000-0002-2309-3209"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Johannes",
+      "familyName": "Friedrich",
+      "email": "johannes.friedrich@uni-bayreuth.de",
+      "@id": "https://orcid.org/0000-0002-0805-9547"
+    }
+  ],
+  "copyrightHolder": {},
+  "funder": {},
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Johannes",
+      "familyName": "Friedrich",
+      "email": "johannes.friedrich@uni-bayreuth.de",
+      "@id": "https://orcid.org/0000-0002-0805-9547"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "version": ">= 1.22",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "kableExtra",
+      "name": "kableExtra",
+      "version": ">= 1.1.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=kableExtra"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "version": ">= 2.1.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "version": ">= 1.12",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    }
+  ],
+  "softwareRequirements": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.4.0"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "utils",
+      "name": "utils"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "Luminescence",
+      "name": "Luminescence",
+      "version": ">= 0.9.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=Luminescence"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "deSolve",
+      "name": "deSolve",
+      "version": ">= 1.21",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=deSolve"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "methods",
+      "name": "methods"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "Rcpp",
+      "name": "Rcpp",
+      "version": ">= 1.0.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=Rcpp"
+    }
+  ],
+  "releaseNotes": "https://github.com/R-Lum/RLumModel/blob/master/NEWS.md",
+  "readme": "https://github.com/R-Lum/RLumModel/blob/master/README.md",
+  "contIntegration": ["https://travis-ci.org/R-Lum/RLumModel", "https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master", "https://codecov.io/github/R-Lum/RLumModel?branch=master"],
+  "relatedLink": "https://CRAN.R-project.org/package=RLumModel"
+}
