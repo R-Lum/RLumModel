@@ -4,10 +4,19 @@
 \alias{model_LuminescenceSignals}
 \title{Model Luminescence Signals}
 \usage{
-model_LuminescenceSignals(model, sequence, lab.dose_rate = 1,
-  simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE,
-  show_structure = FALSE, own_parameters = NULL,
-  own_state_parameters = NULL, own_start_temperature = NULL, ...)
+model_LuminescenceSignals(
+  model,
+  sequence,
+  lab.dose_rate = 1,
+  simulate_sample_history = FALSE,
+  plot = TRUE,
+  verbose = TRUE,
+  show_structure = FALSE,
+  own_parameters = NULL,
+  own_state_parameters = NULL,
+  own_start_temperature = NULL,
+  ...
+)
 }
 \arguments{
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
@@ -94,6 +103,7 @@ PAUSE \tab pause \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s]
 }
 
 Note: 100 \% illumination power equates to 20 mW/cm^2
+
 
 Defining a \bold{SAR-sequence}\cr
 
@@ -269,7 +279,7 @@ own_parameters <- list(
    act.temp[-(1:3)],
    model.output[-(1:3)],
    type = "b",
-   xlab = "Temperature [\\u00B0C]",
+   xlab = "Temperature [\u00B0C]",
    ylab = "TL [a.u.]"
  )
 
@@ -394,7 +404,7 @@ model.output <- model_LuminescenceSignals(
 } 
 
 \section{How to cite}{
-Friedrich, J., Kreutzer, S., 2019. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2019. RLumModel: Solving Ordinary Differential Equations to Understand LuminescenceR package version 0.2.5.9000-1. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., Kreutzer, S., 2019. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2019. RLumModel: Solving Ordinary Differential Equations to Understand LuminescenceR package version 0.2.5.9000-6. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
