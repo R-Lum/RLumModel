@@ -1,8 +1,8 @@
 Package: RLumModel
 Type: Package
 Title: Solving Ordinary Differential Equations to Understand Luminescence
-Version: 0.2.5.9000-6
-Date: 2019-11-24
+Version: 0.2.5
+Date: 2019-12-11
 Author: Johannes Friedrich [aut, trl, cre] (<https://orcid.org/0000-0002-0805-9547>),
     Sebastian Kreutzer [aut, ths] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Schmidt [aut, ths] (<https://orcid.org/0000-0002-2309-3209>)
@@ -51,7 +51,7 @@ Collate:
   simulate_RF_and_heating.R
   simulate_TL.R
   translate_sequence.R
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr

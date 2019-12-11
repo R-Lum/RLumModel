@@ -7,7 +7,13 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.5.9000-6 (2019-11-24)
+## Changes in version 0.2.5 (2019-12-11)
+
+  - Changes in ‘Luminescence’ broke the vignette; now modified with a
+    workaround
+  - Updated maintainer email address
+
+## Changes in version 0.2.4 (16nd August, 2018)
 
   - Minor internal corrections
 
