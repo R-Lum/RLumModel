@@ -7,7 +7,11 @@ sudo: required
 r_binary_package:
   - covr
   - devtools
+  - deSolve 
   - testthat
+  - rmarkdown
+  - kableExtra 
+  - knitr
   
 ## test different platforms
 matrix:
