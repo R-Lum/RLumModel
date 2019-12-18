@@ -10,6 +10,10 @@ header-includes:
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
+* Dummy
+
+## Changes in version 0.2.5 (15nd December, 2019)
+
 * Changes in 'Luminescence' broke the vignette; now modified with a workaround
 * Updated maintainer email address
 
