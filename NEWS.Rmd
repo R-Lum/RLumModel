@@ -11,6 +11,7 @@ header-includes:
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
 * Switch vignette builder to 'R.rsp' to avoid ATALS BLAS warning
+* Drop dependency ('suggests') to 'knitr', 'kableExtra' and 'rmarkdown'
 
 ## Changes in version 0.2.5 (15nd December, 2019)
 

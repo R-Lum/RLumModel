@@ -1,7 +1,7 @@
 Package: RLumModel
 Type: Package
 Title: Solving Ordinary Differential Equations to Understand Luminescence
-Version: 0.2.6.9000-6
+Version: 0.2.6.9000-8
 Date: 2020-07-22
 Author: Johannes Friedrich [aut, trl, cre] (<https://orcid.org/0000-0002-0805-9547>),
     Sebastian Kreutzer [aut, ths] (<https://orcid.org/0000-0002-0734-2199>),
@@ -25,10 +25,7 @@ Imports:
     methods,
     Rcpp (>= 1.0.1)
 Suggests: 
-    knitr (>= 1.22), 
-    kableExtra (>= 1.1.0),
     testthat (>= 2.1.1),
-    rmarkdown (>= 1.12),
     R.rsp (>= 0.44.0)
 URL: https://CRAN.R-project.org/package=RLumModel
 Collate:
