@@ -1,20 +1,16 @@
 language: r
 cache: packages
 warnings_are_errors: true
-sudo: required
 
 ##load additional package
-r_binary_package:
+r_packages:
   - covr
   - devtools
-  - deSolve 
+  - deSolve
   - testthat
-  - rmarkdown
-  - kableExtra 
-  - knitr
-  
+
 ## test different platforms
-matrix:
+jobs:
   include:
   - os: linux
     r: oldrel
