@@ -10,7 +10,7 @@ header-includes:
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-* Dummy
+* Switch vignette builder to 'R.rsp' to avoid ATALS BLAS warning
 
 ## Changes in version 0.2.5 (15nd December, 2019)
 
