@@ -7,9 +7,12 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.6.9000-1 (2019-12-18)
+## Changes in version 0.2.6.9000-10 (2020-07-22)
 
-  - Dummy
+  - Switch vignette builder to ‘R.rsp’ to avoid ATALS BLAS warning
+  - Drop dependency (‘suggests’) to ‘knitr’, ‘kableExtra’ and
+    ‘rmarkdown’
+  - The minium required R version is now 3.5.0
 
 ## Changes in version 0.2.5 (15nd December, 2019)
 

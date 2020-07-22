@@ -5,7 +5,9 @@
 \alias{ExampleData.ModelOutput}
 \alias{model.output}
 \title{Example data (TL curve) simulated with parameter set from Pagonis 2007}
-\format{A RLum.Analysis object containing one TL curve as RLum.Data.Curve.}
+\format{
+A RLum.Analysis object containing one TL curve as RLum.Data.Curve.
+}
 \source{
 \bold{model_LuminescenceSignals()}
 }
