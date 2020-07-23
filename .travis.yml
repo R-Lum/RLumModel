@@ -8,6 +8,7 @@ r_packages:
   - devtools
   - deSolve
   - testthat
+  - Luminescence
 
 ## test different platforms
 jobs:
@@ -33,9 +34,12 @@ jobs:
   - os: osx
     r: release
     before_install:
-      #- sudo rm '/usr/local/include/c++'
       - sudo rm '/usr/local/bin/gfortran'
-      - brew install gcc
+      - |
+        ## Test whether gcc is already installed
+        if ! brew ls --versions gcc > /dev/null; then
+            brew install gcc
+         fi
       - brew install libssh2
       - brew install libgit2
     env: CACHE_NAME=JOB4
