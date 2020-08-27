@@ -1,19 +1,21 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "RLumModel",
   "description": "A collection of functions to simulate luminescence signals in quartz and Al2O3 based on published models.",
   "name": "RLumModel: Solving Ordinary Differential Equations to Understand Luminescence",
-  "codeRepository": "https://CRAN.R-project.org/package=RLumModel",
+  "codeRepository": "https://github.com/R-Lum/RLumModel",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.2.5.9000.1",
+  "version": "0.2.6",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.7.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2019-07-31 r76909)",
+  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -25,7 +27,7 @@
       "@type": "Person",
       "givenName": "Johannes",
       "familyName": "Friedrich",
-      "email": "johannes.friedrich@uni-bayreuth.de",
+      "email": "johannes.friedrich@posteo.de",
       "@id": "https://orcid.org/0000-0002-0805-9547"
     },
     {
@@ -58,7 +60,7 @@
       "@type": "Person",
       "givenName": "Johannes",
       "familyName": "Friedrich",
-      "email": "johannes.friedrich@uni-bayreuth.de",
+      "email": "johannes.friedrich@posteo.de",
       "@id": "https://orcid.org/0000-0002-0805-9547"
     }
   ],
@@ -69,37 +71,11 @@
       "@type": "Person",
       "givenName": "Johannes",
       "familyName": "Friedrich",
-      "email": "johannes.friedrich@uni-bayreuth.de",
+      "email": "johannes.friedrich@posteo.de",
       "@id": "https://orcid.org/0000-0002-0805-9547"
     }
   ],
   "softwareSuggestions": [
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "knitr",
-      "name": "knitr",
-      "version": ">= 1.22",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=knitr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "kableExtra",
-      "name": "kableExtra",
-      "version": ">= 1.1.0",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=kableExtra"
-    },
     {
       "@type": "SoftwareApplication",
       "identifier": "testthat",
@@ -115,16 +91,16 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "rmarkdown",
-      "name": "rmarkdown",
-      "version": ">= 1.12",
+      "identifier": "R.rsp",
+      "name": "R.rsp",
+      "version": ">= 0.44.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+      "sameAs": "https://CRAN.R-project.org/package=R.rsp"
     }
   ],
   "softwareRequirements": [
@@ -132,7 +108,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.4.0"
+      "version": ">= 3.5.0"
     },
     {
       "@type": "SoftwareApplication",
@@ -187,5 +163,6 @@
   "releaseNotes": "https://github.com/R-Lum/RLumModel/blob/master/NEWS.md",
   "readme": "https://github.com/R-Lum/RLumModel/blob/master/README.md",
   "contIntegration": ["https://travis-ci.org/R-Lum/RLumModel", "https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master", "https://codecov.io/github/R-Lum/RLumModel?branch=master"],
-  "relatedLink": "https://CRAN.R-project.org/package=RLumModel"
+  "relatedLink": "https://CRAN.R-project.org/package=RLumModel",
+  "keywords": ["modelling", "luminescence", "quartz", "simulation", "differential-equations", "energy-band-model"]
 }
