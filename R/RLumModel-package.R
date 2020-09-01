@@ -1,10 +1,7 @@
-#' Solving Ordinary Differential Equations to Unterstand Luminescence
+#' Solving Ordinary Differential Equations to Understand Luminescence
 #'
 #' A collection of function to simulate luminescence signals in the mineral quartz based on
 #' published models.
-#'
-#' \tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-#' \tab 0.2.3 \cr Date: \tab 2017-11-22 \cr License: \tab GPL-3\cr }
 #'
 #' @name RLumModel-package
 #' @docType package
@@ -12,14 +9,14 @@
 #'
 #' \tabular{ll}{
 #' Johannes Friedrich \tab University of Bayreuth, Germany \cr
-#' Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France\cr
+#' Sebastian Kreutzer \tab IRAMAT-CRP2A, Université Bordeaux Montaigne, France\cr
 #' Christoph Schmidt \tab University of Bayreuth, Germany
 #'}
 #'
 #' **Supervisor**
 #'
 #' Christoph Schmidt, University of Bayreuth, Germany\cr
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, France
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne, France
 #'
 #' **Support contact**
 #'
@@ -45,7 +42,7 @@
 #'  'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1).
 #'
 #' @keywords package
-#'
+#' @md
 #' @import Luminescence deSolve methods utils
 #' @importFrom stats setNames
 #' @importFrom tools file_ext
