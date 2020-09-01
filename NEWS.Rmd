@@ -10,8 +10,12 @@ header-includes:
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-* Switch vignette builder to 'R.rsp' to avoid ATLAS BLAS warning
-* Drop dependency ('suggests') to 'knitr', 'kableExtra' and 'rmarkdown'
+* Changed Makevars to tackle Solaris problems
+
+## Changes in version 0.2.6 (August 31, 2020)
+
+* Switch vignette builder to `'R.rsp'` to avoid ATLAS BLAS warning
+* Drop dependency ('suggests') to `'knitr'`, `'kableExtra'` and `'rmarkdown'`
 * The minimum required R version is now 3.5.0
 
 ## Changes in version 0.2.5 (15nd December, 2019)
