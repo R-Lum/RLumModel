@@ -3,49 +3,50 @@
 \docType{package}
 \name{RLumModel-package}
 \alias{RLumModel-package}
-\title{Solving Ordinary Differential Equations to Unterstand Luminescence}
+\title{Solving Ordinary Differential Equations to Understand Luminescence}
 \description{
 A collection of function to simulate luminescence signals in the mineral quartz based on
 published models.
 }
 \details{
-\tabular{ll}{ Package: \tab RLumModel\cr Type: \tab Package\cr Version:
-\tab 0.2.3 \cr Date: \tab 2017-11-22 \cr License: \tab GPL-3\cr }
-
-**Authors**
+\strong{Authors}
 
 \tabular{ll}{
 Johannes Friedrich \tab University of Bayreuth, Germany \cr
-Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France\cr
+Sebastian Kreutzer \tab IRAMAT-CRP2A, Université Bordeaux Montaigne, France\cr
 Christoph Schmidt \tab University of Bayreuth, Germany
 }
 
-**Supervisor**
+\strong{Supervisor}
 
 Christoph Schmidt, University of Bayreuth, Germany\cr
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, France
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne, France
 
-**Support contact**
+\strong{Support contact}
 
 \email{developers@model.r-luminescence.de}
 
-**Project source code repository**
--[https://github.com/R-Lum/RLumModel]
+\strong{Project source code repository}
+\itemize{
+\item https://github.com/R-Lum/RLumModel
+}
 
-**Related package projects**
-- [http://www.r-luminescence.de]
-- [https://cran.r-project.org/package=Luminescence]
-- [http://shiny.r-luminescence.de]
-- [https://cran.r-project.org/package=RLumShiny]
+\strong{Related package projects}
+\itemize{
+\item http://www.r-luminescence.de
+\item https://cran.r-project.org/package=Luminescence
+\item http://shiny.r-luminescence.de]
+\item https://cran.r-project.org/package=RLumShiny
+}
 
-**Package maintainer**
+\strong{Package maintainer}
 
 Johannes Friedrich, University of Bayreuth, Germany
 \cr \email{johannes.friedrich@posteo.de}
 
-**Acknowledgement**
+\strong{Acknowledgement}
 
- The work of Johannes Friedrich is gratefully supported by the DFG in framework of the project
- 'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1).
+The work of Johannes Friedrich is gratefully supported by the DFG in framework of the project
+'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1).
 }
 \keyword{package}

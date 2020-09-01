@@ -39,7 +39,7 @@ sequence <- read_SEQ2R(file = path, txtProgressBar = FALSE)
 } 
 
 \section{How to cite}{
-Friedrich, J., 2020. read_SEQ2R(): Parse a Risoe SEQ-file to a sequence neccessary for simulating quartz luminescence. Function version 0.1.0. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2020. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.6. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., 2020. read_SEQ2R(): Parse a Risoe SEQ-file to a sequence neccessary for simulating quartz luminescence. Function version 0.1.0. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2020. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.7. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
@@ -53,4 +53,4 @@ SequenceEditor.ashx?la=da
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),
-, RLum Developer Team}
+}

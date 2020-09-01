@@ -404,7 +404,7 @@ model.output <- model_LuminescenceSignals(
 } 
 
 \section{How to cite}{
-Friedrich, J., Kreutzer, S., 2020. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2020. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.6. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., Kreutzer, S., 2020. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2020. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.7. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
@@ -447,4 +447,4 @@ Wintle, A., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophysical
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-, RLum Developer Team}
+}

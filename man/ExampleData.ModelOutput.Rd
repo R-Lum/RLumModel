@@ -43,5 +43,5 @@ stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany)
-, RLum Developer Team}
+}
 \keyword{datasets}
