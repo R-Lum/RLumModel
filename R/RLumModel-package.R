@@ -23,13 +23,13 @@
 #' \email{developers@@model.r-luminescence.de}
 #'
 #' **Project source code repository**
-#' -[https://github.com/R-Lum/RLumModel]
+#' - https://github.com/R-Lum/RLumModel
 #'
 #' **Related package projects**
-#' - [http://www.r-luminescence.de]
-#' - [https://cran.r-project.org/package=Luminescence]
-#' - [http://shiny.r-luminescence.de]
-#' - [https://cran.r-project.org/package=RLumShiny]
+#' - http://www.r-luminescence.de
+#' - https://cran.r-project.org/package=Luminescence
+#' - http://shiny.r-luminescence.de]
+#' - https://cran.r-project.org/package=RLumShiny
 #'
 #' **Package maintainer**
 #'
