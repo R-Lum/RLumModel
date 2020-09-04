@@ -7,9 +7,17 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.7 (2020-09-01)
+## Changes in version 0.2.8.9000-1 (2020-09-04)
 
-  - Changed Makevars to tackle Solaris problems
+  - Dummy
+
+-----
+
+## Changes in version 0.2.7 (September 04, 2020)
+
+  - Changed `Makevars` to tackle Solaris problems
+
+-----
 
 ## Changes in version 0.2.6 (August 31, 2020)
 
@@ -18,15 +26,21 @@
     `'rmarkdown'`
   - The minimum required R version is now 3.5.0
 
+-----
+
 ## Changes in version 0.2.5 (15nd December, 2019)
 
   - Changes in ‘Luminescence’ broke the vignette; now modified with a
     workaround
   - Updated maintainer email address
 
+-----
+
 ## Changes in version 0.2.4 (16nd August, 2018)
 
   - Minor internal corrections
+
+-----
 
 ## Changes in version 0.2.3 (22nd November, 2017)
 
