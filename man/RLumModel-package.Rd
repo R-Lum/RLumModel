@@ -5,27 +5,27 @@
 \alias{RLumModel-package}
 \title{Solving Ordinary Differential Equations to Understand Luminescence}
 \description{
-A collection of function to simulate luminescence signals in the mineral quartz based on
-published models.
+\if{html}{
+\figure{RLumModel_Logo.png}{options: width="50px"}\cr
+}
 }
 \details{
+A collection of function to simulate luminescence signals in the mineral quartz based on
+published models.
+
 \strong{Authors}
 
 \tabular{ll}{
 Johannes Friedrich \tab University of Bayreuth, Germany \cr
-Sebastian Kreutzer \tab IRAMAT-CRP2A, Université Bordeaux Montaigne, France\cr
+Sebastian Kreutzer \tab Geography & Earth Sciences, Aberystwyth University, United Kingdom\cr
 Christoph Schmidt \tab University of Bayreuth, Germany
 }
 
 \strong{Supervisor}
 
 Christoph Schmidt, University of Bayreuth, Germany\cr
-Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne, France
-
-\strong{Support contact}
-
-\email{developers@model.r-luminescence.de}
-
+Sebastian Kreutzer,Geography & Earth Sciences, Aberystwyth University, United Kingdom
+#'
 \strong{Project source code repository}
 \itemize{
 \item https://github.com/R-Lum/RLumModel
@@ -33,10 +33,9 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne, France
 
 \strong{Related package projects}
 \itemize{
-\item http://www.r-luminescence.de
-\item https://cran.r-project.org/package=Luminescence
-\item http://shiny.r-luminescence.de]
-\item https://cran.r-project.org/package=RLumShiny
+\item http://r-luminescence.de
+\item https://CRAN.r-project.org/package=Luminescence
+\item https://CRAN.r-project.org/package=RLumShiny
 }
 
 \strong{Package maintainer}
