@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 library(RLumModel)
 ```
 
-# RLumModel
+# RLumModel <img width=120px src="man/figures/RLumModel_Logo.svg" align="right" />
 
 [![CRAN](http://www.r-pkg.org/badges/version/RLumModel)](https://CRAN.R-project.org/package=RLumModel )
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
