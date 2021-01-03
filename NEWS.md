@@ -7,7 +7,7 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.8.9000-3 (2020-11-04)
+## Changes in version 0.2.8.9000-4 (2021-01-03)
 
 -   Dummy
 
