@@ -1,6 +1,6 @@
 ---
 title: "RLumModel - Getting started with RLumModel"
-author: "Johannes Friedrich, University of Bayreuth"
+author: "Johannes Friedrich (University of Bayreuth, DE) & Sebastian Kreutzer (Earth Sciences and Geography, Abersytwyth University, UK)"
 date: '`r Sys.Date()`'
 output: 
   rmarkdown::html_vignette:
@@ -10,7 +10,6 @@ output:
     number_sections: yes
     toc: yes
 bibliography: RLumModel.bib
-csl: elsevier-harvard.csl
 vignette: |
   %\VignetteIndexEntry{RLumModel - Getting started with RLumModel} 
   %\VignetteEncoding{UTF-8}{inputenc}
@@ -18,7 +17,7 @@ vignette: |
 ---
 
 ```{r global_options, include=FALSE}
-knitr::opts_chunk$set(fig.pos = 'H', fig.align = 'center')
+knitr::opts_chunk$set(fig.pos = 'h', fig.align = 'center')
 ```
 
 ```{r, echo=FALSE, message = FALSE}
@@ -31,16 +30,17 @@ library(kableExtra)
 # Introduction
 
 This vignette shows a few examples for the **R**-package 'RLumModel'. The main function `model_LuminescenceSignals()` and their arguments will be explained.
-All calculations were done with 'RLumModel' 0.2.2 and 'Luminescence' 0.7.5.
+All calculations were done with 'RLumModel' (version: `r packageVersion("RLumModel")`) and
+'Luminescence' (version: `r packageVersion("Luminescence")`).
 
 
 # Object structure of RLumModel
 
 The output from the main function `model_LuminescenceSignals()` is of class `RLum.Analysis` [@Kreutzer_2012] and contains data of class `RLum.Data.Curve` in the slot 'records'. The advantage of this infrastructure is that the package 'Luminescence' offers a lot of methods to visualize and manipulate data. 
 
-All simualted data are stored in the slot 'records': TL/OSL/RF curves as well as the concentrations of every energy level from every step.
+All simulated data are stored in the slot 'records': TL/OSL/RF curves as well as the concentrations of every energy level from every step.
 
-The following code loads a data set provided by the 'RLumModel' package and shows how to seperate TL/OSL/RF data from concentrations and how to visualize them.
+The following code loads a data set provided by the 'RLumModel' package and shows how to separate TL/OSL/RF data from concentrations and how to visualize them.
 
 ```{r, eval = FALSE}
 data("ExampleData.ModelOutput", package = "RLumModel")
@@ -51,7 +51,7 @@ class(model.output)
 ##show structure
 Luminescence::structure_RLum(model.output)
 
-##seperate TL-curve from TL-concentrations
+##separate TL-curve from TL-concentrations
 TL_curve <- Luminescence::get_RLum(model.output, recordType = "TL$")
 TL_conc <- Luminescence::get_RLum(model.output, recordType = "(TL)", drop = FALSE)
 
@@ -248,10 +248,10 @@ sequence <- list(
   Irr_2recover = 20)
 ```
 
-This sequence describes a DRT, where a dose of 20 Gy will be recovered with this test. The regenerative doses are definded as 0 (natural), 10 Gy, 20 Gy, 50 Gy, 90 Gy and for recuperation and recycling ratio 0 Gy and 10 Gy, respectively.
-The test dose is definded as 2 Gy. Preheat and Cutheat are at 220 °C and all OSL measurements are simualted at 125 °C. There are more options to set, see Table 2.
+This sequence describes a DRT, where a dose of 20 Gy will be recovered with this test. The regenerative doses are defined as 0 (natural), 10 Gy, 20 Gy, 50 Gy, 90 Gy and for recuperation and recycling ratio 0 Gy and 10 Gy, respectively.
+The test dose is defined as 2 Gy. Preheat and cutheat are at 220 °C and all OSL measurements are simulated at 125 °C. There are more options to set, see Table 2.
 
-The RLumModel function `model_LuminescenceSignals()` is able to interprete this (sequence-) list as a DRT sequence.
+The 'RLumModel' function `model_LuminescenceSignals()` is able to interpret this (sequence-) list as a DRT sequence.
 
 # Working examples
 
@@ -517,7 +517,7 @@ model.output <- model_LuminescenceSignals(
   )
 		
 ##analyse SAR sequence and plot only the resulting growth curve	
-results <-Luminescence::analyse_SAR.CWOSL(
+results <- Luminescence::analyse_SAR.CWOSL(
   model.output,
   signal.integral.min = 1,
   signal.integral.max = 7,
@@ -528,6 +528,18 @@ results <-Luminescence::analyse_SAR.CWOSL(
   verbose = FALSE, 
   plot.single = c(6)
   )
+```
+
+# Miscellaneous
+
+## Accessing applied modelling parameters
+
+Sometimes it is useful to extract the used modelling parameters. Since
+the output is an `RLum.Analysis`-object compatible with the R package 'Luminescence',
+this can be achieved with the following code lines:
+
+```{r}
+Luminescence::get_RLum(model.output, info = "parms")
 ```
 
 
