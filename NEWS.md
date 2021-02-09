@@ -7,9 +7,13 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.8.9000-4 (2021-01-03)
+## Changes in version 0.2.8.9000-6 (2021-02-09)
 
--   Dummy
+-   This version requires R &gt; 3.6.0
+-   `model_LuminescenceSignals()` now returns the applied modelling
+    parameters in the `@info` slot of the returned `RLum.Analysis`
+    object (requested by @coffeemuggler)
+-   Add support for `'testthat'` &gt;= 3.0.0 (no user visible changes)
 
 ------------------------------------------------------------------------
 
