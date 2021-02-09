@@ -9,7 +9,6 @@ output:
     fig_width: 5
     number_sections: yes
     toc: yes
-csl: elsevier-harvard.csl
 bibliography: RLumModel.bib
 vignette: |
   %\VignetteIndexEntry{RLumModel - Simulating luminescence in Al<sub>2</sub>O<sub>3</sub>}         
@@ -22,7 +21,7 @@ knitr::opts_chunk$set(fig.pos = 'H', fig.align = 'center')
 
 # Introduction
 
-This vignette describes the usage of the **R**-package RLumModel for simulating Al<sub>2</sub>O<sub>3</sub> behaviour. In literature a lot of parameters for describing the thermoluminescence (TL) and/or opical stimulated luminescence (OSL) are given. We give same examples for simulating different phenomena of luminescence in Al<sub>2</sub>O<sub>3</sub>. Note that most of the model do not support TL **and** OSL simulations. So please be careful when creating sequences. The models presented in Sec. 2.1 and 2.2 support TL simulations, but no OSL because parameters for `E_th` (Thermal assistence energy) and `Th` (Photo-eviction constant or photoionisation cross section).
+This vignette describes the usage of the **R**-package 'RLumModel' for simulating Al<sub>2</sub>O<sub>3</sub> behaviour. In literature a lot of parameters for describing the thermoluminescence (TL) and/or optical stimulated luminescence (OSL) are given. We give same examples for simulating different phenomena of luminescence in Al<sub>2</sub>O<sub>3</sub>. Note that most of the model do not support TL **and** OSL simulations. So please be careful when creating sequences. The models presented in Sec. 2.1 and 2.2 support TL simulations, but no OSL because parameters for `E_th` (Thermal assistance energy) and `Th` (Photo-eviction constant or photoionisation cross section).
 
 # Examples
 
@@ -46,7 +45,7 @@ As a next step it is possible to set own starting-parameters, also called state 
 own_state_parameters <- c(0, 0, 1e11)
 ```
 
-Here the first entry is the first electron trap, the second entry the second electron trap and the third entry the luminescence center responsible for the TL signal.
+Here the first entry is the first electron trap, the second entry the second electron trap and the third entry the luminescence centre responsible for the TL signal.
 The vector `own_state_parameters` needs as much entries as energy levels used in the model.
 
 
