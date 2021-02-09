@@ -7,7 +7,7 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.8.9000-6 (2021-02-09)
+## Changes in version 0.2.8.9000-7 (2021-02-09)
 
 -   This version requires R &gt; 3.6.0
 -   `model_LuminescenceSignals()` now returns the applied modelling
