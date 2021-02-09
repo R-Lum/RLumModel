@@ -24,7 +24,7 @@
 #' @return This function returns an \code{\linkS4class{RLum.Analysis}} object which can be analysed
 #' by further \code{\linkS4class{RLum}} functions.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -72,11 +72,11 @@ for (i in 1:length(sequence)){
   #automatically heat to temperatrue of current sequence step, except stepname is "PH" or "CH"
   if(((n$temp < sequence[[i]]["temp"])&&(names(sequence)[i] != "PH")&&(names(sequence)[i] != "CH")) == TRUE){
     n <- .simulate_heating(temp_begin = n$temp,temp_end = sequence[[i]]["temp"], heating_rate = 1, n, parms)
-    
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
   }
-  
+
 
   #check if temperature is lower than the step before
   #automatically cool to temperatrue of current sequence step
@@ -102,7 +102,7 @@ for (i in 1:length(sequence)){
                              heating_rate = 5,
                              n,
                              parms)
-      
+
       ##collect originators
       output.steps <- c(output.steps,n@originator)
     }
@@ -118,12 +118,12 @@ for (i in 1:length(sequence)){
                              parms = parms)
       ##collect originators
       output.steps <- c(output.steps,n@originator)
-      
+
       n <- .simulate_pause(temp = sequence[[i]]["temp"],
                            duration = sequence[[i]]["duration"],
                            n = n,
                            parms = parms)
-      
+
       ##collect originators
       output.steps <- c(output.steps,n@originator)
     }
@@ -138,7 +138,7 @@ for (i in 1:length(sequence)){
                              heating_rate =  sequence[[i]]["heating_rate"],
                              n,
                              parms)
-      
+
       ##collect originators
       output.steps <- c(output.steps,n@originator)
 
@@ -146,7 +146,7 @@ for (i in 1:length(sequence)){
                            duration = sequence[[i]]["duration"],
                            n = n,
                            parms = parms)
-      
+
       ##collect originators
       output.steps <- c(output.steps,n@originator)
 
@@ -167,7 +167,7 @@ for (i in 1:length(sequence)){
                           n,
                           parms,
                           RLumModel_ID = i)
-    
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
 
@@ -187,7 +187,7 @@ for (i in 1:length(sequence)){
                                 optical_power = sequence[[i]]["optical_power"],
                                 n,
                                 parms)
-    
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
 
@@ -205,7 +205,7 @@ for (i in 1:length(sequence)){
                           n=n,
                           parms=parms,
                           RLumModel_ID = i)
-    
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
     }
@@ -222,7 +222,7 @@ for (i in 1:length(sequence)){
                             n=n,
                             parms=parms,
                             RLumModel_ID = i)
-      
+
       ##collect originators
       output.steps <- c(output.steps,n@originator)
 
@@ -244,7 +244,7 @@ for (i in 1:length(sequence)){
                       n,
                       parms,
                       RLumModel_ID = i)
-    
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
 
@@ -263,13 +263,13 @@ for (i in 1:length(sequence)){
                                dose_rate = sequence[[i]]["dose_rate"],
                                n,
                                parms)
-    
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
 
     ##pause to releax
     n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n = n, parms = parms)
-    
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
   }
@@ -287,68 +287,68 @@ for (i in 1:length(sequence)){
                                n,
                                parms,
                                RLumModel_ID = i)
-    
+
     ##collect originators
     output.steps <- c(output.steps, n@originator)
 
     output.model <- c(output.model,n$RF.data, n$concentrations)
 
     ##pause to releax
-    n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n = n, parms = parms)   
-    
+    n <- .simulate_pause(temp = sequence[[i]]["temp"], duration = 5, n = n, parms = parms)
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
-    
+
     }
 
   #check if current sequence step is PAUSE
-  
+
   if("PAUSE" %in% names(sequence)[i]){
-    
+
     if(length(sequence[[i]]) == 2){
-      
+
     if(!"temp" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp" }
     if(!"duration" %in% names(sequence[[i]])) {names(sequence[[i]])[2] <- "duration"}
 
-    n <- .simulate_pause(temp = sequence[[i]]["temp"], 
-                         duration = sequence[[i]]["duration"], 
-                         n = n, 
+    n <- .simulate_pause(temp = sequence[[i]]["temp"],
+                         duration = sequence[[i]]["duration"],
+                         n = n,
                          parms= parms)
-    
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
-    
+
     }
-  
+
   if(length(sequence[[i]]) == 3){
 
       if(!"temp" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp" }
       if(!"duration" %in% names(sequence[[i]])) {names(sequence[[i]])[2] <- "duration"}
       if(!"detection" %in% names(sequence[[i]])) {names(sequence[[i]])[3] <- "detection"}
-      
-      n <- .simulate_pause(temp = sequence[[i]]["temp"], 
-                           duration = sequence[[i]]["duration"], 
+
+      n <- .simulate_pause(temp = sequence[[i]]["temp"],
+                           duration = sequence[[i]]["duration"],
                            detection = sequence[[i]]["detection"],
                            RLumModel_ID = i,
-                           n= n, 
+                           n= n,
                            parms = parms)
-      
+
       ##collect originators
       output.steps <- c(output.steps,n@originator)
-      
+
       output.model <- c(output.model,n$pause.data, n$concentrations)
-      
-   } 
+
+   }
   }
-  
+
   #check if current sequence step is RF
   if("RF_heating" %in% names(sequence)[i] || "RL_heating" %in% names(sequence)[i]){
-    
+
     if(!"temp_begin" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp_begin"}
     if(!"temp_end" %in% names(sequence[[i]])) {names(sequence[[i]])[2] <- "temp_end"}
     if(!"heating_rate" %in% names(sequence[[i]])) {names(sequence[[i]])[3] <- "heating_rate"}
     if(!"dose_rate" %in% names(sequence[[i]])) {names(sequence[[i]])[4] <- "dose_rate"}
-    
+
     n <- .simulate_RF_and_heating(temp_begin = sequence[[i]]["temp_begin"],
                       temp_end = sequence[[i]]["temp_end"],
                       heating_rate = sequence[[i]]["heating_rate"],
@@ -356,25 +356,25 @@ for (i in 1:length(sequence)){
                       n = n,
                       parms = parms,
                       RLumModel_ID = i)
-    
+
     ##collect originators
     output.steps <- c(output.steps, n@originator)
-    
+
     output.model <- c(output.model, n$RF_heating.data, n$concentrations)
-    
+
     ##pause to releax
-    n <- .simulate_pause(temp = sequence[[i]]["temp_end"], duration = 5, n = n, parms = parms)   
-    
+    n <- .simulate_pause(temp = sequence[[i]]["temp_end"], duration = 5, n = n, parms = parms)
+
     ##collect originators
     output.steps <- c(output.steps,n@originator)
-    
+
   }
 
   ##update progress bar
   if (txtProgressBar & verbose) {
     setTxtProgressBar(pb, i)
   }
-  
+
 }##end for loop over sequence-list
 
 ##close txtProgressBar
@@ -385,11 +385,14 @@ output.model <- output.model[unlist(lapply(output.model,length)!=0)]
 
 #return of the function is a "RLum.Analysis" object with the output of the given sequence
 return(set_RLum(
-  class = "RLum.Analysis", 
-  records = output.model, 
-  protocol = model, 
+  class = "RLum.Analysis",
+  records = output.model,
+  protocol = model,
   originator = "model_LuminescenceSignals()",
-  info = list(sequence = sequence, originators = unlist(output.steps)))
+  info = list(
+    sequence = sequence,
+    parms = parms,
+    originators = unlist(output.steps)))
 )
 
 }
