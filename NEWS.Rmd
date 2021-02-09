@@ -9,8 +9,9 @@ header-includes:
 # NEWS for the R Package RLumModel
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
-
-  * Dummy
+* `model_LuminescenceSignals()` now returns the applied modelling parameters 
+in the `@info` slot of the returned `RLum.Analysis` object (requested by @coffeemuggler)
+* Add support for `'testthat'` >= 3.0.0 (no user visible changes)
 
 ____________________________________________________________________________________
 ## Changes in version 0.2.7 (September 04, 2020)
