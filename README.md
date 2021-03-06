@@ -7,13 +7,12 @@
 
 # RLumModel <img width=120px src="man/figures/RLumModel_logo.svg" align="right" />
 
+[![DOI](https://zenodo.org/badge/47547833.svg)](https://zenodo.org/badge/latestdoi/47547833)
 [![CRAN](http://www.r-pkg.org/badges/version/RLumModel)](https://CRAN.R-project.org/package=RLumModel)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
 [![Downloads](http://cranlogs.r-pkg.org/badges/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
 [![Downloads](http://cranlogs.r-pkg.org/badges/last-week/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
 [![Downloads](http://cranlogs.r-pkg.org/badges/last-day/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
-[![Research software
-impact](http://depsy.org/api/package/cran/RLumModel/badge.svg)](http://depsy.org/package/r/RLumModel)
 [![R-CMD-check](https://github.com/R-Lum/RLumModel/workflows/GitHub%20Actions%20CI/badge.svg)](https://github.com/R-Lum/RLumModel/actions)
 [![Build
 status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/master?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master)

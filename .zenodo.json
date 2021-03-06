@@ -28,10 +28,10 @@
     }
   ],
   "notes": "The initial development was financed through the project 'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (DFG SCHM 305114-1)",
-  "version": "0.2.8.9000-10",
+  "version": "0.2.8.9000-11",
   "upload_type": "software",
   "keywords": ["Luminescence dating", "Modelling", "Energy-band diagrams", "Quartz models"],
-  "publication_date": "2021-03-05",
+  "publication_date": "2021-03-06",
   "creators": [
     {
       "orcid": "0000-0002-0805-9547",
