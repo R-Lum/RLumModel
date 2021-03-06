@@ -1,0 +1,54 @@
+{
+  "language": "eng",
+  "license": "other-open",
+  "title": "RLumModel: Solving Ordinary Differential Equations to Understand Luminescence",
+  "related_identifiers": [
+    {
+      "scheme": "url",
+      "identifier": "https://github.com/R-Lum/RLumModel/tree/v0.2.7",
+      "relation": "isPreviousVersionOf",
+      "resource_type": "software"
+    },
+    {
+      "scheme": "url",
+      "identifier": "https://CRAN.R-project.org/package=RLumModel",
+      "relation": "isSourceOf",
+      "resource_type": "software"
+    },
+    {
+      "scheme": "doi",
+      "identifier": "10.1016/j.quageo.2016.05.004",
+      "relation": "continues",
+      "resource_type": "publication-article"
+    },
+    {
+      "scheme": "doi",
+      "identifier": "10.5281/zenodo.596267",
+      "relation": "isReferencedBy"
+    }
+  ],
+  "notes": "The initial development was financed through the project 'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (DFG SCHM 305114-1)",
+  "version": "0.2.8.9000-10",
+  "upload_type": "software",
+  "keywords": ["Luminescence dating", "Modelling", "Energy-band diagrams", "Quartz models"],
+  "publication_date": "2021-03-05",
+  "creators": [
+    {
+      "orcid": "0000-0002-0805-9547",
+      "affiliation": "Chair of Geomorphology, University of Bayreuth, Germany",
+      "name": "Friedrich, Johannes"
+    },
+    {
+      "orcid": "0000-0002-0734-2199",
+      "affiliation": "Department of Geography and Earth Sciences, Aberystwyth University, United Kingdom",
+      "name": "Kreutzer, Sebastian"
+    },
+    {
+      "orcid": "0000-0002-2309-3209",
+      "affiliation": "Institute of Earth Surface Dynamics, University of Lausanne, Switzerland",
+      "name": "Schmidt, Christoph"
+    }
+  ],
+  "access_right": "open",
+  "description": "<p>A collection of functions to simulate luminescence signals in quartz and Al2O3 based on published models.<\/p>"
+}
