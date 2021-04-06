@@ -1,5 +1,9 @@
 #' Solving Ordinary Differential Equations to Understand Luminescence
 #'
+#' \if{html}{
+#' \figure{RLumModel_Logo.png}{options: width="50px"}\cr
+#' }
+#'
 #' A collection of function to simulate luminescence signals in the mineral quartz based on
 #' published models.
 #'
@@ -9,27 +13,22 @@
 #'
 #' \tabular{ll}{
 #' Johannes Friedrich \tab University of Bayreuth, Germany \cr
-#' Sebastian Kreutzer \tab IRAMAT-CRP2A, Université Bordeaux Montaigne, France\cr
+#' Sebastian Kreutzer \tab Geography & Earth Sciences, Aberystwyth University, United Kingdom\cr
 #' Christoph Schmidt \tab University of Bayreuth, Germany
 #'}
 #'
 #' **Supervisor**
 #'
 #' Christoph Schmidt, University of Bayreuth, Germany\cr
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne, France
-#'
-#' **Support contact**
-#'
-#' \email{developers@@model.r-luminescence.de}
-#'
+#' Sebastian Kreutzer,Geography & Earth Sciences, Aberystwyth University, United Kingdom
+#'#'
 #' **Project source code repository**
 #' - https://github.com/R-Lum/RLumModel
 #'
 #' **Related package projects**
-#' - http://www.r-luminescence.de
-#' - https://cran.r-project.org/package=Luminescence
-#' - http://shiny.r-luminescence.de]
-#' - https://cran.r-project.org/package=RLumShiny
+#' - http://r-luminescence.de
+#' - https://CRAN.r-project.org/package=Luminescence
+#' - https://CRAN.r-project.org/package=RLumShiny
 #'
 #' **Package maintainer**
 #'

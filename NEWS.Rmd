@@ -9,23 +9,36 @@ header-includes:
 # NEWS for the R Package RLumModel
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
+* This version requires R > 3.6.0
+* `model_LuminescenceSignals()` now returns the applied modelling parameters 
+in the `@info` slot of the returned `RLum.Analysis` object (requested by @coffeemuggler)
+* Add support for `'testthat'` >= 3.0.0 (no user visible changes)
 
-* Changed Makevars to tackle Solaris problems
+____________________________________________________________________________________
+## Changes in version 0.2.7 (September 04, 2020)
 
+* Changed `Makevars` to tackle Solaris problems
+
+____________________________________________________________________________________
 ## Changes in version 0.2.6 (August 31, 2020)
 
 * Switch vignette builder to `'R.rsp'` to avoid ATLAS BLAS warning
 * Drop dependency ('suggests') to `'knitr'`, `'kableExtra'` and `'rmarkdown'`
 * The minimum required R version is now 3.5.0
 
+____________________________________________________________________________________
 ## Changes in version 0.2.5 (15nd December, 2019)
 
 * Changes in 'Luminescence' broke the vignette; now modified with a workaround
 * Updated maintainer email address
 
+____________________________________________________________________________________
+
 ## Changes in version 0.2.4 (16nd August, 2018)
 
 * Minor internal corrections
+
+____________________________________________________________________________________
 
 ## Changes in version 0.2.3 (22nd November, 2017)
 

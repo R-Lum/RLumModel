@@ -1,8 +1,8 @@
 Package: RLumModel
 Type: Package
 Title: Solving Ordinary Differential Equations to Understand Luminescence
-Version: 0.2.7
-Date: 2020-09-01
+Version: 0.2.8.9000-11
+Date: 2021-03-06
 Author: Johannes Friedrich [aut, trl, cre] (<https://orcid.org/0000-0002-0805-9547>),
     Sebastian Kreutzer [aut, ths] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Schmidt [aut, ths] (<https://orcid.org/0000-0002-2309-3209>)
@@ -16,16 +16,17 @@ Maintainer: Johannes Friedrich <johannes.friedrich@posteo.de>
 Description: A collection of functions to simulate luminescence signals in quartz and Al2O3 based on published models.
 Contact: Package Developer Team <developer@model.r-luminescence.de>
 License: GPL-3
+BugReports: https://github.com/R-Lum/RLumModel/issues
 Depends:
-    R (>= 3.5.0),
+    R (>= 3.6.0),
     utils,
     Luminescence (>= 0.9.0)
 Imports:
-    deSolve (>= 1.21),
+    deSolve (>= 1.28),
     methods,
-    Rcpp (>= 1.0.1)
+    Rcpp (>= 1.0.6)
 Suggests: 
-    testthat (>= 2.1.1),
+    testthat (>= 3.0.0),
     R.rsp (>= 0.44.0)
 URL: https://CRAN.R-project.org/package=RLumModel
 Collate:

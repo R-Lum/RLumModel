@@ -9,7 +9,6 @@ output:
     fig_width: 5
     number_sections: yes
     toc: yes
-csl: elsevier-harvard.csl
 bibliography: RLumModel.bib
 vignette: |
   %\VignetteIndexEntry{RLumModel - Using own parameter sets}         
@@ -26,8 +25,8 @@ knitr::opts_chunk$set(fig.pos = 'H', fig.align = 'center')
 
 # Introduction
 
-With 'RLumModel' &ge; 0.2.0 is it possible to simulate quartz luminescence behaviour of own parameters or parameter sets, which are not included in the package but also known in literature. Wide spreaded OTOR (One-Trap-One-Recombination-center) models can be included, too. 
-This vignette gives three comprehensive examples how to implement parameter sets and prooves the results recalculating the original simulations.
+With 'RLumModel' &ge; 0.2.0 is it possible to simulate quartz luminescence behaviour of own parameters or parameter sets, which are not included in the package but also known in literature. Widely used OTOR (One-Trap-One-Recombination-center) models can be included, too. 
+This vignette gives three comprehensive examples how to implement parameter sets and proves the results recalculating the original simulations.
 
 'RLumModel' offers maximum flexibility and fast calculation of ordinary first-order differential equations (ODEs) describing luminescence behaviour, because of:
 
