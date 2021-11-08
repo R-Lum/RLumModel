@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RLumModel</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
       </span>
     </div>
 
@@ -45,7 +45,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -71,21 +71,21 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../news/index.html">
-    <span class="fas fa-newspaper-o"></span>
+    <span class="fa fa-newspaper-o"></span>
      
     News
   </a>
 </li>
 <li>
   <a href="../reference/index.html">
-    <span class="fas fa-file-code-o"></span>
+    <span class="fa fa-file-code-o"></span>
      
     Functions
   </a>
 </li>
 <li>
   <a href="https://github.com/R-Lum/RLumModel">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
     Github
   </a>
@@ -100,14 +100,14 @@
 
       
 
-      </header><script src="RLumModel_-_Getting_started_with_RLumModel_files/header-attrs-2.7/header-attrs.js"></script><script src="RLumModel_-_Getting_started_with_RLumModel_files/kePrint-0.0.1/kePrint.js"></script><link href="RLumModel_-_Getting_started_with_RLumModel_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="RLumModel_-_Getting_started_with_RLumModel_files/header-attrs-2.11/header-attrs.js"></script><script src="RLumModel_-_Getting_started_with_RLumModel_files/kePrint-0.0.1/kePrint.js"></script><link href="RLumModel_-_Getting_started_with_RLumModel_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>RLumModel - Getting started with RLumModel</h1>
                         <h4 class="author">Johannes Friedrich (University of Bayreuth, DE) &amp; Sebastian Kreutzer (Earth Sciences and Geography, Abersytwyth University, UK)</h4>
             
-            <h4 class="date">2021-04-06</h4>
+            <h4 class="date">2021-11-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/R-Lum/RLumModel/blob/master/vignettes/RLumModel_-_Getting_started_with_RLumModel.Rmd"><code>vignettes/RLumModel_-_Getting_started_with_RLumModel.Rmd</code></a></small>
       <div class="hidden name"><code>RLumModel_-_Getting_started_with_RLumModel.Rmd</code></div>
@@ -119,12 +119,12 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>This vignette shows a few examples for the <strong>R</strong>-package ‘RLumModel.’ The main function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> and their arguments will be explained. All calculations were done with ‘RLumModel’ (version: 0.2.8) and ‘Luminescence’ (version: 0.9.11.9000.58).</p>
+<p>This vignette shows a few examples for the <strong>R</strong>-package ‘RLumModel’. The main function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> and their arguments will be explained. All calculations were done with ‘RLumModel’ (version: 0.2.9) and ‘Luminescence’ (version: 0.9.16.9000.30).</p>
 </div>
 <div id="object-structure-of-rlummodel" class="section level1">
 <h1 class="hasAnchor">
 <a href="#object-structure-of-rlummodel" class="anchor"></a>Object structure of RLumModel</h1>
-<p>The output from the main function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> is of class <code>RLum.Analysis</code> <span class="citation">(Kreutzer et al. 2012)</span> and contains data of class <code>RLum.Data.Curve</code> in the slot ‘records.’ The advantage of this infrastructure is that the package ‘Luminescence’ offers a lot of methods to visualize and manipulate data.</p>
+<p>The output from the main function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> is of class <code>RLum.Analysis</code> <span class="citation">(Kreutzer et al. 2012)</span> and contains data of class <code>RLum.Data.Curve</code> in the slot ‘records’. The advantage of this infrastructure is that the package ‘Luminescence’ offers a lot of methods to visualize and manipulate data.</p>
 <p>All simulated data are stored in the slot ‘records’: TL/OSL/RF curves as well as the concentrations of every energy level from every step.</p>
 <p>The following code loads a data set provided by the ‘RLumModel’ package and shows how to separate TL/OSL/RF data from concentrations and how to visualize them.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -147,16 +147,16 @@
 <span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">TL_conc</span><span class="op">)</span></code></pre></div>
 <p>Some notes to the code example above:</p>
 <ul>
-<li>in ‘TL_curve &lt;- …’ appears “TL$.” This is necessary to match the pattern “TL” without any sign after “TL,” e.g. a bracket. The brackets are used (by default) for the concentrations.</li>
-<li>in ‘TL_conc &lt;- …’ the pattern “(TL)” will match all concentrations with “(TL),” see structure.</li>
+<li>in ‘TL_curve &lt;- …’ appears “TL$”. This is necessary to match the pattern “TL” without any sign after “TL”, e.g. a bracket. The brackets are used (by default) for the concentrations.</li>
+<li>in ‘TL_conc &lt;- …’ the pattern “(TL)” will match all concentrations with “(TL)”, see structure.</li>
 <li>
-<code>drop = FALSE</code> was used to keep the <code>RLum.Analysis</code> class for ‘TL_conc.’</li>
-<li>To see a single plot of every energy-level, use the option <code>plot.single = TRUE</code> in <code>plot_RLum()</code>. For more details see the manual of ‘Luminescence.’</li>
+<code>drop = FALSE</code> was used to keep the <code>RLum.Analysis</code> class for ‘TL_conc’.</li>
+<li>To see a single plot of every energy-level, use the option <code>plot.single = TRUE</code> in <code>plot_RLum()</code>. For more details see the manual of ‘Luminescence’.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">##plot every energy-level by an extra plot</span>
 <span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">TL_conc</span>, plot.single <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p>It is also possible to choose a <code>RLum.Data.Curve</code> by their ‘record.id,’ which can be seen with:</p>
+<p>It is also possible to choose a <code>RLum.Data.Curve</code> by their ‘record.id’, which can be seen with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">##see structure of model.output</span>
 <span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/structure_RLum.html">structure_RLum</a></span><span class="op">(</span><span class="va">model.output</span><span class="op">)</span></code></pre></div>
@@ -167,7 +167,7 @@
 <p>The first argument required for the function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> is the name of a quartz luminescence model to be used, respectively the used parameter set in this quartz luminescence model. All currently implemented quartz luminescence models were described in <span class="citation">Friedrich, Kreutzer, and Schmidt (2016)</span>. The command to select a set of parameters from a specific model in <code>RLumModel</code> is a character string with the name of the author and the year, e.g.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="st">"Bailey2001"</span></code></pre></div>
-<p>The available models are “Bailey2001,” “Bailey2002,” “Bailey2004,” “Pagonis2007,” “Pagonis2008,”“Friedrich2017” and “customized” (<span class="citation">R. M. Bailey (2001)</span>, <span class="citation">R. Bailey (2002)</span>, <span class="citation">R. Bailey (2004)</span>, <span class="citation">V. Pagonis, Chen, and Wintle (2007)</span>, <span class="citation">V. Pagonis et al. (2008a)</span>, <span class="citation">Friedrich et al. (2017)</span>). For customized or own parameter sets, see vignette <a href="RLumModel_-_Using_own_parameter_sets.html">RLumModel - Using own parameter sets</a></p>
+<p>The available models are “Bailey2001”, “Bailey2002”, “Bailey2004”, “Pagonis2007”, “Pagonis2008”,“Friedrich2017” and “customized” (<span class="citation">R. M. Bailey (2001)</span>, <span class="citation">R. Bailey (2002)</span>, <span class="citation">R. Bailey (2004)</span>, <span class="citation">V. Pagonis, Chen, and Wintle (2007)</span>, <span class="citation">V. Pagonis et al. (2008b)</span>, <span class="citation">Friedrich et al. (2017)</span>). For customized or own parameter sets, see vignette <a href="RLumModel_-_Using_own_parameter_sets.html">RLumModel - Using own parameter sets</a></p>
 <p>The corresponding parameter set will be loaded automatically with the function call.</p>
 </div>
 <div id="creating-a-sequence" class="section level1">
@@ -178,7 +178,7 @@
 <div id="risø-seq-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ris%C3%B8-seq-files" class="anchor"></a>Risø SEQ files</h2>
-<p>The first one is to use the popular and freely available Risø  to build a personal sequence and to save it as a SEQ-file (*.seq). Files created by the Sequence Editor can be imported directly using the path of the SEQ-file. The package comes along with an example SEQ-file in the package folder in ‘extdata.’ Thus, a potential sequence is created with</p>
+<p>The first one is to use the popular and freely available Risø  to build a personal sequence and to save it as a SEQ-file (*.seq). Files created by the Sequence Editor can be imported directly using the path of the SEQ-file. The package comes along with an example SEQ-file in the package folder in ‘extdata’. Thus, a potential sequence is created with</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span>
   <span class="st">"extdata"</span>,
@@ -562,7 +562,7 @@ TL signal with different heating rates
 <div id="simulating-thermal-activation-characteristics-tacs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#simulating-thermal-activation-characteristics-tacs" class="anchor"></a>Simulating thermal activation characteristics (TACs)</h2>
-<p>Another frequently simulated phenomenon is the sensitisation of quartz TL by <span class="math inline">\(\beta\)</span>- or <span class="math inline">\(\gamma\)</span>-irradiation followed by activation at high temperatures <span class="citation">Adamiec et al. (2004)</span>, termed as thermal activation characteristics (TACs). For a simulation sequence, the reader is referred to <span class="citation">V. Pagonis et al. (2008b)</span>, Tab. 1. To simulate this phenomenon with the <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> function, a loop causing a stepwise increase of the activation temperature is needed. The resulting intensity of the 110 °C TL peak can be plotted against the activation temperature, which shows TAC for the model parameters of “Pagonis2007.”</p>
+<p>Another frequently simulated phenomenon is the sensitisation of quartz TL by <span class="math inline">\(\beta\)</span>- or <span class="math inline">\(\gamma\)</span>-irradiation followed by activation at high temperatures <span class="citation">Adamiec et al. (2004)</span>, termed as thermal activation characteristics (TACs). For a simulation sequence, the reader is referred to <span class="citation">V. Pagonis et al. (2008a)</span>, Tab. 1. To simulate this phenomenon with the <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> function, a loop causing a stepwise increase of the activation temperature is needed. The resulting intensity of the 110 °C TL peak can be plotted against the activation temperature, which shows TAC for the model parameters of “Pagonis2007”.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">##set temperature</span>
 <span class="va">act.temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">80</span>, to <span class="op">=</span> <span class="fl">600</span>, by <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
@@ -604,7 +604,7 @@ TAC with parameter set of ‘Pagonis2007’
 <div id="simulating-dependency-of-the-osl-signal-on-the-illumination-power-density" class="section level2">
 <h2 class="hasAnchor">
 <a href="#simulating-dependency-of-the-osl-signal-on-the-illumination-power-density" class="anchor"></a>Simulating dependency of the OSL signal on the illumination power density</h2>
-<p>The function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> is also capable of simulating OSL phenomena. The next figure shows the dependency of the OSL signal on the power density of illumination for the model “Bailey2004.”</p>
+<p>The function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> is also capable of simulating OSL phenomena. The next figure shows the dependency of the OSL signal on the power density of illumination for the model “Bailey2004”.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">##set optical power [%]</span>
 <span class="va">optical_power</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">20</span>,<span class="fl">40</span>,<span class="fl">60</span>,<span class="fl">80</span>,<span class="fl">100</span><span class="op">)</span>
@@ -716,7 +716,7 @@ OSL measurement with different optical power densities with the parameter set of
 Dose recovery test (DRT) with the parameter set of ‘Pagonis2008’
 </p>
 </div>
-<p>In the code above, <code>plot = FALSE</code> was chosen, because a single OSL plot is not necessary to analyse a SAR sequence. To calculate a D<sub>e</sub> from the produced <code>RLum.Analysis</code> object ‘model.output,’ the function <code><a href="https://rdrr.io/pkg/Luminescence/man/analyse_SAR.CWOSL.html">Luminescence::analyse_SAR.CWOSL()</a></code> is suitable. After specifying a number of evaluation parameters (signal and background integration interval, dose points and fit function for the dose response curve) and the analysis process, the reduced data are stored in an <code>RLum.Results</code> object, here termed ‘results’ . A background integration interval from 301 to 401 translates to the signal from 30 s to 40 s, because a channel has the default width of 0.1 s. Accordingly, the signal integral ranges from 0.1 s to 0.7 s.</p>
+<p>In the code above, <code>plot = FALSE</code> was chosen, because a single OSL plot is not necessary to analyse a SAR sequence. To calculate a D<sub>e</sub> from the produced <code>RLum.Analysis</code> object ‘model.output’, the function <code><a href="https://rdrr.io/pkg/Luminescence/man/analyse_SAR.CWOSL.html">Luminescence::analyse_SAR.CWOSL()</a></code> is suitable. After specifying a number of evaluation parameters (signal and background integration interval, dose points and fit function for the dose response curve) and the analysis process, the reduced data are stored in an <code>RLum.Results</code> object, here termed ‘results’ . A background integration interval from 301 to 401 translates to the signal from 30 s to 40 s, because a channel has the default width of 0.1 s. Accordingly, the signal integral ranges from 0.1 s to 0.7 s.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">##set RegDose</span>
 <span class="va">RegDose</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">80</span>, <span class="fl">140</span>, <span class="fl">260</span>, <span class="fl">320</span>, <span class="fl">0</span>, <span class="fl">80</span><span class="op">)</span>
@@ -763,7 +763,7 @@ SAR protocol with the parameter set of ‘Pagonis2008’
 <div id="accessing-applied-modelling-parameters" class="section level2">
 <h2 class="hasAnchor">
 <a href="#accessing-applied-modelling-parameters" class="anchor"></a>Accessing applied modelling parameters</h2>
-<p>Sometimes it is useful to extract the used modelling parameters. Since the output is an <code>RLum.Analysis</code>-object compatible with the R package ‘Luminescence,’ this can be achieved with the following code lines:</p>
+<p>Sometimes it is useful to extract the used modelling parameters. Since the output is an <code>RLum.Analysis</code>-object compatible with the R package ‘Luminescence’, this can be achieved with the following code lines:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">model.output</span>, info <span class="op">=</span> <span class="st">"parms"</span><span class="op">)</span></code></pre></div>
 <pre><code>## $parms.N1
@@ -1002,14 +1002,14 @@ SAR protocol with the parameter set of ‘Pagonis2008’
 <div id="ref-Adamiec_2004" class="csl-entry">
 Adamiec, Grzegorz, Marta Garcia-Talavera, Richard M Bailey, and Pilar Iniguez de La Torre. 2004. <span>“Application of a Genetic Algorithm to Finding Parameter Values for Numerical Simulation of Quartz Luminescence.”</span> <em>Geochronometria</em> 23: 9–14.
 </div>
+<div id="ref-Bailey_2001" class="csl-entry">
+Bailey, R M. 2001. <span>“Towards a General Kinetic Model for Optically and Thermally Stimulated Luminescence of Quartz.”</span> <em>Radiation Measurements</em> 33: 17–45.
+</div>
 <div id="ref-Bailey_2002" class="csl-entry">
 Bailey, R. 2002. <span>“Simulations of Variability in the Luminescence Characteristics of Natural Quartz and Its Implications for Estimates of Absorbed Dose.”</span> <em>Radiation Protection Dosimetry</em> 100: 33–38.
 </div>
 <div id="ref-Bailey_2004" class="csl-entry">
 ———. 2004. <span>“<span class="nocase">Paper I - Simulation of dose absorption in quartz over geological timescales and its implications for the precision and accuracy of optical dating</span>.”</span> <em>Radiation Measurements</em> 38: 299–310.
-</div>
-<div id="ref-Bailey_2001" class="csl-entry">
-Bailey, R M. 2001. <span>“Towards a General Kinetic Model for Optically and Thermally Stimulated Luminescence of Quartz.”</span> <em>Radiation Measurements</em> 33: 17–45.
 </div>
 <div id="ref-Friedrich_2016" class="csl-entry">
 Friedrich, Johannes, Sebastian Kreutzer, and Christoph Schmidt. 2016. <span>“<span class="nocase">Solving ordinary differential equations to understand luminescence: ’RLumModel’, an advanced research tool for simulating luminescence in quartz using R </span>.”</span> <em>Quaternary Geochronology</em> 35: 88–100.
@@ -1020,17 +1020,17 @@ Friedrich, Johannes, Vasilis Pagonis, Reuven Chen, Sebastian Kreutzer, and Chris
 <div id="ref-Kreutzer_2012" class="csl-entry">
 Kreutzer, Sebastian, Christoph Schmidt, Margret C Fuchs, Michael Dietze, Manfred Fischer, and Markus Fuchs. 2012. <span>“<span class="nocase">Introducing an R package for luminescence dating analysis</span>.”</span> <em>Ancient TL</em> 30: 1–8.
 </div>
-<div id="ref-Pagonis_2008b" class="csl-entry">
-Pagonis, V., A. G. Wintle, R. Chen, and X. L. Wang. 2008a. <span>“<span class="nocase">A theoretical model for a new dating protocol for quartz based on thermally transferred OSL (TT-OSL)</span>.”</span> <em>Radiation Measurements</em> 43: 704–8.
-</div>
 <div id="ref-Pagonis_2003" class="csl-entry">
 Pagonis, Vasilis, George Kitis, and Reuven Chen. 2003. <span>“<span class="nocase">Applicability of the Zimmerman predose model in the thermoluminescence of predosed and annealed synthetic quartz samples</span>.”</span> <em>Radiation Measurements</em> 37 (3): 267–74.
 </div>
 <div id="ref-Pagonis_2008a" class="csl-entry">
-Pagonis, V, E Balsamo, C Barnold, K Duling, and S McCole. 2008b. <span>“Simulations of the Predose Technique for Retrospective Dosimetry and Authenticity Testing.”</span> <em>Radiation Measurements</em> 43 (8): 1343–53.
+Pagonis, V, E Balsamo, C Barnold, K Duling, and S McCole. 2008a. <span>“Simulations of the Predose Technique for Retrospective Dosimetry and Authenticity Testing.”</span> <em>Radiation Measurements</em> 43 (8): 1343–53.
 </div>
 <div id="ref-Pagonis_2007a" class="csl-entry">
 Pagonis, V, R Chen, and AG Wintle. 2007. <span>“Modelling Thermal Transfer in Optically Stimulated Luminescence of Quartz.”</span> <em>Journal of Physics D: Applied Physics</em> 40 (4): 998.
+</div>
+<div id="ref-Pagonis_2008b" class="csl-entry">
+Pagonis, V., A. G. Wintle, R. Chen, and X. L. Wang. 2008b. <span>“<span class="nocase">A theoretical model for a new dating protocol for quartz based on thermally transferred OSL (TT-OSL)</span>.”</span> <em>Radiation Measurements</em> 43: 704–8.
 </div>
 <div id="ref-Zimmerman_1971" class="csl-entry">
 Zimmerman, J. 1971. <span>“The Radiation-Induced Increase of the 100<span class="math inline">\(\,^\circ\)</span>c Thermoluminescence Sensitivity of Fired Quartz.”</span> <em>Journal of Physics C: Solid State Physics</em> 4 (18): 3265–76.

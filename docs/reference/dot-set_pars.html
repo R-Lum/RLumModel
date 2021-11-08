@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Example data (TL curve) simulated with parameter set from Pagonis 2007 — ExampleData.ModelOutput • RLumModel</title>
+<title>Set parameters for Different Quartz Luminescence Models — .set_pars • RLumModel</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Example data (TL curve) simulated with parameter set from Pagonis 2007 — ExampleData.ModelOutput" />
-<meta property="og:description" content="Example data (TL curve) simulated with parameter set from Pagonis 2007" />
+<meta property="og:title" content="Set parameters for Different Quartz Luminescence Models — .set_pars" />
+<meta property="og:description" content="This function provides all necessary model parameters to the
+calculation of the ODEs." />
 
 
 
@@ -148,54 +149,86 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Example data (TL curve) simulated with parameter set from Pagonis 2007</h1>
-    <small class="dont-index">Source: <a href='https://github.com/R-Lum/RLumModel/blob/master/R/RLumModel-package.R'><code>R/RLumModel-package.R</code></a></small>
-    <div class="hidden name"><code>ExampleData.ModelOutput.Rd</code></div>
+    <h1>Set parameters for Different Quartz Luminescence Models</h1>
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/RLumModel/blob/master/R/set_pars.R'><code>R/set_pars.R</code></a></small>
+    <div class="hidden name"><code>dot-set_pars.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Example data (TL curve) simulated with parameter set from Pagonis 2007</p>
+    <p>This function provides all necessary model parameters to the
+calculation of the ODEs.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>.set_pars</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>model</th>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<b>required</b>): set model to be used.
+Available models are: <code>"Bailey2001"</code>, <code>"Bailey2002"</code>, <code>"Bailey2004"</code>, <code>"Pagonis2007"</code>,
+<code>"Pagonis2008"</code></p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A RLum.Analysis object containing one TL curve as RLum.Data.Curve.</p>
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+    <p>This function returns a <a href='https://rdrr.io/r/base/list.html'>list</a> with all necessary parameters for
+the used model.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><b>model_LuminescenceSignals()</b></p>
+    <p>The common model parameters are:</p>
+<p><b>N</b>: concentrations of electron/hole traps in cm^(-3)
+<b>E</b>: depth of the electron/hole trap in eV
+<b>s</b>: frequency factor in s^(-1)
+<b>A</b>: conduction band to electron/hole trap transition probability in s^(-1)
+<b>B</b>: valence band to hole trap transition probability in s^(-1)
+<b>Th</b>: photo-ionisation cross-section in s^(-1)
+<b>E_th</b>: `thermal assistance' energy in eV
+<b>n</b>: concentrations of electron/hole traps after sample history in cm^(-3)</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This example has only one record (TL). The used sequence was
-sequence &lt;- list(IRR = c(temp = 20, dose = 10, DoseRate = 1),
-                 TL = c(temp_begin = 20, temp_end = 400, heating_rate = 5))</p>
+    <p><b>n</b> are the saved concentrations of the last step of the sample history
+of the used model. They will be loaded, if <code>simulate_sample_history = FALSE</code> in
+<a href='model_LuminescenceSignals.html'>model_LuminescenceSignals</a> is chosen.</p>
+<p>The order of the energy-band-levels is sometimes in an different order than in the original model.
+This was necessary, because in the simulations the luminescence centre always
+has to be the last entry in every parameter.
+Another reason was the clear division between electron traps and hole centres.
+When a user wants to create his/her own parameter sets he/she only has to take care that the
+luminescence centre is the last entry in every vector and that the first entries
+are the electron traps and the last entries the hole centres.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.1</p>
+    <p>0.1.3</p>
+    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
+
+    <p>Friedrich, J., 2021. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.9. https://CRAN.R-project.org/package=RLumModel</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
+    <p>Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
+luminescence of quartz. Radiation Measurements 33, 17-45.</p>
+<p>Bailey, R.M., 2002. Simulations of variability in the luminescence characteristics of natural
+quartz and its implications for estimates of absorbed dose.
+Radiation Protection Dosimetry 100, 33-38.</p>
+<p>Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
+and it simplications for the precision and accuracy of optical dating.
+Radiation Measurements 38, 299-310.</p>
+<p>Friedrich, J., Pagonis, V., Chen, R., Kreutzer, S., Schmidt, C., 2017: Quartz radiofluorescence: a modelling approach.
+Journal of Luminescence 186, 318-325.</p>
+<p>Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
 stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.</p>
+<p>Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
+for quartz based on thermally transferred OSL (TT-OSL).
+Radiation Measurements 43, 704-708.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Johannes Friedrich, University of Bayreuth (Germany)</p>
+    <p>Johannes Friedrich, University of Bayreuth (Germany),</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.ModelOutput"</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='va'>TL_curve</span> <span class='op'>&lt;-</span> <span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>model.output</span>, recordType <span class='op'>=</span> <span class='st'>"TL$"</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='co'>##plot TL curve</span></span>
-<span class='r-in'><span class='fu'>plot_RLum</span><span class='op'>(</span><span class='va'>TL_curve</span><span class='op'>)</span></span>
-<span class='r-plt img'><img src='ExampleData.ModelOutput-1.png' alt='' width='700' height='433' /></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='va'>TL_concentrations</span> <span class='op'>&lt;-</span> <span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>model.output</span>, recordType <span class='op'>=</span> <span class='st'>"(TL)"</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'>plot_RLum</span><span class='op'>(</span><span class='va'>TL_concentrations</span><span class='op'>)</span></span>
-<span class='r-plt img'><img src='ExampleData.ModelOutput-2.png' alt='' width='700' height='433' /></span>
-<span class='r-plt img'><img src='ExampleData.ModelOutput-3.png' alt='' width='700' height='433' /></span>
-<span class='r-in'></span>
+<span class='r-in'><span class='va'>pars</span> <span class='op'>&lt;-</span> <span class='fu'>.set_pars</span><span class='op'>(</span><span class='st'>"Bailey2001"</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 </pre>
   </div>

@@ -83,7 +83,7 @@ in the sequence editor." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RLumModel</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@ in the sequence editor." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -117,21 +117,21 @@ in the sequence editor." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../news/index.html">
-    <span class="fas fa-newspaper-o"></span>
+    <span class="fa fa-newspaper-o"></span>
      
     News
   </a>
 </li>
 <li>
   <a href="../reference/index.html">
-    <span class="fas fa-file-code-o"></span>
+    <span class="fa fa-file-code-o"></span>
      
     Functions
   </a>
 </li>
 <li>
   <a href="https://github.com/R-Lum/RLumModel">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
     Github
   </a>
@@ -192,7 +192,7 @@ control of the progress. Default: txtProgressBar = TRUE</p></td>
     <p>0.1.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Friedrich, J., 2021. read_SEQ2R(): Parse a Risoe SEQ-file to a sequence neccessary for simulating quartz luminescence. Function version 0.1.0. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.8. https://CRAN.R-project.org/package=RLumModel</p>
+    <p>Friedrich, J., 2021. read_SEQ2R(): Parse a Risoe SEQ-file to a sequence neccessary for simulating quartz luminescence. Function version 0.1.0. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.9. https://CRAN.R-project.org/package=RLumModel</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Riso: Sequence Editor User Manual.
@@ -207,12 +207,12 @@ SequenceEditor.ashx?la=da</p>
     <p>Johannes Friedrich, University of Bayreuth (Germany),</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>##search "example_SAR_cycle.SEQ" in "extdata" in package "RLumModel"</span>
-<span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"example_SAR_cycle.SEQ"</span>, package<span class='op'>=</span><span class='st'>"RLumModel"</span><span class='op'>)</span>
-
-<span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'>read_SEQ2R</span><span class='op'>(</span>file <span class='op'>=</span> <span class='va'>path</span>, txtProgressBar <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'>##search "example_SAR_cycle.SEQ" in "extdata" in package "RLumModel"</span></span>
+<span class='r-in'><span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"example_SAR_cycle.SEQ"</span>, package<span class='op'>=</span><span class='st'>"RLumModel"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'>read_SEQ2R</span><span class='op'>(</span>file <span class='op'>=</span> <span class='va'>path</span>, txtProgressBar <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

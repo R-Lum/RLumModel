@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RLumModel</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
       </span>
     </div>
 
@@ -45,7 +45,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -71,21 +71,21 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../news/index.html">
-    <span class="fas fa-newspaper-o"></span>
+    <span class="fa fa-newspaper-o"></span>
      
     News
   </a>
 </li>
 <li>
   <a href="../reference/index.html">
-    <span class="fas fa-file-code-o"></span>
+    <span class="fa fa-file-code-o"></span>
      
     Functions
   </a>
 </li>
 <li>
   <a href="https://github.com/R-Lum/RLumModel">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
     Github
   </a>
@@ -100,13 +100,13 @@
 
       
 
-      </header><script src="RLumModel_-_Using_own_parameter_sets_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="RLumModel_-_Using_own_parameter_sets_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>RLumModel - Using own parameter sets</h1>
                         <h4 class="author">Johannes Friedrich, University of Bayreuth</h4>
             
-            <h4 class="date">2021-04-06</h4>
+            <h4 class="date">2021-11-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/R-Lum/RLumModel/blob/master/vignettes/RLumModel_-_Using_own_parameter_sets.Rmd"><code>vignettes/RLumModel_-_Using_own_parameter_sets.Rmd</code></a></small>
       <div class="hidden name"><code>RLumModel_-_Using_own_parameter_sets.Rmd</code></div>
@@ -128,7 +128,7 @@
 <div id="examples" class="section level1">
 <h1 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h1>
-<p>This chapter shows the handling of own parameter sets with ‘RLumModel.’ For this purpose three model parameters known from literature were taken: <span class="citation">Pagonis et al. (2009)</span>, <span class="citation">Lawless, Chen, and Pagonis (2009)</span> and <span class="citation">Chen and Pagonis (2013)</span>.</p>
+<p>This chapter shows the handling of own parameter sets with ‘RLumModel’. For this purpose three model parameters known from literature were taken: <span class="citation">Pagonis et al. (2009)</span>, <span class="citation">Lawless, Chen, and Pagonis (2009)</span> and <span class="citation">Chen and Pagonis (2013)</span>.</p>
 <div id="pagonis-2009" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pagonis-2009" class="anchor"></a>Pagonis 2009</h2>
@@ -235,13 +235,13 @@ Concentration of m1 during RF
     <span class="op">)</span>
     
     <span class="co">## "RF$" for exact matching RF and not (RF)</span>
-    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu">get_RLum</span><span class="op">(</span><span class="va">RF_data</span>, recordType <span class="op">=</span> <span class="st">"RF$"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">RF_data</span>, recordType <span class="op">=</span> <span class="st">"RF$"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
     
   <span class="op">}</span><span class="op">)</span>
 
-<span class="va">model.output.merged</span> <span class="op">&lt;-</span> <span class="fu">merge_RLum</span><span class="op">(</span><span class="va">model.output</span><span class="op">)</span>
+<span class="va">model.output.merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/merge_RLum.html">merge_RLum</a></span><span class="op">(</span><span class="va">model.output</span><span class="op">)</span>
 
-<span class="fu">plot_RLum</span><span class="op">(</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.html">plot_RLum</a></span><span class="op">(</span>
  object <span class="op">=</span> <span class="va">model.output.merged</span>,
  xlab <span class="op">=</span> <span class="st">"Stimulation time [s]"</span>,
  ylab <span class="op">=</span> <span class="st">"RF signal [a.u.]"</span>,
@@ -271,9 +271,9 @@ RF signals for different dose rates
     <span class="op">)</span>
     
     <span class="co">## "RF$" for exact matching RF and not (RF)</span>
-    <span class="va">RF_curve</span> <span class="op">&lt;-</span> <span class="fu">get_RLum</span><span class="op">(</span><span class="va">temp</span>, recordType <span class="op">=</span> <span class="st">"RF$"</span><span class="op">)</span>
+    <span class="va">RF_curve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span>, recordType <span class="op">=</span> <span class="st">"RF$"</span><span class="op">)</span>
     
-    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu">get_RLum</span><span class="op">(</span><span class="va">RF_curve</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">RF_curve</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
     
   <span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">

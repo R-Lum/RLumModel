@@ -88,7 +88,7 @@ can be used." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RLumModel</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
       </span>
     </div>
 
@@ -96,7 +96,7 @@ can be used." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -122,21 +122,21 @@ can be used." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../news/index.html">
-    <span class="fas fa-newspaper-o"></span>
+    <span class="fa fa-newspaper-o"></span>
      
     News
   </a>
 </li>
 <li>
   <a href="../reference/index.html">
-    <span class="fas fa-file-code-o"></span>
+    <span class="fa fa-file-code-o"></span>
      
     Functions
   </a>
 </li>
 <li>
   <a href="https://github.com/R-Lum/RLumModel">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
     Github
   </a>
@@ -308,7 +308,7 @@ further <code>RLum</code>-functions.</p>
     <p>0.1.5</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Friedrich, J., Kreutzer, S., 2021. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.8. https://CRAN.R-project.org/package=RLumModel</p>
+    <p>Friedrich, J., Kreutzer, S., 2021. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.9. https://CRAN.R-project.org/package=RLumModel</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bailey, R.M., 2001. Towards a general kinetic model for optically and thermally stimulated
@@ -343,294 +343,303 @@ Springer Science &amp; Business Media.</p>
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-
-<span class='co'>##================================================================##</span>
-<span class='co'>## Example 1: Simulate Bailey2001</span>
-<span class='co'>## (cf. Bailey, 2001, Fig. 1)</span>
-<span class='co'>##================================================================##</span>
-
-<span class='co'>##set sequence with the following steps</span>
-<span class='co'>## (1) Irradiation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s</span>
-<span class='co'>## (2) TL from 20-400 deg. C with a rate of 5 K/s</span>
-
-<span class='va'>sequence</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-    IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>)</span>,
-    TL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>400</span>, <span class='fl'>5</span><span class='op'>)</span>
-  <span class='op'>)</span>
-
-<span class='co'>##model sequence</span>
-<span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span>
-  sequence <span class='op'>=</span> <span class='va'>sequence</span>,
-  model <span class='op'>=</span> <span class='st'>"Bailey2001"</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; [.translate_Sequence()] 
-#&gt; 	&gt;&gt; Simulate sequence 
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</div><div class='img'><img src='model_LuminescenceSignals-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>##get all TL concentrations</span>
-
-<span class='va'>TL_conc</span> <span class='op'>&lt;-</span> <span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>model.output</span>, recordType <span class='op'>=</span> <span class='st'>"(TL)"</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>plot_RLum</span><span class='op'>(</span><span class='va'>TL_conc</span><span class='op'>)</span>
-</div><div class='img'><img src='model_LuminescenceSignals-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='model_LuminescenceSignals-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>##plot 110 deg. C trap concentration</span>
-
-<span class='va'>TL_110</span> <span class='op'>&lt;-</span> <span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>TL_conc</span>, recordType <span class='op'>=</span> <span class='st'>"conc. level 1"</span><span class='op'>)</span> 
-<span class='fu'>plot_RLum</span><span class='op'>(</span><span class='va'>TL_110</span><span class='op'>)</span>
-</div><div class='img'><img src='model_LuminescenceSignals-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>##============================================================================##</span>
-<span class='co'>## Example 2: compare different optical powers of stimulation light</span>
-<span class='co'>##============================================================================##</span>
-
-<span class='co'># call function "model_LuminescenceSignals", model = "Bailey2004"</span>
-<span class='co'># and simulate_sample_history = FALSE (default),</span>
-<span class='co'># because the sample history is not part of the sequence</span>
-<span class='co'># the optical_power of the LED is varied and then compared.</span>
-
-<span class='va'>optical_power</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fl'>0</span>,to <span class='op'>=</span> <span class='fl'>100</span>,by <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-
-<span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>optical_power</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>{</span>
-
- <span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>50</span>, <span class='fl'>1</span><span class='op'>)</span>,
-                  PH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>220</span>, <span class='fl'>10</span>, <span class='fl'>5</span><span class='op'>)</span>,
-                  OSL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>125</span>, <span class='fl'>50</span>, <span class='va'>x</span><span class='op'>)</span>
-                  <span class='op'>)</span>
-
- <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span>
-           sequence <span class='op'>=</span> <span class='va'>sequence</span>,
-           model <span class='op'>=</span> <span class='st'>"Bailey2004"</span>,
-           plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
-           verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
-           <span class='op'>)</span>
-
- <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>data</span>, recordType <span class='op'>=</span> <span class='st'>"OSL$"</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span><span class='op'>)</span>
-
-<span class='co'>##combine output curves</span>
-<span class='va'>model.output.merged</span> <span class='op'>&lt;-</span> <span class='fu'>merge_RLum</span><span class='op'>(</span><span class='va'>model.output</span><span class='op'>)</span>
-
-<span class='co'>##plot</span>
-<span class='fu'>plot_RLum</span><span class='op'>(</span>
- object <span class='op'>=</span> <span class='va'>model.output.merged</span>,
- xlab <span class='op'>=</span> <span class='st'>"Illumination time [s]"</span>,
- ylab <span class='op'>=</span> <span class='st'>"OSL signal [a.u.]"</span>,
- main <span class='op'>=</span> <span class='st'>"OSL signal dependency on optical power of stimulation light"</span>,
- legend.text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Optical power density"</span>, <span class='fl'>20</span><span class='op'>*</span><span class='va'>optical_power</span><span class='op'>/</span><span class='fl'>100</span>, <span class='st'>"mW/cm^2"</span><span class='op'>)</span>,
- combine <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='model_LuminescenceSignals-5.png' alt='' width='700' height='433' /></div><div class='input'> 
-<span class='co'>##============================================================================##</span>
-<span class='co'>## Example 3: Usage of own parameter sets (Pagonis 2009)</span>
-<span class='co'>##============================================================================##</span>
-
-<span class='va'>own_parameters</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-  N <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2e15</span>, <span class='fl'>2e15</span>, <span class='fl'>1e17</span>, <span class='fl'>2.4e16</span><span class='op'>)</span>,
-  E <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
-  s <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
-  A <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2e-8</span>, <span class='fl'>2e-9</span>, <span class='fl'>4e-9</span>, <span class='fl'>1e-8</span><span class='op'>)</span>,
-  B <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>5e-11</span>, <span class='fl'>4e-8</span><span class='op'>)</span>,
-  Th <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
-  E_th <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
-  k_B <span class='op'>=</span> <span class='fl'>8.617e-5</span>,
-  W <span class='op'>=</span> <span class='fl'>0.64</span>,
-  K <span class='op'>=</span> <span class='fl'>2.8e7</span>,
-  model <span class='op'>=</span> <span class='st'>"customized"</span>,
-  R <span class='op'>=</span> <span class='fl'>1.7e15</span>
- <span class='op'>)</span>
- <span class='co'>## Note: In Pagonis 2009 is B the valence band to hole centre probability, </span>
- <span class='co'>## but in Bailey 2001 this is A_j. So the values of B (in Pagonis 2009)</span>
- <span class='co'>## are A in the notation above. Also notice that the first two entries in N, A and </span>
- <span class='co'>## B belong to the electron traps and the last two entries to the hole centres.</span>
- 
- <span class='va'>own_state_parameters</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>9.4e15</span><span class='op'>)</span>
- 
- <span class='co'>## calculate Fig. 3 in Pagonis 2009. Note: The labels for the dose rate in the original </span>
- <span class='co'>## publication are not correct.</span>
- <span class='co'>## For a dose rate of 0.1 Gy/s belongs a RF signal to ~ 1.5e14 (see Fig. 6).</span>
- 
- <span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>RF <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>0.1</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
- 
- <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span>
-   model <span class='op'>=</span> <span class='st'>"customized"</span>, 
-   sequence <span class='op'>=</span> <span class='va'>sequence</span>, 
-   own_parameters <span class='op'>=</span> <span class='va'>own_parameters</span>, 
-   own_state_parameters <span class='op'>=</span> <span class='va'>own_state_parameters</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; [.translate_Sequence()] 
-#&gt; 	&gt;&gt; Simulate sequence 
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</div><div class='img'><img src='model_LuminescenceSignals-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt;  [RLum.Analysis-class]
-#&gt; 	 originator: model_LuminescenceSignals()()
-#&gt; 	 protocol: customized
-#&gt; 	 additional info elements:  3
-#&gt; 	 number of records: 7
-#&gt; 	 .. : RLum.Data.Curve : 7
-#&gt; 	 .. .. : #1 RF | #2 conc. level 1 (RF) | #3 conc. level 2 (RF) | #4 conc. level 3 (RF) | #5 conc. level 4 (RF) | #6 conc. n_c (RF) | #7 conc. n_v (RF)</div><div class='input'> 
- 
- 
- 
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>  
-<span class='co'>##============================================================================##</span>
-<span class='co'>## Example 4: Simulate Thermal-Activation-Characteristics (TAC)</span>
-<span class='co'>##============================================================================##</span>
- 
- <span class='co'>##set temperature</span>
- <span class='va'>act.temp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fl'>80</span>, to <span class='op'>=</span> <span class='fl'>600</span>, by <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
- 
- <span class='co'>##loop over temperature</span>
- <span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span>X <span class='op'>=</span> <span class='va'>act.temp</span>, FUN <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
- 
- <span class='co'>##set sequence, note: sequence includes sample history</span>
-   <span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-     IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>1</span>, <span class='fl'>1e-11</span><span class='op'>)</span>,
-     IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>)</span>,
-     PH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>1</span><span class='op'>)</span>,
-     IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>0.1</span>, <span class='fl'>1</span><span class='op'>)</span>,
-     TL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>150</span>, <span class='fl'>5</span><span class='op'>)</span>
- <span class='op'>)</span>
- <span class='co'>##run simulation</span>
-   <span class='va'>temp</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span>
-     sequence <span class='op'>=</span> <span class='va'>sequence</span>,
-     model <span class='op'>=</span> <span class='st'>"Pagonis2007"</span>,
-     simulate_sample_history <span class='op'>=</span> <span class='cn'>TRUE</span>,
-     plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
-     verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
-   <span class='op'>)</span>
-     <span class='co'>## "TL$" for exact matching TL and not (TL)</span>
-   <span class='va'>TL_curve</span> <span class='op'>&lt;-</span> <span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>temp</span>, recordType <span class='op'>=</span> <span class='st'>"TL$"</span><span class='op'>)</span>
-   <span class='co'>##return max value in TL curve</span>
-   <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>TL_curve</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
- <span class='op'>}</span>, FUN.VALUE <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
- 
- <span class='co'>##plot resutls</span>
- <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
-   <span class='va'>act.temp</span><span class='op'>[</span><span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span>,
-   <span class='va'>model.output</span><span class='op'>[</span><span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span>,
-   type <span class='op'>=</span> <span class='st'>"b"</span>,
-   xlab <span class='op'>=</span> <span class='st'>"Temperature [\u00B0C]"</span>,
-   ylab <span class='op'>=</span> <span class='st'>"TL [a.u.]"</span>
- <span class='op'>)</span>
-
-<span class='co'>##============================================================================##</span>
-<span class='co'>## Example 5: Simulate SAR sequence</span>
-<span class='co'>##============================================================================##</span>
-
-<span class='co'>##set SAR sequence with the following steps</span>
-<span class='co'>## (1) RegDose: set regenerative dose [Gy] as vector</span>
-<span class='co'>## (2) TestDose: set test dose [Gy]</span>
-<span class='co'>## (3) PH: set preheat temperature in deg. C</span>
-<span class='co'>## (4) CH: Set cutheat temperature in deg. C</span>
-<span class='co'>## (5) OSL_temp: set OSL reading temperature in deg. C</span>
-<span class='co'>## (6) OSL_duration: set OSL reading duration in s</span>
-
-<span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
- RegDose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>50</span>,<span class='fl'>90</span>,<span class='fl'>0</span>,<span class='fl'>10</span><span class='op'>)</span>,
- TestDose <span class='op'>=</span> <span class='fl'>5</span>,
- PH <span class='op'>=</span> <span class='fl'>240</span>,
- CH <span class='op'>=</span> <span class='fl'>200</span>,
- OSL_temp <span class='op'>=</span> <span class='fl'>125</span>,
- OSL_duration <span class='op'>=</span> <span class='fl'>70</span><span class='op'>)</span>
-
-<span class='co'># call function "model_LuminescenceSignals", set sequence = sequence,</span>
-<span class='co'># model = "Pagonis2007" (palaeodose = 20 Gy) and simulate_sample_history = FALSE (default),</span>
-<span class='co'># because the sample history is not part of the sequence</span>
-
- <span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span>
-   sequence <span class='op'>=</span> <span class='va'>sequence</span>,
-   model <span class='op'>=</span> <span class='st'>"Pagonis2007"</span>,
-   plot <span class='op'>=</span> <span class='cn'>FALSE</span>
- <span class='op'>)</span>
-
-<span class='co'># in environment is a new object "model.output" with the results of</span>
-<span class='co'># every step of the given sequence.</span>
-<span class='co'># Plots are done at OSL and TL steps and the growth curve</span>
-
-<span class='co'># call "analyse_SAR.CWOSL" from RLum package</span>
- <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_SAR.CWOSL</span><span class='op'>(</span><span class='va'>model.output</span>,
-                            signal.integral.min <span class='op'>=</span> <span class='fl'>1</span>,
-                            signal.integral.max <span class='op'>=</span> <span class='fl'>15</span>,
-                            background.integral.min <span class='op'>=</span> <span class='fl'>601</span>,
-                            background.integral.max <span class='op'>=</span> <span class='fl'>701</span>,
-                            fit.method <span class='op'>=</span> <span class='st'>"EXP"</span>,
-                            dose.points <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>50</span>,<span class='fl'>90</span>,<span class='fl'>0</span>,<span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-
-
-<span class='co'>##============================================================================##</span>
-<span class='co'>## Example 6: generate sequence from *.seq file and run SAR simulation</span>
-<span class='co'>##============================================================================##</span>
-
-<span class='co'># load example *.SEQ file and construct a sequence.</span>
-<span class='co'># call function "model_LuminescenceSignals", load created sequence for sequence,</span>
-<span class='co'># set model = "Bailey2002" (palaeodose = 10 Gy)</span>
-<span class='co'># and simulate_sample_history = FALSE (default),</span>
-<span class='co'># because the sample history is not part of the sequence</span>
-
-<span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"example_SAR_cycle.SEQ"</span>, package<span class='op'>=</span><span class='st'>"RLumModel"</span><span class='op'>)</span>
-
-<span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_SEQ2R.html'>read_SEQ2R</a></span><span class='op'>(</span>file <span class='op'>=</span> <span class='va'>path</span><span class='op'>)</span>
-
-<span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span>
-  sequence <span class='op'>=</span> <span class='va'>sequence</span>,
-  model <span class='op'>=</span> <span class='st'>"Bailey2001"</span>,
-  plot <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span>
-
-
-<span class='co'>## call RLum package function "analyse_SAR.CWOSL" to analyse the simulated SAR cycle</span>
-
-<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_SAR.CWOSL</span><span class='op'>(</span><span class='va'>model.output</span>,
-                             signal.integral.min <span class='op'>=</span> <span class='fl'>1</span>,
-                             signal.integral.max <span class='op'>=</span> <span class='fl'>10</span>,
-                             background.integral.min <span class='op'>=</span> <span class='fl'>301</span>,
-                             background.integral.max <span class='op'>=</span> <span class='fl'>401</span>,
-                             dose.points <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>8</span>,<span class='fl'>14</span>,<span class='fl'>26</span>,<span class='fl'>32</span>,<span class='fl'>0</span>,<span class='fl'>8</span><span class='op'>)</span>,
-                             fit.method <span class='op'>=</span> <span class='st'>"EXP"</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span><span class='op'>)</span>
-
-
-<span class='co'>##============================================================================##</span>
-<span class='co'>## Example 7: Simulate sequence at laboratory without sample history</span>
-<span class='co'>##============================================================================##</span>
-
-<span class='co'>##set sequence with the following steps</span>
-<span class='co'>## (1) Irraditation at 20 deg. C with a dose of 100 Gy and a dose rate of 1 Gy/s</span>
-<span class='co'>## (2) Preheat to 200 deg. C and hold for 10 s</span>
-<span class='co'>## (3) LM-OSL at 125 deg. C. for 100 s</span>
-<span class='co'>## (4) Cutheat at 200 dec. C.</span>
-<span class='co'>## (5) Irraditation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s</span>
-<span class='co'>## (6) Pause at 200 de. C. for 100 s</span>
-<span class='co'>## (7) OSL at 125 deg. C for 100 s with 90 % optical power</span>
-<span class='co'>## (8) Pause at 200 deg. C for 100 s</span>
-<span class='co'>## (9) TL from 20-400 deg. C with a heat rate of 5 K/s</span>
-<span class='co'>## (10) Radiofluorescence at 20 deg. C with a dose of 200 Gy and a dose rate of 0.01 Gy/s</span>
-
-<span class='va'>sequence</span> <span class='op'>&lt;-</span>
- <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-   IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>100</span>, <span class='fl'>1</span><span class='op'>)</span>,
-   PH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='fl'>10</span><span class='op'>)</span>,
-   LM_OSL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>125</span>, <span class='fl'>100</span><span class='op'>)</span>,
-   CH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span>,
-   IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>)</span>,
-   PAUSE <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='fl'>100</span><span class='op'>)</span>,
-   OSL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>125</span>, <span class='fl'>100</span>, <span class='fl'>90</span><span class='op'>)</span>,
-   PAUSE <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='fl'>100</span><span class='op'>)</span>,
-   TL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>400</span>, <span class='fl'>5</span><span class='op'>)</span>,
-   RF <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>200</span>, <span class='fl'>0.01</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='co'># call function "model_LuminescenceSignals", set sequence = sequence,</span>
-<span class='co'># model = "Pagonis2008" (palaeodose = 200 Gy) and simulate_sample_history = FALSE (default),</span>
-<span class='co'># because the sample history is not part of the sequence</span>
-
-<span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span>
-   sequence <span class='op'>=</span> <span class='va'>sequence</span>,
-   model <span class='op'>=</span> <span class='st'>"Pagonis2008"</span>
-   <span class='op'>)</span>
-
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##================================================================##</span></span>
+<span class='r-in'><span class='co'>## Example 1: Simulate Bailey2001</span></span>
+<span class='r-in'><span class='co'>## (cf. Bailey, 2001, Fig. 1)</span></span>
+<span class='r-in'><span class='co'>##================================================================##</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##set sequence with the following steps</span></span>
+<span class='r-in'><span class='co'>## (1) Irradiation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s</span></span>
+<span class='r-in'><span class='co'>## (2) TL from 20-400 deg. C with a rate of 5 K/s</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>sequence</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>    IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>    TL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>400</span>, <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##model sequence</span></span>
+<span class='r-in'><span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span></span>
+<span class='r-in'>  sequence <span class='op'>=</span> <span class='va'>sequence</span>,</span>
+<span class='r-in'>  model <span class='op'>=</span> <span class='st'>"Bailey2001"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [.translate_Sequence()] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	&gt;&gt; Simulate sequence </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</span>
+<span class='r-plt img'><img src='model_LuminescenceSignals-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##get all TL concentrations</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>TL_conc</span> <span class='op'>&lt;-</span> <span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>model.output</span>, recordType <span class='op'>=</span> <span class='st'>"(TL)"</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>plot_RLum</span><span class='op'>(</span><span class='va'>TL_conc</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='model_LuminescenceSignals-2.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='model_LuminescenceSignals-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##plot 110 deg. C trap concentration</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>TL_110</span> <span class='op'>&lt;-</span> <span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>TL_conc</span>, recordType <span class='op'>=</span> <span class='st'>"conc. level 1"</span><span class='op'>)</span> </span>
+<span class='r-in'><span class='fu'>plot_RLum</span><span class='op'>(</span><span class='va'>TL_110</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='model_LuminescenceSignals-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'><span class='co'>## Example 2: compare different optical powers of stimulation light</span></span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># call function "model_LuminescenceSignals", model = "Bailey2004"</span></span>
+<span class='r-in'><span class='co'># and simulate_sample_history = FALSE (default),</span></span>
+<span class='r-in'><span class='co'># because the sample history is not part of the sequence</span></span>
+<span class='r-in'><span class='co'># the optical_power of the LED is varied and then compared.</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>optical_power</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fl'>0</span>,to <span class='op'>=</span> <span class='fl'>100</span>,by <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>optical_power</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>{</span></span>
+<span class='r-in'></span>
+<span class='r-in'> <span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>50</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>                  PH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>220</span>, <span class='fl'>10</span>, <span class='fl'>5</span><span class='op'>)</span>,</span>
+<span class='r-in'>                  OSL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>125</span>, <span class='fl'>50</span>, <span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-in'>                  <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'> <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span></span>
+<span class='r-in'>           sequence <span class='op'>=</span> <span class='va'>sequence</span>,</span>
+<span class='r-in'>           model <span class='op'>=</span> <span class='st'>"Bailey2004"</span>,</span>
+<span class='r-in'>           plot <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>           verbose <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'>           <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'> <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>data</span>, recordType <span class='op'>=</span> <span class='st'>"OSL$"</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##combine output curves</span></span>
+<span class='r-in'><span class='va'>model.output.merged</span> <span class='op'>&lt;-</span> <span class='fu'>merge_RLum</span><span class='op'>(</span><span class='va'>model.output</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##plot</span></span>
+<span class='r-in'><span class='fu'>plot_RLum</span><span class='op'>(</span></span>
+<span class='r-in'> object <span class='op'>=</span> <span class='va'>model.output.merged</span>,</span>
+<span class='r-in'> xlab <span class='op'>=</span> <span class='st'>"Illumination time [s]"</span>,</span>
+<span class='r-in'> ylab <span class='op'>=</span> <span class='st'>"OSL signal [a.u.]"</span>,</span>
+<span class='r-in'> main <span class='op'>=</span> <span class='st'>"OSL signal dependency on optical power of stimulation light"</span>,</span>
+<span class='r-in'> legend.text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Optical power density"</span>, <span class='fl'>20</span><span class='op'>*</span><span class='va'>optical_power</span><span class='op'>/</span><span class='fl'>100</span>, <span class='st'>"mW/cm^2"</span><span class='op'>)</span>,</span>
+<span class='r-in'> combine <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='model_LuminescenceSignals-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'> </span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'><span class='co'>## Example 3: Usage of own parameter sets (Pagonis 2009)</span></span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>own_parameters</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>  N <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2e15</span>, <span class='fl'>2e15</span>, <span class='fl'>1e17</span>, <span class='fl'>2.4e16</span><span class='op'>)</span>,</span>
+<span class='r-in'>  E <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>  s <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>  A <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2e-8</span>, <span class='fl'>2e-9</span>, <span class='fl'>4e-9</span>, <span class='fl'>1e-8</span><span class='op'>)</span>,</span>
+<span class='r-in'>  B <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>5e-11</span>, <span class='fl'>4e-8</span><span class='op'>)</span>,</span>
+<span class='r-in'>  Th <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>  E_th <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>  k_B <span class='op'>=</span> <span class='fl'>8.617e-5</span>,</span>
+<span class='r-in'>  W <span class='op'>=</span> <span class='fl'>0.64</span>,</span>
+<span class='r-in'>  K <span class='op'>=</span> <span class='fl'>2.8e7</span>,</span>
+<span class='r-in'>  model <span class='op'>=</span> <span class='st'>"customized"</span>,</span>
+<span class='r-in'>  R <span class='op'>=</span> <span class='fl'>1.7e15</span></span>
+<span class='r-in'> <span class='op'>)</span></span>
+<span class='r-in'> <span class='co'>## Note: In Pagonis 2009 is B the valence band to hole centre probability, </span></span>
+<span class='r-in'> <span class='co'>## but in Bailey 2001 this is A_j. So the values of B (in Pagonis 2009)</span></span>
+<span class='r-in'> <span class='co'>## are A in the notation above. Also notice that the first two entries in N, A and </span></span>
+<span class='r-in'> <span class='co'>## B belong to the electron traps and the last two entries to the hole centres.</span></span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='va'>own_state_parameters</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>9.4e15</span><span class='op'>)</span></span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='co'>## calculate Fig. 3 in Pagonis 2009. Note: The labels for the dose rate in the original </span></span>
+<span class='r-in'> <span class='co'>## publication are not correct.</span></span>
+<span class='r-in'> <span class='co'>## For a dose rate of 0.1 Gy/s belongs a RF signal to ~ 1.5e14 (see Fig. 6).</span></span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>RF <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>0.1</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span></span>
+<span class='r-in'>   model <span class='op'>=</span> <span class='st'>"customized"</span>, </span>
+<span class='r-in'>   sequence <span class='op'>=</span> <span class='va'>sequence</span>, </span>
+<span class='r-in'>   own_parameters <span class='op'>=</span> <span class='va'>own_parameters</span>, </span>
+<span class='r-in'>   own_state_parameters <span class='op'>=</span> <span class='va'>own_state_parameters</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [.translate_Sequence()] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	&gt;&gt; Simulate sequence </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span>
+<span class='r-plt img'><img src='model_LuminescenceSignals-6.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Analysis-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: model_LuminescenceSignals()()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 protocol: customized</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 number of records: 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. : RLum.Data.Curve : 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #1 RF | #2 conc. level 1 (RF) | #3 conc. level 2 (RF) | #4 conc. level 3 (RF) | #5 conc. level 4 (RF) | #6 conc. n_c (RF) | #7 conc. n_v (RF)</span>
+<span class='r-in'> </span>
+<span class='r-in'> </span>
+<span class='r-in'> </span>
+<span class='r-in'> </span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>  </span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'><span class='co'>## Example 4: Simulate Thermal-Activation-Characteristics (TAC)</span></span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='co'>##set temperature</span></span>
+<span class='r-in'> <span class='va'>act.temp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fl'>80</span>, to <span class='op'>=</span> <span class='fl'>600</span>, by <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='co'>##loop over temperature</span></span>
+<span class='r-in'> <span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span>X <span class='op'>=</span> <span class='va'>act.temp</span>, FUN <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='co'>##set sequence, note: sequence includes sample history</span></span>
+<span class='r-in'>   <span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>     IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>1</span>, <span class='fl'>1e-11</span><span class='op'>)</span>,</span>
+<span class='r-in'>     IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>     PH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>     IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>0.1</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>     TL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>150</span>, <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='op'>)</span></span>
+<span class='r-in'> <span class='co'>##run simulation</span></span>
+<span class='r-in'>   <span class='va'>temp</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span></span>
+<span class='r-in'>     sequence <span class='op'>=</span> <span class='va'>sequence</span>,</span>
+<span class='r-in'>     model <span class='op'>=</span> <span class='st'>"Pagonis2007"</span>,</span>
+<span class='r-in'>     simulate_sample_history <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span class='r-in'>     plot <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>     verbose <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'>   <span class='op'>)</span></span>
+<span class='r-in'>     <span class='co'>## "TL$" for exact matching TL and not (TL)</span></span>
+<span class='r-in'>   <span class='va'>TL_curve</span> <span class='op'>&lt;-</span> <span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>temp</span>, recordType <span class='op'>=</span> <span class='st'>"TL$"</span><span class='op'>)</span></span>
+<span class='r-in'>   <span class='co'>##return max value in TL curve</span></span>
+<span class='r-in'>   <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>TL_curve</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='op'>}</span>, FUN.VALUE <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'> </span>
+<span class='r-in'> <span class='co'>##plot resutls</span></span>
+<span class='r-in'> <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span></span>
+<span class='r-in'>   <span class='va'>act.temp</span><span class='op'>[</span><span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span>,</span>
+<span class='r-in'>   <span class='va'>model.output</span><span class='op'>[</span><span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span>,</span>
+<span class='r-in'>   type <span class='op'>=</span> <span class='st'>"b"</span>,</span>
+<span class='r-in'>   xlab <span class='op'>=</span> <span class='st'>"Temperature [\u00B0C]"</span>,</span>
+<span class='r-in'>   ylab <span class='op'>=</span> <span class='st'>"TL [a.u.]"</span></span>
+<span class='r-in'> <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'><span class='co'>## Example 5: Simulate SAR sequence</span></span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##set SAR sequence with the following steps</span></span>
+<span class='r-in'><span class='co'>## (1) RegDose: set regenerative dose [Gy] as vector</span></span>
+<span class='r-in'><span class='co'>## (2) TestDose: set test dose [Gy]</span></span>
+<span class='r-in'><span class='co'>## (3) PH: set preheat temperature in deg. C</span></span>
+<span class='r-in'><span class='co'>## (4) CH: Set cutheat temperature in deg. C</span></span>
+<span class='r-in'><span class='co'>## (5) OSL_temp: set OSL reading temperature in deg. C</span></span>
+<span class='r-in'><span class='co'>## (6) OSL_duration: set OSL reading duration in s</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'> RegDose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>50</span>,<span class='fl'>90</span>,<span class='fl'>0</span>,<span class='fl'>10</span><span class='op'>)</span>,</span>
+<span class='r-in'> TestDose <span class='op'>=</span> <span class='fl'>5</span>,</span>
+<span class='r-in'> PH <span class='op'>=</span> <span class='fl'>240</span>,</span>
+<span class='r-in'> CH <span class='op'>=</span> <span class='fl'>200</span>,</span>
+<span class='r-in'> OSL_temp <span class='op'>=</span> <span class='fl'>125</span>,</span>
+<span class='r-in'> OSL_duration <span class='op'>=</span> <span class='fl'>70</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># call function "model_LuminescenceSignals", set sequence = sequence,</span></span>
+<span class='r-in'><span class='co'># model = "Pagonis2007" (palaeodose = 20 Gy) and simulate_sample_history = FALSE (default),</span></span>
+<span class='r-in'><span class='co'># because the sample history is not part of the sequence</span></span>
+<span class='r-in'></span>
+<span class='r-in'> <span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span></span>
+<span class='r-in'>   sequence <span class='op'>=</span> <span class='va'>sequence</span>,</span>
+<span class='r-in'>   model <span class='op'>=</span> <span class='st'>"Pagonis2007"</span>,</span>
+<span class='r-in'>   plot <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'> <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># in environment is a new object "model.output" with the results of</span></span>
+<span class='r-in'><span class='co'># every step of the given sequence.</span></span>
+<span class='r-in'><span class='co'># Plots are done at OSL and TL steps and the growth curve</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># call "analyse_SAR.CWOSL" from RLum package</span></span>
+<span class='r-in'> <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_SAR.CWOSL</span><span class='op'>(</span><span class='va'>model.output</span>,</span>
+<span class='r-in'>                            signal.integral.min <span class='op'>=</span> <span class='fl'>1</span>,</span>
+<span class='r-in'>                            signal.integral.max <span class='op'>=</span> <span class='fl'>15</span>,</span>
+<span class='r-in'>                            background.integral.min <span class='op'>=</span> <span class='fl'>601</span>,</span>
+<span class='r-in'>                            background.integral.max <span class='op'>=</span> <span class='fl'>701</span>,</span>
+<span class='r-in'>                            fit.method <span class='op'>=</span> <span class='st'>"EXP"</span>,</span>
+<span class='r-in'>                            dose.points <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>50</span>,<span class='fl'>90</span>,<span class='fl'>0</span>,<span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'><span class='co'>## Example 6: generate sequence from *.seq file and run SAR simulation</span></span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># load example *.SEQ file and construct a sequence.</span></span>
+<span class='r-in'><span class='co'># call function "model_LuminescenceSignals", load created sequence for sequence,</span></span>
+<span class='r-in'><span class='co'># set model = "Bailey2002" (palaeodose = 10 Gy)</span></span>
+<span class='r-in'><span class='co'># and simulate_sample_history = FALSE (default),</span></span>
+<span class='r-in'><span class='co'># because the sample history is not part of the sequence</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"example_SAR_cycle.SEQ"</span>, package<span class='op'>=</span><span class='st'>"RLumModel"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_SEQ2R.html'>read_SEQ2R</a></span><span class='op'>(</span>file <span class='op'>=</span> <span class='va'>path</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span></span>
+<span class='r-in'>  sequence <span class='op'>=</span> <span class='va'>sequence</span>,</span>
+<span class='r-in'>  model <span class='op'>=</span> <span class='st'>"Bailey2001"</span>,</span>
+<span class='r-in'>  plot <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## call RLum package function "analyse_SAR.CWOSL" to analyse the simulated SAR cycle</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_SAR.CWOSL</span><span class='op'>(</span><span class='va'>model.output</span>,</span>
+<span class='r-in'>                             signal.integral.min <span class='op'>=</span> <span class='fl'>1</span>,</span>
+<span class='r-in'>                             signal.integral.max <span class='op'>=</span> <span class='fl'>10</span>,</span>
+<span class='r-in'>                             background.integral.min <span class='op'>=</span> <span class='fl'>301</span>,</span>
+<span class='r-in'>                             background.integral.max <span class='op'>=</span> <span class='fl'>401</span>,</span>
+<span class='r-in'>                             dose.points <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>8</span>,<span class='fl'>14</span>,<span class='fl'>26</span>,<span class='fl'>32</span>,<span class='fl'>0</span>,<span class='fl'>8</span><span class='op'>)</span>,</span>
+<span class='r-in'>                             fit.method <span class='op'>=</span> <span class='st'>"EXP"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>get_RLum</span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'><span class='co'>## Example 7: Simulate sequence at laboratory without sample history</span></span>
+<span class='r-in'><span class='co'>##============================================================================##</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##set sequence with the following steps</span></span>
+<span class='r-in'><span class='co'>## (1) Irraditation at 20 deg. C with a dose of 100 Gy and a dose rate of 1 Gy/s</span></span>
+<span class='r-in'><span class='co'>## (2) Preheat to 200 deg. C and hold for 10 s</span></span>
+<span class='r-in'><span class='co'>## (3) LM-OSL at 125 deg. C. for 100 s</span></span>
+<span class='r-in'><span class='co'>## (4) Cutheat at 200 dec. C.</span></span>
+<span class='r-in'><span class='co'>## (5) Irraditation at 20 deg. C with a dose of 10 Gy and a dose rate of 1 Gy/s</span></span>
+<span class='r-in'><span class='co'>## (6) Pause at 200 de. C. for 100 s</span></span>
+<span class='r-in'><span class='co'>## (7) OSL at 125 deg. C for 100 s with 90 % optical power</span></span>
+<span class='r-in'><span class='co'>## (8) Pause at 200 deg. C for 100 s</span></span>
+<span class='r-in'><span class='co'>## (9) TL from 20-400 deg. C with a heat rate of 5 K/s</span></span>
+<span class='r-in'><span class='co'>## (10) Radiofluorescence at 20 deg. C with a dose of 200 Gy and a dose rate of 0.01 Gy/s</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>sequence</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>   IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>100</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>   PH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='fl'>10</span><span class='op'>)</span>,</span>
+<span class='r-in'>   LM_OSL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>125</span>, <span class='fl'>100</span><span class='op'>)</span>,</span>
+<span class='r-in'>   CH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span>,</span>
+<span class='r-in'>   IRR <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>   PAUSE <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='fl'>100</span><span class='op'>)</span>,</span>
+<span class='r-in'>   OSL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>125</span>, <span class='fl'>100</span>, <span class='fl'>90</span><span class='op'>)</span>,</span>
+<span class='r-in'>   PAUSE <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='fl'>100</span><span class='op'>)</span>,</span>
+<span class='r-in'>   TL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>400</span>, <span class='fl'>5</span><span class='op'>)</span>,</span>
+<span class='r-in'>   RF <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>200</span>, <span class='fl'>0.01</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># call function "model_LuminescenceSignals", set sequence = sequence,</span></span>
+<span class='r-in'><span class='co'># model = "Pagonis2008" (palaeodose = 200 Gy) and simulate_sample_history = FALSE (default),</span></span>
+<span class='r-in'><span class='co'># because the sample history is not part of the sequence</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>model.output</span> <span class='op'>&lt;-</span> <span class='fu'>model_LuminescenceSignals</span><span class='op'>(</span></span>
+<span class='r-in'>   sequence <span class='op'>=</span> <span class='va'>sequence</span>,</span>
+<span class='r-in'>   model <span class='op'>=</span> <span class='st'>"Pagonis2008"</span></span>
+<span class='r-in'>   <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
