@@ -9,6 +9,9 @@ header-includes:
 # NEWS for the R Package RLumModel
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
+* Export internal function `.set_pars()`
+
+## Changes in version 0.2.8 (April 08, 2021)
 * This version requires R > 3.6.0
 * `model_LuminescenceSignals()` now returns the applied modelling parameters 
 in the `@info` slot of the returned `RLum.Analysis` object (requested by @coffeemuggler)
