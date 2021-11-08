@@ -7,17 +7,17 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.9.9000-1 (2021-04-08)
+## Changes in version 0.2.9.9000-4 (2021-11-08)
 
--   Dummy
+-   Export internal function `.set_pars()`
 
 ## Changes in version 0.2.8 (April 08, 2021)
 
--   This version requires R &gt; 3.6.0
+-   This version requires R \> 3.6.0
 -   `model_LuminescenceSignals()` now returns the applied modelling
     parameters in the `@info` slot of the returned `RLum.Analysis`
     object (requested by @coffeemuggler)
--   Add support for `'testthat'` &gt;= 3.0.0 (no user visible changes)
+-   Add support for `'testthat'` \>= 3.0.0 (no user visible changes)
 
 ------------------------------------------------------------------------
 
@@ -58,7 +58,7 @@
 
 ### Bugfixes and changes:
 
--   set\_pars(): \* Add new parameter set “Friedrich2018”
+-   set_pars(): \* Add new parameter set “Friedrich2018”
 
 ------------------------------------------------------------------------
 
@@ -84,8 +84,8 @@
 
 ### Bugfixes and changes:
 
--   simulate\_LM\_OSL():
-    -   Right call to .set\_ODE\_Rcpp\_LM\_OSL
+-   simulate_LM_OSL():
+    -   Right call to .set_ODE_Rcpp_LM_OSL
 
 ------------------------------------------------------------------------
 
@@ -93,40 +93,39 @@
 
 ### New functions:
 
--   set\_ODE\_Rcpp() & set\_ODE\_Rcpp():
+-   set_ODE_Rcpp() & set_ODE_Rcpp():
     -   Changed the main calculations of the ODEs to C++ via Rcpp. This
         results in an extreme fast calculation of ODE calcualtions. Slow
         calculations like DRT or SAR can be solved much faster now.
--   simulate\_RF\_and\_heating():
+-   simulate_RF_and_heating():
     -   Simulating the process of heating/cooling a sample and detect
         luminescence during irradiation.
 
 ### Bugfixes and changes:
 
--   calc\_concentrations():
+-   calc_concentrations():
 
     -   Add maximum change of concentration in specific level to slot
         ‘info’ in every RLum.Data.Curve.
 
--   calc\_signal():
+-   calc_signal():
 
-    -   As a result of the changes in ‘set\_pars’ the index of the
-        luminescence center changed. This was adjusted in
-        ‘calc\_signal’.
+    -   As a result of the changes in ‘set_pars’ the index of the
+        luminescence center changed. This was adjusted in ‘calc_signal’.
 
--   model\_LuminescenceSignals():
+-   model_LuminescenceSignals():
 
-    -   Add new parameter ‘own\_parameters’: Parameter to submit an own
+    -   Add new parameter ‘own_parameters’: Parameter to submit an own
         parameter set for simulations. For further details see vignette
         ‘RLumModel - Using own parameter sets’.
-        -   Add new parameter ‘own\_state\_parameters’: Parameter to
+        -   Add new parameter ‘own_state_parameters’: Parameter to
             submit own state parameters together with an own parameter
             set.
-        -   Add new parameter ‘own\_start\_temperature’: Parameter to
+        -   Add new parameter ‘own_start_temperature’: Parameter to
             submit own start temperature together with an own parameter
             set.
 
--   set\_pars():
+-   set_pars():
 
     -   Changed order in the vectors N, E, s, A, B: The luminescence
         center is now always the last entry. This was necessary to use
@@ -135,38 +134,37 @@
         -   Add new parameter set “Friedrich2017”.
         -   Add new case ‘customized’ for own parameter sets.
 
--   simulate\_CW\_OSL():
+-   simulate_CW_OSL():
 
-    -   Remove ‘RLumModel\_ID’ from slot info to slot .pid. This
-        RLumModel\_ID describes the order of the command in the
-        sequence.
+    -   Remove ‘RLumModel_ID’ from slot info to slot .pid. This
+        RLumModel_ID describes the order of the command in the sequence.
 
--   simulate\_irradiation():
+-   simulate_irradiation():
 
     -   New distinction of cases adding the possibility to use own
         pair-production-rates.
-        -   argument ‘dose = 0’ is now possible without error (\#4,
+        -   argument ‘dose = 0’ is now possible without error (#4,
             thanks to Christoph Burow)
 
--   simulate\_LM\_OSL(): \* Remove ‘RLumModel\_ID’ from slot info to
-    slot .pid. This RLumModel\_ID describes the order of the command in
-    the sequence.
+-   simulate_LM_OSL(): \* Remove ‘RLumModel_ID’ from slot info to slot
+    .pid. This RLumModel_ID describes the order of the command in the
+    sequence.
 
--   simulate\_RF(): \* Remove ‘RLumModel\_ID’ from slot ‘info’ to slot
-    .pid. This RLumModel\_ID describes the order of the command in the
+-   simulate_RF(): \* Remove ‘RLumModel_ID’ from slot ‘info’ to slot
+    .pid. This RLumModel_ID describes the order of the command in the
     sequence. \* New distinction of cases adding the possibility to use
     own pair-production-rates.
 
--   simulate\_TL(): \* Remove ‘RLumModel\_ID’ from slot info to slot
-    .pid. This RLumModel\_ID describes the order of the command in the
+-   simulate_TL(): \* Remove ‘RLumModel_ID’ from slot info to slot .pid.
+    This RLumModel_ID describes the order of the command in the
     sequence.
 
 -   tests: \* Expanded tests
 
--   translate\_sequence():
+-   translate_sequence():
 
     -   Hardcoded originator from returning object to
-        “model\_LuminescenceSignals()”
+        “model_LuminescenceSignals()”
         -   Add ‘sequence’ to slot ‘info’ in returning RLum.Analysis
             object.
         -   Add ‘originators’ to slot ‘info’ in returning RLum.Analysis
@@ -182,7 +180,7 @@
 
     -   Added vignette ‘Getting started with RLumModel’.
 
--   set\_ODE():
+-   set_ODE():
 
     -   Remove ‘b’, ‘temp’, ‘R’ and ‘P’ from unpacking, because these
         parameters are already stored in parameters.step.
@@ -191,7 +189,7 @@
             rate equation for the valence band is wrong. Thanks to an
             unknown reviewer of Friedrich et al. 2016.
 
--   set\_ODE\_LM\_OSL():
+-   set_ODE_LM_OSL():
 
     -   Remove ‘a’, ‘b’, ‘temp’, ‘R’ and ‘P’ from unpacking, because
         these parameters are already stored in parameters.step.
@@ -200,23 +198,23 @@
             rate equation for the valence band is wrong. Thanks to an
             unknown reviewer of Friedrich et al. 2016.
 
--   simulate\_CW\_OSL():
+-   simulate_CW_OSL():
 
     -   Changed ode solver to ‘ode’ with method ‘bdf’ for faster solving
         long illumination times.
 
--   simulate\_illumination(): \* Changed ode solver to ‘ode’ with method
+-   simulate_illumination(): \* Changed ode solver to ‘ode’ with method
     ‘bdf’ for faster solving long illumination times.
 
--   simulate\_irradiation():
+-   simulate_irradiation():
 
     -   Changed choice of pair-production-rate ‘R’, so that Bailey 2004
         has the right value of 2.5e10.
 
--   simulate\_LM\_OSL(): \* Changed ode solver to ‘ode’ with method
-    ‘bdf’ for faster solving long illumination times.
+-   simulate_LM_OSL(): \* Changed ode solver to ‘ode’ with method ‘bdf’
+    for faster solving long illumination times.
 
--   simulate\_RF(): \* Changed choice of pair-production-rate ‘R’, so
+-   simulate_RF(): \* Changed choice of pair-production-rate ‘R’, so
     that Bailey 2004 has the right value of 2.5e10.
 
 ------------------------------------------------------------------------
