@@ -7,9 +7,11 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.9.9000-4 (2021-11-08)
+## Changes in version 0.2.9 (November 08, 2021)
 
 -   Export internal function `.set_pars()`
+
+------------------------------------------------------------------------
 
 ## Changes in version 0.2.8 (April 08, 2021)
 
