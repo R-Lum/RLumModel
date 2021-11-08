@@ -9,7 +9,7 @@ header-includes:
 # NEWS for the R Package RLumModel
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
-* Dummy
+* Export internal function `.set_pars()`
 
 ## Changes in version 0.2.8 (April 08, 2021)
 * This version requires R > 3.6.0
