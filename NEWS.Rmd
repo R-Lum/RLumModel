@@ -9,7 +9,8 @@ header-includes:
 # NEWS for the R Package RLumModel
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
-* Dummy
+* `.set_pars()` now consistently supports both spellings for the model 
+`"customized"` and `"customized"`
 
 ____________________________________________________________________________________
 ## Changes in version 0.2.9 (November 08, 2021)

@@ -22,7 +22,7 @@
 #'
 #' @param model [character] (\bold{required}): set model to be used.
 #' Available models are: `"Bailey2001"`, `"Bailey2002"`, `"Bailey2004"`, `"Pagonis2007"`,
-#' `"Pagonis2008"`
+#' `"Pagonis2008"`, `"Friedrich2017"`, `"Friedrich2018"`
 #'
 #' @return This function returns a [list] with all necessary parameters for
 #' the used model.
@@ -49,13 +49,13 @@
 #' Radiation Protection Dosimetry 100, 33-38.
 #'
 #' Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
-#' and it simplications for the precision and accuracy of optical dating.
+#' and its implications for the precision and accuracy of optical dating.
 #' Radiation Measurements 38, 299-310.
 #'
 #' Friedrich, J., Pagonis, V., Chen, R., Kreutzer, S., Schmidt, C., 2017: Quartz radiofluorescence: a modelling approach.
 #' Journal of Luminescence 186, 318-325.
 #'
-#' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
+#' Pagonis, V., Chen, R., Wintle, A.G., 2007. Modelling thermal transfer in optically
 #' stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
 #'
 #' Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
@@ -239,6 +239,15 @@
       W = W,
       K = K,
       model = model
+    ),
+
+    customised = list(
+      n =  set_RLum(class = "RLum.Results", data = list(
+        n = rep(0,4), temp = 20, model = model)),
+      k_B = k_B,
+      W = W,
+      K = K,
+      model = model
     )
   )
 
@@ -273,6 +282,10 @@
 
         "customized" = {
           return(parameter.list$customized)
+        },
+
+        "customised" = {
+            return(parameter.list$customised)
         }
   )#end switch
 
