@@ -11,6 +11,9 @@ header-includes:
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 * `.set_pars()` now consistently supports both spellings for the model 
 `"customized"` and `"customized"`
+* `.set_pars()` now returns a character vector with the names of the allowed
+keywords if model is missing. This is also internally used in `model_LuminescenceSignals()` 
+to avoid inconsistencies. 
 
 ____________________________________________________________________________________
 ## Changes in version 0.2.9 (November 08, 2021)

@@ -19,13 +19,13 @@
 #' of the used model. They will be loaded, if `simulate_sample_history = FALSE` in
 #' [model_LuminescenceSignals] is chosen.
 #'
-#'
 #' @param model [character] (\bold{required}): set model to be used.
 #' Available models are: `"Bailey2001"`, `"Bailey2002"`, `"Bailey2004"`, `"Pagonis2007"`,
-#' `"Pagonis2008"`, `"Friedrich2017"`, `"Friedrich2018"`
+#' `"Pagonis2008"`, `"Friedrich2017"`, `"Friedrich2018"`. If model is indeed missing,
+#' the list of allowed keywords is returned.
 #'
 #' @return This function returns a [list] with all necessary parameters for
-#' the used model.
+#' the used model. Returns vector of allowed keywords if model is missing.
 #'
 #' @note The order of the energy-band-levels is sometimes in an different order than in the original model.
 #' This was necessary, because in the simulations the luminescence centre always
@@ -83,6 +83,10 @@
     "customized",
     "customised"
   )
+
+  ## if missing return lit of allowed keywords
+  if(missing(model))
+    return(model.allowed_keywords)
 
   if(!model%in%model.allowed_keywords){
     stop(paste0("[.set_Pars()] Model not supported. Supported models are: ",

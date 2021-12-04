@@ -1,10 +1,12 @@
-test_that("chrash function",{
+test_that("chrash function and others",{
   skip_on_cran()
   local_edition(3)
 
   expect_error(.set_pars("error"),
                "\\[\\.set_Pars\\(\\)\\] Model not supported. Supported models are: Bailey2001, Bailey2004, Pagonis2008, Pagonis2007, Bailey2002, Friedrich2017, Friedrich2018, customized, customised")
 
+  ## this should return a character vector with allowed keywords
+  expect_type(.set_pars(), "character")
 
 })
 

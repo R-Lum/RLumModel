@@ -443,15 +443,7 @@ model_LuminescenceSignals <- function(
     stop("[model_LuminescenceSignals()] Argument 'sequence' not given!", call. = FALSE)
 
   #Check if model is supported
-  model.allowed_keywords <- c("Bailey2001",
-                              "Bailey2004",
-                              "Pagonis2008",
-                              "Pagonis2007",
-                              "Bailey2002",
-                              "Friedrich2017",
-                              "Friedrich2018",
-                              "customized",
-                              "customised")
+  model.allowed_keywords <- .set_pars()
 
   if(!model%in%model.allowed_keywords)
     stop(paste0("[model_LuminescenceSignals()] Model not supported. Supported models are: ",
@@ -459,7 +451,6 @@ model_LuminescenceSignals <- function(
 
   #Check sequence
   if(is(sequence, "character")){
-
     if(!tools::file_ext(sequence) %in% c("SEQ", "seq"))
       stop("[model_LuminescenceSignals()] Argument 'sequence' is not a *.SEQ file!", call. = FALSE)
 
