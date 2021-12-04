@@ -7,9 +7,13 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.10.9000-1 (2021-11-08)
+## Changes in version 0.2.10.9000-6 (2021-12-04)
 
--   Dummy
+-   `.set_pars()` now consistently supports both spellings for the model
+    `"customized"` and `"customized"`
+-   `.set_pars()` now returns a character vector with the names of the
+    allowed keywords if model is missing. This is also internally used
+    in `model_LuminescenceSignals()` to avoid inconsistencies.
 
 ------------------------------------------------------------------------
 

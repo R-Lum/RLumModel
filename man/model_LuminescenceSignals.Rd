@@ -19,107 +19,108 @@ model_LuminescenceSignals(
 )
 }
 \arguments{
-\item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
-"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017", "Friedrich2018" and for own models "customized" (or "customised").
-Note: When model = "customized" is set, the argument 'own_parameters' has to be set.}
+\item{model}{\link{character} (\strong{required}): set model to be used. Available models are:
+\code{"Bailey2001"}, \code{"Bailey2002"}, \code{"Bailey2004"}, \code{"Pagonis2007"}, \code{"Pagonis2008"}, \code{"Friedrich2017"}, \code{"Friedrich2018"} and for own models \code{"customized"} (or \code{"customised"}).
+Note: When model = \code{"customized"}/\verb{"customised} is set, the argument \code{own_parameters} has to be set.}
 
-\item{sequence}{\code{\link{list}} (\bold{required}): set sequence to model as \code{\link{list}} or as *.seq file from the
-Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).}
+\item{sequence}{\link{list} (\strong{required}): set sequence to model as \link{list} or as *.seq file from the
+Risø sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).}
 
-\item{lab.dose_rate}{\code{\link{numeric}} (with default): laboratory dose rate in XXX
+\item{lab.dose_rate}{\link{numeric} (\emph{with default}): laboratory dose rate in XXX
 Gy/s for calculating seconds into Gray in the *.seq file.}
 
-\item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, 
-TRUE: simulations begins at crystallization (all levels 0) process}
+\item{simulate_sample_history}{\link{logical} (with default): \code{FALSE} (with default):
+simulation begins at laboratory conditions, \code{TRUE}: simulations begins at crystallization process (all levels 0)}
 
-\item{plot}{\code{\link{logical}} (with default): Enables or disables plot output}
+\item{plot}{\link{logical} (with default): Enables or disables plot output}
 
-\item{verbose}{\code{\link{logical}} (with default): Verbose mode on/off}
+\item{verbose}{\link{logical} (with default): Verbose mode on/off}
 
-\item{show_structure}{\code{\link{logical}} (with default): Shows the structure of the result.
-Recommended to show record.id to analyse concentrations.}
+\item{show_structure}{\link{logical} (with default): Shows the structure of the result.
+Recommended to show \code{record.id} to analyse concentrations.}
 
-\item{own_parameters}{\code{\link{list}} (with default): This argument allows the user to submit own parameter sets. The \code{\link{list}}
-has to contain the following items:
-\itemize{
- \item{N: Concentration of electron- and hole traps [cm^(-3)]}
- \item{E: Electron/Hole trap depth [eV}
- \item{s: Frequency factor [s^(-1)]}
- \item{A: Conduction band to electron trap and valence band to hole trap transition probability [s^(-1) * cm^(3)]. 
- \bold{CAUTION: Not every publication uses 
- the same definition of parameter A and B! See vignette "RLumModel - Usage with own parameter sets" for further details}}
- \item{B: Conduction band to hole centre transition probability [s^(-1) * cm^(3)].}
- \item{Th: Photo-eviction constant or photoionisation cross section, respectively}
- \item{E_th: Thermal assistence energy [eV]}
- \item{k_B: Boltzman constant 8.617e-05 [eV/K]}
- \item{W: activation energy 0.64 [eV] (for UV)}
- \item{K: 2.8e7 (dimensionless constant)}
- \item{model: "customized"}
- \item{R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [s^(-1) * cm^(-3)]}
- }
+\item{own_parameters}{\link{list} (with default): This argument allows the user to submit own parameter sets. See details for more information.}
 
-For further details see Bailey 2001, Wintle 1975, vignette "RLumModel - Using own parameter sets" 
-and example 3.}
-
-\item{own_state_parameters}{\code{\link{numeric}} (with default): Some publications (e.g. Pagonis 2009)
+\item{own_state_parameters}{\link{numeric} (with default): Some publications (e.g., Pagonis 2009)
 offer state parameters. With this argument the user can submit this state parameters. For further details
-see vignette ""RLumModel - Using own parameter sets" and example 3.}
+see vignette "RLumModel - Using own parameter sets" and example 3.}
 
-\item{own_start_temperature}{\code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
-a simulation. This parameter takes effect only when 'model = "customized"' is choosen.}
+\item{own_start_temperature}{\link{numeric} (with default): Parameter to control the start temperature (in ºC) of
+a simulation. This parameter takes effect only when 'model = "customized"' is chosen.}
 
 \item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot.default}}. See details for further information.}
+\link{plot.default}. See details for further information.}
 }
 \value{
-This function returns an \code{\linkS4class{RLum.Analysis}} object with all TL, (LM-) OSL and RF/RL steps
-in the sequence. Every entry is an \code{\linkS4class{RLum.Data.Curve}} object and can be plotted, analysed etc. with
+This function returns an \link[Luminescence:RLum.Analysis-class]{Luminescence::RLum.Analysis} object with all TL, (LM-) OSL and RF/RL steps
+in the sequence. Every entry is an \link[Luminescence:RLum.Data.Curve-class]{Luminescence::RLum.Data.Curve} object and can be plotted, analysed etc. with
 further \code{RLum}-functions.
 }
 \description{
 This function models luminescence signals for quartz based on published physical models.
 It is possible to simulate TL, (CW-) OSL, RF measurements in a arbitrary sequence. This
-sequence is definded as a \code{\link{list}} of certain abrivations. Furthermore it is possible to
-load a sequence direct from the Riso Sequence Editor.
-The output is an \code{\linkS4class{RLum.Analysis}}object and so the plots are done
-by the \code{\link{plot_RLum.Analysis}} function. If a SAR sequence is simulated the plot output can be disabled and SAR analyse functions
+sequence is defined as a \link{list} of certain aberrations. Furthermore it is possible to
+load a sequence direct from the Risø Sequence Editor. The output is an \link[Luminescence:RLum.Analysis-class]{Luminescence::RLum.Analysis} object and so the plots are done by the \link[Luminescence:plot_RLum.Analysis]{Luminescence::plot_RLum.Analysis} function.
+If a SAR sequence is simulated the plot output can be disabled and SAR analyse functions
 can be used.
 }
 \details{
-Defining a \bold{sequence}\cr
+Defining a \code{sequence}
 
 \tabular{lll}{
 \bold{Arguments} \tab \bold{Description} \tab \bold{Sub-arguments}\cr
-TL \tab thermally stimulated luminescence \tab 'temp begin' [\eqn{^{\circ}}C], 'temp end' [\eqn{^{\circ}}C], 'heating rate' [\eqn{^{\circ}}C/s]\cr
-OSL\tab optically stimulated luminescence \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], 'optical_power' [\%]\cr
-ILL\tab illumination \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], 'optical_power' [\%]\cr
-LM_OSL\tab linear modulated OSL \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], optional: 'start_power' [\%], 'end_power' [\%]\cr
-RL/RF\tab radioluminescence\tab 'temp' [\eqn{^{\circ}}C], 'dose' [Gy], 'dose_rate' [Gy/s] \cr
-RF_heating\tab RF during heating/cooling\tab 'temp begin' [\eqn{^{\circ}}C], 'temp end' [\eqn{^{\circ}}C], 'heating rate' [\eqn{^{\circ}}C/s], 'dose_rate' [Gy/s] \cr
-IRR\tab irradiation \tab 'temp' [\eqn{^{\circ}}C], 'dose' [Gy], 'dose_rate' [Gy/s] \cr
-CH \tab cutheat \tab 'temp' [\eqn{^{\circ}}C], optional: 'duration' [s], 'heating_rate' [\eqn{^{\circ}}C/s]\cr
-PH  \tab preheat \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s], optional: 'heating_rate' [\eqn{^{\circ}}C/s]\cr
-PAUSE \tab pause \tab 'temp' [\eqn{^{\circ}}C], 'duration' [s]
+\code{TL} \tab thermally stimulated luminescence \tab 'temp begin' (ºC), 'temp end' (ºC), 'heating rate' (ºC/s)\cr
+\code{OSL}\tab optically stimulated luminescence \tab 'temp' (ºC), 'duration' (s), 'optical_power' (\%)\cr
+\code{ILL}\tab illumination \tab 'temp' (ºC), 'duration' (s), 'optical_power' (\%)\cr
+\code{LM_OSL}\tab linear modulated OSL \tab 'temp' (ºC), 'duration' (s), optional: 'start_power' (\%), 'end_power' (\%)\cr
+\code{RL/RF}\tab radioluminescence\tab 'temp' (ºC), 'dose' (Gy), 'dose_rate' (Gy/s) \cr
+\code{RF_heating}\tab RF during heating/cooling\tab 'temp begin' (ºC), 'temp end' (ºC), 'heating rate' (ºC/s], 'dose_rate' (Gy/s) \cr
+\code{IRR}\tab irradiation \tab 'temp' (ºC), 'dose' (Gy), 'dose_rate' (Gy/s) \cr
+\code{CH} \tab cutheat \tab 'temp' (ºC), optional: 'duration' (s), 'heating_rate' (ºC/s)\cr
+\code{PH}  \tab preheat \tab 'temp' (ºC), 'duration' (s), optional: 'heating_rate' (ºC/s)\cr
+\code{PAUSE} \tab pause \tab 'temp' (ºC), 'duration' (s)
 }
 
-Note: 100 \% illumination power equates to 20 mW/cm^2
+\emph{Note: 100\% illumination power equates to 20 mW/cm^2}
 
+\strong{Own parameters}
 
-Defining a \bold{SAR-sequence}\cr
+The \link{list} has to contain the following items:
+\itemize{
+\item{N: Concentration of electron- and hole traps (cm^(-3))}
+\item{E: Electron/Hole trap depth (eV)}
+\item{s: Frequency factor (s^(-1))}
+\item{A: Conduction band to electron trap and valence band to hole trap transition probability (s^(-1) * cm^(3)).
+\strong{CAUTION: Not every publication uses
+the same definition of parameter A and B! See vignette "RLumModel - Usage with own parameter sets" for further details}}
+\item{B: Conduction band to hole centre transition probability (s^(-1) * cm^(3)).}
+\item{Th: Photo-eviction constant or photoionisation cross section, respectively}
+\item{E_th: Thermal assistence energy (eV)}
+\item{k_B: Boltzman constant 8.617e-05 (eV/K)}
+\item{W: activation energy 0.64 (eV) (for UV)}
+\item{K: 2.8e7 (dimensionless constant)}
+\item{model: \code{"customized"}}
+\item{R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s (s^(-1)) * cm^(-3))}
+}
+
+For further details see Bailey 2001, Wintle 1975, vignette "RLumModel - Using own parameter sets"
+and example 3.
+
+\strong{Defining a SAR-sequence}\cr
 
 \tabular{lll}{
 \bold{Abrivation} \tab \bold{Description} \tab \bold{examples} \cr
-RegDose \tab Dose points of the regenerative cycles [Gy]\tab c(0, 80, 140, 260, 320, 0, 80)\cr
-TestDose\tab Test dose for the SAR cycles  [Gy]\tab 50 \cr
-PH\tab Temperature of the preheat [\eqn{^{\circ}}C]\tab 240 \cr
-CH\tab Temperature of the cutheat [\eqn{^{\circ}}C]\tab 200 \cr
-OSL_temp\tab Temperature of OSL read out [\eqn{^{\circ}}C]\tab  125 \cr
-OSL_duration\tab  Duration of OSL read out [s]\tab default: 40 \cr
-Irr_temp \tab Temperature of irradiation [\eqn{^{\circ}}C]\tab default: 20\cr
-PH_duration  \tab Duration of the preheat [s]\tab default: 10 \cr
-dose_rate \tab Dose rate of the laboratory irradiation source [Gy/s]\tab default: 1 \cr
-optical_power \tab Percentage of the full illumination power [\%]\tab default: 90 \cr
-Irr_2recover \tab Dose to be recovered in a dose-recovery-test [Gy]\tab 20
+\code{RegDose} \tab Dose points of the regenerative cycles (Gy)\tab c(0, 80, 140, 260, 320, 0, 80)\cr
+\code{TestDose}\tab Test dose for the SAR cycles  (Gy)\tab 50 \cr
+\code{PH}\tab Temperature of the preheat (ºC)\tab 240 \cr
+\code{CH}\tab Temperature of the cutheat (ºC)\tab 200 \cr
+\code{OSL_temp}\tab Temperature of OSL read out (ºC)\tab  125 \cr
+\code{OSL_duration}\tab  Duration of OSL read out (s)\tab default: 40 \cr
+\code{Irr_temp} \tab Temperature of irradiation (ºC)\tab default: 20\cr
+\code{PH_duration}  \tab Duration of the preheat (s)\tab default: 10 \cr
+\code{dose_rate} \tab Dose rate of the laboratory irradiation source (Gy/s)\tab default: 1 \cr
+\code{optical_power} \tab Percentage of the full illumination power (\%)\tab default: 90 \cr
+\code{Irr_2recover} \tab Dose to be recovered in a dose-recovery-test (Gy)\tab 20
 }
 }
 \section{Function version}{
@@ -127,7 +128,6 @@ Irr_2recover \tab Dose to be recovered in a dose-recovery-test [Gy]\tab 20
 }
 
 \examples{
-
 
 ##================================================================##
 ## Example 1: Simulate Bailey2001
@@ -158,7 +158,7 @@ plot_RLum(TL_conc)
 
 ##plot 110 deg. C trap concentration
 
-TL_110 <- get_RLum(TL_conc, recordType = "conc. level 1") 
+TL_110 <- get_RLum(TL_conc, recordType = "conc. level 1")
 plot_RLum(TL_110)
 
 ##============================================================================##
@@ -195,12 +195,12 @@ model.output.merged <- merge_RLum(model.output)
 ##plot
 plot_RLum(
  object = model.output.merged,
- xlab = "Illumination time [s]",
- ylab = "OSL signal [a.u.]",
+ xlab = "Illumination time (s)",
+ ylab = "OSL signal (a.u.)",
  main = "OSL signal dependency on optical power of stimulation light",
  legend.text = paste("Optical power density", 20*optical_power/100, "mW/cm^2"),
  combine = TRUE)
- 
+
 ##============================================================================##
 ## Example 3: Usage of own parameter sets (Pagonis 2009)
 ##============================================================================##
@@ -219,39 +219,39 @@ own_parameters <- list(
   model = "customized",
   R = 1.7e15
  )
- ## Note: In Pagonis 2009 is B the valence band to hole centre probability, 
+ ## Note: In Pagonis 2009 is B the valence band to hole centre probability,
  ## but in Bailey 2001 this is A_j. So the values of B (in Pagonis 2009)
- ## are A in the notation above. Also notice that the first two entries in N, A and 
+ ## are A in the notation above. Also notice that the first two entries in N, A and
  ## B belong to the electron traps and the last two entries to the hole centres.
- 
+
  own_state_parameters <- c(0, 0, 0, 9.4e15)
- 
- ## calculate Fig. 3 in Pagonis 2009. Note: The labels for the dose rate in the original 
+
+ ## calculate Fig. 3 in Pagonis 2009. Note: The labels for the dose rate in the original
  ## publication are not correct.
  ## For a dose rate of 0.1 Gy/s belongs a RF signal to ~ 1.5e14 (see Fig. 6).
- 
+
  sequence <- list(RF = c(20, 0.1, 0.1))
- 
+
  model_LuminescenceSignals(
-   model = "customized", 
-   sequence = sequence, 
-   own_parameters = own_parameters, 
+   model = "customized",
+   sequence = sequence,
+   own_parameters = own_parameters,
    own_state_parameters = own_state_parameters)
- 
- 
- 
- 
-\dontrun{  
+
+
+
+
+\dontrun{
 ##============================================================================##
 ## Example 4: Simulate Thermal-Activation-Characteristics (TAC)
 ##============================================================================##
- 
+
  ##set temperature
  act.temp <- seq(from = 80, to = 600, by = 20)
- 
+
  ##loop over temperature
  model.output <- vapply(X = act.temp, FUN = function(x) {
- 
+
  ##set sequence, note: sequence includes sample history
    sequence <- list(
      IRR = c(20, 1, 1e-11),
@@ -273,13 +273,13 @@ own_parameters <- list(
    ##return max value in TL curve
    return(max(get_RLum(TL_curve)[,2]))
  }, FUN.VALUE = 1)
- 
+
  ##plot resutls
  plot(
    act.temp[-(1:3)],
    model.output[-(1:3)],
    type = "b",
-   xlab = "Temperature [\u00B0C]",
+   xlab = "Temperature [\u00B0C)",
    ylab = "TL [a.u.]"
  )
 
@@ -288,8 +288,8 @@ own_parameters <- list(
 ##============================================================================##
 
 ##set SAR sequence with the following steps
-## (1) RegDose: set regenerative dose [Gy] as vector
-## (2) TestDose: set test dose [Gy]
+## (1) RegDose: set regenerative dose (Gy) as vector
+## (2) TestDose: set test dose (Gy)
 ## (3) PH: set preheat temperature in deg. C
 ## (4) CH: Set cutheat temperature in deg. C
 ## (5) OSL_temp: set OSL reading temperature in deg. C
@@ -404,7 +404,7 @@ model.output <- model_LuminescenceSignals(
 } 
 
 \section{How to cite}{
-Friedrich, J., Kreutzer, S., 2021. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-1. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., Kreutzer, S., 2021. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-6. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
@@ -432,7 +432,7 @@ Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a
 for quartz based on thermally transferred OSL (TT-OSL).
 Radiation Measurements 43, 704-708.
 
-Pagonis, V., Lawless, J., Chen, R., Anderson, C., 2009. Radioluminescence in Al2O3:C - analytical and numerical 
+Pagonis, V., Lawless, J., Chen, R., Anderson, C., 2009. Radioluminescence in Al2O3:C - analytical and numerical
 simulation results. Journal of Physics D: Applied Physics 42, 175107 (9pp).
 
 Soetaert, K., Cash, J., Mazzia, F., 2012. Solving differential equations in R.
@@ -441,10 +441,10 @@ Springer Science & Business Media.
 Wintle, A., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophysical Journal International 41, 107-113.
 }
 \seealso{
-\code{\link{plot}}, \code{\linkS4class{RLum}},
-\code{\link{read_SEQ2R}}
+\link{plot}, \link[Luminescence:RLum-class]{Luminescence::RLum},
+\link{read_SEQ2R}
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 }

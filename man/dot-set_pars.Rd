@@ -9,11 +9,12 @@
 \arguments{
 \item{model}{\link{character} (\bold{required}): set model to be used.
 Available models are: \code{"Bailey2001"}, \code{"Bailey2002"}, \code{"Bailey2004"}, \code{"Pagonis2007"},
-\code{"Pagonis2008"}}
+\code{"Pagonis2008"}, \code{"Friedrich2017"}, \code{"Friedrich2018"}. If model is indeed missing,
+the list of allowed keywords is returned.}
 }
 \value{
 This function returns a \link{list} with all necessary parameters for
-the used model.
+the used model. Returns vector of allowed keywords if model is missing.
 }
 \description{
 This function provides all necessary model parameters to the
@@ -55,7 +56,7 @@ pars <- .set_pars("Bailey2001")
 } 
 
 \section{How to cite}{
-Friedrich, J., 2021. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-1. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., 2021. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-6. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
@@ -67,13 +68,13 @@ quartz and its implications for estimates of absorbed dose.
 Radiation Protection Dosimetry 100, 33-38.
 
 Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
-and it simplications for the precision and accuracy of optical dating.
+and its implications for the precision and accuracy of optical dating.
 Radiation Measurements 38, 299-310.
 
 Friedrich, J., Pagonis, V., Chen, R., Kreutzer, S., Schmidt, C., 2017: Quartz radiofluorescence: a modelling approach.
 Journal of Luminescence 186, 318-325.
 
-Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
+Pagonis, V., Chen, R., Wintle, A.G., 2007. Modelling thermal transfer in optically
 stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
 
 Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
