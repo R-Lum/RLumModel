@@ -12,7 +12,7 @@
 #' \bold{A}: conduction band to electron/hole trap transition probability in s^(-1)
 #' \bold{B}: valence band to hole trap transition probability in s^(-1)
 #' \bold{Th}: photo-ionisation cross-section in s^(-1)
-#' \bold{E_th}: `thermal assistance' energy in eV
+#' \bold{E_th}: thermal assistance energy in (eV)
 #' \bold{n}: concentrations of electron/hole traps after sample history in cm^(-3)
 #'
 #' @note \bold{n} are the saved concentrations of the last step of the sample history
@@ -106,6 +106,34 @@
   # dimensionless constant (for Details see Wintle (1975))
   K <- 2.8e7
 
+  ## add parameter names
+  names <- c(
+    N = "concentration of electron traps",
+    E = "depth below conduction or valence band",
+    s = "frequency factor",
+    A = "transiation probability to conduction or valence band",
+    B = "conduction band to hole centre transition probability",
+    Th = "photo-ionisation cross-section ",
+    E_th = "thermal assistance energy",
+    n = "concentration of trapped charges",
+    k_B = "Boltzmann constant",
+    W = "activation energy",
+    K = "dimensionlss constant after Wintle (1975)")
+
+  ## add units
+  units <- c(
+    N = "cm^-3",
+    E = "eV",
+    s = "s^-1",
+    A = "cm^3 s^-1",
+    B = "cm^3 s^-1",
+    Th = "s^-1",
+    E_th = "eV",
+    n = "cm^-3",
+    k_B = "eV K^-1",
+    W = "eV",
+    K = "")
+
   ## to enter a new model, the structure is as follows:
   ## First numbers all related to electron traps if B = 0
   ## Followed by parameters for the recombination centres
@@ -127,6 +155,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
       ),
 
@@ -146,6 +176,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -165,6 +197,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -183,6 +217,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -202,6 +238,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -220,6 +258,8 @@
       k_B = k_B,
       K = K,
       W = W,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -238,6 +278,8 @@
       k_B = k_B,
       K = K,
       W = W,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -247,6 +289,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -256,9 +300,12 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
     )
   )
+
 
   switch(model,
         "Bailey2001" = {
