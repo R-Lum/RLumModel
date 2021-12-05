@@ -29,7 +29,7 @@ The common model parameters are:
 \bold{A}: conduction band to electron/hole trap transition probability in s^(-1)
 \bold{B}: valence band to hole trap transition probability in s^(-1)
 \bold{Th}: photo-ionisation cross-section in s^(-1)
-\bold{E_th}: `thermal assistance' energy in eV
+\bold{E_th}: thermal assistance energy in (eV)
 \bold{n}: concentrations of electron/hole traps after sample history in cm^(-3)
 }
 \note{
@@ -56,7 +56,7 @@ pars <- .set_pars("Bailey2001")
 } 
 
 \section{How to cite}{
-Friedrich, J., 2021. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-6. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., 2021. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-14. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
