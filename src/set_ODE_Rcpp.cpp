@@ -1,7 +1,7 @@
 //set_ODE_Rcpp.cpp
 //author: Johannes Friedrich, University of Bayreuth (Germany)
 //version: 0.1.1 [2016-04-04]
-//Function calculates the ODEs for all quartz luminescence models iterativly
+//Function calculates the ODEs for all quartz luminescence models iteratively
 //
 
 
@@ -13,7 +13,6 @@ using namespace Rcpp;
 List set_ODE_Rcpp(double t, arma::vec n, Rcpp::List parameters) {
 
   //unpack parameters for ODEs
-
   arma::vec N = parameters["N"];
   arma::vec E = parameters["E"];
   arma::vec s = parameters["s"];
@@ -34,7 +33,7 @@ List set_ODE_Rcpp(double t, arma::vec n, Rcpp::List parameters) {
  int j = 0;
  int jj = 0;
  for (std::size_t i = 0; i < N.size(); ++i){
-   if (B[i] == 0)    {//use recombination propability of recombination centers to identify electron traps, because they had no recombination propability to recomibnation centers from conduction band
+   if (B[i] == 0)    {//use recombination probability of recombination centers to identify electron traps, because they had no recombination probability to recombination centers from conduction band
      j++;
      jj++;
 
@@ -46,7 +45,6 @@ List set_ODE_Rcpp(double t, arma::vec n, Rcpp::List parameters) {
  }
 
   //build sub-vectors for conduction/valence band calculation
-  
   arma::vec temp_dn1 = dn.subvec(0,j-1);
   arma::vec temp_dn2 = dn.subvec(j,jj-1);
 

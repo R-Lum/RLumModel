@@ -581,16 +581,13 @@ model_LuminescenceSignals <- function(
         start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
 
         if(!is.null(own_state_parameters)){ ## state parameters submitted
-
           own_state_parameters <- c(own_state_parameters, 0, 0)
-
           n <- Luminescence::set_RLum(class = "RLum.Results",
                                       data = list(n = own_state_parameters,
                                                   temp = start_temp,
                                                   model = model))
 
         } else { ## no state parameters submitted
-
           n <- Luminescence::set_RLum(class = "RLum.Results",
                                       data = list(n = rep(0,length(parms$N)+2),
                                                   temp = start_temp,
@@ -636,9 +633,7 @@ model_LuminescenceSignals <- function(
 
 
 # Plot settings -------------------------------------------------------------------------------
-
   if(plot){
-
     plot.data <- get_RLum(model.output,
                           recordType = c("RF$", "TL$", "OSL$", "LM-OSL$", "RF_heating$", "pause$"),
                           drop = FALSE)

@@ -60,7 +60,7 @@ for (i in 1:length(sequence)){
   ##### check temperature differences between different steps ####
 
   #check if temperatures of step before is lower than current sequence step and if step is not PH or CH
-  #automatically heat to temperatrue of current sequence step
+  #automatically heat to temperature of current sequence step
 
   #check if "temp" or "temp_begin" (only for TL) is part of the sequence, if not, the first entry in sequence is temp (per definition)
   if(!"temp" %in% names(sequence[[i]]) && !"temp_begin" %in% names(sequence[[i]])) {names(sequence[[i]])[1] <- "temp"}
@@ -69,7 +69,7 @@ for (i in 1:length(sequence)){
   if("temp_begin" %in% names(sequence[[i]])) {sequence[[i]]["temp"] <- sequence[[i]]["temp_begin"]}
 
   #check if temperature is higher than the step before
-  #automatically heat to temperatrue of current sequence step, except stepname is "PH" or "CH"
+  #automatically heat to temperature of current sequence step, except stepname is "PH" or "CH"
   if(((n$temp < sequence[[i]]["temp"])&&(names(sequence)[i] != "PH")&&(names(sequence)[i] != "CH")) == TRUE){
     n <- .simulate_heating(temp_begin = n$temp,temp_end = sequence[[i]]["temp"], heating_rate = 1, n, parms)
 
@@ -362,7 +362,7 @@ for (i in 1:length(sequence)){
 
     output.model <- c(output.model, n$RF_heating.data, n$concentrations)
 
-    ##pause to releax
+    ##pause to relax
     n <- .simulate_pause(temp = sequence[[i]]["temp_end"], duration = 5, n = n, parms = parms)
 
     ##collect originators

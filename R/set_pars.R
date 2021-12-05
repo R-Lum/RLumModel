@@ -106,6 +106,11 @@
   # dimensionless constant (for Details see Wintle (1975))
   K <- 2.8e7
 
+  ## to enter a new model, the structure is as follows:
+  ## First numbers all related to electron traps if B = 0
+  ## Followed by parameters for the recombination centres
+  ## Th and E_th refer to traps only
+  ## n: first traps, then recombination centres, then n_c then n_v
   parameter.list = list(
     Bailey2001 = list(
       N = c(1.5e7, 1e7, 1e9, 2.5e8, 5e10, 3e8, 1e10, 5e9, 1e11),
