@@ -1,0 +1,93 @@
+---
+title: "RLumModel - Models and parameters"
+author: "Sebastian Kreutzer (Earth Sciences and Geography, Abersytwyth University, UK) & Johannes Friedrich (University of Bayreuth, DE)"
+date: '`r Sys.Date()`'
+output: 
+  rmarkdown::html_vignette:
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 5
+    number_sections: yes
+    toc: yes
+bibliography: RLumModel.bib
+vignette: |
+  %\VignetteIndexEntry{RLumModel - Models and parameters} 
+  %\VignetteEncoding{UTF-8}{inputenc}
+  %\VignetteEngine{knitr::rmarkdown} 
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.pos = 'h', fig.align = 'center')
+```
+
+```{r, echo=FALSE, message = FALSE}
+library(RLumModel)
+library(gt)
+```
+
+# Models and parameters
+
+The table lists the parameters used in the different models implemented 
+in `'RLumModel'`. The tables are automatically extracted from the output of the
+function `.set_pars()` to provide a better human-readable output format. 
+
+```{r, echo=FALSE, results='asis'}
+## get models
+models <- .set_pars()[grepl(pattern = "^(?!custom)",.set_pars(), perl = TRUE)]
+
+l <- lapply(models, function(x){
+  temp <- .set_pars(x)
+  n <- temp$n@data$n
+  temp$n <- NULL
+  c(temp, list(n = n))
+  
+})
+
+## get the maximum number of number of electron traps 
+n_levels <- max(vapply(l, function(x) length(x$B), numeric(1)))
+n_trap_max <- max(vapply(l, function(x) sum(x$B == 0), numeric(1)))
+
+##generate matrices
+m <- matrix(NA, nrow = n_levels + 2, ncol = length(models))
+colnames(m) <- models
+rownames(m) <- c(
+  paste0("trap_", 1:n_trap_max), 
+  paste0("centre_", (n_trap_max + 1):(nrow(m) - 2)),
+  "n_c",
+  "n_v")
+
+## fill matrices
+for (p in names(l[[1]])[!names(l[[1]]) %in% c("units", "names","model")]) {
+  for (i in 1:length(l)) {
+    ##traps
+    m[which(l[[i]]$B == 0),i] <- l[[i]][[p]][which(l[[i]]$B == 0)] 
+    ##hole
+    if (!is.null(l[[i]][[p]])) 
+      m[(n_trap_max + 1):(n_trap_max + length(which(l[[i]]$B != 0))),i] <- l[[i]][[p]][which(l[[i]]$B != 0)] 
+  
+    ##n
+    if(p == "n")
+      m[(nrow(m)-1):nrow(m),] <- l[[i]][[p]][(length(l[[i]][[p]])-1):length(l[[i]][[p]])]
+  }
+  
+  ## create data.frame
+  df <- as.data.frame(m)
+  
+  ## remove all NA rows
+  df <- df[rowSums(is.na(m)) != length(models),]
+  
+  ## create table object
+  g <- gt::gt(df,rownames_to_stub = TRUE) %>%
+    gt::tab_header(
+      title = paste0(p, " (", l[[i]]$units[p],")"), 
+      subtitle = l[[i]]$names[p]) %>%
+    gt::opt_align_table_header(align = c("left"))
+  
+  pander::pandoc.header(paste0("Parameter: ", p), level = 2)
+  print(g)
+  
+}
+
+```
+
+

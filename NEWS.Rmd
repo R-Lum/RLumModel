@@ -15,6 +15,8 @@ header-includes:
 keywords if model is missing. This is also internally used in `model_LuminescenceSignals()` 
 to avoid inconsistencies. 
 * `.set_pars()` now returns also the parameter names and units as extra elements
+* A new vignette, called "RLumModel - Models and parameters" was added to provide
+a better overview and comparison of the different models
 
 
 ____________________________________________________________________________________
