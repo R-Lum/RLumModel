@@ -14,14 +14,14 @@ test_that("check length of output",{
   skip_on_cran()
   local_edition(3)
 
-  expect_equal(length(.set_pars("Bailey2001")), 12)
-  expect_equal(length(.set_pars("Bailey2002")), 12)
-  expect_equal(length(.set_pars("Bailey2004")), 12)
-  expect_equal(length(.set_pars("Pagonis2007")), 12)
-  expect_equal(length(.set_pars("Pagonis2008")), 12)
-  expect_equal(length(.set_pars("Friedrich2017")), 12)
-  expect_equal(length(.set_pars("customized")), 5)
-  expect_equal(length(.set_pars("customised")), 5)
+  expect_equal(length(.set_pars("Bailey2001")), 14)
+  expect_equal(length(.set_pars("Bailey2002")), 14)
+  expect_equal(length(.set_pars("Bailey2004")), 14)
+  expect_equal(length(.set_pars("Pagonis2007")), 14)
+  expect_equal(length(.set_pars("Pagonis2008")), 14)
+  expect_equal(length(.set_pars("Friedrich2017")), 14)
+  expect_equal(length(.set_pars("customized")), 7)
+  expect_equal(length(.set_pars("customised")), 7)
 
 })
 
