@@ -31,6 +31,32 @@ The table lists the parameters used in the different models implemented
 in `'RLumModel'`. The tables are automatically extracted from the output of the
 function `.set_pars()` to provide a better human-readable output format. 
 
+According to the published literature, the energy levels can be translated into somewhat meaningful names. Obviously, this labelling is open to interpretation and nothing carved in stone, moreover it depends partly on the model. 
+
+LEVEL     |LABEL              |DESCRIPTION
+----------|-------------------|----------------
+trap_1    | 110ºC TL          | Electron trap associated with the 110ºC TL peak
+trap_2    | 230ºC TL          | Electron trap associated with the 230ºC TL peak
+trap_3    | OSL_fast          | Electron trap feeding the OSL fast component
+trap_4    | OSL_medium        | Electron trap linked to the OSL medium component
+(trap_5)  | OSL_deep/OSL_slow1| Electron trap linked to the first OSL slow component or the deep OSL trap
+(trap_6)  | OSL_slow2/TT-OSL  | Electron trap linked to the second OSL slow component or the TT-OSL trap
+(trap_7)  | OSL_slow3/BT-OSL  | Electron trap linked to the third OSL slow component or the BT-OSL trap
+(trap_8)  | OSL_deep          | Electron trap linked to the deep OSL trap
+centre_1  |R1 centre          | Reservoir centre 1 - no part in luminescence production
+centre_2  |R2 centre          | Reservoir centre 2 - no part in luminescence production
+centre_3  |K centre           | Killer centre, recombination centre with no luminescence output 
+centre_4  |L centre           | Luminescence centre 
+
+The levels given in parentheses change according to the maximum number of levels in the model. 
+For instance, if the model has only five electron traps, level `trap_5` is associated with 
+the deep OSL electron trap. However, if the model has traps associated with slow components, 
+as in @Bailey_2001, the OSL deep trap is associated with the `trap_8` [cf. @Friedrich_2016].
+
+*Please note that, unlike in the table above, the parameter tables below are generated
+automatically from the models implemented in `'RLumModel'`. Therefore the labelling
+is kept very general.*
+
 ```{r, echo=FALSE, results='asis'}
 ## get models
 models <- .set_pars()[grepl(pattern = "^(?!custom)",.set_pars(), perl = TRUE)]
@@ -52,7 +78,7 @@ m <- matrix(NA, nrow = n_levels + 2, ncol = length(models))
 colnames(m) <- models
 rownames(m) <- c(
   paste0("trap_", 1:n_trap_max), 
-  paste0("centre_", (n_trap_max + 1):(nrow(m) - 2)),
+  paste0("centre_", ((n_trap_max + 1):(nrow(m) - 2) - (n_trap_max))),
   "n_c",
   "n_v")
 
@@ -66,8 +92,8 @@ for (p in names(l[[1]])[!names(l[[1]]) %in% c("units", "names","model")]) {
       m[(n_trap_max + 1):(n_trap_max + length(which(l[[i]]$B != 0))),i] <- l[[i]][[p]][which(l[[i]]$B != 0)] 
   
     ##n
-    if(p == "n")
-      m[(nrow(m)-1):nrow(m),] <- l[[i]][[p]][(length(l[[i]][[p]])-1):length(l[[i]][[p]])]
+    if (p == "n")
+      m[(nrow(m) - 1):nrow(m),] <- l[[i]][[p]][(length(l[[i]][[p]])-1):length(l[[i]][[p]])]
   }
   
   ## create data.frame
@@ -76,12 +102,25 @@ for (p in names(l[[1]])[!names(l[[1]]) %in% c("units", "names","model")]) {
   ## remove all NA rows
   df <- df[rowSums(is.na(m)) != length(models),]
   
+  ## add running number
+  df <- cbind(`#` = 1:nrow(df), df)
+  
   ## create table object
-  g <- gt::gt(df,rownames_to_stub = TRUE) %>%
+  g <- gt::gt(df,rownames_to_stub = TRUE, ) %>%
     gt::tab_header(
       title = paste0(p, " (", l[[i]]$units[p],")"), 
       subtitle = l[[i]]$names[p]) %>%
-    gt::opt_align_table_header(align = c("left"))
+    gt::opt_align_table_header(align = c("left")) %>%
+    gt::tab_style(style = list(
+      cell_fill(color = "lightyellow"),
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = `#`)) %>%
+    gt::tab_style(style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = gt::cells_column_labels())
   
   pander::pandoc.header(paste0("Parameter: ", p), level = 2)
   print(g)
@@ -90,4 +129,4 @@ for (p in names(l[[1]])[!names(l[[1]]) %in% c("units", "names","model")]) {
 
 ```
 
-
+# References {-}
