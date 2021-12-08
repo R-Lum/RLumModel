@@ -46,6 +46,8 @@
 #' @importFrom stats setNames
 #' @importFrom tools file_ext
 #' @importFrom Rcpp evalCpp
+#' @importFrom grDevices rgb
+#' @importFrom graphics axis lines mtext par rect
 #' @useDynLib RLumModel, .registration = TRUE
 NULL
 

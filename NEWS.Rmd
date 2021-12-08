@@ -9,6 +9,8 @@ header-includes:
 # NEWS for the R Package RLumModel
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
+* New function: `trace_ParameterStateEvolution()` to allow tracing of the evoluton 
+of the concentration during the modelling for different steps 
 * `.set_pars()` now consistently supports both spellings for the model 
 `"customized"` and `"customized"`
 * `.set_pars()` now returns a character vector with the names of the allowed
@@ -17,7 +19,6 @@ to avoid inconsistencies.
 * `.set_pars()` now returns also the parameter names and units as extra elements
 * A new vignette, called "RLumModel - Models and parameters" was added to provide
 a better overview and comparison of the different models
-
 
 ____________________________________________________________________________________
 ## Changes in version 0.2.9 (November 08, 2021)
