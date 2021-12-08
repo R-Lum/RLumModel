@@ -7,8 +7,11 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.10.9000-17 (2021-12-08)
+## Changes in version 0.2.10.9000-24 (2021-12-08)
 
+-   New function: `trace_ParameterStateEvolution()` to allow tracing of
+    the evoluton of the concentration during the modelling for different
+    steps
 -   `.set_pars()` now consistently supports both spellings for the model
     `"customized"` and `"customized"`
 -   `.set_pars()` now returns a character vector with the names of the
