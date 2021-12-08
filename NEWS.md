@@ -7,7 +7,7 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.10.9000-14 (2021-12-05)
+## Changes in version 0.2.10.9000-17 (2021-12-08)
 
 -   `.set_pars()` now consistently supports both spellings for the model
     `"customized"` and `"customized"`

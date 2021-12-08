@@ -43,9 +43,9 @@ trap_4    | OSL_medium        | Electron trap linked to the OSL medium component
 (trap_6)  | OSL_slow2/TT-OSL  | Electron trap linked to the second OSL slow component or the TT-OSL trap
 (trap_7)  | OSL_slow3/BT-OSL  | Electron trap linked to the third OSL slow component or the BT-OSL trap
 (trap_8)  | OSL_deep          | Electron trap linked to the deep OSL trap
-centre_1  |R1 centre          | Reservoir centre 1 - no part in luminescence production
-centre_2  |R2 centre          | Reservoir centre 2 - no part in luminescence production
-centre_3  |K centre           | Killer centre, recombination centre with no luminescence output 
+centre_1  |R1 centre          | Reservoir centre 1, non-radiative, thermally unstable
+centre_2  |R2 centre          | Reservoir centre 2, non-radiative, thermally unstable
+centre_3  |K centre           | Killer centre, non-radiative recombination centre
 centre_4  |L centre           | Luminescence centre 
 
 The levels given in parentheses change according to the maximum number of levels in the model. 
