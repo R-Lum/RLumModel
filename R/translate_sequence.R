@@ -388,7 +388,7 @@ return(set_RLum(
   class = "RLum.Analysis",
   records = output.model,
   protocol = model,
-  originator = "model_LuminescenceSignals()",
+  originator = "model_LuminescenceSignals",
   info = list(
     sequence = sequence,
     parms = parms,
