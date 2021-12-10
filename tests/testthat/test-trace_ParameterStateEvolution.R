@@ -24,10 +24,15 @@ test_that("check class and output", {
   expect_error(suppressWarnings(trace_ParameterStateEvolution(output, step = "tsss")),
          "\\[trace\\_ParameterStateEvolution\\(\\)\\] object has length zero!")
 
+  ## trigger no concentration error
+  expect_error(trace_ParameterStateEvolution(get_RLum(output, recordType = "^OSL$", drop = FALSE)),
+         "\\[trace\\_ParameterStateEvolution\\(\\)\\] No concentration record found, did you subset your object already?")
+
   ## simple run no plot
   t <- expect_type(trace_ParameterStateEvolution(output, plot = FALSE), "list")
   expect_length(t, 11)
   expect_type(t[[1]], "double")
+
 
   ## run list
   expect_type(trace_ParameterStateEvolution(list(output, output), plot = FALSE), "list")

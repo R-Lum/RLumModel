@@ -73,6 +73,10 @@ trace_ParameterStateEvolution <- function(
     stop("[trace_ParameterStateEvolution()] object was not produced by model_LuminescencerSignals()!",
          call. = FALSE)
 
+  if(!any(grepl("conc.", names(object))))
+    stop("[trace_ParameterStateEvolution()] No concentration record found, did you subset your object already?",
+          call. = FALSE)
+
 # Prepare data ------------------------------------------------------------
   if (!is.null(step))
     object <- get_RLum(object, recordType = step[1], drop = FALSE)
@@ -196,3 +200,4 @@ trace_ParameterStateEvolution <- function(
  return(m_list)
 
 }
+
