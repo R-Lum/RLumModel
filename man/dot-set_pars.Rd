@@ -9,7 +9,7 @@
 \arguments{
 \item{model}{\link{character} (\bold{required}): set model to be used.
 Available models are: \code{"Bailey2001"}, \code{"Bailey2002"}, \code{"Bailey2004"}, \code{"Pagonis2007"},
-\code{"Pagonis2008"}, \code{"Friedrich2017"}, \code{"Friedrich2018"}. If model is indeed missing,
+\code{"Pagonis2008"}, \code{"Friedrich2017"}, \code{"Friedrich2018"}, \code{"Peng2022"}. If model is indeed missing,
 the list of allowed keywords is returned.}
 }
 \value{
@@ -56,7 +56,7 @@ pars <- .set_pars("Bailey2001")
 } 
 
 \section{How to cite}{
-Friedrich, J., 2021. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-24. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., 2021. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-28. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
@@ -80,6 +80,8 @@ stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998
 Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
 for quartz based on thermally transferred OSL (TT-OSL).
 Radiation Measurements 43, 704-708.
+
+Peng, J., Wang, X., Adamiec, G., 2022. The build-up of the laboratory-generated dose-response curve and underestimation of equivalent dose for quartz OSL in the high dose region: A critical modelling study. Quaternary Geochronology 67, 101231.
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),

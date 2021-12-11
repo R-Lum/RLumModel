@@ -20,7 +20,7 @@ model_LuminescenceSignals(
 }
 \arguments{
 \item{model}{\link{character} (\strong{required}): set model to be used. Available models are:
-\code{"Bailey2001"}, \code{"Bailey2002"}, \code{"Bailey2004"}, \code{"Pagonis2007"}, \code{"Pagonis2008"}, \code{"Friedrich2017"}, \code{"Friedrich2018"} and for own models \code{"customized"} (or \code{"customised"}).
+\code{"Bailey2001"}, \code{"Bailey2002"}, \code{"Bailey2004"}, \code{"Pagonis2007"}, \code{"Pagonis2008"}, \code{"Friedrich2017"}, \code{"Friedrich2018"}, \verb{"Peng2022}" and for own models \code{"customized"} (or \code{"customised"}).
 Note: When model = \code{"customized"}/\verb{"customised} is set, the argument \code{own_parameters} has to be set.}
 
 \item{sequence}{\link{list} (\strong{required}): set sequence to model as \link{list} or as *.seq file from the
@@ -404,7 +404,7 @@ model.output <- model_LuminescenceSignals(
 } 
 
 \section{How to cite}{
-Friedrich, J., Kreutzer, S., 2021. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-24. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., Kreutzer, S., 2021. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.5. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-28. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
@@ -434,6 +434,10 @@ Radiation Measurements 43, 704-708.
 
 Pagonis, V., Lawless, J., Chen, R., Anderson, C., 2009. Radioluminescence in Al2O3:C - analytical and numerical
 simulation results. Journal of Physics D: Applied Physics 42, 175107 (9pp).
+
+Peng, J., Wang, X., Adamiec, G., 2022. The build-up of the laboratory-generated dose-response curve and
+underestimation of equivalent dose for quartz OSL in the high dose region: A critical modelling study.
+Quaternary Geochronology 67, 101231.
 
 Soetaert, K., Cash, J., Mazzia, F., 2012. Solving differential equations in R.
 Springer Science & Business Media.
