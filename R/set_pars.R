@@ -21,7 +21,7 @@
 #'
 #' @param model [character] (\bold{required}): set model to be used.
 #' Available models are: `"Bailey2001"`, `"Bailey2002"`, `"Bailey2004"`, `"Pagonis2007"`,
-#' `"Pagonis2008"`, `"Friedrich2017"`, `"Friedrich2018"`. If model is indeed missing,
+#' `"Pagonis2008"`, `"Friedrich2017"`, `"Friedrich2018"`, `"Peng2022"`. If model is indeed missing,
 #' the list of allowed keywords is returned.
 #'
 #' @return This function returns a [list] with all necessary parameters for
@@ -62,6 +62,8 @@
 #' for quartz based on thermally transferred OSL (TT-OSL).
 #' Radiation Measurements 43, 704-708.
 #'
+#' Peng, J., Wang, X., Adamiec, G., 2022. The build-up of the laboratory-generated dose-response curve and underestimation of equivalent dose for quartz OSL in the high dose region: A critical modelling study. Quaternary Geochronology 67, 101231.
+#'
 #' @examples
 #'
 #' pars <- .set_pars("Bailey2001")
@@ -80,6 +82,7 @@
     "Bailey2002",
     "Friedrich2017",
     "Friedrich2018",
+    "Peng2022",
     "customized",
     "customised"
   )
@@ -283,6 +286,26 @@
       model = model
     ),
 
+    Peng2022 = list(
+      N = c(1.5e7, 1e7, 1e9, 2.5e8, 5e10, 1.65e8, 5e9, 5e9, 1e11),
+      E = c(0.97, 1.55, 1.7, 1.72, 2, 1.41, 1.65, 5, 5),
+      s = c(5e12, 5e14, 1e13, 1e14, 1e10, 5e13, 5e14, 1e13, 1e13),
+      A = c(1e-8, 1e-8, 1e-9, 5e-10, 3.33e-11, 5e-7, 1e-9, 1e-10, 1e-9),
+      B = c(0, 0, 0, 0, 0, 5e-9, 5e-10, 1e-10, 1e-10),
+      Th = c(0.75, 0, 6, 4.5, 0),
+      E_th = c(0.1, 0, 0.1, 0.13, 0),
+      n =  set_RLum(class = "RLum.Results", data = list(
+        n = c(9.169767e-03, 7.619894e+04, 1.291564e+08, 7.432290e+06, 2.690423e+10,
+              5.741230e+06, 6.779304e+07, 1.591234e+08, 2.680824e+10, 2.450977e-07, 4.263486e-07),
+        temp = 20)),
+      k_B = k_B,
+      W = W,
+      K = K,
+      units  = units,
+      names = names,
+      model = model
+    ),
+
     customized = list(
       n =  set_RLum(class = "RLum.Results", data = list(
         n = rep(0,4), temp = 20, model = model)),
@@ -305,7 +328,6 @@
       model = model
     )
   )
-
 
   switch(model,
         "Bailey2001" = {
@@ -334,6 +356,10 @@
 
         "Friedrich2018" = {
           return(parameter.list$Friedrich2018)
+        },
+
+        "Peng2022" = {
+          return(parameter.list$Peng2022)
         },
 
         "customized" = {

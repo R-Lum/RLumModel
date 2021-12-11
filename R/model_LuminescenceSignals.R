@@ -70,7 +70,7 @@
 #' Risø sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).
 #
 #' @param model [character] (**required**): set model to be used. Available models are:
-#' `"Bailey2001"`, `"Bailey2002"`, `"Bailey2004"`, `"Pagonis2007"`, `"Pagonis2008"`, `"Friedrich2017"`, `"Friedrich2018"` and for own models `"customized"` (or `"customised"`).
+#' `"Bailey2001"`, `"Bailey2002"`, `"Bailey2004"`, `"Pagonis2007"`, `"Pagonis2008"`, `"Friedrich2017"`, `"Friedrich2018"`, `"Peng2022`" and for own models `"customized"` (or `"customised"`).
 #' Note: When model = `"customized"`/`"customised` is set, the argument `own_parameters` has to be set.
 #'
 #' @param lab.dose_rate [numeric] (*with default*): laboratory dose rate in XXX
@@ -135,6 +135,10 @@
 #'
 #' Pagonis, V., Lawless, J., Chen, R., Anderson, C., 2009. Radioluminescence in Al2O3:C - analytical and numerical
 #' simulation results. Journal of Physics D: Applied Physics 42, 175107 (9pp).
+#'
+#' Peng, J., Wang, X., Adamiec, G., 2022. The build-up of the laboratory-generated dose-response curve and
+#' underestimation of equivalent dose for quartz OSL in the high dose region: A critical modelling study.
+#' Quaternary Geochronology 67, 101231.
 #'
 #' Soetaert, K., Cash, J., Mazzia, F., 2012. Solving differential equations in R.
 #' Springer Science & Business Media.

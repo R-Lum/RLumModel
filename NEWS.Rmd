@@ -19,7 +19,8 @@ to avoid inconsistencies.
 * `.set_pars()` now returns also the parameter names and units as extra elements
 * A new vignette, called "RLumModel - Models and parameters" was added to provide
 a better overview and comparison of the different models
-
+* Add support for Bailey (2001) model variation of Peng et al. (2022), keyword
+in `model_LuminescenceSignals()` is `"Peng2022"`
 ____________________________________________________________________________________
 ## Changes in version 0.2.9 (November 08, 2021)
 * Export internal function `.set_pars()`
