@@ -31,7 +31,17 @@ The table lists the parameters used in the different models implemented
 in `'RLumModel'`. The tables are automatically extracted from the output of the
 function `.set_pars()` to provide a better human-readable output format. 
 
-According to the published literature, the energy levels can be translated into somewhat meaningful names. Obviously, this labelling is open to interpretation and nothing carved in stone, moreover it depends partly on the model. 
+It is common in the published literature to assign descriptive names to the energy levels. 
+Obviously, this labelling is open to interpretation and has nothing carved in stone. Moreover, it depends partly on the model
+and the authors' understanding. 
+
+Although different models are implemented in `'RLumModel'`, we did not 
+assess whether they are meaningful but implemented them to 
+allow direct comparison. Please remember that the main differences between models narrow down to the assumed concentration of 
+specific levels (for instance, $N$). Sometimes models have different 
+concentration levels underpinned by experiments that were or were not suitable to validate those changes. However, sometimes concentration levels differ because the authors modified them by try and error. 
+Either way, we **strongly recommend** double-checking the underlying assumption of each model in the original article.
+ 
 
 LEVEL     |LABEL              |DESCRIPTION
 ----------|-------------------|----------------
