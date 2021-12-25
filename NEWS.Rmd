@@ -21,10 +21,12 @@ to avoid inconsistencies.
 a better overview and comparison of the different models
 * Add support for Bailey (2001) model variation of Peng et al. (2022), keyword
 in `model_LuminescenceSignals()` is `"Peng2022"`
+
 ____________________________________________________________________________________
 ## Changes in version 0.2.9 (November 08, 2021)
 * Export internal function `.set_pars()`
 
+____________________________________________________________________________________
 ## Changes in version 0.2.8 (April 08, 2021)
 * This version requires R > 3.6.0
 * `model_LuminescenceSignals()` now returns the applied modelling parameters 
