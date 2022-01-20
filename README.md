@@ -105,6 +105,26 @@ General Public
 License](https://github.com/R-Lum/RLumModel/blob/master/LICENSE) for
 more details.
 
+## <span class="glyphicon glyphicon-euro"></span> Funding
+
+The [development of RLumModel](https://github.com/R-LumModel) benefited
+from the support by various funding bodies:
+
+-   The initial work by Johannes Friedrich, Sebastian Kreutzer and
+    Christoph Schmidt was supported by the [DFG (2015–2018, SCHM
+    3051/4-1, “Modelling quartz luminescence signal dynamics relevant
+    for dating and dosimetry”, SCHM
+    3051/4-1)](https://gepris.dfg.de/gepris/projekt/279969851).
+
+-   The work of Sebastian Kreutzer as package author was supported by
+    [LabEx LaScArBx (ANR -
+    n. ANR-10-LABX-52)](https://lascarbx.labex.u-bordeaux.fr) between
+    2017 and 2019.
+
+-   From 2020, Sebastian Kreutzer received funding from the European
+    Union’s Horizon 2020 research and innovation programme under the
+    Marie Skłodowska-Curie grant agreement No 844457 (project: CREDit).
+
 ## Related projects
 
 -   [Luminescence](https://github.com/R-Lum/Luminescence)
