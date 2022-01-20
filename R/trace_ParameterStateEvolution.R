@@ -195,7 +195,7 @@ trace_ParameterStateEvolution <- function(
         mtext(side = 4, text = plot_settings$ylab[i], line = 4, cex = 0.7)
       }
 
-      if(plot_settings$grid[1]) grid()
+      if(plot_settings$grid[1]) graphics::grid()
     }
 
     ## add x-axis
