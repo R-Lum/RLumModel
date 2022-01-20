@@ -1,6 +1,6 @@
 ---
 title: "RLumModel - Getting started with RLumModel"
-author: "Johannes Friedrich (University of Bayreuth, DE) & Sebastian Kreutzer (Earth Sciences and Geography, Abersytwyth University, UK)"
+author: "Johannes Friedrich (University of Bayreuth, DE) & Sebastian Kreutzer (Geography and Earth Sciences, Aberystwyth University, UK)"
 date: '`r Sys.Date()`'
 output: 
   rmarkdown::html_vignette:
@@ -535,12 +535,71 @@ results <- Luminescence::analyse_SAR.CWOSL(
 ## Accessing applied modelling parameters
 
 Sometimes it is useful to extract the used modelling parameters. Since
-the output is an `RLum.Analysis`-object compatible with the R package 'Luminescence',
-this can be achieved with the following code lines:
+the output is an `RLum.Analysis`-object compatible with the R package `'Luminescence'`,
+this can be achieved with the following code lines (note: we have shorted
+the terminal output below using the function `head()`):
 
 ```{r}
-Luminescence::get_RLum(model.output, info = "parms")
+head(Luminescence::get_RLum(model.output, info = "parms"))
 ```
 
+## Trace parameter state evolution
+
+An exciting feature of `'RLumModel'` is that it allows you to gain insight into 
+the evolution of different parameter states beyond a single simulation, which 
+would show you how numerical parameters change if the solver runs over the equations. 
+For instance, assume you have a sequence of different stimulation steps (TL, OSL etc.). You want to know how the system, for which the solver has to find a solution, 
+changes from one sequence step to another. This is of interest because 
+the initial state of the system of each step will determine the shape of the curve. 
+Let's think of the following sequence that, after an initial TL readout, adds 
+a dose followed by a TL measurement, then another irradiation, another TL measurement and so on. 
+
+```{r}
+dose_points <- seq(8,600, length.out = 50)
+sequence <- c(
+  list(TL = c(20 , 500 , 2)),
+  unlist(lapply(dose_points, function(d){
+    list(
+      IRR = c(20 , d , 0.03),
+      TL = c(20 , 250, 2))
+    
+  }), recursive = FALSE)) 
+```
+
+This sequence can modelled as shown above, here we use again 
+the `Baily2001` model:
+
+```{r}
+results <- model_LuminescenceSignals(
+  model = "Bailey2001",
+  sequence = sequence,
+  plot = FALSE,
+  show_structure = FALSE,
+  simulate_sample_history = FALSE,
+  verbose = FALSE) 
+```
+
+What we did already above was to show the resulting TL curves, and we do this again, 
+just to see how they look like. 
+
+```{r}
+Luminescence::plot_RLum(
+  get_RLum(results, recordType = "^TL$", drop = FALSE),
+  combine = TRUE,
+  xlim = c(20,120), 
+  records_max = 10,
+  legend.pos = "topleft",
+  plot.single = TRUE)
+```
+
+Now we go one step further and focus our interest on the evolution of each 
+parameter set at the end of each sequence step. Extracting all the data 
+manually is possible, but a little cumbersome, so instead, we will use the 
+function `trace_StateParameterEvoluation()` (this function was introduced with 
+`'RLumModel'` v0.2.10).
+
+```{r}
+trace_ParameterStateEvolution(results)
+```
 
 # References 
