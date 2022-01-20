@@ -7,7 +7,7 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.10.9000-33 (2022-01-20)
+## Changes in version 0.2.10.9000-34 (2022-01-20)
 
 -   New function: `trace_ParameterStateEvolution()` to allow tracing of
     the evoluton of the concentration during the modelling for different

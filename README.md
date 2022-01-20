@@ -8,26 +8,26 @@
 # RLumModel <img width=120px src="man/figures/RLumModel_logo.svg" align="right" />
 
 [![DOI](https://zenodo.org/badge/47547833.svg)](https://zenodo.org/badge/latestdoi/47547833)
-[![CRAN](http://www.r-pkg.org/badges/version/RLumModel)](https://CRAN.R-project.org/package=RLumModel)
-[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
-[![Downloads](http://cranlogs.r-pkg.org/badges/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
-[![Downloads](http://cranlogs.r-pkg.org/badges/last-week/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
-[![Downloads](http://cranlogs.r-pkg.org/badges/last-day/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
+[![CRAN](https://www.r-pkg.org/badges/version/RLumModel)](https://CRAN.R-project.org/package=RLumModel)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
+[![Downloads](https://cranlogs.r-pkg.org/badges/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
+[![Downloads](https://cranlogs.r-pkg.org/badges/last-week/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
+[![Downloads](https://cranlogs.r-pkg.org/badges/last-day/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
 [![R-CMD-check](https://github.com/R-Lum/RLumModel/workflows/GitHub%20Actions%20CI/badge.svg)](https://github.com/R-Lum/RLumModel/actions)
 [![Build
 status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/master?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/R-Lum/RLumModel.svg)](https://codecov.io/github/R-Lum/RLumModel?branch=master)
 
-The **R** package ‘RLumModel’ by Johannes Friedrich (University of
-Bayreuth, Germany), Sebastian Kreutzer (IRAMAT-CRP2A, Université
-Bordeaux Montaigne, France) and Christoph Schmidt (University of
-Bayreuth, Germany) provides a collection of various R functions
-modelling luminescence signals in quartz and
+The **R** package `'RLumModel'` by Johannes Friedrich (University of
+Bayreuth, Germany), Sebastian Kreutzer (Geography & Earth Sciences,
+Aberystwyth University, United Kingdom) and Christoph Schmidt
+(University of Lausanne, Switzerland) provides a collection of various R
+functions modelling luminescence signals in quartz and
 Al<sub>2</sub>O<sub>3</sub>, based on energy-band models.
 
 For an introduction and further details, visit the [RLumModel
-homepage](http://r-lum.github.io/RLumModel/).
+homepage](https://r-lum.github.io/RLumModel/).
 
 ## Installation
 
@@ -109,3 +109,4 @@ more details.
 
 -   [Luminescence](https://github.com/R-Lum/Luminescence)
 -   [RLumShiny](https://github.com/tzerk/RLumShiny)
+-   [RLumCarlo](https://github.com/R-Lum/RLumCarlo)
