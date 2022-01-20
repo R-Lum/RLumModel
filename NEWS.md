@@ -7,7 +7,7 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.10.9000-28 (2021-12-11)
+## Changes in version 0.2.10.9000-33 (2022-01-20)
 
 -   New function: `trace_ParameterStateEvolution()` to allow tracing of
     the evoluton of the concentration during the modelling for different
@@ -23,9 +23,14 @@
     to provide a better overview and comparison of the different models
 -   Add support for Bailey (2001) model variation of Peng et al. (2022),
     keyword in `model_LuminescenceSignals()` is `"Peng2022"`
-    \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-    ## Changes in version 0.2.9 (November 08, 2021)
+
+------------------------------------------------------------------------
+
+## Changes in version 0.2.9 (November 08, 2021)
+
 -   Export internal function `.set_pars()`
+
+------------------------------------------------------------------------
 
 ## Changes in version 0.2.8 (April 08, 2021)
 

@@ -24,10 +24,12 @@ in `model_LuminescenceSignals()` is `"Peng2022"`
 
 ____________________________________________________________________________________
 ## Changes in version 0.2.9 (November 08, 2021)
+
 * Export internal function `.set_pars()`
 
 ____________________________________________________________________________________
 ## Changes in version 0.2.8 (April 08, 2021)
+
 * This version requires R > 3.6.0
 * `model_LuminescenceSignals()` now returns the applied modelling parameters 
 in the `@info` slot of the returned `RLum.Analysis` object (requested by @coffeemuggler)
