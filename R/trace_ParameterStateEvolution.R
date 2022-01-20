@@ -206,6 +206,6 @@ trace_ParameterStateEvolution <- function(
   }
 
 # Return ------------------------------------------------------------------
- return(m_list)
+ invisible(m_list)
 
 }
