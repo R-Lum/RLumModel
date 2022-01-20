@@ -16,8 +16,8 @@
 #'@param plot [logical] (*with default*): enables/disables plot output
 #'
 #'@param ... optional arguments to be passed to control the plot output. Supported
-#'are `xlab`, `ylab`, `col`, `type`, `bg`, `main`. Where meaningful, parameters can be provided
-#'as vectors. Vectors short than the number of plots are recycled.
+#'are `xlab`, `ylab`, `col`, `type`, `bg`, `main`, `grid` (`TRUE`/`FALSE`).
+#'Where meaningful, parameters can be provided as vectors. Vectors short than the number of plots are recycled.
 #'
 #'@return Returns a plot and [list] with [matrix] objects of the parameter evolution. If
 #'`object` is a [list] the output is a nested [list]
@@ -118,8 +118,8 @@ trace_ParameterStateEvolution <- function(
     if (n > 1) {
       op <- par(
         mfrow = c(n, 1),
-        mar = c(0, 5, 0, 5),
-        omi = c(0.5, 0, 0.5, 0)
+        mar = c(0, 5, .25, 5),
+        omi = c(0.5, 0, 0.5, 0.1)
       )
       on.exit(par(op))
     }
@@ -131,8 +131,8 @@ trace_ParameterStateEvolution <- function(
       ylab = regmatches(param_names, regexec("[^conc\\.].+", param_names)),
       col = khroma::colour("muted")(),
       bg = TRUE,
-      type = "l"
-
+      type = "l",
+      grid = FALSE
     ), list(...))
 
     ## expand parameters, this saves us a lot of trouble later on
@@ -144,11 +144,17 @@ trace_ParameterStateEvolution <- function(
       if (i %% 2 != 0) {
         plot(NA, NA,
           xaxt = "n",
+          yaxt = "n",
+          ylab = "",
           xlab = if (n > 1) "" else plot_settings$xlab[1],
           xlim = c(1,ncol(m_list[[i]])),
           ylim = range(m_list[[i]]),
-          ylab = plot_settings$ylab[i],
           frame = FALSE)
+
+        at <- axis(2, labels = FALSE, tick = FALSE)
+        axis(side = 2, las = 2, at = at,
+             labels = format(at, digits = 1, nsmall = 1, scientific = TRUE))
+        mtext(side = 2, text = plot_settings$ylab[i], line = 3.8, cex = 0.7)
 
         ## add background
         if (plot_settings$bg[1]) {
@@ -157,7 +163,7 @@ trace_ParameterStateEvolution <- function(
             par("usr")[3],
             par("usr")[2],
             par("usr")[4],
-            col = rgb(0, 0, 0, 0.1),
+            col = rgb(0.95, 0.95, 0.95, 1),
             border = FALSE
           )
         }
@@ -183,10 +189,13 @@ trace_ParameterStateEvolution <- function(
           frame = FALSE,
           ylab = "",
           col = plot_settings$col[i])
-        axis(side = 4)
-        mtext(side = 4, text = plot_settings$ylab[i], line = 3, cex = 0.7)
+        at <- axis(4, labels = FALSE, tick = FALSE)
+        axis(side = 4, las = 2, at = at,
+             labels = format(at, digits = 1, nsmall = 1, scientific = TRUE))
+        mtext(side = 4, text = plot_settings$ylab[i], line = 4, cex = 0.7)
       }
 
+      if(plot_settings$grid) grid()
     }
 
     ## add x-axis
@@ -200,4 +209,3 @@ trace_ParameterStateEvolution <- function(
  return(m_list)
 
 }
-
