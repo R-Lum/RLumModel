@@ -56,7 +56,7 @@ pars <- .set_pars("Bailey2001")
 } 
 
 \section{How to cite}{
-Friedrich, J., 2022. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2022. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-38. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., 2022. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2022. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-39. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{

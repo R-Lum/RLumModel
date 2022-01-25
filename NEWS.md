@@ -7,22 +7,41 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.10.9000-38 (2022-01-25)
+## Changes in version 0.2.10.9000-39 (2022-01-25)
 
--   New function: `trace_ParameterStateEvolution()` to allow tracing of
-    the evoluton of the concentration during the modelling for different
-    steps
--   `.set_pars()` now consistently supports both spellings for the model
-    `"customized"` and `"customized"`
--   `.set_pars()` now returns a character vector with the names of the
-    allowed keywords if model is missing. This is also internally used
-    in `model_LuminescenceSignals()` to avoid inconsistencies.
--   `.set_pars()` now returns also the parameter names and units as
-    extra elements
--   A new vignette, called “RLumModel - Models and parameters” was added
-    to provide a better overview and comparison of the different models
+### New funtions
+
+-   `trace_ParameterStateEvolution()`: this new function allows tracing
+    of the evolution of the concentration during the modelling for
+    different steps. The functions returns a plot and/or numerical
+    output of calculated end-states.
+
+### New models
+
 -   Add support for Bailey (2001) model variation of Peng et al. (2022),
     keyword in `model_LuminescenceSignals()` is `"Peng2022"`
+
+### Bugfixes/changes
+
+#### `.set_pars()`
+
+-   now consistently supports both spellings for the model
+    `"customized"` and `"customized"`
+-   now returns a character vector with the names of the allowed
+    keywords if model is missing. This is also internally used in
+    `model_LuminescenceSignals()` to avoid inconsistencies.
+-   now returns also the parameter names and units as extra elements
+
+#### `model_LuminescenceSignals()`
+
+-   The parameter `own_state_parameters` now accepts (optionally) an
+    `RLum.Results-class` object created by `RLumModel::.set_pars` as
+    input
+
+### Miscalaneous
+
+-   A new vignette, called “RLumModel - Models and parameters” was added
+    to provide a better overview and comparison of the different models
 
 ------------------------------------------------------------------------
 
