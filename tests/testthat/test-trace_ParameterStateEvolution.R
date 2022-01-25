@@ -40,4 +40,7 @@ test_that("check class and output", {
   ## run with plot
   expect_invisible(trace_ParameterStateEvolution(output, plot = TRUE, grid = TRUE, step_names = TRUE, norm = TRUE))
 
+  ## test more parameters
+  expect_invisible(trace_ParameterStateEvolution(output, plot = TRUE, xlim = c(1:10), log = "x"))
+
 })

@@ -17,7 +17,7 @@ steps, the input is passed to \link[Luminescence:get_RLum]{Luminescence::get_RLu
 \item{plot}{\link{logical} (\emph{with default}): enables/disables plot output}
 
 \item{...}{optional arguments to be passed to control the plot output. Supported
-are \code{xlab}, \code{ylab}, \code{col}, \code{type}, \code{bg}, \code{main}, \code{norm} (\code{TRUE}/\code{FALSE}),
+are \code{xlim}, \code{xlab}, \code{ylab}, \code{log}, \code{col}, \code{type}, \code{bg}, \code{main}, \code{norm} (\code{TRUE}/\code{FALSE}),
 \code{grid} (\code{TRUE}/\code{FALSE}), \code{step_names} (\code{TRUE}/\code{FALSE})
 Where meaningful, parameters can be provided as vectors. Vectors short than the number of plots are recycled.}
 }
@@ -61,6 +61,6 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. trace_ParameterStateEvolution(): Trace parameter state evolution. Function version 0.1.0. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2022. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-40. https://CRAN.R-project.org/package=RLumModel
+Kreutzer, S., 2022. trace_ParameterStateEvolution(): Trace parameter state evolution. Function version 0.1.0. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2022. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-41. https://CRAN.R-project.org/package=RLumModel
 }
 
