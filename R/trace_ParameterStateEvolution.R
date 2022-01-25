@@ -16,7 +16,7 @@
 #'@param plot [logical] (*with default*): enables/disables plot output
 #'
 #'@param ... optional arguments to be passed to control the plot output. Supported
-#'are `xlab`, `ylab`, `col`, `type`, `bg`, `main`, `norm` (`TRUE`/`FALSE`),
+#'are `xlim`, `xlab`, `ylab`, `log`, `col`, `type`, `bg`, `main`, `norm` (`TRUE`/`FALSE`),
 #'`grid` (`TRUE`/`FALSE`), `step_names` (`TRUE`/`FALSE`)
 #'Where meaningful, parameters can be provided as vectors. Vectors short than the number of plots are recycled.
 #'
@@ -135,8 +135,10 @@ trace_ParameterStateEvolution <- function(
       step_names = FALSE,
       norm = FALSE,
       type = "l",
+      log = "",
+      xlim = NA,
       grid = FALSE
-    ), list(...))
+    ), list(...), keep.null = TRUE)
 
     ## expand parameters, this saves us a lot of trouble later on
     plot_settings <- lapply(plot_settings, rep, length.out = n)
@@ -149,8 +151,9 @@ trace_ParameterStateEvolution <- function(
           xaxt = "n",
           yaxt = "n",
           ylab = "",
+          log = plot_settings$log[1],
           xlab = if (n > 1) "" else plot_settings$xlab[1],
-          xlim = c(1,ncol(m_list[[i]])),
+          xlim = if(!is.na(plot_settings$xlim[1])) plot_settings$xlim[1:2] else c(1,ncol(m_list[[i]])),
           ylim = if(plot_settings$norm[1]) c(0,1) else range(m_list[[i]]),
           frame = FALSE)
 
@@ -207,9 +210,11 @@ trace_ParameterStateEvolution <- function(
           y = if(plot_settings$norm[1]) m_list[[i]][2,]/max(m_list[[i]][2,]) else m_list[[i]][2,],
           xaxt = "n",
           ylim = if(plot_settings$norm[1]) c(0,1) else range(m_list[[i]]),
+          xlim = if(!is.na(plot_settings$xlim[1])) plot_settings$xlim[1:2] else c(1,ncol(m_list[[i]])),
           yaxt = "n",
           type = plot_settings$type[i],
           frame = FALSE,
+          log = plot_settings$log[1],
           ylab = "",
           col = plot_settings$col[i])
         at <- axis(4, labels = FALSE, tick = FALSE)
@@ -229,7 +234,10 @@ trace_ParameterStateEvolution <- function(
     }
 
     ## add x-axis
-    axis(side = 1, at = pretty(1:ncol(m_list[[1]])), las = 1)
+    axis(
+      side = 1,
+      at = if(!is.na(plot_settings$xlim[1])) plot_settings$xlim[1]:plot_settings$xlim[2] else 1:ncol(m_list[[1]]),
+      las = 1)
 
     if (n > 1)
       mtext(side = 1, text = plot_settings$xlab[1], cex = 0.7, line = 2)
