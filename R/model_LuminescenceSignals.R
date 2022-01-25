@@ -90,7 +90,8 @@
 #'
 #' @param own_state_parameters [numeric] (with default): Some publications (e.g., Pagonis 2009)
 #' offer state parameters. With this argument the user can submit this state parameters. For further details
-#' see vignette "RLumModel - Using own parameter sets" and example 3.
+#' see vignette "RLumModel - Using own parameter sets" and example 3. The parameter also accepts an
+#' [Luminescence::RLum.Results-class] object created by [.set_pars] as input.
 #'
 #' @param own_start_temperature [numeric] (with default): Parameter to control the start temperature (in ºC) of
 #' a simulation. This parameter takes effect only when 'model = "customized"' is chosen.

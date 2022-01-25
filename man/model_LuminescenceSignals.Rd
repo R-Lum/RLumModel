@@ -43,7 +43,8 @@ Recommended to show \code{record.id} to analyse concentrations.}
 
 \item{own_state_parameters}{\link{numeric} (with default): Some publications (e.g., Pagonis 2009)
 offer state parameters. With this argument the user can submit this state parameters. For further details
-see vignette "RLumModel - Using own parameter sets" and example 3.}
+see vignette "RLumModel - Using own parameter sets" and example 3. The parameter also accepts an
+\link[Luminescence:RLum.Results-class]{Luminescence::RLum.Results} object created by \link{.set_pars} as input.}
 
 \item{own_start_temperature}{\link{numeric} (with default): Parameter to control the start temperature (in ºC) of
 a simulation. This parameter takes effect only when 'model = "customized"' is chosen.}
@@ -404,7 +405,7 @@ model.output <- model_LuminescenceSignals(
 } 
 
 \section{How to cite}{
-Friedrich, J., Kreutzer, S., 2022. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.6. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2022. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-39. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., Kreutzer, S., 2022. model_LuminescenceSignals(): Model Luminescence Signals. Function version 0.1.6. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2022. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-40. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
