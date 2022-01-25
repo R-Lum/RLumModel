@@ -142,14 +142,24 @@ test_that("check custom models", {
   sequence <- list(
       RF = c(20, 1, 1))
 
-  temp <- model_LuminescenceSignals(
+  ## test routine
+  temp <- expect_s4_class(model_LuminescenceSignals(
     model = "customized",
     sequence = sequence,
     own_parameters = own_parameters,
     own_state_parameters = own_state_parameters,
     own_start_temperature = own_start_temperature,
     plot = FALSE,
-    verbose = FALSE)
+    verbose = FALSE), "RLum.Analysis")
+
+ ## test state case where state parameters are an object
+ expect_s4_class(model_LuminescenceSignals(
+    model = "customized",
+    sequence = sequence,
+    own_parameters = .set_pars("Bailey2001"),
+    own_state_parameters = .set_pars("Bailey2001")$n,
+    plot = FALSE,
+    verbose = FALSE), "RLum.Analysis")
 
   expect_warning(
     model_LuminescenceSignals(

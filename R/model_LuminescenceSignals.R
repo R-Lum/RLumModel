@@ -102,7 +102,7 @@
 #' in the sequence. Every entry is an [Luminescence::RLum.Data.Curve-class] object and can be plotted, analysed etc. with
 #' further `RLum`-functions.
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -585,17 +585,27 @@ model_LuminescenceSignals <- function(
         start_temp <- ifelse(is.null(own_start_temperature), 20, own_start_temperature)
 
         if(!is.null(own_state_parameters)){ ## state parameters submitted
-          own_state_parameters <- c(own_state_parameters, 0, 0)
-          n <- Luminescence::set_RLum(class = "RLum.Results",
-                                      data = list(n = own_state_parameters,
-                                                  temp = start_temp,
-                                                  model = model))
+          if(inherits(own_state_parameters, "RLum.Results") && own_state_parameters@originator == ".set_pars") {
+            own_state_parameters <- own_state_parameters@data$n
+
+          } else {
+            own_state_parameters <- c(own_state_parameters, 0, 0)
+
+          }
+
+          n <- Luminescence::set_RLum(
+            class = "RLum.Results",
+            data = list(
+              n = own_state_parameters,
+              temp = start_temp,
+              model = model))
 
         } else { ## no state parameters submitted
-          n <- Luminescence::set_RLum(class = "RLum.Results",
-                                      data = list(n = rep(0,length(parms$N)+2),
-                                                  temp = start_temp,
-                                                  model = model))
+          n <- Luminescence::set_RLum(
+            class = "RLum.Results",
+            data = list(n = rep(0,length(parms$N)+2),
+                      temp = start_temp,
+                      model = model))
         }
 
     } else { ## model not customized and parms not set
@@ -626,16 +636,13 @@ model_LuminescenceSignals <- function(
     }
 
 # sequence ------------------------------------------------------------------------------------
-
   #sequence, n and parms as arguments for the SequenceTranslator, who translates the sequence to different model steps
     model.output <- .translate_sequence(
         sequence = sequence,
         n = n,
         model = model,
         parms = parms,
-        verbose = verbose
-      )
-
+        verbose = verbose)
 
 # Plot settings -------------------------------------------------------------------------------
   if(plot){
