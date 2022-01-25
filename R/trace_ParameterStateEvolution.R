@@ -16,7 +16,8 @@
 #'@param plot [logical] (*with default*): enables/disables plot output
 #'
 #'@param ... optional arguments to be passed to control the plot output. Supported
-#'are `xlab`, `ylab`, `col`, `type`, `bg`, `main`, `grid` (`TRUE`/`FALSE`), `step_names` (`TRUE`/`FALSE`)
+#'are `xlab`, `ylab`, `col`, `type`, `bg`, `main`, `norm` (`TRUE`/`FALSE`),
+#'`grid` (`TRUE`/`FALSE`), `step_names` (`TRUE`/`FALSE`)
 #'Where meaningful, parameters can be provided as vectors. Vectors short than the number of plots are recycled.
 #'
 #'@return Returns a plot and [list] with [matrix] objects of the parameter evolution. If
@@ -132,6 +133,7 @@ trace_ParameterStateEvolution <- function(
       col = khroma::colour("muted")(),
       bg = TRUE,
       step_names = FALSE,
+      norm = FALSE,
       type = "l",
       grid = FALSE
     ), list(...))
@@ -149,12 +151,20 @@ trace_ParameterStateEvolution <- function(
           ylab = "",
           xlab = if (n > 1) "" else plot_settings$xlab[1],
           xlim = c(1,ncol(m_list[[i]])),
-          ylim = range(m_list[[i]]),
+          ylim = if(plot_settings$norm[1]) c(0,1) else range(m_list[[i]]),
           frame = FALSE)
 
         at <- axis(2, labels = FALSE, tick = FALSE)
-        axis(side = 2, las = 2, at = at,
-             labels = format(at, digits = 1, nsmall = 1, scientific = TRUE))
+        axis(
+          side = 2,
+          las = 2,
+          at = at,
+          labels = if(plot_settings$norm[1]) {
+            paste0(round(at * 100,0), "%")
+          } else {
+            format(at, digits = 1, nsmall = 1, scientific = TRUE)
+          })
+
         mtext(side = 2, text = plot_settings$ylab[i], line = 3.8, cex = 0.7)
 
         ## add background
@@ -171,7 +181,7 @@ trace_ParameterStateEvolution <- function(
         ## add lines
         lines(
           x = 1:ncol(m_list[[i]]),
-          y = m_list[[i]][2,],
+          y = if(plot_settings$norm[1]) m_list[[i]][2,]/max(m_list[[i]][2,]) else m_list[[i]][2,],
           type = plot_settings$type[i],
           col = plot_settings$col[i])
 
@@ -194,16 +204,24 @@ trace_ParameterStateEvolution <- function(
       } else {
         plot(
           x = 1:ncol(m_list[[i]]),
-          y = m_list[[i]][2,],
+          y = if(plot_settings$norm[1]) m_list[[i]][2,]/max(m_list[[i]][2,]) else m_list[[i]][2,],
           xaxt = "n",
+          ylim = if(plot_settings$norm[1]) c(0,1) else range(m_list[[i]]),
           yaxt = "n",
           type = plot_settings$type[i],
           frame = FALSE,
           ylab = "",
           col = plot_settings$col[i])
         at <- axis(4, labels = FALSE, tick = FALSE)
-        axis(side = 4, las = 2, at = at,
-             labels = format(at, digits = 1, nsmall = 1, scientific = TRUE))
+        axis(
+          side = 4,
+          las = 2,
+          at = at,
+          labels = if(plot_settings$norm[1]) {
+                    paste0(round(at * 100,0), "%")
+                   } else {
+                    format(at, digits = 1, nsmall = 1, scientific = TRUE)
+                   })
         mtext(side = 4, text = plot_settings$ylab[i], line = 4, cex = 0.7)
       }
 

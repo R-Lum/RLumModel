@@ -38,6 +38,6 @@ test_that("check class and output", {
   expect_type(trace_ParameterStateEvolution(list(output, output), plot = FALSE), "list")
 
   ## run with plot
-  expect_invisible(trace_ParameterStateEvolution(output, plot = TRUE, grid = TRUE, step_names = TRUE))
+  expect_invisible(trace_ParameterStateEvolution(output, plot = TRUE, grid = TRUE, step_names = TRUE, norm = TRUE))
 
 })
