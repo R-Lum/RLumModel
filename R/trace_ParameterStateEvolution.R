@@ -16,7 +16,7 @@
 #'@param plot [logical] (*with default*): enables/disables plot output
 #'
 #'@param ... optional arguments to be passed to control the plot output. Supported
-#'are `xlab`, `ylab`, `col`, `type`, `bg`, `main`, `grid` (`TRUE`/`FALSE`).
+#'are `xlab`, `ylab`, `col`, `type`, `bg`, `main`, `grid` (`TRUE`/`FALSE`), `step_names` (`TRUE`/`FALSE`)
 #'Where meaningful, parameters can be provided as vectors. Vectors short than the number of plots are recycled.
 #'
 #'@return Returns a plot and [list] with [matrix] objects of the parameter evolution. If
@@ -85,8 +85,9 @@ trace_ParameterStateEvolution <- function(
     stop("[trace_ParameterStateEvolution()] object has length zero!", call. = FALSE)
 
 # Extract parameter evolution ---------------------------------------------
-  ## get list of parameters ... but only the names of the concentration
-  param_names <- names(object)
+  ## get list of steps and parameters ... but only the names of the concentration
+  param_names <- step_names <- names(object)
+  step_names <- step_names[!grepl(pattern = "(", step_names, fixed = TRUE)]
   param_names <- unique(unlist(
     regmatches(
       x = param_names,
@@ -118,9 +119,8 @@ trace_ParameterStateEvolution <- function(
     if (n > 1) {
       op <- par(
         mfrow = c(n, 1),
-        mar = c(0, 5, .25, 5),
-        omi = c(0.5, 0, 0.5, 0.1)
-      )
+        mar = c(0, 5, .7, 5),
+        omi = c(0.5, 0, 0.5, 0.1))
       on.exit(par(op))
     }
 
@@ -131,6 +131,7 @@ trace_ParameterStateEvolution <- function(
       ylab = regmatches(param_names, regexec("[^conc\\.].+", param_names)),
       col = khroma::colour("muted")(),
       bg = TRUE,
+      step_names = FALSE,
       type = "l",
       grid = FALSE
     ), list(...))
@@ -164,8 +165,7 @@ trace_ParameterStateEvolution <- function(
             par("usr")[2],
             par("usr")[4],
             col = rgb(0.95, 0.95, 0.95, 1),
-            border = FALSE
-          )
+            border = FALSE)
         }
 
         ## add lines
@@ -175,9 +175,21 @@ trace_ParameterStateEvolution <- function(
           type = plot_settings$type[i],
           col = plot_settings$col[i])
 
-        ## add title
-        if (i == 1)
+        ## add title and names
+        if (i == 1) {
+          if(plot_settings$step_names[1])
+          graphics::text(
+            1:ncol(m_list[[i]]),
+            y = par()$usr[4],
+            step_names,
+            srt = 90,
+            cex = 0.7,
+            adj = c(0, 0),
+            xpd = TRUE
+          )
           mtext(side = 3, plot_settings$main[1], outer = TRUE, line = 1)
+
+        }
 
       } else {
         plot(
