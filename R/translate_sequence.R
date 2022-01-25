@@ -18,7 +18,7 @@
 #'
 #' @param txtProgressBar \code{\link{logical}} (with default): enables or disables txtProgressBar
 #'
-#' @param verbose \code{\link{logical}} (with default): enables or disalbes verbose mode. If \code{FALSE}
+#' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode. If \code{FALSE}
 #' \code{txtProgressBar} is set to \code{FALSE} automatically
 #'
 #' @return This function returns an \code{\linkS4class{RLum.Analysis}} object which can be analysed
@@ -359,7 +359,6 @@ for (i in 1:length(sequence)){
 
     ##collect originators
     output.steps <- c(output.steps, n@originator)
-
     output.model <- c(output.model, n$RF_heating.data, n$concentrations)
 
     ##pause to relax
