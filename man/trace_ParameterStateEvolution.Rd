@@ -61,6 +61,6 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. trace_ParameterStateEvolution(): Trace parameter state evolution. Function version 0.1.0. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2022. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-41. https://CRAN.R-project.org/package=RLumModel
+Kreutzer, S., 2022. trace_ParameterStateEvolution(): Trace parameter state evolution. Function version 0.1.0. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2022. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10.9000-42. https://CRAN.R-project.org/package=RLumModel
 }
 

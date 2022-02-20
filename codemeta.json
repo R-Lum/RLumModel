@@ -1,21 +1,19 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "RLumModel",
   "description": "A collection of functions to simulate luminescence signals in quartz and Al2O3 based on published models.",
   "name": "RLumModel: Solving Ordinary Differential Equations to Understand Luminescence",
   "codeRepository": "https://github.com/R-Lum/RLumModel",
+  "issueTracker": "https://github.com/R-Lum/RLumModel/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.2.6",
+  "version": "0.2.10.9000.42",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
+  "runtimePlatform": "R Under development (unstable) (2022-02-15 r81747)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -64,8 +62,6 @@
       "@id": "https://orcid.org/0000-0002-0805-9547"
     }
   ],
-  "copyrightHolder": {},
-  "funder": {},
   "maintainer": [
     {
       "@type": "Person",
@@ -80,7 +76,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
-      "version": ">= 2.1.1",
+      "version": ">= 3.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -103,19 +99,19 @@
       "sameAs": "https://CRAN.R-project.org/package=R.rsp"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.5.0"
+      "version": ">= 3.6.0"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "utils",
       "name": "utils"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "Luminescence",
       "name": "Luminescence",
@@ -128,11 +124,11 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=Luminescence"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "deSolve",
       "name": "deSolve",
-      "version": ">= 1.21",
+      "version": ">= 1.28",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -141,16 +137,29 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=deSolve"
     },
-    {
+    "5": {
+      "@type": "SoftwareApplication",
+      "identifier": "khroma",
+      "name": "khroma",
+      "version": ">= 1.7.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=khroma"
+    },
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "Rcpp",
       "name": "Rcpp",
-      "version": ">= 1.0.1",
+      "version": ">= 1.0.6",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -158,11 +167,11 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=Rcpp"
-    }
-  ],
-  "releaseNotes": "https://github.com/R-Lum/RLumModel/blob/master/NEWS.md",
-  "readme": "https://github.com/R-Lum/RLumModel/blob/master/README.md",
-  "contIntegration": ["https://travis-ci.org/R-Lum/RLumModel", "https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master", "https://codecov.io/github/R-Lum/RLumModel?branch=master"],
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "1836.28KB",
   "relatedLink": "https://CRAN.R-project.org/package=RLumModel",
-  "keywords": ["modelling", "luminescence", "quartz", "simulation", "differential-equations", "energy-band-model"]
+  "releaseNotes": "https://github.com/R-Lum/RLumModel/blob/master/NEWS.md",
+  "contIntegration": ["https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master", "https://codecov.io/github/R-Lum/RLumModel?branch=master"]
 }
