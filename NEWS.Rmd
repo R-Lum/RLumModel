@@ -10,6 +10,8 @@ header-includes:
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
+**This package version requires R >= 4.0**
+
 ### New functions
 *  `trace_ParameterStateEvolution()`: this new function allows tracing of the evolution of 
 the concentration during the modelling for different steps. The functions returns a plot
