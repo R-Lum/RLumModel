@@ -106,6 +106,14 @@ test_that("check Risoe SEQ", {
     verbose = FALSE
   ), "RLum.Analysis")
 
+  ## Peng 2022
+  expect_s4_class(model_LuminescenceSignals(
+    model = "Peng2022",
+    sequence = list(
+      OSL = c(temp = 20, duration = 1, optical_power = 100)),
+    plot = FALSE,
+    verbose = FALSE), "RLum.Analysis")
+
 })
 
 test_that("check custom models", {
@@ -134,14 +142,24 @@ test_that("check custom models", {
   sequence <- list(
       RF = c(20, 1, 1))
 
-  temp <- model_LuminescenceSignals(
+  ## test routine
+  temp <- expect_s4_class(model_LuminescenceSignals(
     model = "customized",
     sequence = sequence,
     own_parameters = own_parameters,
     own_state_parameters = own_state_parameters,
     own_start_temperature = own_start_temperature,
     plot = FALSE,
-    verbose = FALSE)
+    verbose = FALSE), "RLum.Analysis")
+
+ ## test state case where state parameters are an object
+ expect_s4_class(model_LuminescenceSignals(
+    model = "customized",
+    sequence = sequence,
+    own_parameters = .set_pars("Bailey2001"),
+    own_state_parameters = .set_pars("Bailey2001")$n,
+    plot = FALSE,
+    verbose = FALSE), "RLum.Analysis")
 
   expect_warning(
     model_LuminescenceSignals(
@@ -221,7 +239,7 @@ test_that("test controlled crash conditions", {
       model = "Bailey2000",
       sequence = list(
         OSL = c(20,1,100))),
-    regexp = "[model_LuminescenceSignals()] Model not supported. Supported models are: Bailey2001, Bailey2004, Pagonis2008, Pagonis2007, Bailey2002, Friedrich2017, Friedrich2018, customized",
+    regexp = "[model_LuminescenceSignals()] Model not supported. Supported models are: Bailey2001, Bailey2004, Pagonis2008, Pagonis2007, Bailey2002, Friedrich2017, Friedrich2018, Peng2022, customized, customised",
     fixed = TRUE)
 
   expect_error(

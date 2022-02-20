@@ -1,6 +1,6 @@
-#' sequence step irradiation
+#' @title sequence step irradiation
 #'
-#' This function simulates the irradiaton of quartz in the energy-band-model.
+#' @description This function simulates the irradiation of quartz in the energy-band-model.
 #'
 #' @param temp \code{\link{cnumeric}} (\bold{required}): temperature [deg. C] at which the dose should be applied
 #'
@@ -58,16 +58,15 @@
   }
 
   ##check if n is a RLum object
-  if(class(n) != "RLum.Results"){
+  if(class(n)[1] != "RLum.Results"){
     n <- n
   } else {
     n <- n$n
   }
 
 # solving ODE ---------------------------------------------------
-  
   if(dose != 0){
-  
+
   ##============================================================================##
   # SETTING PARAMETERS FOR IRRADIATION
   #
@@ -77,27 +76,19 @@
   ##============================================================================##
   ## check if R is given in customized parameter sets
   if("R" %in% names(parms) && parms$R != 0){
-    
     R <- dose_rate*parms$R
-    
-  } else {
 
-    if(parms$model == "Bailey2004"){
-      R <- dose_rate*2.5e10
-    } else {
-      
-      if(parms$model == "Bailey2002"){
-        R <- dose_rate*3e10
-      } else {
-        
-        if(parms$model == "Friedrich2018"){
-          R <- dose_rate*6.3e7
-        } else {
-        
-          R <- dose_rate*5e7  # all other simulations
-        }
-      }
-    }
+  } else {
+    R <- dose_rate * 5e7  # all other simulations
+
+    if(parms$model == "Bailey2004")
+      R <- dose_rate * 2.5e10
+
+    if(parms$model == "Bailey2002")
+      R <- dose_rate * 3e10
+
+    if(parms$model == "Friedrich2018")
+      R <- dose_rate * 6.3e7
   }
 
   P <- 0
@@ -106,7 +97,6 @@
   ##============================================================================##
   # SETTING PARAMETERS FOR ODE
   ##============================================================================##
-
   times   <- seq(0, dose/(dose_rate), by = (dose/dose_rate)/100)
   parameters.step <- .extract_pars(parameters.step = list(
     R = R,
@@ -115,31 +105,32 @@
     b = b,
     times = times,
     parms = parms))
-  
+
   ##============================================================================##
-  # SOLVING ODE (deSolve requiered)
+  # SOLVING ODE (deSolve required)
   ##============================================================================##
-  
-  out <- deSolve::lsoda(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol = 1e-6, atol = 1e-6);
+  out <- deSolve::lsoda(
+    y = n,
+    times = times,
+    parms = parameters.step,
+    func = .set_ODE_Rcpp,
+    rtol = 1e-6,
+    atol = 1e-6);
 
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
-
-  return(Luminescence::set_RLum(class = "RLum.Results",
-                  data = list(
-                    n = out[length(times),-1],
-                    temp = temp
-                  )))
+  return(Luminescence::set_RLum(
+    class = "RLum.Results",
+    data = list(
+    n = out[length(times),-1],temp = temp)))
 
   } else {
-    
-  return(Luminescence::set_RLum(class = "RLum.Results",
-                                data = list(
-                                  n = n,
-                                  temp = temp
-                                )))
-  
-  
-}
+  return(Luminescence::set_RLum(
+    class = "RLum.Results",
+    data = list(
+    n = n,
+    temp = temp)))
+
+ }
 }

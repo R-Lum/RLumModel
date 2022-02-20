@@ -6,7 +6,7 @@
 \title{Solving Ordinary Differential Equations to Understand Luminescence}
 \description{
 \if{html}{
-\figure{RLumModel_Logo.png}{options: width="50px"}\cr
+\figure{RLumModel_Logo.png}{options: width="50"}\cr
 }
 }
 \details{

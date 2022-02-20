@@ -8,176 +8,31 @@ header-includes:
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.9 (November 08, 2021)
-* Export internal function `.set_pars()`
+## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-____________________________________________________________________________________
-## Changes in version 0.2.8 (April 08, 2021)
-* This version requires R > 3.6.0
-* `model_LuminescenceSignals()` now returns the applied modelling parameters 
-in the `@info` slot of the returned `RLum.Analysis` object (requested by @coffeemuggler)
-* Add support for `'testthat'` >= 3.0.0 (no user visible changes)
+**This package version requires R >= 4.0**
 
-____________________________________________________________________________________
-## Changes in version 0.2.7 (September 04, 2020)
+### New functions
+*  `trace_ParameterStateEvolution()`: this new function allows tracing of the evolution of 
+the concentration during the modelling for different steps. The functions returns a plot
+and/or numerical output of calculated end-states. 
 
-* Changed `Makevars` to tackle Solaris problems
+### New models
+* Add support for Bailey (2001) model variation of Peng et al. (2022, QG), keyword
+in `model_LuminescenceSignals()` is `"Peng2022"`
 
-____________________________________________________________________________________
-## Changes in version 0.2.6 (August 31, 2020)
+### Bugfixes/changes
 
-* Switch vignette builder to `'R.rsp'` to avoid ATLAS BLAS warning
-* Drop dependency ('suggests') to `'knitr'`, `'kableExtra'` and `'rmarkdown'`
-* The minimum required R version is now 3.5.0
+#### `.set_pars()`
+* now consistently supports both spellings for the model `"customized"` and `"customized"`
+* now returns a character vector with the names of the allowed keywords if model is missing. This is also internally used in `model_LuminescenceSignals()` 
+to avoid inconsistencies. 
+* now returns also the parameter names and units as extra elements 
 
-____________________________________________________________________________________
-## Changes in version 0.2.5 (15nd December, 2019)
+#### `model_LuminescenceSignals()`
+* The parameter `own_state_parameters` now accepts (optionally) an `RLum.Results-class` object created
+by `RLumModel::.set_pars` as input 
 
-* Changes in 'Luminescence' broke the vignette; now modified with a workaround
-* Updated maintainer email address
-
-____________________________________________________________________________________
-
-## Changes in version 0.2.4 (16nd August, 2018)
-
-* Minor internal corrections
-
-____________________________________________________________________________________
-
-## Changes in version 0.2.3 (22nd November, 2017)
-
-### Miscellaneous
-
-* Add further tests
-
-### Bugfixes and changes:
-
-* set_pars():
-	  * Add new parameter set "Friedrich2018"
-	  
-____________________________________________________________________________________
-  
-## Changes in version 0.2.2 (13th October, 2017)
-
-### Miscellaneous
-  
-* Update error messages and tests
-* Add vignette "RLumModel - Simulating luminescence in Al<sub>2</sub>O<sub>3</sub>"
-* Change vignettes from PDF to HTML
-    * Change vignette builder from r.rsp to knitr
-    * Add kableExtra to SUGGESTS
-
-____________________________________________________________________________________
-  
-## Changes in version 0.2.1 (13th April, 2017)
-
-### Miscellaneous
-
-* Fix CRAN NOTE for not declared entry points.
-* Expand tests.
-
-### Bugfixes and changes:
-  
-* simulate_LM_OSL():
-    * Right call to .set_ODE_Rcpp_LM_OSL
-
-____________________________________________________________________________________
-
-## Changes in version 0.2.0 (20th January, 2017)
-
-### New functions:
-
-* set_ODE_Rcpp() & set_ODE_Rcpp():
-    * Changed the main calculations of the ODEs to C++ via Rcpp. This results in an extreme fast calculation of ODE calcualtions. Slow calculations like DRT or SAR can be solved much faster now.
-
-* simulate_RF_and_heating():
-    * Simulating the process of heating/cooling a sample and detect luminescence during irradiation.
-
-### Bugfixes and changes:
-* calc_concentrations():
-    * Add maximum change of concentration in specific level to slot 'info' in every RLum.Data.Curve.
-
-* calc_signal():
-    * As a result of the changes in 'set_pars' the index of the luminescence center changed. This was adjusted in 'calc_signal'.
-
-* model_LuminescenceSignals():
-    * Add new parameter 'own_parameters': Parameter to submit an own parameter set for simulations. For further details see
-	   vignette 'RLumModel - Using own parameter sets'.
-	  * Add new parameter 'own_state_parameters': Parameter to submit own state parameters together with an own parameter set.
-	  * Add new parameter 'own_start_temperature': Parameter to submit own start temperature together with an own parameter set.
-
-* set_pars():
-    * Changed order in the vectors N, E, s, A, B: The luminescence center is now always the last entry.
-	   This was necessary to use OTOR models with own parameters much easier.
-    * Output is now a list and not a RLum.Results object.
-	  * Add new parameter set "Friedrich2017".
-	  * Add new case 'customized' for own parameter sets.
-
-* simulate_CW_OSL():
-    * Remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.
-
-* simulate_irradiation():
-    * New distinction of cases adding the possibility to use own pair-production-rates.
-	  * argument 'dose = 0' is now possible without error (#4, thanks to Christoph Burow)
-
-* simulate_LM_OSL():
-	  * Remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.
-
-* simulate_RF():
-	  * Remove 'RLumModel_ID' from slot 'info' to slot .pid. This RLumModel_ID describes the order of the command in the sequence.
-	  * New distinction of cases adding the possibility to use own pair-production-rates.
-
-* simulate_TL():
-	  * Remove 'RLumModel_ID' from slot info to slot .pid. This RLumModel_ID describes the order of the command in the sequence.
-
-* tests:
-	  * Expanded tests
-
-* translate_sequence():
-    * Hardcoded originator from returning object to "model_LuminescenceSignals()"
-	  * Add 'sequence' to slot 'info' in returning RLum.Analysis object.
-	  * Add 'originators' to slot 'info' in returning RLum.Analysis object.
-	  
-____________________________________________________________________________________
-
-## Changes in version 0.1.2 (2nd September, 2016)
-
-### Bugfixes and changes:
-
-* Added vignette:
-    * Added vignette 'Getting started with RLumModel'.
-
-* set_ODE():
-    * Remove 'b', 'temp', 'R' and 'P' from unpacking, because these parameters are already stored in parameters.step.
-	  * Remove distinction of cases 'model = Pagonis' or 'model = Bailey' due to a misstake in Bailey 2001, 2002 and 2004. The rate equation for the valence band is wrong. Thanks to an unknown reviewer of Friedrich et al. 2016.
-
-* set_ODE_LM_OSL():
-    * Remove 'a', 'b', 'temp', 'R' and 'P' from unpacking, because these parameters are already stored in parameters.step.
-	  * Remove distinction of cases 'model = Pagonis' or 'model = Bailey' due to a misstake in Bailey 2001, 2002 and 2004. The rate equation for the valence band is wrong. Thanks to an unknown reviewer of Friedrich et al. 2016.
-
-* simulate_CW_OSL():
-    * Changed ode solver to 'ode' with method 'bdf' for faster solving long illumination times.
-    
-* simulate_illumination():
-	  * Changed ode solver to 'ode' with method 'bdf' for faster solving long illumination times.
-	  
-* simulate_irradiation():
-    * Changed choice of pair-production-rate 'R', so that Bailey 2004 has the right value of 2.5e10.
-
-* simulate_LM_OSL():
-	  * Changed ode solver to 'ode' with method 'bdf' for faster solving long illumination times.
-	    
-* simulate_RF():
-	  * Changed choice of pair-production-rate 'R', so that Bailey 2004 has the right value of 2.5e10.
-	  
-____________________________________________________________________________________
-
-## Changes in version 0.1.1 (2nd May, 2016)
-
-* Changed tests because of new package structure of 'testthat'.
-
-____________________________________________________________________________________
-
-## Changes in version 0.1.0 (3rd February, 2016)
-
-* Initial version
+### Miscalaneous
+* A new vignette, called "RLumModel - Models and parameters" was added to provide
+a better overview and comparison of the different models

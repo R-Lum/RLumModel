@@ -9,11 +9,12 @@
 \arguments{
 \item{model}{\link{character} (\bold{required}): set model to be used.
 Available models are: \code{"Bailey2001"}, \code{"Bailey2002"}, \code{"Bailey2004"}, \code{"Pagonis2007"},
-\code{"Pagonis2008"}}
+\code{"Pagonis2008"}, \code{"Friedrich2017"}, \code{"Friedrich2018"}, \code{"Peng2022"}. If model is indeed missing,
+the list of allowed keywords is returned.}
 }
 \value{
 This function returns a \link{list} with all necessary parameters for
-the used model.
+the used model. Returns vector of allowed keywords if model is missing.
 }
 \description{
 This function provides all necessary model parameters to the
@@ -28,7 +29,7 @@ The common model parameters are:
 \bold{A}: conduction band to electron/hole trap transition probability in s^(-1)
 \bold{B}: valence band to hole trap transition probability in s^(-1)
 \bold{Th}: photo-ionisation cross-section in s^(-1)
-\bold{E_th}: `thermal assistance' energy in eV
+\bold{E_th}: thermal assistance energy in (eV)
 \bold{n}: concentrations of electron/hole traps after sample history in cm^(-3)
 }
 \note{
@@ -55,7 +56,7 @@ pars <- .set_pars("Bailey2001")
 } 
 
 \section{How to cite}{
-Friedrich, J., 2021. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2021. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.9. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., 2022. .set_pars(): Set parameters for Different Quartz Luminescence Models. Function version 0.1.3. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2022. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
@@ -67,18 +68,20 @@ quartz and its implications for estimates of absorbed dose.
 Radiation Protection Dosimetry 100, 33-38.
 
 Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
-and it simplications for the precision and accuracy of optical dating.
+and its implications for the precision and accuracy of optical dating.
 Radiation Measurements 38, 299-310.
 
 Friedrich, J., Pagonis, V., Chen, R., Kreutzer, S., Schmidt, C., 2017: Quartz radiofluorescence: a modelling approach.
 Journal of Luminescence 186, 318-325.
 
-Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
+Pagonis, V., Chen, R., Wintle, A.G., 2007. Modelling thermal transfer in optically
 stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
 
 Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
 for quartz based on thermally transferred OSL (TT-OSL).
 Radiation Measurements 43, 704-708.
+
+Peng, J., Wang, X., Adamiec, G., 2022. The build-up of the laboratory-generated dose-response curve and underestimation of equivalent dose for quartz OSL in the high dose region: A critical modelling study. Quaternary Geochronology 67, 101231.
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),

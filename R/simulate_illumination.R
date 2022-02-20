@@ -17,7 +17,7 @@
 #' \code{\link{plot.default}}. See details for further information
 #'
 #' @return This function returns an RLum.Results object from the illumination simulation.
-#' 
+#'
 #' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
@@ -41,8 +41,7 @@
 ){
 
 # check input arguments ---------------------------------------------------
-
-  ##check if temperature is > 0 K (-273 degree celsius)
+  ##check if temperature is > 0 K (-273 degree Celsius)
   if(temp < -273){
     stop("\n [.simulate_illumination()] Argument 'temp' has to be > 0 K!")
   }
@@ -72,7 +71,6 @@
   # P: Photonflux (in Bailey 2002/2004: wavelength [nm]) = 1
   # b: heating rate [deg. C/s] = 0
   ##============================================================================##
-
   if(parms$model == "Bailey2004" || parms$model == "Bailey2002"){
     P <- 0.02/(1.6*10^(-19)*(1240/470))*(optical_power/100)
   }
@@ -96,7 +94,7 @@
     times = times,
     parms = parms))
   ##============================================================================##
-  # SOLVING ODE (deSolve requiered)
+  # SOLVING ODE (deSolve required)
   ##============================================================================##
   out <- deSolve::ode(y = n, times = times, parms = parameters.step, func = .set_ODE_Rcpp, rtol=1e-3, atol=1e-3, maxsteps=1e5, method = "bdf")
   ##============================================================================##

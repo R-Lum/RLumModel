@@ -12,20 +12,20 @@
 #' \bold{A}: conduction band to electron/hole trap transition probability in s^(-1)
 #' \bold{B}: valence band to hole trap transition probability in s^(-1)
 #' \bold{Th}: photo-ionisation cross-section in s^(-1)
-#' \bold{E_th}: `thermal assistance' energy in eV
+#' \bold{E_th}: thermal assistance energy in (eV)
 #' \bold{n}: concentrations of electron/hole traps after sample history in cm^(-3)
 #'
 #' @note \bold{n} are the saved concentrations of the last step of the sample history
 #' of the used model. They will be loaded, if `simulate_sample_history = FALSE` in
 #' [model_LuminescenceSignals] is chosen.
 #'
-#'
 #' @param model [character] (\bold{required}): set model to be used.
 #' Available models are: `"Bailey2001"`, `"Bailey2002"`, `"Bailey2004"`, `"Pagonis2007"`,
-#' `"Pagonis2008"`
+#' `"Pagonis2008"`, `"Friedrich2017"`, `"Friedrich2018"`, `"Peng2022"`. If model is indeed missing,
+#' the list of allowed keywords is returned.
 #'
 #' @return This function returns a [list] with all necessary parameters for
-#' the used model.
+#' the used model. Returns vector of allowed keywords if model is missing.
 #'
 #' @note The order of the energy-band-levels is sometimes in an different order than in the original model.
 #' This was necessary, because in the simulations the luminescence centre always
@@ -49,18 +49,20 @@
 #' Radiation Protection Dosimetry 100, 33-38.
 #'
 #' Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
-#' and it simplications for the precision and accuracy of optical dating.
+#' and its implications for the precision and accuracy of optical dating.
 #' Radiation Measurements 38, 299-310.
 #'
 #' Friedrich, J., Pagonis, V., Chen, R., Kreutzer, S., Schmidt, C., 2017: Quartz radiofluorescence: a modelling approach.
 #' Journal of Luminescence 186, 318-325.
 #'
-#' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
+#' Pagonis, V., Chen, R., Wintle, A.G., 2007. Modelling thermal transfer in optically
 #' stimulated luminescence of quartz. Journal of Physics D: Applied Physics 40, 998-1006.
 #'
 #' Pagonis, V., Wintle, A.G., Chen, R., Wang, X.L., 2008. A theoretical model for a new dating protocol
 #' for quartz based on thermally transferred OSL (TT-OSL).
 #' Radiation Measurements 43, 704-708.
+#'
+#' Peng, J., Wang, X., Adamiec, G., 2022. The build-up of the laboratory-generated dose-response curve and underestimation of equivalent dose for quartz OSL in the high dose region: A critical modelling study. Quaternary Geochronology 67, 101231.
 #'
 #' @examples
 #'
@@ -80,9 +82,14 @@
     "Bailey2002",
     "Friedrich2017",
     "Friedrich2018",
+    "Peng2022",
     "customized",
     "customised"
   )
+
+  ## if missing return lit of allowed keywords
+  if(missing(model))
+    return(model.allowed_keywords)
 
   if(!model%in%model.allowed_keywords){
     stop(paste0("[.set_Pars()] Model not supported. Supported models are: ",
@@ -102,6 +109,39 @@
   # dimensionless constant (for Details see Wintle (1975))
   K <- 2.8e7
 
+  ## add parameter names
+  names <- c(
+    N = "concentration of electron traps",
+    E = "depth below conduction or valence band",
+    s = "frequency factor",
+    A = "transiation probability to conduction or valence band",
+    B = "conduction band to hole centre transition probability",
+    Th = "photo-ionisation cross-section ",
+    E_th = "thermal assistance energy",
+    n = "concentration of trapped charges",
+    k_B = "Boltzmann constant",
+    W = "activation energy",
+    K = "dimensionlss constant after Wintle (1975)")
+
+  ## add units
+  units <- c(
+    N = "cm^-3",
+    E = "eV",
+    s = "s^-1",
+    A = "cm^3 s^-1",
+    B = "cm^3 s^-1",
+    Th = "s^-1",
+    E_th = "eV",
+    n = "cm^-3",
+    k_B = "eV K^-1",
+    W = "eV",
+    K = "")
+
+  ## to enter a new model, the structure is as follows:
+  ## First numbers all related to electron traps if B = 0
+  ## Followed by parameters for the recombination centres
+  ## Th and E_th refer to traps only
+  ## n: first traps, then recombination centres, then n_c then n_v
   parameter.list = list(
     Bailey2001 = list(
       N = c(1.5e7, 1e7, 1e9, 2.5e8, 5e10, 3e8, 1e10, 5e9, 1e11),
@@ -118,6 +158,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
       ),
 
@@ -137,6 +179,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -156,6 +200,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -174,6 +220,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -193,6 +241,8 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -211,6 +261,8 @@
       k_B = k_B,
       K = K,
       W = W,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -229,6 +281,28 @@
       k_B = k_B,
       K = K,
       W = W,
+      units  = units,
+      names = names,
+      model = model
+    ),
+
+    Peng2022 = list(
+      N = c(1.5e7, 1e7, 1e9, 2.5e8, 5e10, 1.65e8, 5e9, 5e9, 1e11),
+      E = c(0.97, 1.55, 1.7, 1.72, 2, 1.41, 1.65, 5, 5),
+      s = c(5e12, 5e14, 1e13, 1e14, 1e10, 5e13, 5e14, 1e13, 1e13),
+      A = c(1e-8, 1e-8, 1e-9, 5e-10, 3.33e-11, 5e-7, 1e-9, 1e-10, 1e-9),
+      B = c(0, 0, 0, 0, 0, 5e-9, 5e-10, 1e-10, 1e-10),
+      Th = c(0.75, 0, 6, 4.5, 0),
+      E_th = c(0.1, 0, 0.1, 0.13, 0),
+      n =  set_RLum(class = "RLum.Results", data = list(
+        n = c(9.169767e-03, 7.619894e+04, 1.291564e+08, 7.432290e+06, 2.690423e+10,
+              5.741230e+06, 6.779304e+07, 1.591234e+08, 2.680824e+10, 2.450977e-07, 4.263486e-07),
+        temp = 20)),
+      k_B = k_B,
+      W = W,
+      K = K,
+      units  = units,
+      names = names,
       model = model
     ),
 
@@ -238,6 +312,19 @@
       k_B = k_B,
       W = W,
       K = K,
+      units  = units,
+      names = names,
+      model = model
+    ),
+
+    customised = list(
+      n =  set_RLum(class = "RLum.Results", data = list(
+        n = rep(0,4), temp = 20, model = model)),
+      k_B = k_B,
+      W = W,
+      K = K,
+      units  = units,
+      names = names,
       model = model
     )
   )
@@ -271,8 +358,16 @@
           return(parameter.list$Friedrich2018)
         },
 
+        "Peng2022" = {
+          return(parameter.list$Peng2022)
+        },
+
         "customized" = {
           return(parameter.list$customized)
+        },
+
+        "customised" = {
+            return(parameter.list$customised)
         }
   )#end switch
 

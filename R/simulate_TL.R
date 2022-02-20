@@ -10,7 +10,7 @@
 #'
 #' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the TL-step. This ID
 #' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
-#' sequence step they were calculated from. This ID is identic to the sequence step in "sequence".
+#' sequence step they were calculated from. This ID is identical to the sequence step in "sequence".
 #'
 #' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
 #' concentration of electron-/holetraps, valence- and conduction band

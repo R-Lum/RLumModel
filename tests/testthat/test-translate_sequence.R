@@ -37,7 +37,7 @@ test_that("check output",{
   expect_true("TL" %in% names(test_translate_sequence))
   expect_true("RF" %in% names(test_translate_sequence))
 
-    expect_equal(test_translate_sequence@originator, "model_LuminescenceSignals()")
+    expect_equal(test_translate_sequence@originator, "model_LuminescenceSignals")
 
   expect_equal(test_translate_sequence@protocol, "Bailey2001")
 
