@@ -1,7 +1,7 @@
 #' Solving Ordinary Differential Equations to Understand Luminescence
 #'
 #' \if{html}{
-#' \figure{RLumModel_Logo.png}{options: width="50px"}\cr
+#' \figure{RLumModel_Logo.png}{options: width="50"}\cr
 #' }
 #'
 #' A collection of function to simulate luminescence signals in the mineral quartz based on
