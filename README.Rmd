@@ -102,10 +102,10 @@ The [development of RLumModel](https://github.com/R-LumModel)
 benefited from the support by various funding bodies:
 
 -   The initial work by Johannes Friedrich, Sebastian Kreutzer and
-    Christoph Schmidt was supported by the [DFG (2015–2018, SCHM
+    Christoph Schmidt was supported by the DFG (2015–2018, SCHM
     3051/4-1, “Modelling quartz luminescence signal dynamics relevant
     for dating and dosimetry”, SCHM
-    3051/4-1)](https://gepris.dfg.de/gepris/projekt/279969851).
+    3051/4-1)
 
 -   The work of Sebastian Kreutzer as package author was
     supported by [LabEx LaScArBx (ANR -
