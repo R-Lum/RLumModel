@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://github.com/R-Lum/RLumModel/404.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/R-Lum/RLumModel/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/R-Lum/RLumModel/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/R-Lum/RLumModel/articles/RLumModel_-_Getting_started_with_RLumModel.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/R-Lum/RLumModel/articles/RLumModel_-_Models_and_parameters.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/R-Lum/RLumModel/articles/RLumModel_-_Simulating_luminescence_in_Al2O3.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/R-Lum/RLumModel/articles/RLumModel_-_Using_own_parameter_sets.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/R-Lum/RLumModel/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/R-Lum/RLumModel/authors.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/R-Lum/RLumModel/index.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/R-Lum/RLumModel/news/index.html</loc>
   </url>
   <url>
     <loc>https://github.com/R-Lum/RLumModel/reference/ExampleData.ModelOutput.html</loc>
@@ -13,18 +43,15 @@
     <loc>https://github.com/R-Lum/RLumModel/reference/dot-set_pars.html</loc>
   </url>
   <url>
+    <loc>https://github.com/R-Lum/RLumModel/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/R-Lum/RLumModel/reference/model_LuminescenceSignals.html</loc>
   </url>
   <url>
     <loc>https://github.com/R-Lum/RLumModel/reference/read_SEQ2R.html</loc>
   </url>
   <url>
-    <loc>https://github.com/R-Lum/RLumModel/articles/RLumModel_-_Getting_started_with_RLumModel.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/R-Lum/RLumModel/articles/RLumModel_-_Simulating_luminescence_in_Al2O3.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/R-Lum/RLumModel/articles/RLumModel_-_Using_own_parameter_sets.html</loc>
+    <loc>https://github.com/R-Lum/RLumModel/reference/trace_ParameterStateEvolution.html</loc>
   </url>
 </urlset>

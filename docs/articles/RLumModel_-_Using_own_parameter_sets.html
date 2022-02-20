@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RLumModel</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.10</span>
       </span>
     </div>
 
@@ -100,93 +102,166 @@
 
       
 
-      </header><script src="RLumModel_-_Using_own_parameter_sets_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>RLumModel - Using own parameter sets</h1>
-                        <h4 class="author">Johannes Friedrich, University of Bayreuth</h4>
+                        <h4 data-toc-skip class="author">Johannes
+Friedrich, University of Bayreuth</h4>
             
-            <h4 class="date">2021-11-08</h4>
+            <h4 data-toc-skip class="date">2022-02-20</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/RLumModel/blob/master/vignettes/RLumModel_-_Using_own_parameter_sets.Rmd"><code>vignettes/RLumModel_-_Using_own_parameter_sets.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/RLumModel/blob/HEAD/vignettes/RLumModel_-_Using_own_parameter_sets.Rmd"><code>vignettes/RLumModel_-_Using_own_parameter_sets.Rmd</code></a></small>
       <div class="hidden name"><code>RLumModel_-_Using_own_parameter_sets.Rmd</code></div>
 
     </div>
 
     
     
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>With ‘RLumModel’ ≥ 0.2.0 is it possible to simulate quartz luminescence behaviour of own parameters or parameter sets, which are not included in the package but also known in literature. Widely used OTOR (One-Trap-One-Recombination-center) models can be included, too. This vignette gives three comprehensive examples how to implement parameter sets and proves the results recalculating the original simulations.</p>
-<p>‘RLumModel’ offers maximum flexibility and fast calculation of ordinary first-order differential equations (ODEs) describing luminescence behaviour, because of:</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>With ‘RLumModel’ ≥ 0.2.0 is it possible to simulate quartz
+luminescence behaviour of own parameters or parameter sets, which are
+not included in the package but also known in literature. Widely used
+OTOR (One-Trap-One-Recombination-center) models can be included, too.
+This vignette gives three comprehensive examples how to implement
+parameter sets and proves the results recalculating the original
+simulations.</p>
+<p>‘RLumModel’ offers maximum flexibility and fast calculation of
+ordinary first-order differential equations (ODEs) describing
+luminescence behaviour, because of:</p>
 <ul>
-<li>flexible handling of different numbers of electron traps and hole centres in generating the model equations. The user has not to care about coding ODEs in <strong>R</strong>.</li>
-<li>Solving these equations is performed with C++ <span class="citation">(Eddelbuettel 2013)</span> and offers a fast calculation.</li>
+<li>flexible handling of different numbers of electron traps and hole
+centres in generating the model equations. The user has not to care
+about coding ODEs in <strong>R</strong>.</li>
+<li>Solving these equations is performed with C++ <span class="citation">(Eddelbuettel 2013)</span> and offers a fast
+calculation.</li>
 </ul>
 </div>
-<div id="examples" class="section level1">
-<h1 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h1>
-<p>This chapter shows the handling of own parameter sets with ‘RLumModel’. For this purpose three model parameters known from literature were taken: <span class="citation">Pagonis et al. (2009)</span>, <span class="citation">Lawless, Chen, and Pagonis (2009)</span> and <span class="citation">Chen and Pagonis (2013)</span>.</p>
-<div id="pagonis-2009" class="section level2">
-<h2 class="hasAnchor">
-<a href="#pagonis-2009" class="anchor"></a>Pagonis 2009</h2>
-<p><span class="citation">Pagonis et al. (2009)</span> presented parameters for their luminescence modelling of radioluminescence. This model was built for Al<sub>2</sub>O<sub>3</sub>, but the rate equations are identical with describing electron movements in quartz. Below is a step-by-step manual for involving these parameters in ‘RLumModel’ and re-calculating the simulationa made by <span class="citation">Pagonis et al. (2009)</span>. Note that in the original publication Figure 3 and Figure 6 are inconsistent with each other. For a doserate of 0.1 Gy/s an initial RL intensity of ca. 1.5e14 is obtained (see Figure 6 in original publication and simulations below).</p>
-<div id="set-parameters" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-parameters" class="anchor"></a>Set parameters</h3>
-<p>First of all the model parameters had to be set. In ‘RLumModel’ this can be done via . The list has to contain the following items:</p>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
+<p>This chapter shows the handling of own parameter sets with
+‘RLumModel’. For this purpose three model parameters known from
+literature were taken: <span class="citation">Pagonis et al.
+(2009)</span>, <span class="citation">Lawless, Chen, and Pagonis
+(2009)</span> and <span class="citation">Chen and Pagonis
+(2013)</span>.</p>
+<div class="section level3">
+<h3 id="pagonis-2009">Pagonis 2009<a class="anchor" aria-label="anchor" href="#pagonis-2009"></a>
+</h3>
+<p><span class="citation">Pagonis et al. (2009)</span> presented
+parameters for their luminescence modelling of radioluminescence. This
+model was built for Al<sub>2</sub>O<sub>3</sub>, but the rate equations
+are identical with describing electron movements in quartz. Below is a
+step-by-step manual for involving these parameters in ‘RLumModel’ and
+re-calculating the simulationa made by <span class="citation">Pagonis et
+al. (2009)</span>. Note that in the original publication Figure 3 and
+Figure 6 are inconsistent with each other. For a doserate of 0.1 Gy/s an
+initial RL intensity of ca. 1.5e14 is obtained (see Figure 6 in original
+publication and simulations below).</p>
+<div class="section level4">
+<h4 id="set-parameters">Set parameters<a class="anchor" aria-label="anchor" href="#set-parameters"></a>
+</h4>
+<p>First of all the model parameters had to be set. In ‘RLumModel’ this
+can be done via . The list has to contain the following items:</p>
 <ul>
 <li>N: Concentration of electron- and hole traps [cm<sup>-3</sup>]</li>
 <li>E: Electron/Hole trap depth [eV]</li>
 <li>s: Frequency factor [s<sup>-1</sup>]</li>
-<li>A: Conduction band to electron trap and valence band to hole trap transition probability [s<sup>-1</sup> cm <sup>3</sup>].</li>
-<li>B: Conduction band to hole centre transition probability [s<sup>-1</sup> cm <sup>3</sup>].</li>
-<li>Th: Photo-eviction constant or photoionisation cross section, respectively. If not set: by default 0.</li>
+<li>A: Conduction band to electron trap and valence band to hole trap
+transition probability [s<sup>-1</sup> cm <sup>3</sup>].</li>
+<li>B: Conduction band to hole centre transition probability
+[s<sup>-1</sup> cm <sup>3</sup>].</li>
+<li>Th: Photo-eviction constant or photoionisation cross section,
+respectively. If not set: by default 0.</li>
 <li>E_th: Thermal assistence energy [eV]. If not set: by default 0.</li>
-<li>k_B: Boltzman constant 8.617e-05 [eV/K]. If not set: by default 8.617e-05.</li>
-<li>W: activation energy 0.64 [eV] (for UV). If not set: by default 0.64.</li>
-<li>K: 2.8e7 (dimensionless constant). If not set: by default 2.8e7.</li>
+<li>k_B: Boltzman constant 8.617e-05 [eV/K]. If not set: by default
+8.617e-05.</li>
+<li>W: activation energy 0.64 [eV] (for UV). If not set: by default
+0.64.</li>
+<li>K: 2.8e7 (dimensionless constant). If not set: by default
+2.8e7.</li>
 <li>model: “customized”</li>
-<li>R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [s<sup>-1</sup> cm <sup>-3</sup>]</li>
+<li>R (optional): Ionisation rate (pair production rate) equivalent to 1
+Gy/s [s<sup>-1</sup> cm <sup>-3</sup>]</li>
 </ul>
 <p><strong>Note</strong>:</p>
 <ul>
-<li>Not every publication uses the same definition of parameter <code>A</code> and <code>B</code>.</li>
-<li>When no thermal quenching is expected, set <code>K = 0</code>. A numerical value of <code>W</code> is necessary, if .</li>
-<li>The parameter <code>model = "customized"</code> is necessary to not load a stored model within the RLumModel pacakge.</li>
-<li>The luminescence center, which is responsible for the luminescence production (TL-, OSL-, RF-signal), has to be the last entry in the model parameters, see examples below.</li>
-<li>For further details of the parameter see <span class="citation">Bailey (2001)</span> and <span class="citation">Wintle (1975)</span>.</li>
-<li>The first two entries in <code>N</code>, <code>A</code> and <code>B</code> belong to the electron traps and the last two entries to the hole centres. This order is necessary.</li>
-<li>The first entry in <code>N</code>, <code>E</code>, <code>s</code>, <code>A</code>, <code>B</code>, <code>Th</code> and <code>E_th</code> belong to the first energy level (e.g. 110°C), the second, third, … entries to second, third, … energy levels.</li>
-<li>The entries <code>Th</code> and <code>E_th</code> are not necessary, because when they miss in the definition of the own parameters they will automatically be set to 0.</li>
+<li>Not every publication uses the same definition of parameter
+<code>A</code> and <code>B</code>.</li>
+<li>When no thermal quenching is expected, set <code>K = 0</code>. A
+numerical value of <code>W</code> is necessary, if .</li>
+<li>The parameter <code>model = "customized"</code> is necessary to not
+load a stored model within the RLumModel pacakge.</li>
+<li>The luminescence center, which is responsible for the luminescence
+production (TL-, OSL-, RF-signal), has to be the last entry in the model
+parameters, see examples below.</li>
+<li>For further details of the parameter see <span class="citation">Bailey (2001)</span> and <span class="citation">Wintle
+(1975)</span>.</li>
+<li>The first two entries in <code>N</code>, <code>A</code> and
+<code>B</code> belong to the electron traps and the last two entries to
+the hole centres. This order is necessary.</li>
+<li>The first entry in <code>N</code>, <code>E</code>, <code>s</code>,
+<code>A</code>, <code>B</code>, <code>Th</code> and <code>E_th</code>
+belong to the first energy level (e.g. 110°C), the second, third, …
+entries to second, third, … energy levels.</li>
+<li>The entries <code>Th</code> and <code>E_th</code> are not necessary,
+because when they miss in the definition of the own parameters they will
+automatically be set to 0.</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">own_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2e15</span>, <span class="fl">2e15</span>, <span class="fl">2.4e16</span>, <span class="fl">1e17</span><span class="op">)</span>,
-  E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-  s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2e-8</span>, <span class="fl">2e-9</span>, <span class="fl">4e-9</span>, <span class="fl">1e-8</span><span class="op">)</span>,
-  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">5e-11</span>, <span class="fl">4e-8</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">own_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2e15</span>, <span class="fl">2e15</span>, <span class="fl">2.4e16</span>, <span class="fl">1e17</span><span class="op">)</span>,
+  E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+  s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2e-8</span>, <span class="fl">2e-9</span>, <span class="fl">4e-9</span>, <span class="fl">1e-8</span><span class="op">)</span>,
+  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">5e-11</span>, <span class="fl">4e-8</span><span class="op">)</span>,
   K <span class="op">=</span> <span class="fl">0</span>,
   model <span class="op">=</span> <span class="st">"customized"</span>,
   R <span class="op">=</span> <span class="fl">1.7e15</span><span class="op">)</span></code></pre></div>
-<p>It is important to notice, that in <span class="citation">Pagonis et al. (2009)</span> <code>B</code> is the valence band to hole centre probability, but in <span class="citation">Bailey (2001)</span> this is A<sub>j</sub>. The default setting of RLumModel is the definition by <span class="citation">Bailey (2001)</span> and so the values of <code>B</code> (in <span class="citation">Pagonis et al. (2009)</span>) are <code>A</code> in the notation above.</p>
-<p>As a next step it is possible to set own starting-parameters, also called state parameters. In the case of <span class="citation">Pagonis et al. (2009)</span> they submitted initial concentrations of electrons and holes. This can be done via:</p>
+<p>It is important to notice, that in <span class="citation">Pagonis et
+al. (2009)</span> <code>B</code> is the valence band to hole centre
+probability, but in <span class="citation">Bailey (2001)</span> this is
+A<sub>j</sub>. The default setting of RLumModel is the definition by
+<span class="citation">Bailey (2001)</span> and so the values of
+<code>B</code> (in <span class="citation">Pagonis et al. (2009)</span>)
+are <code>A</code> in the notation above.</p>
+<p>As a next step it is possible to set own starting-parameters, also
+called state parameters. In the case of <span class="citation">Pagonis
+et al. (2009)</span> they submitted initial concentrations of electrons
+and holes. This can be done via:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">own_state_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">9.4e15</span><span class="op">)</span></code></pre></div>
-<p>Here the first entry is the first electron trap, the second entry the second electron trap, the third entry the hole center and the fourth entry the luminescence center responsible for the RF signal. The vector <code>own_state_parameters</code> needs as much entries as energy levels used in the model.</p>
+<code class="sourceCode R"><span class="va">own_state_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">9.4e15</span><span class="op">)</span></code></pre></div>
+<p>Here the first entry is the first electron trap, the second entry the
+second electron trap, the third entry the hole center and the fourth
+entry the luminescence center responsible for the RF signal. The vector
+<code>own_state_parameters</code> needs as much entries as energy levels
+used in the model.</p>
 </div>
-<div id="running-the-simulation-with-rlummodel" class="section level3">
-<h3 class="hasAnchor">
-<a href="#running-the-simulation-with-rlummodel" class="anchor"></a>Running the simulation with RLumModel</h3>
-<p>When all parameters are set, the simulation can be started. The main function in RLumModel is <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> and the usage with own parameter sets is described below. For a general overview for creating a sequence, running RLumModel with stored models etc. the user is referred to <span class="citation">Friedrich, Kreutzer, and Schmidt (2016)</span> and to the vignette <a href="RLumModel_-_Getting_started_with_RLumModel.html">RLumModel - Getting started with RLumModel</a>.</p>
-<p>For simulating the results of <span class="citation">Pagonis et al. (2009)</span> the follwing sequence is needed.</p>
+<div class="section level4">
+<h4 id="running-the-simulation-with-rlummodel">Running the simulation with RLumModel<a class="anchor" aria-label="anchor" href="#running-the-simulation-with-rlummodel"></a>
+</h4>
+<p>When all parameters are set, the simulation can be started. The main
+function in RLumModel is <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> and
+the usage with own parameter sets is described below. For a general
+overview for creating a sequence, running RLumModel with stored models
+etc. the user is referred to <span class="citation">Friedrich, Kreutzer,
+and Schmidt (2016)</span> and to the vignette <a href="RLumModel_-_Getting_started_with_RLumModel.html">RLumModel -
+Getting started with RLumModel</a>.</p>
+<p>For simulating the results of <span class="citation">Pagonis et al.
+(2009)</span> the follwing sequence is needed.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>RF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>This sequence describes a radiofluorescence simulation at 20 °C with a dose of 0.1 Gy and a dose rate of 0.1 Gy/s, so the stimulation time is 1s.</p>
-<p>The parameters <code>own_parameters</code> and <code>own_state_parameters</code> in <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> are prepared for using own created parameter sets. Parameter <code>model =  "customized"</code> is necessary to not load stored parameters.</p>
+<code class="sourceCode R"><span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>This sequence describes a radiofluorescence simulation at 20 °C with
+a dose of 0.1 Gy and a dose rate of 0.1 Gy/s, so the stimulation time is
+1s.</p>
+<p>The parameters <code>own_parameters</code> and
+<code>own_state_parameters</code> in
+<code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> are prepared for using own
+created parameter sets. Parameter <code>model =  "customized"</code> is
+necessary to not load stored parameters.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">RF_Pagonis2009</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals</a></span><span class="op">(</span>
   model <span class="op">=</span> <span class="st">"customized"</span>, 
@@ -199,31 +274,44 @@
 RF signal for 0.1 Gy/s
 </p>
 </div>
-<p>As in the original publication, initially the RF signal increases and is followed by an approximately linear region until the stimulation ends. Figure 5 in <span class="citation">Pagonis et al. (2009)</span> shows the concentration of the luminescence center m1 for the stimulation time of 1s. With RLumModel this can be plotted very fast with the following command (for a detailed description see vignette <a href="RLumModel_-_Getting_started_with_RLumModel.html">RLumModel - Getting started with RLumModel</a></p>
+<p>As in the original publication, initially the RF signal increases and
+is followed by an approximately linear region until the stimulation
+ends. Figure 5 in <span class="citation">Pagonis et al. (2009)</span>
+shows the concentration of the luminescence center m1 for the
+stimulation time of 1s. With RLumModel this can be plotted very fast
+with the following command (for a detailed description see vignette <a href="RLumModel_-_Getting_started_with_RLumModel.html">RLumModel -
+Getting started with RLumModel</a></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">concentration_m1</span> <span class="op">&lt;-</span> <span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">concentration_m1</span> <span class="op">&lt;-</span> <span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span>
   <span class="va">RF_Pagonis2009</span>,
-  recordType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"conc. level 4"</span><span class="op">)</span><span class="op">)</span>
+  recordType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"conc. level 4"</span><span class="op">)</span><span class="op">)</span>
   
-<span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.html">plot_RLum</a></span><span class="op">(</span>
+<span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.html" class="external-link">plot_RLum</a></span><span class="op">(</span>
   <span class="va">concentration_m1</span>, 
-  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9.2e15</span>, <span class="fl">9.6e15</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">9.2e15</span>, <span class="fl">9.6e15</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="RLumModel_-_Using_own_parameter_sets_files/figure-html/unnamed-chunk-5-1.png" alt="Concentration of m1 during RF" width="700"><p class="caption">
 Concentration of m1 during RF
 </p>
 </div>
 </div>
-<div id="re-calculate-the-original-results" class="section level3">
-<h3 class="hasAnchor">
-<a href="#re-calculate-the-original-results" class="anchor"></a>Re-calculate the original results</h3>
-<p>Reproducing Figure 3 and Figure 6 in <span class="citation">Pagonis et al. (2009)</span> a loop over different dose rates is necessary. The following code lines are able to run the model for five different dose rates from 0.1 to 0.5 Gy/s and plot all contained RF curves and the initial RF signal. For a more detailed descripton of the loop and the single commands therein the user is referred to <span class="citation">Friedrich, Kreutzer, and Schmidt (2016)</span> and the vignette <a href="RLumModel_-_Getting_started_with_RLumModel.html">RLumModel - Getting started with RLumModel</a>.</p>
+<div class="section level4">
+<h4 id="re-calculate-the-original-results">Re-calculate the original results<a class="anchor" aria-label="anchor" href="#re-calculate-the-original-results"></a>
+</h4>
+<p>Reproducing Figure 3 and Figure 6 in <span class="citation">Pagonis
+et al. (2009)</span> a loop over different dose rates is necessary. The
+following code lines are able to run the model for five different dose
+rates from 0.1 to 0.5 Gy/s and plot all contained RF curves and the
+initial RF signal. For a more detailed descripton of the loop and the
+single commands therein the user is referred to <span class="citation">Friedrich, Kreutzer, and Schmidt (2016)</span> and the
+vignette <a href="RLumModel_-_Getting_started_with_RLumModel.html">RLumModel -
+Getting started with RLumModel</a>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dose.rate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">0.1</span>, to <span class="op">=</span> <span class="fl">0.5</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">dose.rate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">0.1</span>, to <span class="op">=</span> <span class="fl">0.5</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
 
-<span class="va">model.output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">dose.rate</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+<span class="va">model.output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">dose.rate</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
     
-    <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>RF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="va">x</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>
+    <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="va">x</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>
     
     <span class="va">RF_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals</a></span><span class="op">(</span>
       model <span class="op">=</span> <span class="st">"customized"</span>, 
@@ -235,17 +323,17 @@ Concentration of m1 during RF
     <span class="op">)</span>
     
     <span class="co">## "RF$" for exact matching RF and not (RF)</span>
-    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">RF_data</span>, recordType <span class="op">=</span> <span class="st">"RF$"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">RF_data</span>, recordType <span class="op">=</span> <span class="st">"RF$"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
     
   <span class="op">}</span><span class="op">)</span>
 
-<span class="va">model.output.merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/merge_RLum.html">merge_RLum</a></span><span class="op">(</span><span class="va">model.output</span><span class="op">)</span>
+<span class="va">model.output.merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/merge_RLum.html" class="external-link">merge_RLum</a></span><span class="op">(</span><span class="va">model.output</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.html">plot_RLum</a></span><span class="op">(</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.html" class="external-link">plot_RLum</a></span><span class="op">(</span>
  object <span class="op">=</span> <span class="va">model.output.merged</span>,
  xlab <span class="op">=</span> <span class="st">"Stimulation time [s]"</span>,
  ylab <span class="op">=</span> <span class="st">"RF signal [a.u.]"</span>,
- legend.text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">dose.rate</span>, <span class="st">"Gy/s"</span><span class="op">)</span>,
+ legend.text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">dose.rate</span>, <span class="st">"Gy/s"</span><span class="op">)</span>,
  legend.pos <span class="op">=</span> <span class="st">"outside"</span>,
  combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -253,13 +341,14 @@ Concentration of m1 during RF
 RF signals for different dose rates
 </p>
 </div>
-<p>The following code calcultes the initial RF signal for the five different dose rates.</p>
+<p>The following code calcultes the initial RF signal for the five
+different dose rates.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dose.rate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">0.1</span>, to <span class="op">=</span> <span class="fl">0.5</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">dose.rate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">0.1</span>, to <span class="op">=</span> <span class="fl">0.5</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
 
-<span class="va">model.output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">dose.rate</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+<span class="va">model.output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">dose.rate</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
     
-    <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>RF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="va">x</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>
+    <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="va">x</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>
     
     <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals</a></span><span class="op">(</span>
       model <span class="op">=</span> <span class="st">"customized"</span>, 
@@ -271,39 +360,52 @@ RF signals for different dose rates
     <span class="op">)</span>
     
     <span class="co">## "RF$" for exact matching RF and not (RF)</span>
-    <span class="va">RF_curve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span>, recordType <span class="op">=</span> <span class="st">"RF$"</span><span class="op">)</span>
+    <span class="va">RF_curve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">temp</span>, recordType <span class="op">=</span> <span class="st">"RF$"</span><span class="op">)</span>
     
-    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">RF_curve</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">RF_curve</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
     
   <span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="RLumModel_-_Using_own_parameter_sets_files/figure-html/unnamed-chunk-6-1.png" alt="Initial RF signal for different dose rates with parameters of Lawless 2009" width="700"><p class="caption">
-Initial RF signal for different dose rates with parameters of Lawless 2009
+Initial RF signal for different dose rates with parameters of Lawless
+2009
 </p>
 </div>
-<p>The results show that ‘RLumModel’ is able to simulate the same results as published in <span class="citation">Pagonis et al. (2009)</span> with only little effort. All these examples can be modified to own needs, e.g. own sequences or own parameters.</p>
+<p>The results show that ‘RLumModel’ is able to simulate the same
+results as published in <span class="citation">Pagonis et al.
+(2009)</span> with only little effort. All these examples can be
+modified to own needs, e.g. own sequences or own parameters.</p>
 </div>
 </div>
-<div id="lawless-2009" class="section level2">
-<h2 class="hasAnchor">
-<a href="#lawless-2009" class="anchor"></a>Lawless 2009</h2>
-<p><span class="citation">Lawless, Chen, and Pagonis (2009)</span> investigateted the sublinear dose dependence of TL and OSL. They published a set of model parameters to simulate the behaviour of the quartz luminescence system during different dose rates. In contrast to the example above, this simulation has no state parameters and so they were not definded.</p>
-<div id="set-parameters-and-recalculate-the-results" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-parameters-and-recalculate-the-results" class="anchor"></a>Set parameters and recalculate the results</h3>
-<p>All used parameters are defined in the named list <code>own_parameters</code>. <code>K=0</code> was chosen, because no thermal quenching was simulated. Note: In the “Bailey 2001” notation <code>B</code> has the same meaning as <code>Am</code> in <span class="citation">Lawless, Chen, and Pagonis (2009)</span> (for details see example in chapter 2.1.1).</p>
+<div class="section level3">
+<h3 id="lawless-2009">Lawless 2009<a class="anchor" aria-label="anchor" href="#lawless-2009"></a>
+</h3>
+<p><span class="citation">Lawless, Chen, and Pagonis (2009)</span>
+investigateted the sublinear dose dependence of TL and OSL. They
+published a set of model parameters to simulate the behaviour of the
+quartz luminescence system during different dose rates. In contrast to
+the example above, this simulation has no state parameters and so they
+were not definded.</p>
+<div class="section level4">
+<h4 id="set-parameters-and-recalculate-the-results">Set parameters and recalculate the results<a class="anchor" aria-label="anchor" href="#set-parameters-and-recalculate-the-results"></a>
+</h4>
+<p>All used parameters are defined in the named list
+<code>own_parameters</code>. <code>K=0</code> was chosen, because no
+thermal quenching was simulated. Note: In the “Bailey 2001” notation
+<code>B</code> has the same meaning as <code>Am</code> in <span class="citation">Lawless, Chen, and Pagonis (2009)</span> (for details
+see example in chapter 2.1.1).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">own_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e14</span>, <span class="fl">1e15</span><span class="op">)</span>,
-  E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-  s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e-13</span>, <span class="fl">1e-14</span><span class="op">)</span>,
-  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1e-7</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">own_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e14</span>, <span class="fl">1e15</span><span class="op">)</span>,
+  E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+  s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-13</span>, <span class="fl">1e-14</span><span class="op">)</span>,
+  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1e-7</span><span class="op">)</span>,
   K <span class="op">=</span> <span class="fl">0</span>,
   model <span class="op">=</span> <span class="st">"customized"</span>,
   R <span class="op">=</span> <span class="fl">1e8</span><span class="op">)</span>
 
-<span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>RF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">RF_Lawless_2009</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals</a></span><span class="op">(</span>
   model <span class="op">=</span> <span class="st">"customized"</span>, 
@@ -312,10 +414,14 @@ Initial RF signal for different dose rates with parameters of Lawless 2009
   verbose <span class="op">=</span> <span class="cn">FALSE</span>,
   plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="va">concentration_n</span> <span class="op">&lt;-</span> <span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span>
+<span class="va">concentration_n</span> <span class="op">&lt;-</span> <span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span>
   <span class="va">RF_Lawless_2009</span>, 
-    recordType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"conc. level 1"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>This code leads to the following results and shows the same as plotted in <span class="citation">Lawless, Chen, and Pagonis (2009)</span>, Fig. 2 (plot commands not shown here). More details to the equations mentioned in the legend are available in the original publication.</p>
+    recordType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"conc. level 1"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>This code leads to the following results and shows the same as
+plotted in <span class="citation">Lawless, Chen, and Pagonis
+(2009)</span>, Fig. 2 (plot commands not shown here). More details to
+the equations mentioned in the legend are available in the original
+publication.</p>
 <div class="figure" style="text-align: center">
 <img src="RLumModel_-_Using_own_parameter_sets_files/figure-html/unnamed-chunk-7-1.png" alt="Concentration of Level 1 with numerical and analytical solutions" width="700"><p class="caption">
 Concentration of Level 1 with numerical and analytical solutions
@@ -323,34 +429,45 @@ Concentration of Level 1 with numerical and analytical solutions
 </div>
 </div>
 </div>
-<div id="chen-2013" class="section level2">
-<h2 class="hasAnchor">
-<a href="#chen-2013" class="anchor"></a>Chen 2013</h2>
-<p><span class="citation">Chen and Pagonis (2013)</span> published a numerical model to investigate the quasi-equilibrium assumptions in TL. For the description of the system a OTOR model was used.</p>
-<div id="set-parameters-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-parameters-1" class="anchor"></a>Set parameters</h3>
-<p>This model is the first in this vignette which did not start its simulation at 20 °C. For this cases, <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> offers a parameter called <code>own_start_temperature</code>. This parameter offers maximal flexibility for the user to set the initial temperature of the simulation. The parameter takes effect when <code>model = "customized"</code> is used, see example below.</p>
+<div class="section level3">
+<h3 id="chen-2013">Chen 2013<a class="anchor" aria-label="anchor" href="#chen-2013"></a>
+</h3>
+<p><span class="citation">Chen and Pagonis (2013)</span> published a
+numerical model to investigate the quasi-equilibrium assumptions in TL.
+For the description of the system a OTOR model was used.</p>
+<div class="section level4">
+<h4 id="set-parameters-1">Set parameters<a class="anchor" aria-label="anchor" href="#set-parameters-1"></a>
+</h4>
+<p>This model is the first in this vignette which did not start its
+simulation at 20 °C. For this cases,
+<code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> offers a parameter called
+<code>own_start_temperature</code>. This parameter offers maximal
+flexibility for the user to set the initial temperature of the
+simulation. The parameter takes effect when
+<code>model = "customized"</code> is used, see example below.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">own_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e9</span>, <span class="fl">0</span><span class="op">)</span>,
-  E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0</span><span class="op">)</span>,
-  s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e11</span>, <span class="fl">0</span><span class="op">)</span>,
-  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e-9</span>,<span class="fl">0</span><span class="op">)</span>,
-  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1e-10</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">own_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e9</span>, <span class="fl">0</span><span class="op">)</span>,
+  E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0</span><span class="op">)</span>,
+  s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e11</span>, <span class="fl">0</span><span class="op">)</span>,
+  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-9</span>,<span class="fl">0</span><span class="op">)</span>,
+  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1e-10</span><span class="op">)</span>,
   K <span class="op">=</span> <span class="fl">0</span>,
   model <span class="op">=</span> <span class="st">"customized"</span><span class="op">)</span>
 
-<span class="va">own_state_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e8</span>, <span class="fl">1e8</span><span class="op">)</span>
+<span class="va">own_state_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e8</span>, <span class="fl">1e8</span><span class="op">)</span>
 
 <span class="va">own_start_temperature</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">220</span>
 
-<span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>TL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">220</span>, <span class="fl">130</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>TL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">220</span>, <span class="fl">130</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="re-calculate-the-original-results-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#re-calculate-the-original-results-1" class="anchor"></a>Re-calculate the original results</h3>
-<p>Here the parameter <code>own_start_temperature</code> from the function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> is used to set the beginning of the measurement to -220°C. It is important, that ‘RLumModel’ always uses temperatures in °C.</p>
+<div class="section level4">
+<h4 id="re-calculate-the-original-results-1">Re-calculate the original results<a class="anchor" aria-label="anchor" href="#re-calculate-the-original-results-1"></a>
+</h4>
+<p>Here the parameter <code>own_start_temperature</code> from the
+function <code><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> is used to set the
+beginning of the measurement to -220°C. It is important, that
+‘RLumModel’ always uses temperatures in °C.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">TL_Chen2013</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals</a></span><span class="op">(</span>
   model <span class="op">=</span> <span class="st">"customized"</span>, 
@@ -364,7 +481,9 @@ Concentration of Level 1 with numerical and analytical solutions
 TL with parameter sets of Chen 2013
 </p>
 </div>
-<p>With this result it is possible to plot the concentration of every single energy level, leading to the following plot (see also Fig. 6 in <span class="citation">Chen and Pagonis (2013)</span>)</p>
+<p>With this result it is possible to plot the concentration of every
+single energy level, leading to the following plot (see also Fig. 6 in
+<span class="citation">Chen and Pagonis (2013)</span>)</p>
 <div class="figure" style="text-align: center">
 <img src="RLumModel_-_Using_own_parameter_sets_files/figure-html/unnamed-chunk-8-1.png" alt="Concentrations of different energy levels" width="700"><p class="caption">
 Concentrations of different energy levels
@@ -373,35 +492,55 @@ Concentrations of different energy levels
 </div>
 </div>
 </div>
-<div id="summary" class="section level1">
-<h1 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h1>
-<p>This vignette showed the potential of the R package ‘RLumModel’ to use own parameter sets simulating quartz luminescence behaviour. Quartz as well as Al<sub>2</sub>O<sub>3</sub> luminescence phenomena can be numerically described and graphically plotted.</p>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<p>This vignette showed the potential of the R package ‘RLumModel’ to
+use own parameter sets simulating quartz luminescence behaviour. Quartz
+as well as Al<sub>2</sub>O<sub>3</sub> luminescence phenomena can be
+numerically described and graphically plotted.</p>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Bailey_2001" class="csl-entry">
-Bailey, R M. 2001. <span>“Towards a General Kinetic Model for Optically and Thermally Stimulated Luminescence of Quartz.”</span> <em>Radiation Measurements</em> 33: 17–45.
+Bailey, R M. 2001. <span>“Towards a General Kinetic Model for Optically
+and Thermally Stimulated Luminescence of Quartz.”</span> <em>Radiation
+Measurements</em> 33: 17–45.
 </div>
 <div id="ref-Chen_2013d" class="csl-entry">
-Chen, R, and V Pagonis. 2013. <span>“<span class="nocase">On the quasi-equilibrium assumptions in the theory of thermoluminescence (TL)</span>.”</span> <em>Journal of Luminescence</em> 143: 734–40.
+Chen, R, and V Pagonis. 2013. <span>“<span class="nocase">On the
+quasi-equilibrium assumptions in the theory of thermoluminescence
+(TL)</span>.”</span> <em>Journal of Luminescence</em> 143: 734–40.
 </div>
 <div id="ref-Eddelbuettel_2013" class="csl-entry">
-Eddelbuettel, Dirk. 2013. <em><span class="nocase">Seamless R and C++ integration with Rcpp</span></em>. Springer.
+Eddelbuettel, Dirk. 2013. <em><span class="nocase">Seamless R and C++
+integration with Rcpp</span></em>. Springer.
 </div>
 <div id="ref-Friedrich_2016" class="csl-entry">
-Friedrich, Johannes, Sebastian Kreutzer, and Christoph Schmidt. 2016. <span>“<span class="nocase">Solving ordinary differential equations to understand luminescence: ’RLumModel’, an advanced research tool for simulating luminescence in quartz using R </span>.”</span> <em>Quaternary Geochronology</em> 35: 88–100.
+Friedrich, Johannes, Sebastian Kreutzer, and Christoph Schmidt. 2016.
+<span>“<span class="nocase">Solving ordinary differential equations to
+understand luminescence: ’RLumModel’, an advanced research tool for
+simulating luminescence in quartz using R </span>.”</span>
+<em>Quaternary Geochronology</em> 35: 88–100.
 </div>
 <div id="ref-Lawless_2009" class="csl-entry">
-Lawless, J L, R Chen, and V Pagonis. 2009. <span>“Sublinear Dose Dependence of Thermoluminescence and Optically Stimulated Luminescence Prior to the Approach to Saturation Level.”</span> <em>Radiation Measurements</em> 44 (5): 606–10.
+Lawless, J L, R Chen, and V Pagonis. 2009. <span>“Sublinear Dose
+Dependence of Thermoluminescence and Optically Stimulated Luminescence
+Prior to the Approach to Saturation Level.”</span> <em>Radiation
+Measurements</em> 44 (5): 606–10.
 </div>
 <div id="ref-Pagonis_2009a" class="csl-entry">
-Pagonis, V, J L Lawless, R Chen, and C Andersen. 2009. <span>“Radioluminescence in <span>Al<span class="math inline">\({_2}\)</span>O<span class="math inline">\({_3}\)</span>:C</span> – Analytical and Numerical Simulation Results.”</span> <em>Journal of Physics D: Applied Physics</em> 42 (17): 175107.
+Pagonis, V, J L Lawless, R Chen, and C Andersen. 2009.
+<span>“Radioluminescence in <span>Al<span class="math inline">\({_2}\)</span>O<span class="math inline">\({_3}\)</span>:C</span> – Analytical and Numerical
+Simulation Results.”</span> <em>Journal of Physics D: Applied
+Physics</em> 42 (17): 175107.
 </div>
 <div id="ref-Wintle_1975" class="csl-entry">
-Wintle, AG. 1975. <span>“<span class="nocase">Thermal Quenching of Thermoluminescence in Quartz</span>.”</span> <em>Geophysical Journal International</em> 41 (1): 107–13.
+Wintle, AG. 1975. <span>“<span class="nocase">Thermal Quenching of
+Thermoluminescence in Quartz</span>.”</span> <em>Geophysical Journal
+International</em> 41 (1): 107–13.
 </div>
 </div>
 </div>
@@ -418,11 +557,15 @@ Wintle, AG. 1975. <span>“<span class="nocase">Thermal Quenching of Thermolumin
 
 
       <footer><div class="copyright">
-  <p>Developed by Johannes Friedrich, Sebastian Kreutzer, Christoph Schmidt.</p>
+  <p></p>
+<p>Developed by Johannes Friedrich, Sebastian Kreutzer, Christoph
+Schmidt.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>
@@ -430,6 +573,8 @@ Wintle, AG. 1975. <span>“<span class="nocase">Thermal Quenching of Thermolumin
 
   
 
+
+  
 
   </body>
 </html>

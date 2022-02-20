@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RLumModel</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.10</span>
       </span>
     </div>
 
@@ -100,69 +102,100 @@
 
       
 
-      </header><script src="RLumModel_-_Simulating_luminescence_in_Al2O3_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>RLumModel - Simulating luminescence in Al<sub>2</sub>O<sub>3</sub>
+      <h1 data-toc-skip>RLumModel - Simulating luminescence in
+Al<sub>2</sub>O<sub>3</sub>
 </h1>
-                        <h4 class="author">Johannes Friedrich, University of Bayreuth</h4>
+                        <h4 data-toc-skip class="author">Johannes
+Friedrich, University of Bayreuth</h4>
             
-            <h4 class="date">2021-11-08</h4>
+            <h4 data-toc-skip class="date">2022-02-20</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/RLumModel/blob/master/vignettes/RLumModel_-_Simulating_luminescence_in_Al2O3.Rmd"><code>vignettes/RLumModel_-_Simulating_luminescence_in_Al2O3.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/RLumModel/blob/HEAD/vignettes/RLumModel_-_Simulating_luminescence_in_Al2O3.Rmd"><code>vignettes/RLumModel_-_Simulating_luminescence_in_Al2O3.Rmd</code></a></small>
       <div class="hidden name"><code>RLumModel_-_Simulating_luminescence_in_Al2O3.Rmd</code></div>
 
     </div>
 
     
     
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>This vignette describes the usage of the <strong>R</strong>-package ‘RLumModel’ for simulating Al<sub>2</sub>O<sub>3</sub> behaviour. In literature a lot of parameters for describing the thermoluminescence (TL) and/or optical stimulated luminescence (OSL) are given. We give same examples for simulating different phenomena of luminescence in Al<sub>2</sub>O<sub>3</sub>. Note that most of the model do not support TL <strong>and</strong> OSL simulations. So please be careful when creating sequences. The models presented in Sec. 2.1 and 2.2 support TL simulations, but no OSL because parameters for <code>E_th</code> (Thermal assistance energy) and <code>Th</code> (Photo-eviction constant or photoionisation cross section).</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>This vignette describes the usage of the <strong>R</strong>-package
+‘RLumModel’ for simulating Al<sub>2</sub>O<sub>3</sub> behaviour. In
+literature a lot of parameters for describing the thermoluminescence
+(TL) and/or optical stimulated luminescence (OSL) are given. We give
+same examples for simulating different phenomena of luminescence in
+Al<sub>2</sub>O<sub>3</sub>. Note that most of the model do not support
+TL <strong>and</strong> OSL simulations. So please be careful when
+creating sequences. The models presented in Sec. 2.1 and 2.2 support TL
+simulations, but no OSL because parameters for <code>E_th</code>
+(Thermal assistance energy) and <code>Th</code> (Photo-eviction constant
+or photoionisation cross section).</p>
 </div>
-<div id="examples" class="section level1">
-<h1 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h1>
-<p>All examples need the <strong>R</strong> package RLumModel, so let’s load it!</p>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
+<p>All examples need the <strong>R</strong> package RLumModel, so let’s
+load it!</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://CRAN.R-project.org/package=RLumModel">RLumModel</a></span><span class="op">)</span></code></pre></div>
-<div id="akselrod-1998" class="section level2">
-<h2 class="hasAnchor">
-<a href="#akselrod-1998" class="anchor"></a>Akselrod 1998</h2>
-<p><span class="citation">Akselrod et al. (1998)</span> presented parameters for modelling the effect of quenching TL signals. This model was built for Al<sub>2</sub>O<sub>3</sub>, but the rate equations are identical with describing electron movements in quartz. Below is a step-by-step introduction for involving these parameters in ‘RLumModel’ and re-calculating the simulationa from Figure 9 in <span class="citation">Akselrod et al. (1998)</span>.</p>
-<div id="set-own-starting-parameters" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-own-starting-parameters" class="anchor"></a>Set own starting parameters</h3>
-<p>For a detailed introduction to own parameter sets in RLumModel, see vignette <a href="RLumModel_-_Using_own_parameter_sets.html">RLumModel - Using own parameter sets</a>.</p>
-<p>As a next step it is possible to set own starting-parameters, also called state parameters. In the case of <span class="citation">Akselrod et al. (1998)</span> they submitted initial concentrations of electrons and holes. This can be done via:</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://CRAN.R-project.org/package=RLumModel" class="external-link">RLumModel</a></span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="akselrod-1998">Akselrod 1998<a class="anchor" aria-label="anchor" href="#akselrod-1998"></a>
+</h3>
+<p><span class="citation">Akselrod et al. (1998)</span> presented
+parameters for modelling the effect of quenching TL signals. This model
+was built for Al<sub>2</sub>O<sub>3</sub>, but the rate equations are
+identical with describing electron movements in quartz. Below is a
+step-by-step introduction for involving these parameters in ‘RLumModel’
+and re-calculating the simulationa from Figure 9 in <span class="citation">Akselrod et al. (1998)</span>.</p>
+<div class="section level4">
+<h4 id="set-own-starting-parameters">Set own starting parameters<a class="anchor" aria-label="anchor" href="#set-own-starting-parameters"></a>
+</h4>
+<p>For a detailed introduction to own parameter sets in RLumModel, see
+vignette <a href="RLumModel_-_Using_own_parameter_sets.html">RLumModel -
+Using own parameter sets</a>.</p>
+<p>As a next step it is possible to set own starting-parameters, also
+called state parameters. In the case of <span class="citation">Akselrod
+et al. (1998)</span> they submitted initial concentrations of electrons
+and holes. This can be done via:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">own_state_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1e11</span><span class="op">)</span></code></pre></div>
-<p>Here the first entry is the first electron trap, the second entry the second electron trap and the third entry the luminescence centre responsible for the TL signal. The vector <code>own_state_parameters</code> needs as much entries as energy levels used in the model.</p>
+<code class="sourceCode R"><span class="va">own_state_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1e11</span><span class="op">)</span></code></pre></div>
+<p>Here the first entry is the first electron trap, the second entry the
+second electron trap and the third entry the luminescence centre
+responsible for the TL signal. The vector
+<code>own_state_parameters</code> needs as much entries as energy levels
+used in the model.</p>
 </div>
-<div id="calculate-thermal-quenching-effect" class="section level3">
-<h3 class="hasAnchor">
-<a href="#calculate-thermal-quenching-effect" class="anchor"></a>Calculate thermal quenching effect</h3>
-<p>The effect of quenching luminescence signals will be simulated. In RLumModel it is possible to submit the parameter <code>K</code> as an indicator for recognising thermal quenching or not. If the parameter is set to <code>0</code> thermal quenching will be neglected. Otherwise it wil be calculated.</p>
+<div class="section level4">
+<h4 id="calculate-thermal-quenching-effect">Calculate thermal quenching effect<a class="anchor" aria-label="anchor" href="#calculate-thermal-quenching-effect"></a>
+</h4>
+<p>The effect of quenching luminescence signals will be simulated. In
+RLumModel it is possible to submit the parameter <code>K</code> as an
+indicator for recognising thermal quenching or not. If the parameter is
+set to <code>0</code> thermal quenching will be neglected. Otherwise it
+wil be calculated.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">W</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.05</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">W</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.05</span><span class="op">)</span>
 
-<span class="va">TL_Akselrod_1998</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">W</span>, <span class="kw">function</span><span class="op">(</span><span class="va">W</span><span class="op">)</span><span class="op">{</span>
+<span class="va">TL_Akselrod_1998</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">W</span>, <span class="kw">function</span><span class="op">(</span><span class="va">W</span><span class="op">)</span><span class="op">{</span>
   
-  <span class="va">own_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e18</span>, <span class="fl">1e17</span>, <span class="fl">1e18</span><span class="op">)</span>,
-    E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.25</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-    s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e13</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-    A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e-16</span>, <span class="fl">1e-16</span>, <span class="fl">2e-17</span><span class="op">)</span>,
-    B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1e-16</span><span class="op">)</span>,
-    K <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">W</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1e12</span><span class="op">)</span>,
+  <span class="va">own_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e18</span>, <span class="fl">1e17</span>, <span class="fl">1e18</span><span class="op">)</span>,
+    E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.25</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+    s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e13</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+    A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-16</span>, <span class="fl">1e-16</span>, <span class="fl">2e-17</span><span class="op">)</span>,
+    B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1e-16</span><span class="op">)</span>,
+    K <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">W</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1e12</span><span class="op">)</span>,
     W <span class="op">=</span> <span class="va">W</span>,
     model <span class="op">=</span> <span class="st">"customized"</span>,
     R <span class="op">=</span> <span class="fl">1e13</span><span class="op">)</span>
   
-  <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    IRR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0.225</span>, <span class="fl">0.01</span><span class="op">)</span>,
-    TL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">300</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    IRR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0.225</span>, <span class="fl">0.01</span><span class="op">)</span>,
+    TL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">300</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
   
   <span class="va">model_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals</a></span><span class="op">(</span>
     model <span class="op">=</span> <span class="st">"customized"</span>, 
@@ -172,14 +205,14 @@
     verbose <span class="op">=</span> <span class="cn">FALSE</span>,
     plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
   
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">model_output</span>, recordType <span class="op">=</span> <span class="st">"TL$"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">model_output</span>, recordType <span class="op">=</span> <span class="st">"TL$"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 
-<span class="va">merge_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/merge_RLum.Analysis.html">merge_RLum.Analysis</a></span><span class="op">(</span><span class="va">TL_Akselrod_1998</span><span class="op">)</span>
+<span class="va">merge_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/merge_RLum.Analysis.html" class="external-link">merge_RLum.Analysis</a></span><span class="op">(</span><span class="va">TL_Akselrod_1998</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.Analysis.html">plot_RLum.Analysis</a></span><span class="op">(</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.Analysis.html" class="external-link">plot_RLum.Analysis</a></span><span class="op">(</span>
   <span class="va">merge_results</span>,
-  legend.text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Unquenched"</span>, <span class="st">"Quenched"</span><span class="op">)</span>,
+  legend.text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Unquenched"</span>, <span class="st">"Quenched"</span><span class="op">)</span>,
   combine <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="RLumModel_-_Simulating_luminescence_in_Al2O3_files/figure-html/unnamed-chunk-3-1.png" alt="The effect of thermal quenching for TL signals" width="700"><p class="caption">
@@ -188,40 +221,46 @@ The effect of thermal quenching for TL signals
 </div>
 </div>
 </div>
-<div id="pagonis-2007" class="section level2">
-<h2 class="hasAnchor">
-<a href="#pagonis-2007" class="anchor"></a>Pagonis 2007</h2>
-<p><span class="citation">Pagonis, Chen, and Lawless (2007)</span> published three different parameter sets for Al<sub>2</sub>O<sub>3</sub> chips. Here we analyse ‘Chip101’ and show how to re-calculate the results presented in the publication.</p>
-<div id="set-parameters-for-chip101" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-parameters-for-chip101" class="anchor"></a>Set parameters for Chip101</h3>
+<div class="section level3">
+<h3 id="pagonis-2007">Pagonis 2007<a class="anchor" aria-label="anchor" href="#pagonis-2007"></a>
+</h3>
+<p><span class="citation">Pagonis, Chen, and Lawless (2007)</span>
+published three different parameter sets for Al<sub>2</sub>O<sub>3</sub>
+chips. Here we analyse ‘Chip101’ and show how to re-calculate the
+results presented in the publication.</p>
+<div class="section level4">
+<h4 id="set-parameters-for-chip101">Set parameters for Chip101<a class="anchor" aria-label="anchor" href="#set-parameters-for-chip101"></a>
+</h4>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">own_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2e15</span>, <span class="fl">2e15</span>, <span class="fl">2.4e16</span>, <span class="fl">1e17</span><span class="op">)</span>,
-  E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.3</span>,<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-  s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e13</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2e-8</span>, <span class="fl">2e-9</span>, <span class="fl">4e-9</span>, <span class="fl">1e-8</span><span class="op">)</span>,
-  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">5e-11</span>, <span class="fl">4e-8</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">own_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2e15</span>, <span class="fl">2e15</span>, <span class="fl">2.4e16</span>, <span class="fl">1e17</span><span class="op">)</span>,
+  E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.3</span>,<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+  s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e13</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2e-8</span>, <span class="fl">2e-9</span>, <span class="fl">4e-9</span>, <span class="fl">1e-8</span><span class="op">)</span>,
+  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">5e-11</span>, <span class="fl">4e-8</span><span class="op">)</span>,
   K <span class="op">=</span> <span class="fl">1e11</span>,
   W <span class="op">=</span> <span class="fl">1.1</span>,
   model <span class="op">=</span> <span class="st">"customized"</span>,
   R <span class="op">=</span> <span class="fl">1.7e15</span><span class="op">)</span>
 
-<span class="va">own_state_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">9.4e15</span><span class="op">)</span></code></pre></div>
+<span class="va">own_state_parameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">9.4e15</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="caclualte-tl-signal-dependend-on-the-given-dose" class="section level3">
-<h3 class="hasAnchor">
-<a href="#caclualte-tl-signal-dependend-on-the-given-dose" class="anchor"></a>Caclualte TL signal dependend on the given dose</h3>
-<p>We now have to define the sequence for simulating the TL behaviour. For that purpose different doses are given before the TL measurement. To handle this a <code>lapply</code> command was used. The result is the combined plot of all simulated TL measurements.</p>
+<div class="section level4">
+<h4 id="caclualte-tl-signal-dependend-on-the-given-dose">Caclualte TL signal dependend on the given dose<a class="anchor" aria-label="anchor" href="#caclualte-tl-signal-dependend-on-the-given-dose"></a>
+</h4>
+<p>We now have to define the sequence for simulating the TL behaviour.
+For that purpose different doses are given before the TL measurement. To
+handle this a <code>lapply</code> command was used. The result is the
+combined plot of all simulated TL measurements.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">3.5</span>, <span class="fl">0.5</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">3.5</span>, <span class="fl">0.5</span><span class="op">)</span>
 
-<span class="va">Pagonis_2007</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">dose</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dose</span><span class="op">)</span><span class="op">{</span>
+<span class="va">Pagonis_2007</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">dose</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dose</span><span class="op">)</span><span class="op">{</span>
   
-  <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    IRR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="va">dose</span>, <span class="fl">1</span><span class="op">)</span>,
-    PAUSE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">60</span><span class="op">)</span>,
-    TL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">250</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    IRR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="va">dose</span>, <span class="fl">1</span><span class="op">)</span>,
+    PAUSE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">60</span><span class="op">)</span>,
+    TL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">250</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
   
   <span class="va">model_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals</a></span><span class="op">(</span>
     model <span class="op">=</span> <span class="st">"customized"</span>, 
@@ -231,16 +270,16 @@ The effect of thermal quenching for TL signals
     verbose <span class="op">=</span> <span class="cn">FALSE</span>,
     plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">model_output</span>, recordType <span class="op">=</span> <span class="st">"TL"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">model_output</span>, recordType <span class="op">=</span> <span class="st">"TL"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 
-<span class="va">merge_results</span> <span class="op">&lt;-</span> <span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/merge_RLum.Analysis.html">merge_RLum.Analysis</a></span><span class="op">(</span><span class="va">Pagonis_2007</span><span class="op">)</span>
+<span class="va">merge_results</span> <span class="op">&lt;-</span> <span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/merge_RLum.Analysis.html" class="external-link">merge_RLum.Analysis</a></span><span class="op">(</span><span class="va">Pagonis_2007</span><span class="op">)</span>
 
-<span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.Analysis.html">plot_RLum.Analysis</a></span><span class="op">(</span>
+<span class="fu">Luminescence</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/plot_RLum.Analysis.html" class="external-link">plot_RLum.Analysis</a></span><span class="op">(</span>
   <span class="va">merge_results</span>,
-  subset <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>recordType <span class="op">=</span> <span class="st">"TL$"</span><span class="op">)</span>,
-  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">250</span><span class="op">)</span>,
-  legend.text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">dose</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="st">" Gy"</span><span class="op">)</span>,
+  subset <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>recordType <span class="op">=</span> <span class="st">"TL$"</span><span class="op">)</span>,
+  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">250</span><span class="op">)</span>,
+  legend.text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">dose</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="st">" Gy"</span><span class="op">)</span>,
   combine <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="RLumModel_-_Simulating_luminescence_in_Al2O3_files/figure-html/unnamed-chunk-4-1.png" alt="TL signal for different given doses" width="700"><p class="caption">
@@ -248,28 +287,32 @@ TL signal for different given doses
 </p>
 </div>
 </div>
-<div id="calculate-maximum-tl-signal-and-concentration-of-l-centre" class="section level3">
-<h3 class="hasAnchor">
-<a href="#calculate-maximum-tl-signal-and-concentration-of-l-centre" class="anchor"></a>Calculate maximum TL signal and concentration of L-centre</h3>
-<p>Figure 2 in the original publiction by <span class="citation">Pagonis, Chen, and Lawless (2007)</span> will be plotted with the following commands. The following code commands are able to calculate the maximum of the TL signal of all curves.</p>
+<div class="section level4">
+<h4 id="calculate-maximum-tl-signal-and-concentration-of-l-centre">Calculate maximum TL signal and concentration of L-centre<a class="anchor" aria-label="anchor" href="#calculate-maximum-tl-signal-and-concentration-of-l-centre"></a>
+</h4>
+<p>Figure 2 in the original publiction by <span class="citation">Pagonis, Chen, and Lawless (2007)</span> will be
+plotted with the following commands. The following code commands are
+able to calculate the maximum of the TL signal of all curves.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">TL_max</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Pagonis_2007</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
+<code class="sourceCode R"><span class="va">TL_max</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Pagonis_2007</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
   
-  <span class="va">TL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">Pagonis_2007</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"TL$"</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">TL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">Pagonis_2007</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"TL$"</span><span class="op">)</span><span class="op">)</span>
   
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">TL</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">TL</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
   
 <span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p>Now the calculation of the concentration:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m1_max</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Pagonis_2007</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
+<code class="sourceCode R"><span class="va">m1_max</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Pagonis_2007</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
   
-  <span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">Pagonis_2007</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"conc. level 4"</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">Pagonis_2007</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"conc. level 4"</span><span class="op">)</span><span class="op">)</span>
   
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">m1</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">m1</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
 
 <span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p>When plotting L-centre concentration vs. dose or TL<sub>max</sub> vs. dose the same results as presented in Fig. 2 in <span class="citation">Pagonis, Chen, and Lawless (2007)</span> are reached.</p>
+<p>When plotting L-centre concentration vs. dose or TL<sub>max</sub>
+vs. dose the same results as presented in Fig. 2 in <span class="citation">Pagonis, Chen, and Lawless (2007)</span> are
+reached.</p>
 <div class="figure" style="text-align: center">
 <img src="RLumModel_-_Simulating_luminescence_in_Al2O3_files/figure-html/plot%20TL%20max-1.png" alt="TL max vs. dose" width="700"><p class="caption">
 TL max vs. dose
@@ -281,16 +324,16 @@ Concentration of m1 (L-centre) vs. dose
 </p>
 </div>
 </div>
-<div id="concentration-at-the-end-of-irradiation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#concentration-at-the-end-of-irradiation" class="anchor"></a>Concentration at the end of irradiation</h3>
+<div class="section level4">
+<h4 id="concentration-at-the-end-of-irradiation">Concentration at the end of irradiation<a class="anchor" aria-label="anchor" href="#concentration-at-the-end-of-irradiation"></a>
+</h4>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">400</span>, <span class="fl">1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">400</span>, <span class="fl">1</span><span class="op">)</span>
 
-<span class="va">Fig_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">dose</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dose</span><span class="op">)</span><span class="op">{</span>
+<span class="va">Fig_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">dose</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dose</span><span class="op">)</span><span class="op">{</span>
   
-  <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    RF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="va">dose</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    RF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="va">dose</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
   
   <span class="va">model_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_LuminescenceSignals.html">model_LuminescenceSignals</a></span><span class="op">(</span>
     model <span class="op">=</span> <span class="st">"customized"</span>, 
@@ -302,45 +345,45 @@ Concentration of m1 (L-centre) vs. dose
 
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
+<code class="sourceCode R"><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
   
-  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"conc. level 1"</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"conc. level 1"</span><span class="op">)</span><span class="op">)</span>
   
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-  
-<span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
-  
-  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"conc. level 2"</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
   
 <span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
-<span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
+<span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
   
-  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"conc. level 4"</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"conc. level 2"</span><span class="op">)</span><span class="op">)</span>
   
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
   
 <span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
-<span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
+<span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
   
-  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"conc. level 3"</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"conc. level 4"</span><span class="op">)</span><span class="op">)</span>
   
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+  
+<span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
+  
+  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Luminescence/man/get_RLum.html" class="external-link">get_RLum</a></span><span class="op">(</span><span class="va">Fig_5</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, recordType <span class="op">=</span> <span class="st">"conc. level 3"</span><span class="op">)</span><span class="op">)</span>
+  
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
   
 <span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dose</span>, <span class="va">m2</span>, type <span class="op">=</span> <span class="st">"l"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.5e16</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">500</span><span class="op">)</span>, xlab<span class="op">=</span> <span class="st">"Dose [Gy]"</span>, ylab <span class="op">=</span> <span class="st">"Concentration [a.u.]"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">dose</span>, <span class="va">n2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">dose</span>, <span class="va">m1</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">dose</span>, <span class="va">n1</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dose</span>, <span class="va">m2</span>, type <span class="op">=</span> <span class="st">"l"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.5e16</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">500</span><span class="op">)</span>, xlab<span class="op">=</span> <span class="st">"Dose [Gy]"</span>, ylab <span class="op">=</span> <span class="st">"Concentration [a.u.]"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">dose</span>, <span class="va">n2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">dose</span>, <span class="va">m1</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">dose</span>, <span class="va">n1</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topright"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"n1"</span>, <span class="st">"n2"</span>, <span class="st">"m1"</span>, <span class="st">"m2"</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"black"</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">1</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topright"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n1"</span>, <span class="st">"n2"</span>, <span class="st">"m1"</span>, <span class="st">"m2"</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"black"</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">1</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="RLumModel_-_Simulating_luminescence_in_Al2O3_files/figure-html/unnamed-chunk-7-1.png" alt="Concentration in different traps at the end of the irradiation" width="700"><p class="caption">
 Concentration in different traps at the end of the irradiation
@@ -349,20 +392,28 @@ Concentration in different traps at the end of the irradiation
 </div>
 </div>
 </div>
-<div id="summary" class="section level1">
-<h1 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h1>
-<p>This vignette showed the potential of the <strong>R</strong> package ‘RLumModel’ to simulate Al<sub>2</sub>O<sub>3</sub> behaviour. Two different models known from literature were re-compiled in the framework of RLumModel.</p>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<p>This vignette showed the potential of the <strong>R</strong> package
+‘RLumModel’ to simulate Al<sub>2</sub>O<sub>3</sub> behaviour. Two
+different models known from literature were re-compiled in the framework
+of RLumModel.</p>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Akselrod_1998" class="csl-entry">
-Akselrod, MS, N Agersnap Larsen, V Whitley, and SWS McKeever. 1998. <span>“Thermal Quenching of <span>F</span>-Center Luminescence in <span>Al<span class="math inline">\({_2}\)</span>O<span class="math inline">\({_3}\)</span>:C</span>.”</span> <em>Journal of Applied Physics</em> 84 (6): 3364–73.
+Akselrod, MS, N Agersnap Larsen, V Whitley, and SWS McKeever. 1998.
+<span>“Thermal Quenching of <span>F</span>-Center Luminescence in
+<span>Al<span class="math inline">\({_2}\)</span>O<span class="math inline">\({_3}\)</span>:C</span>.”</span> <em>Journal of
+Applied Physics</em> 84 (6): 3364–73.
 </div>
 <div id="ref-Pagonis_2007b" class="csl-entry">
-Pagonis, V, R Chen, and J L Lawless. 2007. <span>“A Quantitative Kinetic Model for <span>Al<span class="math inline">\({_2}\)</span>O<span class="math inline">\({_3}\)</span>:C</span>: TL Response to Ionizing Radiation.”</span> <em>Radiation Measurements</em> 42 (2): 198–204.
+Pagonis, V, R Chen, and J L Lawless. 2007. <span>“A Quantitative Kinetic
+Model for <span>Al<span class="math inline">\({_2}\)</span>O<span class="math inline">\({_3}\)</span>:C</span>: TL Response to Ionizing
+Radiation.”</span> <em>Radiation Measurements</em> 42 (2): 198–204.
 </div>
 </div>
 </div>
@@ -379,11 +430,15 @@ Pagonis, V, R Chen, and J L Lawless. 2007. <span>“A Quantitative Kinetic Model
 
 
       <footer><div class="copyright">
-  <p>Developed by Johannes Friedrich, Sebastian Kreutzer, Christoph Schmidt.</p>
+  <p></p>
+<p>Developed by Johannes Friedrich, Sebastian Kreutzer, Christoph
+Schmidt.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>
@@ -391,6 +446,8 @@ Pagonis, V, R Chen, and J L Lawless. 2007. <span>“A Quantitative Kinetic Model
 
   
 
+
+  
 
   </body>
 </html>

@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RLumModel</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.10</span>
       </span>
     </div>
 
@@ -102,55 +104,69 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="rlummodel-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#rlummodel-" class="anchor"></a>RLumModel <img width="120px" src="reference/figures/RLumModel_logo.svg" align="right">
+<div class="section level1">
+<div class="page-header"><h1 id="rlummodel-">RLumModel
+<img width="120px" src="reference/figures/RLumModel_logo.svg" align="right"><a class="anchor" aria-label="anchor" href="#rlummodel-"></a>
 </h1></div>
 
-<p>The <strong>R</strong> package ‘RLumModel’ by Johannes Friedrich (University of Bayreuth, Germany), Sebastian Kreutzer (IRAMAT-CRP2A, Université Bordeaux Montaigne, France) and Christoph Schmidt (University of Bayreuth, Germany) provides a collection of various R functions modelling luminescence signals in quartz and Al<sub>2</sub>O<sub>3</sub>, based on energy-band models.</p>
-<p>For an introduction and further details, visit the <a href="http://r-lum.github.io/RLumModel/">RLumModel homepage</a>.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<div id="install-the-package" class="section level3">
-<h3 class="hasAnchor">
-<a href="#install-the-package" class="anchor"></a>Install the package</h3>
-<p>To install the stable version from CRAN, simply run the following from an R console:</p>
+<p>The <strong>R</strong> package <code>'RLumModel'</code> by Johannes
+Friedrich (University of Bayreuth, Germany), Sebastian Kreutzer
+(Geography &amp; Earth Sciences, Aberystwyth University, United Kingdom)
+and Christoph Schmidt (University of Lausanne, Switzerland) provides a
+collection of various R functions modelling luminescence signals in
+quartz and Al<sub>2</sub>O<sub>3</sub>, based on energy-band models.</p>
+<p>For an introduction and further details, visit the <a href="https://r-lum.github.io/RLumModel/" class="external-link">RLumModel homepage</a>.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="section level3">
+<h3 id="install-the-package">Install the package<a class="anchor" aria-label="anchor" href="#install-the-package"></a>
+</h3>
+<p>To install the stable version from CRAN, simply run the following
+from an R console:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"RLumModel"</span><span class="op">)</span></code></pre></div>
-<p>To install the latest development builds directly from GitHub, run</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"RLumModel"</span><span class="op">)</span></code></pre></div>
+<p>To install the latest development builds directly from GitHub,
+run</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"R-Lum/RLumModel@master"</span><span class="op">)</span></code></pre></div>
-<p>To install a developer build other than ‘master’, replace the term ‘master’ in the codeline by the name of the wanted developer build.</p>
+<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"R-Lum/RLumModel@master"</span><span class="op">)</span></code></pre></div>
+<p>To install a developer build other than ‘master’, replace the term
+‘master’ in the codeline by the name of the wanted developer build.</p>
 </div>
-<div id="requirements" class="section level3">
-<h3 class="hasAnchor">
-<a href="#requirements" class="anchor"></a>Requirements</h3>
-<p>Depending on your OS please download and install one of the following:</p>
+<div class="section level3">
+<h3 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
+</h3>
+<p>Depending on your OS please download and install one of the
+following:</p>
 <ul>
 <li>
-<em>Windows</em>: <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> (provided by CRAN)</li>
+<em>Windows</em>: <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a>
+(provided by CRAN)</li>
 <li>
-<em>macOS</em>: <a href="https://developer.apple.com/xcode/">Xcode</a> (provided by Apple)</li>
+<em>macOS</em>: <a href="https://developer.apple.com/xcode/" class="external-link">Xcode</a> (provided by
+Apple)</li>
 <li>
-<em>Linux</em>: <a href="https://gcc.gnu.org">gcc</a> often comes pre-installed in most distributions. Should <a href="https://gcc.gnu.org">gcc</a> be not available, however, we kindly refer to the exhaustive collection of installation guides depending on the Linux distribution.</li>
+<em>Linux</em>: <a href="https://gcc.gnu.org" class="external-link">gcc</a> often comes
+pre-installed in most distributions. Should <a href="https://gcc.gnu.org" class="external-link">gcc</a> be not available, however, we kindly
+refer to the exhaustive collection of installation guides depending on
+the Linux distribution.</li>
 </ul>
 </div>
 </div>
-<div id="using-rlummodel" class="section level2">
-<h2 class="hasAnchor">
-<a href="#using-rlummodel" class="anchor"></a>Using RLumModel</h2>
-<div id="simple-example" class="section level3">
-<h3 class="hasAnchor">
-<a href="#simple-example" class="anchor"></a>Simple Example</h3>
+<div class="section level2">
+<h2 id="using-rlummodel">Using RLumModel<a class="anchor" aria-label="anchor" href="#using-rlummodel"></a>
+</h2>
+<div class="section level3">
+<h3 id="simple-example">Simple Example<a class="anchor" aria-label="anchor" href="#simple-example"></a>
+</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="st">"Bailey2001"</span>
 
-<span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    IRR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>,
-    TL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">500</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    IRR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>,
+    TL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">500</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
     
 <span class="va">model.output</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/model_LuminescenceSignals.html">model_LuminescenceSignals</a></span><span class="op">(</span>
     model <span class="op">=</span> <span class="va">model</span>,
@@ -160,24 +176,52 @@
 <p><img src="reference/figures/README-unnamed-chunk-4-1.png"><!-- --></p>
 </div>
 </div>
-<div id="note" class="section level2">
-<h2 class="hasAnchor">
-<a href="#note" class="anchor"></a>Note</h2>
+<div class="section level2">
+<h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+</h2>
 <p><strong>The package comes without any guarantee!</strong></p>
-<p>Please further note that this version is a development version and may change day by day. For stable branches please visit the package on CRAN.</p>
+<p>Please further note that this version is a development version and
+may change day by day. For stable branches please visit the package on
+CRAN.</p>
 </div>
-<div id="license" class="section level2">
-<h2 class="hasAnchor">
-<a href="#license" class="anchor"></a>License</h2>
-<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.</p>
-<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <a href="https://github.com/R-Lum/RLumModel/blob/master/LICENSE">GNU General Public License</a> for more details.</p>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
+<p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or any later
+version.</p>
+<p>This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <a href="https://github.com/R-Lum/RLumModel/blob/master/LICENSE">GNU
+General Public License</a> for more details.</p>
 </div>
-<div id="related-projects" class="section level2">
-<h2 class="hasAnchor">
-<a href="#related-projects" class="anchor"></a>Related projects</h2>
+<div class="section level2">
+<h2 id="-funding">
+<span class="glyphicon glyphicon-euro"></span> Funding<a class="anchor" aria-label="anchor" href="#-funding"></a>
+</h2>
+<p>The <a href="https://github.com/R-Lum/RLumModel">development of
+RLumModel</a> benefited from the support by various funding bodies:</p>
 <ul>
-<li><a href="https://github.com/R-Lum/Luminescence">Luminescence</a></li>
-<li><a href="https://github.com/tzerk/RLumShiny">RLumShiny</a></li>
+<li><p>The initial work by Johannes Friedrich, Sebastian Kreutzer and
+Christoph Schmidt was supported by the DFG (2015–2018, SCHM 3051/4-1,
+“Modelling quartz luminescence signal dynamics relevant for dating and
+dosimetry”, SCHM 3051/4-1)</p></li>
+<li><p>The work of Sebastian Kreutzer as package author was supported by
+<a href="https://lascarbx.labex.u-bordeaux.fr" class="external-link">LabEx LaScArBx (ANR -
+n. ANR-10-LABX-52)</a> between 2017 and 2019.</p></li>
+<li><p>From 2020, Sebastian Kreutzer received funding from the European
+Union’s Horizon 2020 research and innovation programme under the Marie
+Skłodowska-Curie grant agreement No 844457 (project: CREDit).</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="related-projects">Related projects<a class="anchor" aria-label="anchor" href="#related-projects"></a>
+</h2>
+<ul>
+<li><a href="https://github.com/R-Lum/Luminescence" class="external-link">Luminescence</a></li>
+<li><a href="https://github.com/tzerk/RLumShiny" class="external-link">RLumShiny</a></li>
+<li><a href="https://github.com/R-Lum/RLumCarlo" class="external-link">RLumCarlo</a></li>
 </ul>
 </div>
 </div>
@@ -185,55 +229,67 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=RLumModel">https://​cloud.r-project.org/​package=RLumModel</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/R-Lum/RLumModel/">https://​github.com/​R-Lum/​RLumModel/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/R-Lum/RLumModel/issues">https://​github.com/​R-Lum/​RLumModel/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Johannes Friedrich <br><small class="roles"> Author, translator, maintainer </small> <a href="https://orcid.org/0000-0002-0805-9547" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Sebastian Kreutzer <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0002-0734-2199" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Christoph Schmidt <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0002-2309-3209" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://cloud.r-project.org/package=RLumModel" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/R-Lum/RLumModel/">Browse source code</a></li>
+<li><a href="https://github.com/R-Lum/RLumModel/issues">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://zenodo.org/badge/latestdoi/47547833"><img src="https://zenodo.org/badge/47547833.svg" alt="DOI"></a></li>
-<li><a href="https://CRAN.R-project.org/package=RLumModel"><img src="http://www.r-pkg.org/badges/version/RLumModel" alt="CRAN"></a></li>
-<li><a href="https://www.r-pkg.org/pkg/RLumModel"><img src="http://cranlogs.r-pkg.org/badges/grand-total/RLumModel" alt="Downloads"></a></li>
-<li><a href="https://www.r-pkg.org/pkg/RLumModel"><img src="http://cranlogs.r-pkg.org/badges/RLumModel" alt="Downloads"></a></li>
-<li><a href="https://www.r-pkg.org/pkg/RLumModel"><img src="http://cranlogs.r-pkg.org/badges/last-week/RLumModel" alt="Downloads"></a></li>
-<li><a href="https://www.r-pkg.org/pkg/RLumModel"><img src="http://cranlogs.r-pkg.org/badges/last-day/RLumModel" alt="Downloads"></a></li>
-<li><a href="https://github.com/R-Lum/RLumModel/actions"><img src="https://github.com/R-Lum/RLumModel/workflows/GitHub%20Actions%20CI/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master"><img src="https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/master?svg=true" alt="Build status"></a></li>
-<li><a href="https://codecov.io/github/R-Lum/RLumModel?branch=master"><img src="https://img.shields.io/codecov/c/github/R-Lum/RLumModel.svg" alt="Coverage Status"></a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing RLumModel</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Johannes Friedrich <br><small class="roles"> Author, translator, maintainer </small> <a href="https://orcid.org/0000-0002-0805-9547" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Sebastian Kreutzer <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0002-0734-2199" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Christoph Schmidt <br><small class="roles"> Author, thesis advisor </small> <a href="https://orcid.org/0000-0002-2309-3209" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://zenodo.org/badge/latestdoi/47547833" class="external-link"><img src="https://zenodo.org/badge/47547833.svg" alt="DOI"></a></li>
+<li><a href="https://CRAN.R-project.org/package=RLumModel" class="external-link"><img src="https://www.r-pkg.org/badges/version/RLumModel" alt="CRAN"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/RLumModel" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/RLumModel" alt="Downloads"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/RLumModel" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/RLumModel" alt="Downloads"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/RLumModel" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-week/RLumModel" alt="Downloads"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/RLumModel" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-day/RLumModel" alt="Downloads"></a></li>
+<li><a href="https://github.com/R-Lum/RLumModel/actions"><img src="https://github.com/R-Lum/RLumModel/workflows/GitHub%20Actions%20CI/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master" class="external-link"><img src="https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/master?svg=true" alt="Build status"></a></li>
+<li><a href="https://codecov.io/github/R-Lum/RLumModel?branch=master" class="external-link"><img src="https://img.shields.io/codecov/c/github/R-Lum/RLumModel.svg" alt="Coverage Status"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Johannes Friedrich, Sebastian Kreutzer, Christoph Schmidt.</p>
+  <p></p>
+<p>Developed by Johannes Friedrich, Sebastian Kreutzer, Christoph
+Schmidt.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>
@@ -241,6 +297,8 @@
 
   
 
+
+  
 
   </body>
 </html>

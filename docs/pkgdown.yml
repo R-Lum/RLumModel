@@ -1,11 +1,12 @@
-pandoc: '2.16'
-pkgdown: 1.6.1
+pandoc: 2.17.1.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   RLumModel_-_Getting_started_with_RLumModel: RLumModel_-_Getting_started_with_RLumModel.html
+  RLumModel_-_Models_and_parameters: RLumModel_-_Models_and_parameters.html
   RLumModel_-_Simulating_luminescence_in_Al2O3: RLumModel_-_Simulating_luminescence_in_Al2O3.html
   RLumModel_-_Using_own_parameter_sets: RLumModel_-_Using_own_parameter_sets.html
-last_built: 2021-11-08T19:31Z
+last_built: 2022-02-20T21:37Z
 urls:
   reference: https://github.com/R-Lum/RLumModel/reference
   article: https://github.com/R-Lum/RLumModel/articles
