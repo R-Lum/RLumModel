@@ -7,7 +7,9 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.10.9000-42 (2022-02-20)
+## Changes in version 0.2.10 (2022-02-20)
+
+**This package version requires R \>= 4.0**
 
 ### New functions
 

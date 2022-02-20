@@ -7,7 +7,7 @@
   "codeRepository": "https://github.com/R-Lum/RLumModel",
   "issueTracker": "https://github.com/R-Lum/RLumModel/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.2.10.9000.42",
+  "version": "0.2.10",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -76,7 +76,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
-      "version": ">= 3.0.0",
+      "version": ">= 3.1.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -104,7 +104,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.6.0"
+      "version": ">= 4.0"
     },
     "2": {
       "@type": "SoftwareApplication",
@@ -115,7 +115,7 @@
       "@type": "SoftwareApplication",
       "identifier": "Luminescence",
       "name": "Luminescence",
-      "version": ">= 0.9.0",
+      "version": ">= 0.9.18",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -128,7 +128,7 @@
       "@type": "SoftwareApplication",
       "identifier": "deSolve",
       "name": "deSolve",
-      "version": ">= 1.28",
+      "version": ">= 1.30",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -141,7 +141,7 @@
       "@type": "SoftwareApplication",
       "identifier": "khroma",
       "name": "khroma",
-      "version": ">= 1.7.0",
+      "version": ">= 1.8.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -159,7 +159,7 @@
       "@type": "SoftwareApplication",
       "identifier": "Rcpp",
       "name": "Rcpp",
-      "version": ">= 1.0.6",
+      "version": ">= 1.0.8",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -170,7 +170,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1836.28KB",
+  "fileSize": "1843.266KB",
   "relatedLink": "https://CRAN.R-project.org/package=RLumModel",
   "releaseNotes": "https://github.com/R-Lum/RLumModel/blob/master/NEWS.md",
   "contIntegration": ["https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master", "https://codecov.io/github/R-Lum/RLumModel?branch=master"]
