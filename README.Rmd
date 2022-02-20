@@ -98,7 +98,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 ## <span class="glyphicon glyphicon-euro"></span> Funding
 
-The [development of RLumModel](https://github.com/R-LumModel)
+The [development of RLumModel](https://github.com/R-Lum/RLumModel)
 benefited from the support by various funding bodies:
 
 -   The initial work by Johannes Friedrich, Sebastian Kreutzer and
