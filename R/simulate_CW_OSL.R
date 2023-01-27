@@ -1,10 +1,10 @@
-#' sequence step CW-OSL-simulation
+#' @title sequence step CW-OSL-simulation
 #'
-#' This function simulates the CW-OSL measurement of quartz in the energy-band-model.
+#' @description This function simulates the CW-OSL measurement of quartz in the energy-band-model.
 #'
 #' @param temp \code{\link{numeric}} (\bold{required}): temperature [deg. C] of the CW-OSL measurement
 #'
-#' @param duration \code{\link{numeric}} (\bold{required}): heatingrate in [deg. C/s] or [K/s]
+#' @param duration \code{\link{numeric}} (\bold{required}): heating rate in [deg. C/s] or [K/s]
 #'
 #' @param optical_power \code{\link{numeric}} (\bold{with default}): optical power in % of full power of the LED.
 #' 100 % equates 20 mW/cm^2. Of course is it possible to go higher than 100 %. 20 mW/cm^2 is a "historical"
@@ -12,7 +12,7 @@
 #'
 #' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the CW-OSL-step. This ID
 #' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
-#' sequence step they were calculated from. This ID is identic to the sequence step in "sequence".
+#' sequence step they were calculated from. This ID is identical to the sequence step in "sequence".
 #'
 #' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
 #' concentration of electron-/holetraps, valence- and conduction band
@@ -23,7 +23,7 @@
 #'
 #' @return This function returns an RLum.Results object from the CW-OSL simulation.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -80,7 +80,7 @@
   }
 
   ##check if n is a RLum object
-  if(class(n) != "RLum.Results"){
+  if(!inherits(n, "RLum.Results")){
     n <- n
   } else {
     n <- n$n
@@ -95,7 +95,7 @@
   # P: Photonflux (in Bailey 2004: wavelength [nm]) = 1
   # b: heating rate [deg. C/s] = 0
   ##============================================================================##
- 
+
   if(parms$model == "Bailey2004" || parms$model == "Bailey2002"){
     P <- 0.02/(1.6*10^(-19)*(1240/470))*(optical_power/100)
   }
@@ -118,7 +118,7 @@
     b = b,
     times = times,
     parms = parms))
-  
+
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
