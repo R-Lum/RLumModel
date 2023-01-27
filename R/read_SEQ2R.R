@@ -1,23 +1,23 @@
-#' Parse a Risoe SEQ-file to a sequence neccessary for simulating quartz luminescence
+#' Parse a Risø SEQ-file to a sequence necessary for simulating quartz luminescence
 #'
-#' A SEQ-file created by the Risoe Sequence Editor can be imported to simulate the sequence written
+#' A SEQ-file created by the Risø Sequence Editor can be imported to simulate the sequence written
 #' in the sequence editor.
 #'
-#' \bold{Supported versions}: Supppored and tested: version 4.36.
+#' **Supported versions**: Supported and tested: version 4.36.
 #'
-#' @param file \code{\link{character}} (\bold{required}): a *.seq file created by the Risoe Sequence Editor
+#' @param file [character] (**required**): a *.seq file created by the Risø Sequence Editor
 #'
-#' @param lab.dose_rate \code{\link{character}} (with default): set the dose rate of the radiation source
+#' @param lab.dose_rate [character] (with default): set the dose rate of the radiation source
 #' in the laboratory Gy/s. Default: 1 Gy/s
 #'
-#' @param txtProgressBar \code{\link{logical}} (with default): enables or disables the txtProgressBar for a visuell
-#' control of the progress. Default: txtProgressBar = TRUE
+#' @param txtProgressBar [logical] (with default): enables or disables the `txtProgressBar` for a visual
+#' control of the progress. Default: `txtProgressBar = TRUE`
 #'
-#' @return This function returns a \code{\link{list}} with the parsed *.seq file and the required steps for
-#' \code{\link{model_LuminescenceSignals}}.
+#' @return This function returns a [list] with the parsed *.seq file and the required steps for
+#' [model_LuminescenceSignals].
 #'
-#' @section Function version: 0.1.0 
-#' 
+#' @section Function version: 0.1.1
+#'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
 #' @references
@@ -27,7 +27,7 @@
 #' %20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/
 #' SequenceEditor.ashx?la=da
 #'
-#' @seealso \code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
+#' @seealso [model_LuminescenceSignals], [readLines]
 #'
 #' @examples
 #' ##search "example_SAR_cycle.SEQ" in "extdata" in package "RLumModel"
@@ -35,6 +35,7 @@
 #'
 #' sequence <- read_SEQ2R(file = path, txtProgressBar = FALSE)
 #'
+#' @md
 #' @export
 read_SEQ2R <- function(
   file,
@@ -44,9 +45,9 @@ read_SEQ2R <- function(
 
 # Integrity tests and conversion --------------------------------------------------------------
 
-if(class(file)!= "character")
+if(!inherits(file, "character"))
   stop("[read_SEQ2R()] class of file has to be a character.")
-  
+
 if(!file.exists(file))
   stop("[read_SEQ2R()] file name doesn't seem to exist.")
 
