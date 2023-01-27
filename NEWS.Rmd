@@ -10,4 +10,4 @@ header-includes:
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-* Dummy
+* Internal: Update compiler version from C++11 to C++17 as requested by CRAN

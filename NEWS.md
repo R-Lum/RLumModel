@@ -7,6 +7,7 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.11.9000-1 (2022-02-20)
+## Changes in version 0.2.11.9000-2 (2023-01-27)
 
--   Dummy
+- Internal: Update compiler version from C++11 to C++17 as requested by
+  CRAN
