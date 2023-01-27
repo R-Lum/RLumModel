@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/R-Lum/RLumModel",
   "issueTracker": "https://github.com/R-Lum/RLumModel/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.2.11.9000.1",
+  "version": "0.2.11.9000.5",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2022-02-15 r81747)",
+  "runtimePlatform": "R Under development (unstable) (2023-01-03 r83550)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -76,7 +76,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
-      "version": ">= 3.1.0",
+      "version": ">= 3.1.6",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -104,7 +104,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 4.0"
+      "version": ">= 4.1"
     },
     "2": {
       "@type": "SoftwareApplication",
@@ -115,7 +115,7 @@
       "@type": "SoftwareApplication",
       "identifier": "Luminescence",
       "name": "Luminescence",
-      "version": ">= 0.9.18",
+      "version": ">= 0.9.20",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -128,7 +128,7 @@
       "@type": "SoftwareApplication",
       "identifier": "deSolve",
       "name": "deSolve",
-      "version": ">= 1.30",
+      "version": ">= 1.34",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -141,7 +141,7 @@
       "@type": "SoftwareApplication",
       "identifier": "khroma",
       "name": "khroma",
-      "version": ">= 1.8.0",
+      "version": ">= 1.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -159,7 +159,7 @@
       "@type": "SoftwareApplication",
       "identifier": "Rcpp",
       "name": "Rcpp",
-      "version": ">= 1.0.8",
+      "version": ">= 1.0.10",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -170,7 +170,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1842.102KB",
+  "fileSize": "2245.132KB",
   "relatedLink": "https://CRAN.R-project.org/package=RLumModel",
   "releaseNotes": "https://github.com/R-Lum/RLumModel/blob/master/NEWS.md",
   "contIntegration": ["https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master", "https://codecov.io/github/R-Lum/RLumModel?branch=master"]

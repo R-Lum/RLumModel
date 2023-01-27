@@ -7,7 +7,8 @@
 
 # NEWS for the R Package RLumModel
 
-## Changes in version 0.2.11.9000-2 (2023-01-27)
+## Changes in version 0.2.11.9000-5 (2023-01-27)
 
 - Internal: Update compiler version from C++11 to C++17 as requested by
   CRAN
+- Internal: Replace deprecated if() condition comparisons
