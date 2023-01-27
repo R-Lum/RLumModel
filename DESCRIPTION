@@ -1,8 +1,8 @@
 Package: RLumModel
 Type: Package
 Title: Solving Ordinary Differential Equations to Understand Luminescence
-Version: 0.2.11.9000-1
-Date: 2022-02-20
+Version: 0.2.11.9000-4
+Date: 2023-01-27
 Author: Johannes Friedrich [aut, trl, cre] (<https://orcid.org/0000-0002-0805-9547>),
     Sebastian Kreutzer [aut, ths] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Schmidt [aut, ths] (<https://orcid.org/0000-0002-2309-3209>)
@@ -18,16 +18,16 @@ Contact: Package Developer Team <developer@model.r-luminescence.de>
 License: GPL-3
 BugReports: https://github.com/R-Lum/RLumModel/issues
 Depends:
-    R (>= 4.0),
+    R (>= 4.1),
     utils,
-    Luminescence (>= 0.9.18)
+    Luminescence (>= 0.9.20)
 Imports:
-    deSolve (>= 1.30),
-    khroma (>= 1.8.0),
+    deSolve (>= 1.34),
+    khroma (>= 1.0.0),
     methods,
-    Rcpp (>= 1.0.8)
+    Rcpp (>= 1.0.10)
 Suggests: 
-    testthat (>= 3.1.0),
+    testthat (>= 3.1.6),
     R.rsp (>= 0.44.0)
 URL: https://CRAN.R-project.org/package=RLumModel
 Collate:
@@ -52,7 +52,7 @@ Collate:
   simulate_TL.R
   translate_sequence.R
   trace_ParameterStateEvolution.R
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: R.rsp
