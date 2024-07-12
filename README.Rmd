@@ -108,8 +108,8 @@ benefited from the support by various funding bodies:
     3051/4-1)
 
 -   The work of Sebastian Kreutzer as package author was
-    supported by [LabEx LaScArBx (ANR -
-    n. ANR-10-LABX-52)](https://lascarbx.labex.u-bordeaux.fr) between
+    supported by LabEx LaScArBx (ANR -
+    n. ANR-10-LABX-52) between
     2017 and 2019.
 
 -   From 2020, Sebastian Kreutzer received funding from the European
