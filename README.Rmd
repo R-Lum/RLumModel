@@ -18,8 +18,9 @@ library(RLumModel)
 
 # RLumModel <img width=120px src="man/figures/RLumModel_logo.svg" align="right" />
 
+[![CRAN](https://www.r-pkg.org/badges/version/RLumModel)](https://CRAN.R-project.org/package=RLumModel)
+[![CRAN DOI](https://img.shields.io/badge/doi-10.32614/CRAN.package.RLumModel-blue.svg)](https://doi.org/10.32614/CRAN.package.RLumModel)
 [![DOI](https://zenodo.org/badge/47547833.svg)](https://zenodo.org/badge/latestdoi/47547833)
-[![CRAN](https://www.r-pkg.org/badges/version/RLumModel)](https://CRAN.R-project.org/package=RLumModel )
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
 [![Downloads](https://cranlogs.r-pkg.org/badges/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-week/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
