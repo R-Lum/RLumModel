@@ -44,14 +44,6 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Cache R packages
-        if: runner.os != 'Windows'
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
