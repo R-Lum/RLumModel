@@ -60,8 +60,7 @@ jobs:
           covr::codecov(
             quiet = FALSE,
             clean = TRUE,
-            token = "${{ secrets.CODECOV_TOKEN }}",
-            install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
+            token = "${{ secrets.CODECOV_TOKEN }}"
           )
         shell: Rscript {0}
 
