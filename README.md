@@ -18,8 +18,7 @@ DOI](https://img.shields.io/badge/doi-10.32614/CRAN.package.RLumModel-blue.svg)]
 [![R-CMD-check](https://github.com/R-Lum/RLumModel/workflows/GitHub%20Actions%20CI/badge.svg)](https://github.com/R-Lum/RLumModel/actions)
 [![Build
 status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/master?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/R-Lum/RLumModel.svg)](https://app.codecov.io/github/R-Lum/RLumModel?branch=master)
+[![codecov](https://codecov.io/github/R-Lum/RLumModel/graph/badge.svg?token=QgNlIMGyCw)](https://codecov.io/github/R-Lum/RLumModel)
 
 The **R** package `'RLumModel'` by Johannes Friedrich (University of
 Bayreuth, Germany), Sebastian Kreutzer (Geography & Earth Sciences,
