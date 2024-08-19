@@ -11,9 +11,11 @@ on:
 
 name: GitHub Actions CI
 
+permissions: read-all
+
 ## change if caches needs to be refreshed
 env:
-  cache-version: v1
+  cache-version: v2
 
 jobs:
   R-CMD-check:
@@ -49,7 +51,7 @@ jobs:
           extra-packages: |
             any::rcmdcheck
             any::covr
-          needs: check
+          needs: coverage
 
       - uses: r-lib/actions/check-r-package@v2
         with:
@@ -57,12 +59,22 @@ jobs:
 
       - name: Test coverage
         run: |
-          covr::codecov(
+          cov <- covr::codecov(
             quiet = FALSE,
             clean = TRUE,
-            token = "${{ secrets.CODECOV_TOKEN }}"
+            token = "${{ secrets.CODECOV_TOKEN }}",
+            install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
           )
+          covr::to_cobertura(cov)
         shell: Rscript {0}
+
+      - uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: ${{ github.event_name != 'pull_request' && true || false }}
+          file: ./cobertura.xml
+          plugin: noop
+          disable_search: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Show testthat output
         if: always()
