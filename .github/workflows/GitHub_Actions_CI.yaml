@@ -23,11 +23,11 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - {os: macos-11,   r: 'release', rspm: "https://packagemanager.rstudio.com/all/latest"}
-        - {os: macos-10.15,   r: 'oldrel', rspm:  "https://packagemanager.rstudio.com/all/latest"}
-        - {os: ubuntu-20.04,   r: 'devel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-        - {os: ubuntu-20.04,   r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-        - {os: ubuntu-20.04,   r: 'oldrel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+        - {os: macos-13,   r: 'release', not_cran: 'true'}
+        - {os: macos-12,   r: 'oldrel',  not_cran: 'true'}
+        - {os: ubuntu-latest,   r: 'devel', not_cran: 'true',}
+        - {os: ubuntu-latest,   r: 'release', not_cran: 'true'}
+        - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -35,20 +35,14 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
-      - uses: r-lib/actions/setup-pandoc@v1
-
-      - name: Install remotes
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
-        shell: Rscript {0}
+      - uses: r-lib/actions/setup-pandoc@v2
 
       - name: Cache R packages
         if: runner.os != 'Windows'
@@ -58,58 +52,38 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        run: |
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+     - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::rcmdcheck
+            any::covr
+          needs: check
 
-      - name: Install ghostscript (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get install -y ghostscript
-          sudo apt-get install -y curl
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
 
-      - name: Install dependencies
+      - name: Test coverage
         run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-          remotes::install_cran("covr")
-        shell: Rscript {0}
-
-      - name: Session info
-        run: |
-          options(width = 100)
-          pkgs <- installed.packages()[, "Package"]
-          sessioninfo::session_info(pkgs, include_base = TRUE)
-        shell: Rscript {0}
-
-      - name: Remove depends.Rds
-        run: |
-          unlink("depends.Rds")
-        shell: Rscript {0}
-
-      - name: Check
-        env:
-          _R_CHECK_CRAN_INCOMING_: false
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+          covr::codecov(
+            quiet = FALSE,
+            clean = TRUE,
+            token = "${{ secrets.CODECOV_TOKEN }}",
+            install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
+          )
         shell: Rscript {0}
 
       - name: Show testthat output
         if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+        run: |
+          ## --------------------------------------------------------------------
+          find ${{ runner.temp }}/package -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
 
-      - name: Upload check results
+      - name: Upload test results
         if: failure()
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
+          name: coverage-test-failures
+          path: ${{ runner.temp }}/package
 
-      - name: Test coverage
-        run: |
-          covr::codecov()
-        shell: Rscript {0}
