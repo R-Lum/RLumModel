@@ -2,7 +2,6 @@
 % Please edit documentation in R/RLumModel-package.R
 \docType{package}
 \name{RLumModel-package}
-\alias{RLumModel}
 \alias{RLumModel-package}
 \title{Solving Ordinary Differential Equations to Understand Luminescence}
 \description{
@@ -48,23 +47,5 @@ Johannes Friedrich, University of Bayreuth, Germany
 
 The work of Johannes Friedrich is gratefully supported by the DFG in framework of the project
 'Modelling quartz luminescence signal dynamics relevant for dating and dosimetry' (SCHM 305114-1).
-}
-\seealso{
-Useful links:
-\itemize{
-  \item \url{https://CRAN.R-project.org/package=RLumModel}
-  \item Report bugs at \url{https://github.com/R-Lum/RLumModel/issues}
-}
-
-}
-\author{
-\strong{Maintainer}: Johannes Friedrich \email{johannes.friedrich@posteo.de} (\href{https://orcid.org/0000-0002-0805-9547}{ORCID}) [translator]
-
-Authors:
-\itemize{
-  \item Sebastian Kreutzer (\href{https://orcid.org/0000-0002-0734-2199}{ORCID}) [thesis advisor]
-  \item Christoph Schmidt (\href{https://orcid.org/0000-0002-2309-3209}{ORCID}) [thesis advisor]
-}
-
 }
 \keyword{package}

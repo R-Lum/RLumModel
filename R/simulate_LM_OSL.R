@@ -28,6 +28,8 @@
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
+#' @references
+#'
 #' @seealso \code{\link{plot}}
 #'
 #' @examples
@@ -68,7 +70,7 @@
   }
 
   ##check if object is of class RLum.Data.Curve
-  if(!inherits(n, "RLum.Results")){
+  if(class(n) != "RLum.Results"){
     n <- n
   } else {
     n <- n$n

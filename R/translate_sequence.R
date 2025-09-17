@@ -28,6 +28,8 @@
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
+#' @references
+#'
 #' @seealso \code{\link{model_LuminescenceSignals}}, \code{\linkS4class{RLum}}
 #'
 #' @examples

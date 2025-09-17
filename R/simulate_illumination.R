@@ -22,6 +22,8 @@
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
+#' @references
+#'
 #' @seealso \code{\link{plot}}
 #'
 #' @examples
@@ -54,7 +56,7 @@
   }
 
   ##check if n is a RLum object
-  if(!inherits(n, "RLum.Results")){
+  if(class(n) != "RLum.Results"){
     n <- n
   } else {
     n <- n$n

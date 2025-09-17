@@ -52,7 +52,7 @@ Collate:
   simulate_TL.R
   translate_sequence.R
   trace_ParameterStateEvolution.R
-RoxygenNote: 7.3.2
+RoxygenNote: 7.1.2
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: R.rsp

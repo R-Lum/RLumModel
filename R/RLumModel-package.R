@@ -8,6 +8,7 @@
 #' published models.
 #'
 #' @name RLumModel-package
+#' @docType package
 #' @details **Authors**
 #'
 #' \tabular{ll}{
@@ -48,7 +49,7 @@
 #' @importFrom grDevices rgb
 #' @importFrom graphics axis lines mtext par rect
 #' @useDynLib RLumModel, .registration = TRUE
-"_PACKAGE"
+NULL
 
 
 #' Example data (TL curve) simulated with parameter set from Pagonis 2007

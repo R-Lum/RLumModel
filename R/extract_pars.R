@@ -10,6 +10,8 @@
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
+#' @references
+#'
 #' @seealso \code{\link{simulate_CW_OSL}},\code{\link{simulate_heating}}, \code{\link{simulate_illumination}},
 #' \code{\link{simulate_irradiation}}, \code{\link{simulate_LM_OSL}}, \code{\link{simulate_pause}},
 #' \code{\link{simulate_RF}}, \code{\link{simulate_TL}}
