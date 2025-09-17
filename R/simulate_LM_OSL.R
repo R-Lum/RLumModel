@@ -28,8 +28,6 @@
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
-#' @references
-#'
 #' @seealso \code{\link{plot}}
 #'
 #' @examples
