@@ -56,7 +56,7 @@
   }
 
   ##check if n is a RLum object
-  if(class(n) != "RLum.Results"){
+  if(!inherits(n, "RLum.Results")){
     n <- n
   } else {
     n <- n$n
