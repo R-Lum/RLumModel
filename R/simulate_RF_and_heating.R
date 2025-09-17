@@ -73,7 +73,7 @@
   }
 
   ##check if object is of class RLum.Results
-  if(class(n) != "RLum.Results"){
+  if(!inherits(n, "RLum.Results")){
     n <- n
   } else {
     n <- n$n

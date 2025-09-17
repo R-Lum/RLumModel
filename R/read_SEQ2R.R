@@ -44,9 +44,9 @@ read_SEQ2R <- function(
 
 # Integrity tests and conversion --------------------------------------------------------------
 
-if(class(file)!= "character")
+if(!inherits(file, "character"))
   stop("[read_SEQ2R()] class of file has to be a character.")
-  
+
 if(!file.exists(file))
   stop("[read_SEQ2R()] file name doesn't seem to exist.")
 
