@@ -122,7 +122,7 @@ SampleInterval=1
 Number of Cells=40
 [Cell(1,1)]
 Command=12
-Text=Pre Heat 240캜;5캜/s;10s
+Text=Pre Heat 240째C;5째C/s;10s
 N2Flow=2
 N2Seconds=30
 N2Stop=1
@@ -131,7 +131,7 @@ An_Temp=240
 Rate=5
 [Cell(2,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -175,7 +175,7 @@ An_Temp=20
 Rate=5
 [Cell(4,1)]
 Command=6
-Text=TL 200캜, 5.00캜/s, 240Pts., PH=2캜 for 0s
+Text=TL 200째C, 5.00째C/s, 240Pts., PH=2째C for 0s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -211,7 +211,7 @@ Background=0
 DuringPause=0
 [Cell(5,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -255,7 +255,7 @@ An_Temp=20
 Rate=5
 [Cell(7,1)]
 Command=12
-Text=Pre Heat 240캜;5캜/s;10s
+Text=Pre Heat 240째C;5째C/s;10s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -264,7 +264,7 @@ An_Temp=240
 Rate=5
 [Cell(8,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -308,7 +308,7 @@ An_Temp=20
 Rate=5
 [Cell(10,1)]
 Command=6
-Text=TL 200캜, 5.00캜/s, 240Pts., PH=2캜 for 0s
+Text=TL 200째C, 5.00째C/s, 240Pts., PH=2째C for 0s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -344,7 +344,7 @@ Background=0
 DuringPause=0
 [Cell(11,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -388,7 +388,7 @@ An_Temp=20
 Rate=5
 [Cell(13,1)]
 Command=12
-Text=Pre Heat 240캜;5캜/s;10s
+Text=Pre Heat 240째C;5째C/s;10s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -397,7 +397,7 @@ An_Temp=240
 Rate=5
 [Cell(14,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -441,7 +441,7 @@ An_Temp=20
 Rate=5
 [Cell(16,1)]
 Command=6
-Text=TL 200캜, 5.00캜/s, 240Pts., PH=2캜 for 0s
+Text=TL 200째C, 5.00째C/s, 240Pts., PH=2째C for 0s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -477,7 +477,7 @@ Background=0
 DuringPause=0
 [Cell(17,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -521,7 +521,7 @@ An_Temp=20
 Rate=5
 [Cell(19,1)]
 Command=12
-Text=Pre Heat 240캜;5캜/s;10s
+Text=Pre Heat 240째C;5째C/s;10s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -530,7 +530,7 @@ An_Temp=240
 Rate=5
 [Cell(20,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -574,7 +574,7 @@ An_Temp=20
 Rate=5
 [Cell(22,1)]
 Command=6
-Text=TL 200캜, 5.00캜/s, 240Pts., PH=2캜 for 0s
+Text=TL 200째C, 5.00째C/s, 240Pts., PH=2째C for 0s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -610,7 +610,7 @@ Background=0
 DuringPause=0
 [Cell(23,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -654,7 +654,7 @@ An_Temp=20
 Rate=5
 [Cell(25,1)]
 Command=12
-Text=Pre Heat 240캜;5캜/s;10s
+Text=Pre Heat 240째C;5째C/s;10s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -663,7 +663,7 @@ An_Temp=240
 Rate=5
 [Cell(26,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -707,7 +707,7 @@ An_Temp=20
 Rate=5
 [Cell(28,1)]
 Command=6
-Text=TL 200캜, 5.00캜/s, 240Pts., PH=2캜 for 0s
+Text=TL 200째C, 5.00째C/s, 240Pts., PH=2째C for 0s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -743,7 +743,7 @@ Background=0
 DuringPause=0
 [Cell(29,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -776,7 +776,7 @@ Before=0
 After=0
 [Cell(30,1)]
 Command=12
-Text=Pre Heat 240캜;5캜/s;10s
+Text=Pre Heat 240째C;5째C/s;10s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -785,7 +785,7 @@ An_Temp=240
 Rate=5
 [Cell(31,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -829,7 +829,7 @@ An_Temp=20
 Rate=5
 [Cell(33,1)]
 Command=6
-Text=TL 200캜, 5.00캜/s, 240Pts., PH=2캜 for 0s
+Text=TL 200째C, 5.00째C/s, 240Pts., PH=2째C for 0s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -865,7 +865,7 @@ Background=0
 DuringPause=0
 [Cell(34,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -909,7 +909,7 @@ An_Temp=20
 Rate=5
 [Cell(36,1)]
 Command=12
-Text=Pre Heat 240캜;5캜/s;10s
+Text=Pre Heat 240째C;5째C/s;10s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -918,7 +918,7 @@ An_Temp=240
 Rate=5
 [Cell(37,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -962,7 +962,7 @@ An_Temp=20
 Rate=5
 [Cell(39,1)]
 Command=6
-Text=TL 200캜, 5.00캜/s, 240Pts., PH=2캜 for 0s
+Text=TL 200째C, 5.00째C/s, 240Pts., PH=2째C for 0s
 N2Flow=0
 N2Seconds=30
 N2Stop=0
@@ -998,7 +998,7 @@ Background=0
 DuringPause=0
 [Cell(40,1)]
 Command=7
-Text=OSL 125캜 Blue LEDs;40s;5캜/s;90.0%
+Text=OSL 125째C Blue LEDs;40s;5째C/s;90.0%
 N2Flow=0
 N2Seconds=30
 N2Stop=0
