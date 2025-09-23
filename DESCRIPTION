@@ -1,11 +1,8 @@
 Package: RLumModel
 Type: Package
 Title: Solving Ordinary Differential Equations to Understand Luminescence
-Version: 0.2.10
-Date: 2022-02-20
-Author: Johannes Friedrich [aut, trl, cre] (<https://orcid.org/0000-0002-0805-9547>),
-    Sebastian Kreutzer [aut, ths] (<https://orcid.org/0000-0002-0734-2199>),
-    Christoph Schmidt [aut, ths] (<https://orcid.org/0000-0002-2309-3209>)
+Version: 0.2.11
+Date: 2025-09-23
 Authors@R: c(
     person("Johannes", "Friedrich", role = c("aut","trl","cre"), comment = c(ORCID = "0000-0002-0805-9547"), 
     email = "johannes.friedrich@posteo.de"),
@@ -18,17 +15,17 @@ Contact: Package Developer Team <developer@model.r-luminescence.de>
 License: GPL-3
 BugReports: https://github.com/R-Lum/RLumModel/issues
 Depends:
-    R (>= 4.0),
+    R (>= 4.4),
     utils,
-    Luminescence (>= 0.9.18)
+    Luminescence (>= 1.1.1)
 Imports:
-    deSolve (>= 1.30),
-    khroma (>= 1.8.0),
+    deSolve (>= 1.40),
+    khroma (>= 1.16.0),
     methods,
-    Rcpp (>= 1.0.8)
+    Rcpp (>= 1.1.0)
 Suggests: 
-    testthat (>= 3.1.0),
-    R.rsp (>= 0.44.0)
+    testthat (>= 3.2.3),
+    R.rsp (>= 0.46.0)
 URL: https://CRAN.R-project.org/package=RLumModel
 Collate:
   RLumModel-package.R
@@ -52,8 +49,8 @@ Collate:
   simulate_TL.R
   translate_sequence.R
   trace_ParameterStateEvolution.R
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.3
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: R.rsp
-LinkingTo: Rcpp (>= 1.0.1), RcppArmadillo (>= 0.9.400.2.0)
+LinkingTo: Rcpp (>= 1.1.0), RcppArmadillo (>= 15.0.2-2)

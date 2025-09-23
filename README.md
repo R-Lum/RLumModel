@@ -7,8 +7,10 @@
 
 # RLumModel <img width=120px src="man/figures/RLumModel_logo.svg" align="right" />
 
-[![DOI](https://zenodo.org/badge/47547833.svg)](https://zenodo.org/badge/latestdoi/47547833)
 [![CRAN](https://www.r-pkg.org/badges/version/RLumModel)](https://CRAN.R-project.org/package=RLumModel)
+[![CRAN
+DOI](https://img.shields.io/badge/doi-10.32614/CRAN.package.RLumModel-blue.svg)](https://doi.org/10.32614/CRAN.package.RLumModel)
+[![DOI](https://zenodo.org/badge/47547833.svg)](https://zenodo.org/badge/latestdoi/47547833)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
 [![Downloads](https://cranlogs.r-pkg.org/badges/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-week/RLumModel)](https://www.r-pkg.org/pkg/RLumModel)
@@ -16,8 +18,7 @@
 [![R-CMD-check](https://github.com/R-Lum/RLumModel/workflows/GitHub%20Actions%20CI/badge.svg)](https://github.com/R-Lum/RLumModel/actions)
 [![Build
 status](https://ci.appveyor.com/api/projects/status/42umfq97ifr021mk/branch/master?svg=true)](https://ci.appveyor.com/project/RLumSK/rlummodel/branch/master)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/R-Lum/RLumModel.svg)](https://codecov.io/github/R-Lum/RLumModel?branch=master)
+[![codecov](https://img.shields.io/codecov/c/github/R-Lum/RLumModel.svg)](https://app.codecov.io/github/R-Lum/RLumModel)
 
 The **R** package `'RLumModel'` by Johannes Friedrich (University of
 Bayreuth, Germany), Sebastian Kreutzer (Geography & Earth Sciences,
@@ -55,14 +56,14 @@ To install a developer build other than ‘master’, replace the term
 
 Depending on your OS please download and install one of the following:
 
--   *Windows*: [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
-    (provided by CRAN)
--   *macOS*: [Xcode](https://developer.apple.com/xcode/) (provided by
-    Apple)
--   *Linux*: [gcc](https://gcc.gnu.org) often comes pre-installed in
-    most distributions. Should [gcc](https://gcc.gnu.org) be not
-    available, however, we kindly refer to the exhaustive collection of
-    installation guides depending on the Linux distribution.
+- *Windows*: [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
+  (provided by CRAN)
+- *macOS*: [Xcode](https://developer.apple.com/xcode/) (provided by
+  Apple)
+- *Linux*: [gcc](https://gcc.gnu.org) often comes pre-installed in most
+  distributions. Should [gcc](https://gcc.gnu.org) be not available,
+  however, we kindly refer to the exhaustive collection of installation
+  guides depending on the Linux distribution.
 
 ## Using RLumModel
 
@@ -110,22 +111,20 @@ more details.
 The [development of RLumModel](https://github.com/R-Lum/RLumModel)
 benefited from the support by various funding bodies:
 
--   The initial work by Johannes Friedrich, Sebastian Kreutzer and
-    Christoph Schmidt was supported by the DFG (2015–2018, SCHM
-    3051/4-1, “Modelling quartz luminescence signal dynamics relevant
-    for dating and dosimetry”, SCHM 3051/4-1)
+- The initial work by Johannes Friedrich, Sebastian Kreutzer and
+  Christoph Schmidt was supported by the DFG (2015–2018, SCHM 3051/4-1,
+  “Modelling quartz luminescence signal dynamics relevant for dating and
+  dosimetry”, SCHM 3051/4-1)
 
--   The work of Sebastian Kreutzer as package author was supported by
-    [LabEx LaScArBx (ANR -
-    n. ANR-10-LABX-52)](https://lascarbx.labex.u-bordeaux.fr) between
-    2017 and 2019.
+- The work of Sebastian Kreutzer as package author was supported by
+  LabEx LaScArBx (ANR - n. ANR-10-LABX-52) between 2017 and 2019.
 
--   From 2020, Sebastian Kreutzer received funding from the European
-    Union’s Horizon 2020 research and innovation programme under the
-    Marie Skłodowska-Curie grant agreement No 844457 (project: CREDit).
+- From 2020, Sebastian Kreutzer received funding from the European
+  Union’s Horizon 2020 research and innovation programme under the Marie
+  Skłodowska-Curie grant agreement No 844457 (project: CREDit).
 
 ## Related projects
 
--   [Luminescence](https://github.com/R-Lum/Luminescence)
--   [RLumShiny](https://github.com/tzerk/RLumShiny)
--   [RLumCarlo](https://github.com/R-Lum/RLumCarlo)
+- [Luminescence](https://github.com/R-Lum/Luminescence)
+- [RLumShiny](https://github.com/tzerk/RLumShiny)
+- [RLumCarlo](https://github.com/R-Lum/RLumCarlo)

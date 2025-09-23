@@ -13,7 +13,7 @@
 #'
 #' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the LM-OSL-step. This ID
 #' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
-#' sequence step they were calculated from. This ID is identic to the sequence step in "sequence".
+#' sequence step they were calculated from. This ID is identical to the sequence step in "sequence".
 #'
 #' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
 #' concentration of electron-/holetraps, valence- and conduction band
@@ -24,7 +24,7 @@
 #'
 #' @return This function returns an RLum.Results object from the LM-OSL simulation.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -70,7 +70,7 @@
   }
 
   ##check if object is of class RLum.Data.Curve
-  if(class(n) != "RLum.Results"){
+  if(!inherits(n, "RLum.Results")){
     n <- n
   } else {
     n <- n$n
@@ -113,7 +113,7 @@
     b = b,
     times = times,
     parms = parms))
-  
+
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##

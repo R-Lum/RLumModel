@@ -6,7 +6,7 @@
 #'
 #' @param temp_end \code{\link{numeric}} (\bold{required}): end temperature [deg. C] of the TL-simulation
 #'
-#' @param heating_rate \code{\link{numeric}} (\bold{required}): heatingrate in [deg. C/s] or [K/s]
+#' @param heating_rate \code{\link{numeric}} (\bold{required}): heating rate in [deg. C/s] or [K/s]
 #'
 #' @param dose_rate \code{\link{numeric}} (\bold{required}): dose-rate in [Gy/s] for the irradiation during heating
 #'
@@ -23,7 +23,7 @@
 #'
 #' @return This function returns an RLum.Results object from the heating/cooling simulation during irradiation.
 #'
-#' @section Function version: 0.1.0 [2017-09-01]
+#' @section Function version: 0.1.1
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany)
 #'
@@ -57,12 +57,12 @@
 
   # check input arguments ---------------------------------------------------
 
-  ##check if heatingrate has the rigth algebraic sign
+  ##check if heatingrate has the right algebraic sign
   if((temp_begin < temp_end && heating_rate < 0)||(temp_begin > temp_end & heating_rate > 0)){
     stop("\n [.simulate_RF_and_heating()] Heatingrate has the wrong algebraic sign!")
   }
 
-  ##check if temperature is > 0 K (-273 degree celsius)
+  ##check if temperature is > 0 K (-273 degree Celsius)
   if(temp_begin < -273 ||temp_end < -273){
     stop("\n [.simulate_RF_and_heating()] Argument 'temp' has to be > 0 K!")
   }
@@ -73,7 +73,7 @@
   }
 
   ##check if object is of class RLum.Results
-  if(class(n) != "RLum.Results"){
+  if(!inherits(n, "RLum.Results")){
     n <- n
   } else {
     n <- n$n

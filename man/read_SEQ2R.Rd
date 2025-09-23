@@ -2,32 +2,32 @@
 % Please edit documentation in R/read_SEQ2R.R
 \name{read_SEQ2R}
 \alias{read_SEQ2R}
-\title{Parse a Risoe SEQ-file to a sequence neccessary for simulating quartz luminescence}
+\title{Parse a Risø SEQ-file to a sequence necessary for simulating quartz luminescence}
 \usage{
 read_SEQ2R(file, lab.dose_rate = 1, txtProgressBar = TRUE)
 }
 \arguments{
-\item{file}{\code{\link{character}} (\bold{required}): a *.seq file created by the Risoe Sequence Editor}
+\item{file}{\link{character} (\strong{required}): a *.seq file created by the Risø Sequence Editor}
 
-\item{lab.dose_rate}{\code{\link{character}} (with default): set the dose rate of the radiation source
+\item{lab.dose_rate}{\link{character} (with default): set the dose rate of the radiation source
 in the laboratory Gy/s. Default: 1 Gy/s}
 
-\item{txtProgressBar}{\code{\link{logical}} (with default): enables or disables the txtProgressBar for a visuell
-control of the progress. Default: txtProgressBar = TRUE}
+\item{txtProgressBar}{\link{logical} (with default): enables or disables the \code{txtProgressBar} for a visual
+control of the progress. Default: \code{txtProgressBar = TRUE}}
 }
 \value{
-This function returns a \code{\link{list}} with the parsed *.seq file and the required steps for
-\code{\link{model_LuminescenceSignals}}.
+This function returns a \link{list} with the parsed *.seq file and the required steps for
+\link{model_LuminescenceSignals}.
 }
 \description{
-A SEQ-file created by the Risoe Sequence Editor can be imported to simulate the sequence written
+A SEQ-file created by the Risø Sequence Editor can be imported to simulate the sequence written
 in the sequence editor.
 }
 \details{
-\bold{Supported versions}: Supppored and tested: version 4.36.
+\strong{Supported versions}: Supported and tested: version 4.36.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{
@@ -39,17 +39,17 @@ sequence <- read_SEQ2R(file = path, txtProgressBar = FALSE)
 } 
 
 \section{How to cite}{
-Friedrich, J., 2022. read_SEQ2R(): Parse a Risoe SEQ-file to a sequence neccessary for simulating quartz luminescence. Function version 0.1.0. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2022. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.10. https://CRAN.R-project.org/package=RLumModel
+Friedrich, J., 2025. read_SEQ2R(): Parse a Risø SEQ-file to a sequence necessary for simulating quartz luminescence. Function version 0.1.1. In: Friedrich, J., Kreutzer, S., Schmidt, C., 2025. RLumModel: Solving Ordinary Differential Equations to Understand Luminescence. R package version 0.2.11. https://CRAN.R-project.org/package=RLumModel
 }
 
 \references{
 Riso: Sequence Editor User Manual.
 Available at: http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter
-%20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/
+\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/
 SequenceEditor.ashx?la=da
 }
 \seealso{
-\code{\link{model_LuminescenceSignals}}, \code{\link{readLines}}
+\link{model_LuminescenceSignals}, \link{readLines}
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),

@@ -22,7 +22,7 @@
 #' @return This function returns an \code{\linkS4class{RLum.Results}} object from the TL simulation with
 #' TL signal and temperature and concentrations for electron/hole levels.
 #'
-#' @section Function version: 0.1.1 [2017-09-01]
+#' @section Function version: 0.1.2
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -54,7 +54,7 @@
     stop("\n [.simulate_TL()] Heatingrate has the wrong algebraic sign!")
   }
 
-  ##check if temperature is > 0 K (-273 degree celsius)
+  ##check if temperature is > 0 K (-273 degree Celsius)
   if(temp_begin < -273 || temp_end < -273){
     stop("\n [.simulate_TL()] Argument 'temp' has to be > 0 K!")
   }
@@ -65,7 +65,7 @@
   }
 
   ##check if object is of class RLum.Results
-  if(class(n) != "RLum.Results"){
+  if(!inherits(n, "RLum.Results")){
     n <- n
   } else {
     n <- n$n

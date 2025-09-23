@@ -6,8 +6,8 @@
 #' @param temp \code{\link{numeric}} (\bold{required}): set temperature [deg. C] of the pause simulation
 #'
 #' @param duration \code{\link{numeric}} (\bold{required}): duration of the pause in model simulation
-#' 
-#' @param detection \code{logical}: should detect luminescene during pause?
+#'
+#' @param detection \code{logical}: should detect luminescence during pause?
 #'
 #' @param n \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (\bold{required}):
 #' concentration of electron-/holetraps, valence- and conduction band
@@ -19,9 +19,9 @@
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot.default}}. See details for further information
 #'
-#' @return This function returns an Rlum.Results object from the pause simulation.
+#' @return This function returns an RLum.Results object from the pause simulation.
 #'
-#' @section Function version: 0.1.2 [2016-10-26]
+#' @section Function version: 0.1.3
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -45,7 +45,7 @@
   n,
   parms
   ){
-  
+
  # check input arguments ---------------------------------------------------
 
   ##check if duration is a positive number
@@ -59,7 +59,7 @@
   }
 
   ##check if object is of class RLum.Data.Curve
-  if(class(n) != "RLum.Results"){
+  if(!inherits(n, "RLum.Results")){
     n <- n
   } else {
     n <- n$n
@@ -92,7 +92,7 @@
     b = b,
     times = times,
     parms = parms))
-  
+
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
@@ -101,27 +101,27 @@
   ##============================================================================##
   # CALCULATING RESULTS FROM ODE SOLVING
   ##============================================================================##
-  
-  
+
+
   signal <- .calc_signal(object = out, parameters = parameters.step)
 
   ##============================================================================##
   # CALCULATING CONCENTRATIONS FROM ODE SOLVING
   ##============================================================================##
-  
+
   name <- c("detection")
   concentrations <- .calc_concentrations(
     data = out,
     times = times,
     name = name,
     RLumModel_ID = RLumModel_ID)
-  
+
   ##============================================================================##
   # TAKING THE LAST LINE OF "OUT" TO COMMIT IT TO THE NEXT STEP
   ##============================================================================##
 
   if(detection == 1){
-    
+
     return(Luminescence::set_RLum(class = "RLum.Results",
                                   data = list(
                                     n = out[length(times),-1] ,
@@ -138,12 +138,12 @@
                                     concentrations = concentrations)
     )
     )
-    
-    
-    
-    
+
+
+
+
   } else {
-  
+
   return(Luminescence::set_RLum(class = "RLum.Results",
                   data = list(
                     n = out[length(times),-1],

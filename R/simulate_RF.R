@@ -15,7 +15,7 @@
 #'
 #' @param RLumModel_ID \code{\link{numeric}} (optional): A ID-number for the RF-step. This ID
 #' is pass down to \link{calc_concentrations} so all concentrations had the same ID as the
-#' sequence step they were calculated from. This ID is identic to the sequence step in "sequence".
+#' sequence step they were calculated from. This ID is identical to the sequence step in "sequence".
 #'
 #' @param parms \code{\linkS4class{RLum.Results}} (\bold{required}): The specific model parameters are used to simulate
 #' numerical quartz luminescence results.
@@ -25,7 +25,7 @@
 #'
 #' @return This function returns an RLum.Results object of the RF/RL simulation.
 #'
-#' @section Function version: 0.1.3 [2017-11-20]
+#' @section Function version: 0.1.4
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -39,7 +39,7 @@
 #' Radiation Protection Dosimetry 100, 33-38.
 #'
 #' Bailey, R.M., 2004. Paper I-simulation of dose absorption in quartz over geological timescales
-#' and it simplications for the precision and accuracy of optical dating.
+#' and it implications for the precision and accuracy of optical dating.
 #' Radiation Measurements 38, 299-310.
 #'
 #' Pagonis, V., Chen, R., Wintle, A.G., 2007: Modelling thermal transfer in optically
@@ -82,7 +82,7 @@
   }
 
   ##check if n is a RLum object
-  if(class(n) != "RLum.Results"){
+  if(!inherits(n, "RLum.Results")){
     n <- n
   } else {
     n <- n$n
@@ -99,23 +99,23 @@
   ##============================================================================##
   ## check if R is given in customized parameter sets
   if("R" %in% names(parms) && parms$R != 0){
-    
+
     R <- dose_rate*parms$R
-    
+
   } else {
-    
+
     if(parms$model == "Bailey2004"){
       R <- dose_rate*2.5e10
     } else {
-      
+
       if(parms$model == "Bailey2002"){
         R <- dose_rate*3e10
       } else {
-        
+
         if(parms$model == "Friedrich2018"){
           R <- dose_rate*6.3e7
         } else {
-          
+
           R <- dose_rate*5e7  # all other simulations
         }
       }
@@ -136,9 +136,9 @@
     b = b,
     times = times,
     parms = parms))
-  
+
   if(dose != 0){
-  
+
   ##============================================================================##
   # SOLVING ODE (deSolve requiered)
   ##============================================================================##
@@ -183,7 +183,7 @@
          )
 
   } else { ## dose == 0
-    
+
     return(Luminescence::set_RLum(class = "RLum.Results",
                                   data = list(
                                     n = n,
@@ -201,7 +201,7 @@
                                     concentrations = NULL)
                                   )
     )
-    
-    
+
+
   }
 }

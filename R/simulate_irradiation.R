@@ -17,7 +17,7 @@
 #'
 #' @return This function returns an RLum.Results object.
 #'
-#' @section Function version: 0.1.2 [2017-11-20]
+#' @section Function version: 0.1.3
 #'
 #' @author Johannes Friedrich, University of Bayreuth (Germany),
 #'
@@ -58,7 +58,7 @@
   }
 
   ##check if n is a RLum object
-  if(class(n)[1] != "RLum.Results"){
+  if(!inherits(n, "RLum.Results")){
     n <- n
   } else {
     n <- n$n
