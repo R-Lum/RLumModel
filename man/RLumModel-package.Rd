@@ -66,5 +66,10 @@ Authors:
   \item Christoph Schmidt (\href{https://orcid.org/0000-0002-2309-3209}{ORCID}) [thesis advisor]
 }
 
+Other contributors:
+\itemize{
+  \item Marco Colombo (\href{https://orcid.org/0000-0001-6672-0623}{ORCID}) [contributor]
+}
+
 }
 \keyword{package}

@@ -2,12 +2,13 @@ Package: RLumModel
 Type: Package
 Title: Solving Ordinary Differential Equations to Understand Luminescence
 Version: 0.2.11
-Date: 2025-09-23
+Date: 2025-09-24
 Authors@R: c(
     person("Johannes", "Friedrich", role = c("aut","trl","cre"), comment = c(ORCID = "0000-0002-0805-9547"), 
     email = "johannes.friedrich@posteo.de"),
     person("Sebastian", "Kreutzer", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-0734-2199")),
-    person("Christoph", "Schmidt", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-2309-3209"))
+    person("Christoph", "Schmidt", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-2309-3209")), 
+    person("Marco", "Colombo", role = c("ctb"), comment = c(ORCID = "0000-0001-6672-0623"))
     )
 Maintainer: Johannes Friedrich <johannes.friedrich@posteo.de>
 Description: A collection of functions to simulate luminescence signals in quartz and Al2O3 based on published models.
